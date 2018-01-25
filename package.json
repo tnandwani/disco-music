@@ -1,0 +1,37 @@
+{
+  "name": "disco-app",
+  "version": "0.0.5",
+  "description": "Disco Music",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run build",
+    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base dist/ --inline --hot --history-api-fallback",
+    "build:prod": "webpack -p && cp src/index.html dist/index.html",
+    "postinstall": "webpack -p && cp src/index.html dist/index.html",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "disco",
+    "music"
+  ],
+  "author": "Tushar Nandwani",
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-2": "^6.11.0",
+    "firebase": "^4.8.0",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-router": "^2.8.1",
+    "webpack": "^1.15.0",
+    "webpack-dev-server": "^1.16.5"
+  },
+  "devDependencies": {
+    "webpack-merge": "^4.1.1"
+  }
+}

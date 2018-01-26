@@ -7,10 +7,6 @@ import { AlbumPost } from "./components/posts/albumPost";
 import { PlaylistPost } from "./components/posts/playlistPost";
 import { TextPost } from "./components/posts/textPost";
 
-
-
-browserHistory.push("/home");
-
 export class Home extends React.Component {
 
     render() {

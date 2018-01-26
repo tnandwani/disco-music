@@ -28584,6 +28584,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Header = exports.Header = function Header(props) {
+	
 	    return _react2.default.createElement(
 	        "nav",
 	        { className: "navbar navbar-expand-lg navbar-dark bg-dark fixed-top" },
@@ -28611,8 +28612,32 @@
 	            "div",
 	            { className: "collapse navbar-collapse", id: "navbarTogglerDemo03" },
 	            _react2.default.createElement(
+	                "form",
+	                { className: "form-inline my-2 my-lg-0 mr-auto" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "input-group" },
+	                    _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Email" }),
+	                    _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Password" }),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "input-group-append" },
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-warning px-5" },
+	                            "Login"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { type: "button", className: "btn btn-primary mx-2" },
+	                        "Create Account"
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
 	                "ul",
-	                { className: "navbar-nav mr-auto mt-2 mt-lg-0" },
+	                { className: "navbar-nav mr-auto mt-2 mt-lg-0 d-none", id: "userOptions" },
 	                _react2.default.createElement(
 	                    "li",
 	                    { className: "nav-item px-3" },
@@ -28694,6 +28719,55 @@
 	                            "button",
 	                            { type: "button", className: "btn btn-outline-success" },
 	                            "Search"
+	                        )
+	                    )
+	                )
+	            )
+	        ),
+	        _react2.default.createElement(
+	            "div",
+	            { className: "modal fade", id: "exampleModal", tabIndex: "-1", role: "dialog", "aria-labelledby": "exampleModalLabel", "aria-hidden": "true" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "modal-dialog", role: "document" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "modal-content" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-header" },
+	                        _react2.default.createElement(
+	                            "h5",
+	                            { className: "modal-title", id: "exampleModalLabel" },
+	                            "Modal title"
+	                        ),
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+	                            _react2.default.createElement(
+	                                "span",
+	                                { "aria-hidden": "true" },
+	                                "\xD7"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-body" },
+	                        "You should make an account"
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-footer" },
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-secondary", "data-dismiss": "modal" },
+	                            "Close"
+	                        ),
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-primary" },
+	                            "Save changes"
 	                        )
 	                    )
 	                )
@@ -55260,8 +55334,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	_reactRouter.browserHistory.push("/home");
 	
 	var Home = exports.Home = function (_React$Component) {
 	    _inherits(Home, _React$Component);

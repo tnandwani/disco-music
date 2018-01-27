@@ -26,7 +26,7 @@ export const Header = (props) => {
 
                             <button type="button" className="btn btn-warning px-5">Login</button>
                         </div>
-                        <button type="button" className="btn btn-primary mx-2">Create New Account</button>
+                        <button type="button" className="btn btn-outline-success mx-2">Create Account</button>
 
                     </div>
                 </form>
@@ -50,7 +50,7 @@ export const Header = (props) => {
                         <input type="text" className="form-control searchbar px-3" placeholder="Search Everything..." />
                         <div className="input-group-append">
                             <div className="dropdown-menu">
-                                <a className="dropdown-item" href="#">Everything</a>
+                                <a className="dropdown-item" href="#">All</a>
                                 <a className="dropdown-item" href="#">Songs</a>
                                 <a className="dropdown-item" href="#">Playlists </a>
                                 <a className="dropdown-item" href="#">Albums</a>

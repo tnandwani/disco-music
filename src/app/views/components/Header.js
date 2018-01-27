@@ -26,7 +26,7 @@ export const Header = (props) => {
 
                             <button type="button" className="btn btn-warning px-5">Login</button>
                         </div>
-                        <button type="button" className="btn btn-primary mx-2">Create New Account</button>
+                        <button type="button" className="btn btn-primary mx-2">Create Account</button>
 
                     </div>
                 </form>

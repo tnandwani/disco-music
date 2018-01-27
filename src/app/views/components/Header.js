@@ -21,7 +21,7 @@ export const Header = (props) => {
                 <form className="form-inline my-2 my-lg-0 mr-auto">
                     <div className="input-group">
                         <input type="text" className="form-control" placeholder="Email" />
-                        <input type="text" className="form-control" placeholder="Password" />
+                        <input type="password" className="form-control" placeholder="Password" />
                         <div className="input-group-append" >
 
                             <button type="button" className="btn btn-warning px-5">Login</button>

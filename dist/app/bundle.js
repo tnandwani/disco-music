@@ -28618,7 +28618,7 @@
 	                    "div",
 	                    { className: "input-group" },
 	                    _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Email" }),
-	                    _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Password" }),
+	                    _react2.default.createElement("input", { type: "password", className: "form-control", placeholder: "Password" }),
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "input-group-append" },
@@ -28630,7 +28630,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
-	                        { type: "button", className: "btn btn-primary mx-2" },
+	                        { type: "button", className: "btn btn-outline-success mx-2" },
 	                        "Create Account"
 	                    )
 	                )
@@ -28682,7 +28682,7 @@
 	                            _react2.default.createElement(
 	                                "a",
 	                                { className: "dropdown-item", href: "#" },
-	                                "Everything"
+	                                "All"
 	                            ),
 	                            _react2.default.createElement(
 	                                "a",
@@ -28821,6 +28821,7 @@
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "col-xs-6 col-md-4 noPadding" },
+	                            _react2.default.createElement("span", { className: "oi oi-layers footerButtons mr-3", title: "layers" }),
 	                            _react2.default.createElement("img", { src: "images/coverArt.png", className: "footerCover" })
 	                        ),
 	                        _react2.default.createElement(
@@ -28860,7 +28861,6 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "col-xs-6 col-sm-4" },
-	                    _react2.default.createElement("span", { className: "oi oi-layers footerButtons", title: "layers" }),
 	                    _react2.default.createElement("span", { className: "oi oi-share footerButtons", title: "share" }),
 	                    _react2.default.createElement("span", { className: "oi oi-fire footerButtons", title: "fire" }),
 	                    _react2.default.createElement("span", { className: "oi oi-heart footerButtons", title: "heart" }),
@@ -56458,10 +56458,15 @@
 	                    null,
 	                    "Caption"
 	                ),
-	                _react2.default.createElement("input", { type: "text", className: "form-control theme mt-3", placeholder: "100 Charater Limit" }),
+	                _react2.default.createElement("input", { type: "text", className: "form-control theme my-3", placeholder: "100 Charater Limit" }),
+	                _react2.default.createElement(
+	                    "h3",
+	                    null,
+	                    "Music "
+	                ),
 	                _react2.default.createElement(
 	                    "ul",
-	                    { className: "nav nav-pills nav-justified mt-4", id: "postType", role: "tablist" },
+	                    { className: "nav nav-tabs mt-3", id: "postType", role: "tablist" },
 	                    _react2.default.createElement(
 	                        "li",
 	                        { className: "nav-item" },
@@ -56480,6 +56485,76 @@
 	                            "Upload Album"
 	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "tab-content mt-4" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane active", id: "song", role: "tabpanel", "aria-labelledby": "song-tab" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "row" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "col-sm-4" },
+	                                _react2.default.createElement("img", { src: "images/coverArt.png", className: "feedCover" })
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "col-sm-8 pt-1" },
+	                                _react2.default.createElement("input", { type: "text", className: "form-control theme py-3", placeholder: "Song Name" }),
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "input-group my-3" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "input-group-prepend" },
+	                                        _react2.default.createElement(
+	                                            "span",
+	                                            { className: "input-group-text", id: "basic-addon1" },
+	                                            "@"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement("input", { type: "text", className: "form-control theme", placeholder: "Featuring" })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "input-group mb-3" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "input-group-prepend" },
+	                                        _react2.default.createElement(
+	                                            "span",
+	                                            { className: "input-group-text pl-3", id: "basic-addon1" },
+	                                            "#"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement("input", { type: "text", className: "form-control theme", placeholder: "Vibes" })
+	                                ),
+	                                _react2.default.createElement("button", { className: "btn px-3 m-2" }),
+	                                _react2.default.createElement("button", { className: "btn px-3 m-2" }),
+	                                _react2.default.createElement("button", { className: "btn px-3 m-2" }),
+	                                _react2.default.createElement("button", { className: "btn px-3 m-2" }),
+	                                _react2.default.createElement("button", { className: "btn px-3 m-2" }),
+	                                _react2.default.createElement("br", null),
+	                                _react2.default.createElement(
+	                                    "button",
+	                                    { className: "btn btn-outline-success my-3" },
+	                                    " + Song File "
+	                                ),
+	                                _react2.default.createElement("span", { className: "oi oi-check pl-3", title: "check" }),
+	                                _react2.default.createElement("br", null),
+	                                _react2.default.createElement(
+	                                    "button",
+	                                    { className: "btn btn-outline-success" },
+	                                    "+  Lyrics File"
+	                                ),
+	                                _react2.default.createElement("span", { className: "oi oi-check pl-3", title: "check" })
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement("div", { className: "tab-pane", id: "album", role: "tabpanel", "aria-labelledby": "albums-tab" })
 	                )
 	            );
 	        }

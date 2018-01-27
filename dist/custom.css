@@ -124,8 +124,8 @@ gray/silver: BDC6C6 */
 }
 
 .profileCircle {
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
 }
 
 .profileTags {
@@ -140,7 +140,6 @@ gray/silver: BDC6C6 */
 .profileFollow {
     grid-area: profileFollow;
     text-align: right;
-    margin-top: 5%;
 }
 
 .profileButtons {

@@ -34,13 +34,13 @@ export class User extends React.Component {
                         <div className="profileTags"><span className="badge badge-warning">VERIFIED CREATOR</span>
 
                         </div>
-                        <div className="profileInfo">
+                        <div className="profileInfo mt-4">
                             <h1> {savedCreator.publicName}</h1>
-                            <h2> @{savedCreator.username}</h2>
+                            <h2 className="gold"> <i> @{savedCreator.username} </i> </h2>
 
 
                         </div>
-                        <div className="profileFollow mr-3">
+                        <div className="profileFollow mr-5">
 
                             <h2 className="gold">Followers</h2>
                             <h3>{followers}</h3>
@@ -50,9 +50,9 @@ export class User extends React.Component {
                         </div>
                         <div className="profileButtons">
 
-                            <button type="button" className="btn btn-light mx-2 px-5">Request a Show</button>
-                            <button type="button" className="btn btn-light mx-2 px-5">Book the Artist</button>
-                            <button type="button" className="btn btn-light mx-2 px-5">+ Follow</button>
+                            <button type="button" className="btn btn-outline-success mx-2 px-5">Request a Show</button>
+                            <button type="button" className="btn btn-outline-success mx-2 px-5">Book the Artist</button>
+                            <button type="button" className="btn btn-outline-success mx-2 px-5">+ Follow</button>
 
                         </div>
                     </div>

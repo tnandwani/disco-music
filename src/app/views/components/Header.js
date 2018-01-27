@@ -18,7 +18,7 @@ export const Header = (props) => {
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
 
 
-                <form className="form-inline my-2 my-lg-0 mr-auto">
+                <form className="form-inline my-2 my-lg-0 mr-auto d-none">
                     <div className="input-group">
                         <input type="text" className="form-control" placeholder="Email" />
                         <input type="password" className="form-control" placeholder="Password" />

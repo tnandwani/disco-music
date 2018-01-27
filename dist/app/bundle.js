@@ -28637,7 +28637,7 @@
 	            ),
 	            _react2.default.createElement(
 	                "ul",
-	                { className: "navbar-nav mr-auto mt-2 mt-lg-0 d-none", id: "userOptions" },
+	                { className: "navbar-nav mr-auto mt-2 mt-lg-0", id: "userOptions" },
 	                _react2.default.createElement(
 	                    "li",
 	                    { className: "nav-item px-3" },
@@ -56452,11 +56452,34 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "mx-5 mt-2 leftAlign" },
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,
-	                    "The Upload Page"
+	                    "Caption"
+	                ),
+	                _react2.default.createElement("input", { type: "text", className: "form-control theme mt-3", placeholder: "100 Charater Limit" }),
+	                _react2.default.createElement(
+	                    "ul",
+	                    { className: "nav nav-pills nav-justified mt-4", id: "postType", role: "tablist" },
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { className: "nav-link px-5 active", id: "song-tab", "data-toggle": "tab", href: "#song", role: "tab", "aria-controls": "song", "aria-selected": "true" },
+	                            "Upload Song"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { className: "nav-link px-5", id: "album-tab", "data-toggle": "tab", href: "#album", role: "tab", "aria-controls": "album", "aria-selected": "false" },
+	                            "Upload Album"
+	                        )
+	                    )
 	                )
 	            );
 	        }

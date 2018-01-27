@@ -12,6 +12,8 @@ export const Footer = (props) => {
                     <div className="col-xs-6 col-sm-4">
                         <div className="row">
                             <div className="col-xs-6 col-md-4 noPadding">
+                            <span className="oi oi-layers footerButtons mr-3" title="layers"></span>
+
                                 <img src="images/coverArt.png" className="footerCover" />
                             </div>
                             <div className="col-xs-12 col-sm-6 col-md-8 leftAlign">
@@ -35,7 +37,6 @@ export const Footer = (props) => {
 
                     <div className="col-xs-6 col-sm-4">
 
-                        <span className="oi oi-layers footerButtons" title="layers"></span>
                         <span className="oi oi-share footerButtons" title="share"></span>
                         <span className="oi oi-fire footerButtons" title="fire"></span>
                         <span className="oi oi-heart footerButtons" title="heart"></span>

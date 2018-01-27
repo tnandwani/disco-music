@@ -26,11 +26,7 @@ export const Header = (props) => {
 
                             <button type="button" className="btn btn-warning px-5">Login</button>
                         </div>
-<<<<<<< HEAD
-                        <button type="button" className="btn btn-primary mx-2">Create Account</button>
-=======
                         <button type="button" className="btn btn-outline-success mx-2">Create Account</button>
->>>>>>> 5b12bc8296068a2cd021ae736aa6fdb681a45afb
 
                     </div>
                 </form>

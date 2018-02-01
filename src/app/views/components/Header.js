@@ -3,8 +3,8 @@ import { Link } from "react-router";
 import PropTypes from 'prop-types';
 
 
-
 export const Header = (props) => {
+
 
     return (
 
@@ -18,22 +18,22 @@ export const Header = (props) => {
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
 
 
-                <form className="form-inline my-2 my-lg-0 mr-auto d-none">
+                <form className="form-inline my-2 my-lg-0 mr-auto">
                     <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Email" />
-                        <input type="password" className="form-control" placeholder="Password" />
+                        <input id="inputEmail" type="text" className="form-control" placeholder="Email" />
+                        <input id="inputPassword" type="password" className="form-control" placeholder="Password" />
                         <div className="input-group-append" >
 
-                            <button type="button" className="btn btn-warning px-5">Login</button>
+                            <button type="button" className="btn btn-warning px-5" onClick={loginBar}>Login</button>
                         </div>
                         <button type="button" className="btn btn-outline-success mx-2">Create Account</button>
 
                     </div>
                 </form>
 
-                <ul className="navbar-nav mr-auto mt-2 mt-lg-0" id="userOptions">
+                <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                     <li className="nav-item px-3">
-                        <Link className="" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
+                        <Link id="propName" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
                     </li>
                     <li className="nav-item">
                         <Link to={"/upload"} activeStyle={{ color: "#D7B659" }}>Upload +</Link>
@@ -96,3 +96,22 @@ export const Header = (props) => {
 
     );
 };
+
+
+
+
+
+
+function loginBar() {
+
+    var inputEmail = document.getElementById("inputEmail").value;
+    var inputPassword = document.getElementById("inputPassword").value;
+
+    firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+    });
+
+}

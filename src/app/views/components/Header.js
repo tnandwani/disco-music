@@ -24,7 +24,7 @@ export const Header = (props) => {
                         <input id="inputPassword" type="password" className="form-control" placeholder="Password" />
                         <div className="input-group-append" >
 
-                            <button type="button" className="btn btn-warning px-5" onClick={loginBar}>Login</button>
+                            <button type="button" className="btn btn-warning px-5" onClick={loginUser}>Login</button>
                         </div>
                         <button type="button" className="btn btn-outline-success mx-2">Create Account</button>
 
@@ -68,7 +68,6 @@ export const Header = (props) => {
             </div>
 
 
-
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
@@ -98,11 +97,7 @@ export const Header = (props) => {
 };
 
 
-
-
-
-
-function loginBar() {
+function loginUser() {
 
     var inputEmail = document.getElementById("inputEmail").value;
     var inputPassword = document.getElementById("inputPassword").value;

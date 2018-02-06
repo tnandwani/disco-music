@@ -59,7 +59,7 @@ export class Root extends React.Component {
 
 
 			<div>
-				<Header name={savedCreator.publicName} />
+				<Header name={inUser.publicName} />
 				<div className="content mt-5">
 
 					<div className="rootLeft mt-2" >

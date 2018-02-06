@@ -8,6 +8,9 @@ import { Home } from "./views/Home";
 import { User } from "./views/User";
 import { Upload } from "./views/Upload";
 
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 // CLASS
@@ -20,10 +23,10 @@ class App extends React.Component {
     // load needed data here in constructor before passing
     constructor(props) {
         super(props);
-        this.state = { date: new Date() };
+    
+
     }
-
-
+ 
     render() {
 
         return (

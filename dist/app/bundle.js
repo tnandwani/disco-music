@@ -89,10 +89,7 @@
 	    function App(props) {
 	        _classCallCheck(this, App);
 	
-	        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-	
-	        _this.state = { date: new Date() };
-	        return _this;
+	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	    }
 	
 	    _createClass(App, [{
@@ -28420,7 +28417,7 @@
 				return _react2.default.createElement(
 					"div",
 					null,
-					_react2.default.createElement(_Header.Header, { name: savedCreator.publicName }),
+					_react2.default.createElement(_Header.Header, { name: inUser.publicName }),
 					_react2.default.createElement(
 						"div",
 						{ className: "content mt-5" },
@@ -28613,7 +28610,7 @@
 	            { className: "collapse navbar-collapse", id: "navbarTogglerDemo03" },
 	            _react2.default.createElement(
 	                "form",
-	                { className: "form-inline my-2 my-lg-0 mr-auto d-none" },
+	                { className: "form-inline my-2 my-lg-0 mr-auto" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "input-group" },
@@ -28624,7 +28621,7 @@
 	                        { className: "input-group-append" },
 	                        _react2.default.createElement(
 	                            "button",
-	                            { type: "button", className: "btn btn-warning px-5", onClick: "loginBar()" },
+	                            { type: "button", className: "btn btn-warning px-5", onClick: loginUser },
 	                            "Login"
 	                        )
 	                    ),
@@ -28637,13 +28634,13 @@
 	            ),
 	            _react2.default.createElement(
 	                "ul",
-	                { className: "navbar-nav mr-auto mt-2 mt-lg-0", id: "userOptions" },
+	                { className: "navbar-nav mr-auto mt-2 mt-lg-0" },
 	                _react2.default.createElement(
 	                    "li",
 	                    { className: "nav-item px-3" },
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { className: "", to: "/user", activeStyle: { color: "#D7B659" } },
+	                        { id: "propName", to: "/user", activeStyle: { color: "#D7B659" } },
 	                        props.name
 	                    )
 	                ),
@@ -28776,12 +28773,17 @@
 	    );
 	};
 	
-	function loginBar() {
+	function loginUser() {
 	
 	    var inputEmail = document.getElementById("inputEmail").value;
 	    var inputPassword = document.getElementById("inputPassword").value;
 	
-	    console.log("email is: " + inputEmail);
+	    firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+	        // Handle Errors here.
+	        var errorCode = error.code;
+	        var errorMessage = error.message;
+	        // ...
+	    });
 	}
 
 /***/ }),
@@ -56226,7 +56228,7 @@
 	                                "h1",
 	                                null,
 	                                " ",
-	                                savedCreator.publicName
+	                                inUser.publicName
 	                            ),
 	                            _react2.default.createElement(
 	                                "h2",
@@ -56236,7 +56238,7 @@
 	                                    "i",
 	                                    null,
 	                                    " @",
-	                                    savedCreator.username,
+	                                    inUser.username,
 	                                    " "
 	                                ),
 	                                " "

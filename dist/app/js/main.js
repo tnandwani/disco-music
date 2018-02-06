@@ -14,16 +14,13 @@ var config = {
 };
 firebase.initializeApp(config);
 
-firebase.auth().onAuthStateChanged(function (user) {
-	if (user) {
-		console.log("Welcome " + user.displayName);
-		// User is signed in.
-	} else {
-		// No user is signed in.
-		//	window.open("createAccount.html", "_self");
+var firestore = firebase.firestore();
+var usersRef = firestore.collection("users");
+var postsRef = firestore.collection("posts");
+var songsRef = firestore.collection("songs");
+var albumsRef = firestore.collection("albums");
 
-	}
-});
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,12 +28,12 @@ firebase.auth().onAuthStateChanged(function (user) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-
-var savedCreator = {
+var inUser = {
 	username: "Username",
 	uid: "Uid",
 	publicName: "My Profile"
-}
+};
+
 
 
 
@@ -46,38 +43,60 @@ var savedCreator = {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
+function startDisco() {
 
-function tryLogin() {
+	getUser(); // includes followers and following
+
+}
+
+function createUser(user) {
+
+	// Add a new document in collection "cities"
+	firestore.collection("users").doc(user.username).set({
+			username: user.username,
+			publicName: user.publicName,
+			uid: user.uid,
+			email: 	user.email,
+			followers: ["disco"],
+			following: ["disco"]
+		})
+		.then(function () {
+			console.log("Document successfully written!");
+		})
+		.catch(function (error) {
+			console.error("Error writing document: ", error);
+		});
+}
+
+function getUser() {
 
 	firebase.auth().onAuthStateChanged(function (user) {
 		if (user) {
+			console.log("Welcome " + user.displayName);
 			// User is signed in.
-			userUsername = user.displayName;
-			userUid = user.uid;
+			var usernameRef = usersRef.doc(user.displayName);
 
-			firebase.database().ref('/users/' + userUsername + "/details/publicName").once('value').then(function (snapshot) {
-				var userPublicName = snapshot.val();
+			usernameRef.get().then(function(doc) {
+				if (doc.exists) {
+					console.log("Document data:", doc.data());
 
-				var rawCreator = {
-					username: userUsername,
-					uid: userUid,
-					publicName: userPublicName
+					inUser = doc.data();
+
+				} else {
+					// doc.data() will be undefined in this case
+					console.log("No such user!");
 				}
-
-				saveCreator(rawCreator);
-
-
+			}).catch(function(error) {
+				console.log("Error getting user:", error);
 			});
+
 		} else {
 			// No user is signed in.
-			console.log("NOT logged in");
-
+			console.log("NOT LOGGED IN");
 		}
 	});
-}
 
-function saveCreator(incomingCreator) {
-	savedCreator = incomingCreator;
+
 }
 
 
@@ -87,4 +106,4 @@ function saveCreator(incomingCreator) {
 ////////////// RUN SCRIPT 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-tryLogin();
+startDisco();

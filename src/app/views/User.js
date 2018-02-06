@@ -20,7 +20,9 @@ export class User extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { date: new Date() };
+        this.state = { 
+            date: new Date() 
+        };
     }
 
     render() {
@@ -31,21 +33,21 @@ export class User extends React.Component {
                         <div className="profileImage">
                             <img src={url} className="rounded-circle profileCircle" />
                         </div>
-                        <div className="profileTags"><span className="badge badge-warning">VERIFIED CREATOR</span>
+                        <div className="profileTags"><span className="badge badge-warning">{inUser.verified}</span>
 
                         </div>
                         <div className="profileInfo mt-4">
-                            <h1> {savedCreator.publicName}</h1>
-                            <h2 className="gold"> <i> @{savedCreator.username} </i> </h2>
+                            <h1> {inUser.publicName}</h1>
+                            <h2 className="gold"> <i> @{inUser.username} </i> </h2>
 
 
                         </div>
                         <div className="profileFollow mr-5">
 
                             <h2 className="gold">Followers</h2>
-                            <h3>{followers}</h3>
+                            <h3>{inUser.followers.length}</h3>
                             <h2 className="gold">Following</h2>
-                            <h3>{following}</h3>
+                            <h3>{inUser.following.length}</h3>
 
                         </div>
                         <div className="profileButtons">

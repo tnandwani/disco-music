@@ -3,7 +3,9 @@ import { Link } from "react-router";
 import PropTypes from 'prop-types';
 
 
+
 export const Header = (props) => {
+
 
 
     return (
@@ -18,7 +20,7 @@ export const Header = (props) => {
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
 
 
-                <form className="form-inline my-2 my-lg-0 mr-auto">
+                <form className="form-inline my-2 my-lg-0 mr-auto" id="newUserLogin">
                     <div className="input-group">
                         <input id="inputEmail" type="text" className="form-control" placeholder="Email" />
                         <input id="inputPassword" type="password" className="form-control" placeholder="Password" />
@@ -26,12 +28,11 @@ export const Header = (props) => {
 
                             <button type="button" className="btn btn-warning px-5" onClick={loginUser}>Login</button>
                         </div>
-                        <button type="button" className="btn btn-outline-success mx-2">Create Account</button>
+                        <button type="button" className="btn btn-outline-success mx-2" data-toggle="modal" data-target="#createModal" >Create Account</button>
 
                     </div>
                 </form>
-
-                <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+                <ul className="navbar-nav mr-auto mt-2 mt-lg-0" id="oldUserLogin">
                     <li className="nav-item px-3">
                         <Link id="propName" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
                     </li>
@@ -39,6 +40,8 @@ export const Header = (props) => {
                         <Link to={"/upload"} activeStyle={{ color: "#D7B659" }}>Upload +</Link>
                     </li>
                 </ul>
+
+
 
 
 
@@ -67,46 +70,8 @@ export const Header = (props) => {
                 </form>
             </div>
 
-
-            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            You should make an account
-      </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
         </nav>
 
 
     );
 };
-
-
-function loginUser() {
-
-    var inputEmail = document.getElementById("inputEmail").value;
-    var inputPassword = document.getElementById("inputPassword").value;
-
-    firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-    });
-
-}

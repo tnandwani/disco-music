@@ -29,12 +29,12 @@ var albumsRef = firestore.collection("albums");
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 var inUser = {
-	username: "Username",
-	uid: "Uid",
-	publicName: "My Profile"
+	username: "username",
+	uid: "uid",
+	publicName: "My Profile",
+	followers: ["username"],
+	following: ["username"]
 };
-
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,7 +56,7 @@ function createUser(user) {
 			username: user.username,
 			publicName: user.publicName,
 			uid: user.uid,
-			email: 	user.email,
+			email: user.email,
 			followers: ["disco"],
 			following: ["disco"]
 		})
@@ -76,25 +76,45 @@ function getUser() {
 			// User is signed in.
 			var usernameRef = usersRef.doc(user.displayName);
 
-			usernameRef.get().then(function(doc) {
+			usernameRef.get().then(function (doc) {
 				if (doc.exists) {
 					console.log("Document data:", doc.data());
 
 					inUser = doc.data();
+					document.getElementById("newUserLogin").style.display = "none";
+
 
 				} else {
 					// doc.data() will be undefined in this case
 					console.log("No such user!");
 				}
-			}).catch(function(error) {
+			}).catch(function (error) {
 				console.log("Error getting user:", error);
 			});
 
 		} else {
 			// No user is signed in.
-			console.log("NOT LOGGED IN");
+			document.getElementById("oldUserLogin").style.display = "none";
+
 		}
 	});
+
+
+}
+
+
+function loginUser() {
+
+	var inputEmail = document.getElementById("inputEmail").value;
+	var inputPassword = document.getElementById("inputPassword").value;
+
+	firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// ...
+	});
+	window.open("home", "_self");
 
 
 }
@@ -105,5 +125,6 @@ function getUser() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// RUN SCRIPT 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 startDisco();

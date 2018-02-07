@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-import { Leftbar } from "./components/Leftbar";
-import { Rightbar } from "./components/Rightbar";
-import * as firebase from "firebase";
+import {Header} from "./components/Header";
+import {Footer} from "./components/Footer";
+import {Leftbar} from "./components/Leftbar";
+import {Rightbar} from "./components/Rightbar";
+import {CreateAccount} from "./components/CreateAccount";
 
 
 //////////////////////////////////////////////////////
@@ -14,6 +14,7 @@ import * as firebase from "firebase";
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+import * as firebase from "firebase";
 
 var config = {
 	apiKey: "AIzaSyDquIdmKQfr-QGF3kyEb28FzAboOPBE36g",
@@ -24,8 +25,12 @@ var config = {
 	messagingSenderId: "71660981931"
 };
 
-
 firebase.initializeApp(config);
+
+
+
+
+
 
 
 //////////////////////////////////////////////////////
@@ -58,29 +63,53 @@ export class Root extends React.Component {
 		return (
 
 
-			<div>
-				<Header name={inUser.publicName} />
-				<div className="content mt-5">
+			<
+			div >
+			<
+			Header name = {
+				inUser.publicName
+			}
+			/> <
+			div className = "content mt-5" >
 
-					<div className="rootLeft mt-2" >
-						<Leftbar />
-					</div>
-					<div className="rootCenter pt-3" >
-						<div>
-							{this.props.children}
-						</div>
-					</div>
-					<div className="rootRight" >
-						<Rightbar />
-					</div>
-
-				</div>
+			<
+			div className = "rootLeft mt-2" >
+			<
+			Leftbar / >
+			<
+			/div> <
+			div className = "rootCenter pt-3" >
+			<
+			div > {
+				this.props.children
+			}
 
 
+			<
+			CreateAccount / >
 
 
-				<Footer />
-			</div >
+
+
+			<
+			/div> < /
+			div > <
+			div className = "rootRight" >
+			<
+			Rightbar / >
+			<
+			/div>
+
+			<
+			/div>
+
+
+
+
+			<
+			Footer / >
+			<
+			/div >
 
 
 

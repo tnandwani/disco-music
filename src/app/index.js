@@ -23,6 +23,7 @@ class App extends React.Component {
     // load needed data here in constructor before passing
     constructor(props) {
         super(props);
+
     
 
     }

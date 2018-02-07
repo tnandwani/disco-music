@@ -65,27 +65,25 @@ export class Root extends React.Component {
 
 			<div>
 				<Header name={inUser.publicName} />
+
 				<div className="content mt-5" >
 
 					<div className="rootLeft mt-2" >
 						<Leftbar />
 					</div>
+
 					<div className="rootCenter pt-3" >
 						<div>
 							{this.props.children}
-
 							<CreateAccount />
-
 						</div>
 					</div>
+
 					<div className="rootRight" >
 						<Rightbar />
 					</div>
 
 				</div>
-
-
-
 
 				<Footer />
 			</div >

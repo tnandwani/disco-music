@@ -28418,9 +28418,7 @@
 				return _react2.default.createElement(
 					"div",
 					null,
-					_react2.default.createElement(_Header.Header, { name: inUser.publicName
-					}),
-					" ",
+					_react2.default.createElement(_Header.Header, { name: inUser.publicName }),
 					_react2.default.createElement(
 						"div",
 						{ className: "content mt-5" },
@@ -28429,20 +28427,16 @@
 							{ className: "rootLeft mt-2" },
 							_react2.default.createElement(_Leftbar.Leftbar, null)
 						),
-						" ",
 						_react2.default.createElement(
 							"div",
 							{ className: "rootCenter pt-3" },
 							_react2.default.createElement(
 								"div",
 								null,
-								" ",
 								this.props.children,
 								_react2.default.createElement(_CreateAccount.CreateAccount, null)
-							),
-							" "
+							)
 						),
-						" ",
 						_react2.default.createElement(
 							"div",
 							{ className: "rootRight" },

@@ -29034,7 +29034,7 @@
 	                { className: "modal content", tabIndex: "-1", role: "dialog", id: "createModal" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "modal-dialog", role: "document" },
+	                    { className: "modal-dialog theme", role: "document" },
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "modal-content" },

@@ -27,30 +27,26 @@
 
 
     <script src="/app/js/firebaseui.js"></script>
-    <link rel="stylesheet" href="firebaseui.css" />
+    
+    <link type="text/css" rel="stylesheet" href="firebaseui.css" />
+
 
     <script src="/app/js/main.js"></script>
+
 
     <script type="text/javascript">
         // FirebaseUI config.
         var uiConfig = {
-
             callbacks: {
-
                 signInSuccess: function (currentUser, credential, redirectUrl) {
-
                     var rawUser = {
-
                         username: rawUsername,
                         publicName: currentUser.displayName,
                         uid: currentUser.uid
                     };
-
                     console.log("going to write user: ");
                     console.log(rawUser);
-
                     createUser(rawUser);
-
                 }
             },
             signInSuccessUrl: '<url-to-redirect-to-on-success>',
@@ -65,54 +61,19 @@
             // Terms of service url.
             tosUrl: '<your-tos-url>'
         };
-
         // Initialize the FirebaseUI Widget using Firebase.
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         // The start method will wait until the DOM is loaded.
-
         ui.start('#firebaseui-auth-container', uiConfig);
     </script>
 
 
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '329358067576400',
-                cookie: true,
-                xfbml: true,
-                version: 'v2.12'
-            });
-
-            FB.AppEvents.logPageView();
-
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-
-
-
-
-
 </head>
-
-
 
 <body class="theme">
     <div id="app"></div>
 
     <script src="/app/bundle.js"></script>
-
 </body>
 
 </html>

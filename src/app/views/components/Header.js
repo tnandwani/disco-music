@@ -17,7 +17,7 @@ export const Header = (props) => {
             </Link></li>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
 
-                <div className="navbar-nav mr-auto" id="oldUserLogin">
+                <div className="navbar-nav mr-auto" id="oldUserLogin"  style ={oldStyle}>
                     <ul className="navbar-nav mt-2 mt-lg-0" id="oldUserLogin">
                         <li className="nav-item px-3">
                             <Link id="propName" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
@@ -30,7 +30,7 @@ export const Header = (props) => {
                 </div>
 
 
-                <form className="form-inline my-2 my-lg-0 mr-auto" id="newUserLogin">
+                <form className="form-inline my-2 my-lg-0 mr-auto" id="newUserLogin" style ={newStyle}>
                     <div className="input-group">
                         <input id="inputEmail" type="text" className="form-control" placeholder="Email" />
                         <input id="inputPassword" type="password" className="form-control" placeholder="Password" />

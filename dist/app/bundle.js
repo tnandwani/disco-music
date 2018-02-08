@@ -28655,7 +28655,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
-	                        { type: "button", className: "btn btn-outline-success mx-2", "data-toggle": "modal", "data-target": "#createModal", onClick: startNew },
+	                        { type: "button", className: "btn btn-outline-success mx-2", "data-toggle": "modal", "data-target": "#createModal" },
 	                        "Create Account"
 	                    )
 	                )
@@ -29082,7 +29082,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "modal", tabIndex: "-1", role: "dialog", id: "createModal" },
+	                { className: "modal content", tabIndex: "-1", role: "dialog", id: "createModal" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "modal-dialog", role: "document" },
@@ -29110,7 +29110,23 @@
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "modal-body" },
-	                            _react2.default.createElement("div", { id: "firebaseui-auth-container" })
+	                            _react2.default.createElement(
+	                                "form",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "container px-5" },
+	                                    _react2.default.createElement("img", { src: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed", className: "rounded-circle profileCircle" }),
+	                                    _react2.default.createElement(
+	                                        "p",
+	                                        { className: "text-dark mb-4" },
+	                                        " Choose Image"
+	                                    ),
+	                                    _react2.default.createElement("input", { type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
+	                                    _react2.default.createElement("input", { type: "text", className: "form-control my-3 ", placeholder: "@Username" })
+	                                )
+	                            ),
+	                            _react2.default.createElement("div", { id: "firebaseui-auth-container", className: "d-none" })
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
@@ -29123,7 +29139,7 @@
 	                            _react2.default.createElement(
 	                                "button",
 	                                { type: "button", className: "btn btn-warning" },
-	                                "Create Account"
+	                                "Next"
 	                            )
 	                        )
 	                    )
@@ -29134,20 +29150,6 @@
 	
 	    return CreateAccount;
 	}(_react2.default.Component);
-	
-	{/* <form>
-	    
-	    <img src="https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed" className="rounded-circle profileCircle mb-3" />
-	    
-	    
-	    <input type="text" className="form-control my-3" placeholder="Name or Artist Name" />
-	    <input type="text" className="form-control my-3" placeholder="@Username" />
-	    <img src="images/google.png" className="w-50 my-2" />
-	    <br />
-	    <img src="images/facebook.png" className="w-50 my-2" />
-	    
-	    
-	    </form> */}
 
 /***/ }),
 /* 255 */

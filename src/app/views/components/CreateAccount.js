@@ -24,8 +24,8 @@ export class CreateAccount extends React.Component {
 
                                     <p className= "text-dark mb-4" > Choose Image</p> 
                                    
-                                    <input type="text" className="form-control my-3" placeholder="Name or Artist Name" />
-                                    <input type="text" className="form-control my-3 " placeholder="@Username" />
+                                    <input  id= "rawPublicName" type="text" className="form-control my-3" placeholder="Name or Artist Name" />
+                                    <input id= "rawUsername" type="text" className="form-control my-3 " placeholder="@Username" />
 
 
                                 </div>
@@ -33,12 +33,12 @@ export class CreateAccount extends React.Component {
                             </form>
 
 
-                            <div id="firebaseui-auth-container" className= "d-none"></div>
+                            <div id="firebaseui-auth-container" style = {linkStyle}></div>
 
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-dark" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-warning">Next</button>
+                            <button id="nextButton" type="button" className="btn btn-warning" onClick={showLinks}>Next Step</button>
 
                         </div>
                     </div>

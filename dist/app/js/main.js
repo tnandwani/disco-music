@@ -21,6 +21,13 @@ var songsRef = firestore.collection("songs");
 var albumsRef = firestore.collection("albums");
 
 
+var oldStyle, newStyle;
+
+var linkStyle = {
+	display: 'none'
+};
+
+
 
 // var uiConfig = {
 // 	signInSuccessUrl: '<url-to-redirect-to-on-success>',
@@ -98,7 +105,10 @@ function getUser() {
 					console.log("Document data:", doc.data());
 
 					inUser = doc.data();
-					document.getElementById("newUserLogin").style.display = "none";
+					// document.getElementById("newUserLogin").style.display = "none";
+					newStyle = {
+						display: 'none'
+					};
 
 
 				} else {
@@ -110,12 +120,39 @@ function getUser() {
 			});
 
 		} else {
-			document.getElementById("oldUserLogin").style.display = "none";
+			// document.getElementById("oldUserLogin").style.display = "none";
+			oldStyle = {
+				display: 'none'
+			};
 
 		}
 	});
 
 
+}
+
+function showLinks() {
+
+	var rawPublicName = document.getElementById("rawPublicName").value;
+	var rawUsername = document.getElementById("rawUsername").value;
+
+
+	console.log(rawPublicName);
+
+
+	if ( rawPublicName.length > 1 && rawUsername.length > 1  ) {
+
+		document.getElementById("nextButton").style.display = 'none';
+		document.getElementById("firebaseui-auth-container").style.display = 'block';
+
+
+	} else {
+
+		// not there
+
+		console.log("fill something out!!");
+
+	}
 }
 
 

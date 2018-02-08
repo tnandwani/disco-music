@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router";
 import PropTypes from 'prop-types';
 
-
-
 export const Header = (props) => {
 
 
@@ -19,6 +17,18 @@ export const Header = (props) => {
             </Link></li>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
 
+                <div className="navbar-nav mr-auto" id="oldUserLogin">
+                    <ul className="navbar-nav mt-2 mt-lg-0" id="oldUserLogin">
+                        <li className="nav-item px-3">
+                            <Link id="propName" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={"/upload"} activeStyle={{ color: "#D7B659" }}>Upload +</Link>
+                        </li>
+                    </ul>
+
+                </div>
+
 
                 <form className="form-inline my-2 my-lg-0 mr-auto" id="newUserLogin">
                     <div className="input-group">
@@ -28,18 +38,12 @@ export const Header = (props) => {
 
                             <button type="button" className="btn btn-warning px-5" onClick={loginUser}>Login</button>
                         </div>
-                        <button type="button" className="btn btn-outline-success mx-2" data-toggle="modal" data-target="#createModal" >Create Account</button>
+                        <button type="button" className="btn btn-outline-success mx-2" data-toggle="modal" data-target="#createModal">Create Account</button>
 
                     </div>
                 </form>
-                <ul className="navbar-nav mr-auto mt-2 mt-lg-0" id="oldUserLogin">
-                    <li className="nav-item px-3">
-                        <Link id="propName" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={"/upload"} activeStyle={{ color: "#D7B659" }}>Upload +</Link>
-                    </li>
-                </ul>
+
+
 
 
 

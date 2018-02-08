@@ -28611,6 +28611,32 @@
 	            "div",
 	            { className: "collapse navbar-collapse", id: "navbarTogglerDemo03" },
 	            _react2.default.createElement(
+	                "div",
+	                { className: "navbar-nav mr-auto", id: "oldUserLogin" },
+	                _react2.default.createElement(
+	                    "ul",
+	                    { className: "navbar-nav mt-2 mt-lg-0", id: "oldUserLogin" },
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item px-3" },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { id: "propName", to: "/user", activeStyle: { color: "#D7B659" } },
+	                            props.name
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            _reactRouter.Link,
+	                            { to: "/upload", activeStyle: { color: "#D7B659" } },
+	                            "Upload +"
+	                        )
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
 	                "form",
 	                { className: "form-inline my-2 my-lg-0 mr-auto", id: "newUserLogin" },
 	                _react2.default.createElement(
@@ -28629,30 +28655,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
-	                        { type: "button", className: "btn btn-outline-success mx-2", "data-toggle": "modal", "data-target": "#createModal" },
+	                        { type: "button", className: "btn btn-outline-success mx-2", "data-toggle": "modal", "data-target": "#createModal", onClick: startNew },
 	                        "Create Account"
-	                    )
-	                )
-	            ),
-	            _react2.default.createElement(
-	                "ul",
-	                { className: "navbar-nav mr-auto mt-2 mt-lg-0", id: "oldUserLogin" },
-	                _react2.default.createElement(
-	                    "li",
-	                    { className: "nav-item px-3" },
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { id: "propName", to: "/user", activeStyle: { color: "#D7B659" } },
-	                        props.name
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "li",
-	                    { className: "nav-item" },
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: "/upload", activeStyle: { color: "#D7B659" } },
-	                        "Upload +"
 	                    )
 	                )
 	            ),
@@ -29078,7 +29082,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "modal-dark", tabIndex: "-1", role: "dialog", id: "createModal" },
+	                { className: "modal", tabIndex: "-1", role: "dialog", id: "createModal" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "modal-dialog", role: "document" },
@@ -29106,18 +29110,7 @@
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "modal-body" },
-	                            _react2.default.createElement(
-	                                "form",
-	                                null,
-	                                _react2.default.createElement(
-	                                    "div",
-	                                    null,
-	                                    _react2.default.createElement("img", { src: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed", className: "rounded-circle profileCircle mb-3" }),
-	                                    _react2.default.createElement("input", { type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
-	                                    _react2.default.createElement("input", { type: "text", className: "form-control my-3", placeholder: "@Username" }),
-	                                    _react2.default.createElement("div", null)
-	                                )
-	                            )
+	                            _react2.default.createElement("div", { id: "firebaseui-auth-container" })
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
@@ -29141,6 +29134,20 @@
 	
 	    return CreateAccount;
 	}(_react2.default.Component);
+	
+	{/* <form>
+	    
+	    <img src="https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed" className="rounded-circle profileCircle mb-3" />
+	    
+	    
+	    <input type="text" className="form-control my-3" placeholder="Name or Artist Name" />
+	    <input type="text" className="form-control my-3" placeholder="@Username" />
+	    <img src="images/google.png" className="w-50 my-2" />
+	    <br />
+	    <img src="images/facebook.png" className="w-50 my-2" />
+	    
+	    
+	    </form> */}
 
 /***/ }),
 /* 255 */

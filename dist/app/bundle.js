@@ -28612,7 +28612,7 @@
 	            { className: "collapse navbar-collapse", id: "navbarTogglerDemo03" },
 	            _react2.default.createElement(
 	                "div",
-	                { className: "navbar-nav mr-auto", id: "oldUserLogin" },
+	                { className: "navbar-nav mr-auto", id: "oldUserLogin", style: oldStyle },
 	                _react2.default.createElement(
 	                    "ul",
 	                    { className: "navbar-nav mt-2 mt-lg-0", id: "oldUserLogin" },
@@ -28638,7 +28638,7 @@
 	            ),
 	            _react2.default.createElement(
 	                "form",
-	                { className: "form-inline my-2 my-lg-0 mr-auto", id: "newUserLogin" },
+	                { className: "form-inline my-2 my-lg-0 mr-auto", id: "newUserLogin", style: newStyle },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "input-group" },
@@ -29122,11 +29122,11 @@
 	                                        { className: "text-dark mb-4" },
 	                                        " Choose Image"
 	                                    ),
-	                                    _react2.default.createElement("input", { type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
-	                                    _react2.default.createElement("input", { type: "text", className: "form-control my-3 ", placeholder: "@Username" })
+	                                    _react2.default.createElement("input", { id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
+	                                    _react2.default.createElement("input", { id: "rawUsername", type: "text", className: "form-control my-3 ", placeholder: "@Username" })
 	                                )
 	                            ),
-	                            _react2.default.createElement("div", { id: "firebaseui-auth-container", className: "d-none" })
+	                            _react2.default.createElement("div", { id: "firebaseui-auth-container", style: linkStyle })
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
@@ -29138,8 +29138,8 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                "button",
-	                                { type: "button", className: "btn btn-warning" },
-	                                "Next"
+	                                { id: "nextButton", type: "button", className: "btn btn-warning", onClick: showLinks },
+	                                "Next Step"
 	                            )
 	                        )
 	                    )

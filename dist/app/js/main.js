@@ -105,7 +105,7 @@ function getUser() {
 					console.log("Document data:", doc.data());
 
 					inUser = doc.data();
-					// document.getElementById("newUserLogin").style.display = "none";
+					document.getElementById("newUserLogin").style.display = "none";
 					newStyle = {
 						display: 'none'
 					};
@@ -120,7 +120,7 @@ function getUser() {
 			});
 
 		} else {
-			// document.getElementById("oldUserLogin").style.display = "none";
+			document.getElementById("oldUserLogin").style.display = "none";
 			oldStyle = {
 				display: 'none'
 			};
@@ -167,9 +167,24 @@ function loginUser() {
 		var errorMessage = error.message;
 		// ...
 	});
-	window.open("home", "_self");
+
+	firebase.auth().onAuthStateChanged(function (user) {
+		if (user) {
+
+			location.reload();
 
 
+		}
+		else{
+
+
+		}});
+
+
+}
+
+function signOut(){
+	firebase.auth().signOut();
 }
 
 
@@ -179,6 +194,7 @@ function loginUser() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////// RUN SCRIPT 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 startDisco();

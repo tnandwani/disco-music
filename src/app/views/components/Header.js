@@ -36,7 +36,7 @@ export const Header = (props) => {
                         <input id="inputPassword" type="password" className="form-control" placeholder="Password" />
                         <div className="input-group-append" >
 
-                            <button type="button" className="btn btn-warning px-5" onClick={loginUser}>Login</button>
+                            <button type="button" className="btn btn-warning px-5" onClick={loginUser}>Sign In</button>
                         </div>
                         <button type="button" className="btn btn-outline-success mx-2" data-toggle="modal" data-target="#createModal">Create Account</button>
 
@@ -48,30 +48,15 @@ export const Header = (props) => {
 
 
 
+                <button type="button" className="btn btn-warning mr-2" onClick = {signOut}>Sign Out</button>
 
                 <form className="form-inline my-2 my-lg-0">
-                    <div className="input-group">
-                        <button type="button" className="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span className="sr-only">Toggle Dropdown</span>
-                        </button>
+                        
                         <input type="text" className="form-control searchbar px-3" placeholder="Search Everything..." />
-                        <div className="input-group-append">
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item" href="#">All</a>
-                                <a className="dropdown-item" href="#">Songs</a>
-                                <a className="dropdown-item" href="#">Playlists </a>
-                                <a className="dropdown-item" href="#">Albums</a>
-                                <a className="dropdown-item" href="#">Artists</a>
-                                <a className="dropdown-item" href="#">@Username</a>
-                                <a className="dropdown-item" href="#">#Vibes</a>
 
-                            </div>
-                            <button type="button" className="btn btn-outline-success">Search</button>
-
-
-                        </div>
-                    </div>
                 </form>
+                <button type="button" className="btn btn-outline-success">Search</button>
+
             </div>
 
         </nav>

@@ -28650,7 +28650,7 @@
 	                        _react2.default.createElement(
 	                            "button",
 	                            { type: "button", className: "btn btn-warning px-5", onClick: loginUser },
-	                            "Login"
+	                            "Sign In"
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -28661,70 +28661,19 @@
 	                )
 	            ),
 	            _react2.default.createElement(
+	                "button",
+	                { type: "button", className: "btn btn-warning mr-2", onClick: signOut },
+	                "Sign Out"
+	            ),
+	            _react2.default.createElement(
 	                "form",
 	                { className: "form-inline my-2 my-lg-0" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "input-group" },
-	                    _react2.default.createElement(
-	                        "button",
-	                        { type: "button", className: "btn btn-outline-secondary dropdown-toggle dropdown-toggle-split", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
-	                        _react2.default.createElement(
-	                            "span",
-	                            { className: "sr-only" },
-	                            "Toggle Dropdown"
-	                        )
-	                    ),
-	                    _react2.default.createElement("input", { type: "text", className: "form-control searchbar px-3", placeholder: "Search Everything..." }),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "input-group-append" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "dropdown-menu" },
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "All"
-	                            ),
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "Songs"
-	                            ),
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "Playlists "
-	                            ),
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "Albums"
-	                            ),
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "Artists"
-	                            ),
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "@Username"
-	                            ),
-	                            _react2.default.createElement(
-	                                "a",
-	                                { className: "dropdown-item", href: "#" },
-	                                "#Vibes"
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-outline-success" },
-	                            "Search"
-	                        )
-	                    )
-	                )
+	                _react2.default.createElement("input", { type: "text", className: "form-control searchbar px-3", placeholder: "Search Everything..." })
+	            ),
+	            _react2.default.createElement(
+	                "button",
+	                { type: "button", className: "btn btn-outline-success" },
+	                "Search"
 	            )
 	        )
 	    );
@@ -29131,11 +29080,6 @@
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "modal-footer" },
-	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-dark", "data-dismiss": "modal" },
-	                                "Close"
-	                            ),
 	                            _react2.default.createElement(
 	                                "button",
 	                                { id: "nextButton", type: "button", className: "btn btn-warning", onClick: showLinks },

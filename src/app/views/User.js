@@ -20,17 +20,17 @@ export class User extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { 
-            date: new Date() 
+        this.state = {
+            date: new Date()
         };
     }
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <div className="jumbotron">
                     <div className="profile-grid">
-                        <div className="profileImage">
+                        <div className="profileImage text-center">
                             <img src={url} className="rounded-circle profileCircle" />
                         </div>
                         <div className="profileTags"><span className="badge badge-warning">{inUser.verified}</span>
@@ -39,24 +39,21 @@ export class User extends React.Component {
                         <div className="profileInfo mt-4">
                             <h1> {inUser.publicName}</h1>
                             <h2 className="gold"> <i> @{inUser.username} </i> </h2>
+                            <h5 > Los Angeles, CA</h5>
 
 
                         </div>
-                        <div className="profileFollow mr-5">
+                        <div className="profileFollow mr-4">
 
                             <h2 className="gold">Followers</h2>
                             <h3>{inUser.followers.length}</h3>
                             <h2 className="gold">Following</h2>
                             <h3>{inUser.following.length}</h3>
 
-                        </div>
-                        <div className="profileButtons">
-
-                            <button type="button" className="btn btn-outline-success mx-2 px-5">Request a Show</button>
-                            <button type="button" className="btn btn-outline-success mx-2 px-5">Book the Artist</button>
-                            <button type="button" className="btn btn-outline-success mx-2 px-5">+ Follow</button>
+                            <button type="button" className="btn btn-outline-success mt-2 px-5"  onClick={signOut} > Logout</button>
 
                         </div>
+
                     </div>
 
                 </div>

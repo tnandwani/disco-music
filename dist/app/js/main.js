@@ -21,11 +21,7 @@ var songsRef = firestore.collection("songs");
 var albumsRef = firestore.collection("albums");
 
 
-var oldStyle, newStyle;
-
-var linkStyle = {
-	display: 'none'
-};
+var rawUsername, rawPublicName;
 
 
 
@@ -73,7 +69,7 @@ function startDisco() {
 
 }
 
-function createUser(user) {
+function writeUser(user) {
 
 	// Add a new document in collection "cities"
 	firestore.collection("users").doc(user.username).set({
@@ -105,10 +101,12 @@ function getUser() {
 					console.log("Document data:", doc.data());
 
 					inUser = doc.data();
-					document.getElementById("newUserLogin").style.display = "none";
-					newStyle = {
-						display: 'none'
-					};
+
+					// var newLogin = 	document.getElementById("newUserLogin");
+					// newLogin.style.display = "none";
+					// newStyle = {
+					// 	display: 'none'
+					// };
 
 
 				} else {
@@ -120,10 +118,9 @@ function getUser() {
 			});
 
 		} else {
-			document.getElementById("oldUserLogin").style.display = "none";
-			oldStyle = {
-				display: 'none'
-			};
+
+			// login styles here
+
 
 		}
 	});
@@ -133,14 +130,14 @@ function getUser() {
 
 function showLinks() {
 
-	var rawPublicName = document.getElementById("rawPublicName").value;
-	var rawUsername = document.getElementById("rawUsername").value;
+	rawPublicName = document.getElementById("rawPublicName").value;
+	rawUsername = document.getElementById("rawUsername").value;
 
 
 	console.log(rawPublicName);
 
 
-	if ( rawPublicName.length > 1 && rawUsername.length > 1  ) {
+	if (rawPublicName.length > 1 && rawUsername.length > 1) {
 
 		document.getElementById("nextButton").style.display = 'none';
 		document.getElementById("firebaseui-auth-container").style.display = 'block';
@@ -149,17 +146,103 @@ function showLinks() {
 	} else {
 
 		// not there
-
 		console.log("fill something out!!");
 
 	}
 }
 
+function showLoginLinks() {
 
-function loginUser() {
+	document.getElementById("firebaseui-auth-container").style.display = 'block';
 
-	var inputEmail = document.getElementById("inputEmail").value;
-	var inputPassword = document.getElementById("inputPassword").value;
+
+}
+
+
+
+
+function verifyDetails() {
+
+
+
+	var inputEmail = document.getElementById("rawNewEmail").value;
+	var inputPassword = document.getElementById("rawNewPassword").value;
+	var inputPasswordConfirm = document.getElementById("rawNewPasswordConfirm").value;
+	var inputPublicName = document.getElementById("rawPublicName").value;
+	var inputUsername = document.getElementById("rawUsername").value;
+
+	// lowercase username 
+	inputUsername = inputUsername.toLowerCase();
+
+	// username taken?
+	var usernameRef = usersRef.doc(inputUsername);
+
+	usernameRef.get().then(function (doc) {
+		if (doc.exists) {
+			console.log("TAKEN");
+		} else {
+			// doc.data() will be undefined in this case
+			console.log("AVAILABLE!");
+
+			// passwords match? 
+
+			if (inputPassword === inputPasswordConfirm) {
+
+				firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					// ...
+				});
+
+				var user = firebase.auth().currentUser;
+
+
+				if (user) {
+
+
+					// change display Name to public name 
+					user.updateProfile({
+						displayName: inputUsername
+					}).then(function () {
+						// Update successful.
+					}).catch(function (error) {
+						// An error happened.
+					});
+
+					// write User to database
+
+					var newUser = {
+						username: inputUsername,
+						email: user.email,
+						publicName: inputPublicName,
+						uid: user.uid
+					};
+
+					writeUser(newUser);
+
+
+
+
+				} else {}
+
+
+			}
+		}
+	}).catch(function (error) {
+		console.log("Error getting user:", error);
+	});
+
+
+
+
+}
+
+
+function signIn() {
+
+	var inputEmail = document.getElementById("rawEmail").value;
+	var inputPassword = document.getElementById("rawPassword").value;
 
 	firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
 		// Handle Errors here.
@@ -170,21 +253,18 @@ function loginUser() {
 
 	firebase.auth().onAuthStateChanged(function (user) {
 		if (user) {
-
-			location.reload();
-
-
-		}
-		else{
-
-
-		}});
+			window.location.href = '/home';
+		} else {}
+	});
 
 
 }
 
-function signOut(){
+function signOut() {
 	firebase.auth().signOut();
+	window.location.href = '/home';
+
+
 }
 
 

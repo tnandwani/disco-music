@@ -9,114 +9,97 @@ MAIN color: #D7B659
 gray/silver: BDC6C6 */
 
 /* THEME CSS  */
-.dark{
+
+
+@media screen and (min-width: 780px) {
+    .slideout-menu {
+      display: block;
+    }
+  
+    .btn-hamburger {
+      display: none;
+    }
+  }
+
+.dark {
     background-color: #111;
 }
-.gold{
+.lessDark {
+    background-color: #222;
+}
+
+.gold {
     color: #D7B659;
 }
 
-.gray{
+.gray {
     color: #BDC6C6;
 }
 
-.white{
-    color: white;
-}
 .theme {
     background-color: #222;
     color: white;
 }
 
-.nav-theme {
-    padding-left: 1%;
-    padding-right: 1%;
-    background-color: #111;
+.goldBack{
+    background-color: #D7B659;
+}
+
+/* LAYOUT  */
+
+.scroll {
+    overflow-y: scroll;
+}
+
+
+
+.leftbarNew{
     position: fixed;
-}
-.content {
-    text-align: center;
-}
-
-.noPadding {    
-    padding: 0px;
-}
-
-
-.sidePadding {    
-    padding-left: 2%;
-    padding-right: 2%;
-}
-.leftAlign{
-    text-align: left;
-}
-
-.rightAlign{
-    text-align: right;
-}
-
-/* LAYOUT CSS */
-
-.rootLeft {
-    float: left;
-    width: 20%;
-    text-align: left;
-    background-color: #1a1a1a;
-}
-
-.rootCenter {
-    display: inline-block;
-    width: 60%;
-}
-
-.rootRight {
-    float: right;
-    width: 20%;
-    text-align: right;
-    background-color: #1a1a1a;
-}
-
-/* COMPONENT CSS */
-
-.leftbar {
-    padding-left: 3%;
-    height: 1000px;
-    color: #D7B659;
-}
-
-.rightbar {
-    padding-right: 3%;
-    height: 1000px;
-}
-
-.footer-theme {
-    position: fixed;
-    width: 100%;
+    width: 16%;
+    top: 0;
     bottom: 0;
-    /* Set the fixed height of the footer here */
-    height: 10%;
-    background-color: #111;
-    text-align: center;
-    color: #D7B659;
 }
 
-.feedCover {
-    margin: 1%;
-    width: 100%;
-}
-
-/* LEFTBAR NAV CSS */
-
-.navOne {
-    color: #878E95;
-}
-
-.navTwo {
-    padding-left: 10%;
-    color: #fff;
-}
-
-
+.slideout-menu {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 256px;
+    min-height: 100vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    z-index: 0;
+    display: none;
+  }
+  
+  .slideout-menu-left {
+    left: 0;
+  }
+  
+  .slideout-menu-right {
+    right: 0;
+  }
+  
+  .slideout-panel {
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    overflow-y: scroll;
+    left: 0;
+    top: 0;
+    background-color: #222; /* A background-color is required */
+    min-height: 100vh;
+  }
+  
+  .slideout-open,
+  .slideout-open body,
+  .slideout-open .slideout-panel {
+    overflow: hidden;
+  }
+  
+  .slideout-open .slideout-menu {
+    display: block;
+  }
 /* USER PROFILE CSS */
 
 .profileImage {
@@ -148,9 +131,9 @@ gray/silver: BDC6C6 */
 
 .profile-grid {
     display: grid;
-    grid-template-areas:
-     'profileImage profileInfo profileFollow' 
-     'profileTags profileButtons profileButtons';
+    grid-template-areas: 
+    'profileImage profileInfo profileFollow'
+     'profileTags profileInfo profileFollow';
     grid-gap: 10px;
     padding: 10px;
 }
@@ -197,8 +180,7 @@ gray/silver: BDC6C6 */
     padding: 10px;
 }
 
-
-.postCard{
+.postCard {
     width: 30%;
 }
 
@@ -219,4 +201,8 @@ gray/silver: BDC6C6 */
     font-size: 20px;
     padding: 5%;
     padding-top: 6%;
+}
+
+.fillCover{
+    width: 100%;
 }

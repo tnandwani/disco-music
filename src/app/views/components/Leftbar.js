@@ -1,43 +1,83 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
 
 export class Leftbar extends React.Component {
     render() {
         return (
-            <div className="leftbar">
+            <div className="leftbarNew dark">
+
+                <div className="pt-3 pl-3 pr-2 dark">
+
+                    <a href="/home"> <h1 className="gold"> DISCO  </h1></a>
+                    <input type="text" className="form-control" placeholder="Search..." />
+
+                    <a href="/user">  <h5 className="mt-2 py-2 ">  My Profile   </h5></a>
+                    <a href="/upload">  <h5 className="mt-2 mb-4">  Upload +   </h5></a>
+
+                </div>
                 <nav className="nav flex-column">
-
-                    <a className="nav-link navOne" href="#">Browse</a>
-                    <nav className="nav flex-column">
-                        <a className="nav-link navTwo" href="#">Newest Releases</a>
-                        <a className="nav-link navTwo" href="#">Top Releases</a>
-                    </nav>
-
-                    <a className="nav-link navOne " href="#">Feeds</a>
-                    <nav className="nav flex-column">
-                        <a className="nav-link navTwo " href="#">Home<span className="badge badge-secondary mx-1">23</span></a>
-                        <a className="nav-link navTwo" href="#">Best Friends<span className="badge badge-secondary mx-1">3</span></a>
-                    </nav>
-
-                    <a className="nav-link navOne" href="#">Playlists</a>
-                    <nav className="nav flex-column">
-                        <a className="nav-link navTwo" href="#">Chill Beats</a>
-                        <a className="nav-link navTwo" href="#">Driving</a>
-                    </nav>
-
-                    <a className="nav-link navOne" href="#">Library</a>
-                    <nav className="nav flex-column">
-                        <a className="nav-link navTwo" href="#">Songs</a>
-                        <a className="nav-link navTwo" href="#">Albums</a>
-                        <a className="nav-link navTwo" href="#">Artists</a>
-                        <a className="nav-link navTwo" href="#">Suggestions<span className="badge badge-secondary mx-1">7</span></a>
-
-                    </nav>
-
-               
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>     <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>     <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
+                    <a className="nav-link active" href="#">Active</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link" href="#">Link</a>
+                    <a className="nav-link disabled" href="#">Disabled</a>
 
                 </nav>
+
+
             </div>
         );
     }

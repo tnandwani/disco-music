@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Leftbar } from "./components/Leftbar";
 import { Rightbar } from "./components/Rightbar";
 import { CreateAccount } from "./components/CreateAccount";
+import { SignIn } from "./components/SignIn";
+
 
 
 //////////////////////////////////////////////////////
@@ -62,31 +65,34 @@ export class Root extends React.Component {
 
 		return (
 
+			<div className="theme">
 
-			<div>
-				<Header name={inUser.publicName} />
-
-				<div className="content mt-5" >
-
-					<div className="rootLeft mt-2" >
+				<div className="row">
+					<div className="col-2 d-none d-md-block pr-0">
+					
 						<Leftbar />
-					</div>
 
-					<div className="rootCenter pt-3" >
-						<div>
+					</div>
+					<div className="col mt-3">
+
+						<div className="container-fluid">
 							{this.props.children}
-							<CreateAccount />
+							{/* <CreateAccount /> */}
 						</div>
 					</div>
+				</div>
 
-					<div className="rootRight" >
-						<Rightbar />
-					</div>
+				<div>
+
+					<h2>Footer </h2>
 
 				</div>
 
-				<Footer />
-			</div >
+
+
+			</div>
+
+
 
 
 

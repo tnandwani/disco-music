@@ -9,23 +9,20 @@ export class CardButtons extends React.Component {
         return (
 
 
-            <div className="card-footer noPadding">
+            <div className="card-footer p-0 text-center container">
                 <div className="btn-group" role="group" aria-label="Basic example">
 
+                    
                     <button type="button" className="btn btn-secondary">
-                        <span className="oi oi-share postIcons" title="share"></span>
-                        Send
-                        </button>
-                    <button type="button" className="btn btn-secondary">
-                        <span className="oi oi-fire postIcons"  title="fire"></span>
+                        <span className="oi oi-fire postIcons pr-2"  title="fire"></span>
                         Share
                         </button>
-                    <button type="button" className="btn btn-secondary">
-                        <span className="oi oi-heart postIcons"  title="heart"></span>
+                    <button type="button" className="btn btn-secondary px-4">
+                        <span className="oi oi-heart postIcons pr-2"  title="heart"></span>
                         Like
                         </button>
                     <button type="button" className="btn btn-secondary">
-                        <span className="oi oi-plus postIcons" title="plus"></span>
+                        <span className="oi oi-plus postIcons pr-2" title="plus"></span>
                         Save
                         </button>
                 </div>

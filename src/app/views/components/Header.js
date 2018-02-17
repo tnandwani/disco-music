@@ -17,8 +17,8 @@ export const Header = (props) => {
             </Link></li>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
 
-                <div className="navbar-nav mr-auto" id="oldUserLogin"  style ={oldStyle}>
-                    <ul className="navbar-nav mt-2 mt-lg-0" id="oldUserLogin">
+                <div className="navbar-nav mr-auto">
+                    <ul className="navbar-nav mt-2 mt-lg-0">
                         <li className="nav-item px-3">
                             <Link id="propName" to={"/user"} activeStyle={{ color: "#D7B659" }}>{props.name}</Link>
                         </li>
@@ -30,15 +30,12 @@ export const Header = (props) => {
                 </div>
 
 
-                <form className="form-inline my-2 my-lg-0 mr-auto" id="newUserLogin" style ={newStyle}>
+                <form className="form-inline my-2 my-lg-0 mr-auto">
                     <div className="input-group">
-                        <input id="inputEmail" type="text" className="form-control" placeholder="Email" />
-                        <input id="inputPassword" type="password" className="form-control" placeholder="Password" />
-                        <div className="input-group-append" >
+                    
+                        <button type="button" className="btn btn-warning px-3" data-toggle="modal" data-target="#signInModal">Sign In</button>
 
-                            <button type="button" className="btn btn-warning px-5" onClick={loginUser}>Sign In</button>
-                        </div>
-                        <button type="button" className="btn btn-outline-success mx-2" data-toggle="modal" data-target="#createModal">Create Account</button>
+                        <button type="button" className="btn btn-outline-warning mx-2" data-toggle="modal" data-target="#createModal">Create Account</button>
 
                     </div>
                 </form>
@@ -48,14 +45,14 @@ export const Header = (props) => {
 
 
 
-                <button type="button" className="btn btn-warning mr-2" onClick = {signOut}>Sign Out</button>
 
                 <form className="form-inline my-2 my-lg-0">
-                        
-                        <input type="text" className="form-control searchbar px-3" placeholder="Search Everything..." />
+                    <span className="oi oi-magnifying-glass postIcons mr-2" title="magnifying-glass"></span>
+
+                    <input type="text" className="form-control searchbar px-4" placeholder="Search Everything..." />
 
                 </form>
-                <button type="button" className="btn btn-outline-success">Search</button>
+                <button type="button" className="btn btn-outline-warning">Search</button>
 
             </div>
 

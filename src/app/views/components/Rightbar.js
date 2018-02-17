@@ -7,7 +7,9 @@ export class Rightbar extends React.Component {
         return (
             <div className="rightbar">
 
-                </div>
+            <h2>Nothing Here right Now</h2>
+
+             </div>
         );
     }
 }

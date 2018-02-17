@@ -10,7 +10,7 @@ export class Upload extends React.Component {
 
     render() {
         return (
-            <div className="mx-5 mt-2 leftAlign" >
+            <div className="container" >
                 <h3>Caption</h3>
                 <input type="text" className="form-control theme my-3" placeholder="100 Charater Limit" />
 
@@ -18,7 +18,7 @@ export class Upload extends React.Component {
 
                 <div className="row my-">
                     <div className="col-sm-4">
-                        <img src="images/coverArt.png" className="feedCover" />
+                        <img src="images/coverArt.png" className="fillCover" />
                     </div>
 
                     <div className="col-sm-8 pt-1">

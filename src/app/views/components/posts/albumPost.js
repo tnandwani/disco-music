@@ -15,7 +15,7 @@ export class AlbumPost extends React.Component {
     render() {
         return (
 
-            <div className="card noPadding text-white bg-dark  mb-3">
+            <div className="card p-0 text-white bg-dark mb-3 container">
                 <CardHeader/>
                 <div>
                     <img src={coverArt} alt="Card image cap" className="card-img-top" />

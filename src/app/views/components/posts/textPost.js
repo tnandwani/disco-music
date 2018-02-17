@@ -6,8 +6,6 @@ import { CardButtons } from "./frame/cardButtons";
 import { CardHeader } from "./frame/cardHeader";
 
 
-var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
-
 
 export class TextPost extends React.Component {
 
@@ -46,5 +44,5 @@ TextPost.defaultProps = {
     likes: 0,
     shares: 0,
     saves: 0,
-    cover: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
+    cover: "images/coverArt.png"
 };

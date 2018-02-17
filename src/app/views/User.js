@@ -39,7 +39,7 @@ export class User extends React.Component {
                         <div className="profileInfo mt-4">
                             <h1> {inUser.publicName}</h1>
                             <h2 className="gold"> <i> @{inUser.username} </i> </h2>
-                            <h5 > Los Angeles, CA</h5>
+                            <h5 > Location</h5>
 
 
                         </div>
@@ -50,6 +50,7 @@ export class User extends React.Component {
                             <h2 className="gold">Following</h2>
                             <h3>{inUser.following.length}</h3>
 
+                            <button type="button" className="btn btn-outline-success mt-2 px-5 mx-2"> Upload + </button>
                             <button type="button" className="btn btn-outline-success mt-2 px-5"  onClick={signOut} > Logout</button>
 
                         </div>

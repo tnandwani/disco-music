@@ -65,35 +65,20 @@ export class Root extends React.Component {
 
 		return (
 
-			<div className="theme">
+			<div className="layout-grid">
 
-				<div className="row">
-					<div className="col-2 d-none d-md-block pr-0">
-					
-						<Leftbar />
-
-					</div>
-					<div className="col mt-3">
-
-						<div className="container-fluid">
-							{this.props.children}
-							{/* <CreateAccount /> */}
-						</div>
-					</div>
+				<div className="layoutMenu">
+					<Leftbar />
 				</div>
-
-				<div>
-
-					<h2>Footer </h2>
-
+				<div className="layoutMain">
+					{this.props.children}
 				</div>
-
+				<div className="layoutFooter">
+					<Footer />
+				</div>
 
 
 			</div>
-
-
-
 
 
 		);

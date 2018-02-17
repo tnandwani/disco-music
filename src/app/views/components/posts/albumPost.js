@@ -6,9 +6,6 @@ import { CardButtons } from "./frame/cardButtons";
 import { CardHeader } from "./frame/cardHeader";
 
 
-var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
-
-
 
 export class AlbumPost extends React.Component {
 
@@ -18,7 +15,7 @@ export class AlbumPost extends React.Component {
             <div className="card p-0 text-white bg-dark mb-3 container">
                 <CardHeader/>
                 <div>
-                    <img src={coverArt} alt="Card image cap" className="card-img-top" />
+                    <img src="images/coverArt.png"  alt="Card image cap" className="card-img-top" />
 
                 </div>
                 <div className="card-body leftAlign">

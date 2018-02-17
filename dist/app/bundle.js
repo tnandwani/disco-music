@@ -28430,7 +28430,7 @@
 						),
 						_react2.default.createElement(
 							"div",
-							{ className: "col mt-3 px-0" },
+							{ className: "col mt-3" },
 							_react2.default.createElement(
 								"div",
 								{ className: "container-fluid" },
@@ -28821,11 +28821,23 @@
 	                    "div",
 	                    { className: "pt-3 pl-3 pr-2 dark" },
 	                    _react2.default.createElement(
-	                        "h1",
-	                        { className: "gold" },
-	                        "DISCO"
+	                        "a",
+	                        { href: "/home" },
+	                        " ",
+	                        _react2.default.createElement(
+	                            "h1",
+	                            { className: "gold" },
+	                            " DISCO ",
+	                            _react2.default.createElement("span", { className: "oi oi-beaker postIcons", title: "beaker" }),
+	                            " "
+	                        )
 	                    ),
-	                    _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Search..." }),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "input-group" },
+	                        _react2.default.createElement("input", { type: "search", className: "form-control", placeholder: "Search" }),
+	                        _react2.default.createElement("span", { className: "oi oi-magnifying-glass mt-2 ml-1", title: "magnifying-glass" })
+	                    ),
 	                    _react2.default.createElement(
 	                        "a",
 	                        { href: "/user" },
@@ -28838,11 +28850,11 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { href: "/user" },
+	                        { href: "/upload" },
 	                        "  ",
 	                        _react2.default.createElement(
 	                            "h5",
-	                            { className: "mt-2 mb-4" },
+	                            { className: "mt-2" },
 	                            "  Upload +   "
 	                        )
 	                    )
@@ -28860,6 +28872,218 @@
 	                        { className: "nav-link", href: "#" },
 	                        "Link"
 	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    "     ",
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link active", href: "#" },
+	                        "Active"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link", href: "#" },
+	                        "Link"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link disabled", href: "#" },
+	                        "Disabled"
+	                    ),
+	                    "     ",
 	                    _react2.default.createElement(
 	                        "a",
 	                        { className: "nav-link", href: "#" },
@@ -55478,7 +55702,7 @@
 	
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "container" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
@@ -56328,7 +56552,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "container" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "jumbotron" },
@@ -56337,7 +56561,7 @@
 	                        { className: "profile-grid" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "profileImage" },
+	                            { className: "profileImage text-center" },
 	                            _react2.default.createElement("img", { src: url, className: "rounded-circle profileCircle" })
 	                        ),
 	                        _react2.default.createElement(
@@ -56370,11 +56594,16 @@
 	                                    " "
 	                                ),
 	                                " "
+	                            ),
+	                            _react2.default.createElement(
+	                                "h5",
+	                                null,
+	                                " Location"
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "profileFollow mr-5" },
+	                            { className: "profileFollow mr-4" },
 	                            _react2.default.createElement(
 	                                "h2",
 	                                { className: "gold" },
@@ -56394,24 +56623,10 @@
 	                                "h3",
 	                                null,
 	                                inUser.following.length
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "profileButtons" },
-	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-outline-success mx-2 px-5" },
-	                                "Request a Show"
 	                            ),
 	                            _react2.default.createElement(
 	                                "button",
-	                                { type: "button", className: "btn btn-outline-success mx-2 px-5" },
-	                                "Book the Artist"
-	                            ),
-	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-outline-success mx-2 px-5", onClick: signOut },
+	                                { type: "button", className: "btn btn-outline-success mt-2 px-5", onClick: signOut },
 	                                " Logout"
 	                            )
 	                        )
@@ -56597,7 +56812,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "mx-5 mt-2 leftAlign" },
+	                { className: "container" },
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,
@@ -56615,7 +56830,7 @@
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "col-sm-4" },
-	                        _react2.default.createElement("img", { src: "images/coverArt.png", className: "feedCover" })
+	                        _react2.default.createElement("img", { src: "images/coverArt.png", className: "fillCover" })
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",

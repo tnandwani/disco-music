@@ -67,12 +67,17 @@ export class Root extends React.Component {
 
 			<div className="layout-grid">
 
-				<div className="layoutMenu">
-					<Leftbar />
+				<div className="layoutMenu dark d-none d-lg-block">
+					<Leftbar /> 
 				</div>
+
 				<div className="layoutMain">
-					{this.props.children}
+					<div className="container">
+						{this.props.children}
+					</div>
+
 				</div>
+
 				<div className="layoutFooter">
 					<Footer />
 				</div>

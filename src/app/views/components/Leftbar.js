@@ -1,12 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { browserHistory } from "react-router";
+
+
+function routerHome() {
+    browserHistory.push("/home");
+}
+function routerUser() {
+    browserHistory.push("/user");
+}
 
 
 
 export class Leftbar extends React.Component {
     render() {
         return (
-            <div className="leftbarNew dark pl-3">
+            <div className="dark pl-3">
 
                 <div className="pt-3 pr-2 dark">
 
@@ -16,16 +25,15 @@ export class Leftbar extends React.Component {
                         <span className="oi oi-magnifying-glass mt-2 ml-1 " title="magnifying-glass"></span> 
                     </div>
 
-
-                    <a href="/user">  <h5 className="mt-2 py-2 ">  My Profile   </h5></a>
-
+                    <a href="">  <h5 className="mt-2 py-2" onClick = {routerUser}>  My Profile   </h5></a>
 
                 </div>
+            
                 <nav className="nav flex-column ml-3">
 
                     <h6 className="mt-3"> Feeds <span className="oi oi-plus smallIcon ml-2" title="plus"></span></h6>
-                    <a className="nav-link ml-2 " href="#">Home</a>
-                    <a className="nav-link ml-2 " href="#">New Releases</a>
+                    <a className="nav-link ml-2 " href="home">Home</a>
+                    <a className="nav-link ml-2 " href="home">New Releases</a>
                     <a className="nav-link ml-2 " href="#">Popular</a>
                     <a className="nav-link ml-2 " href="#">Best Friends</a>
 

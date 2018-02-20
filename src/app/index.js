@@ -1,8 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-
 import { Router, Route, browserHistory, IndexRoute } from "react-router";
-
 import { Root } from "./views/Root";
 import { Home } from "./views/Home";
 import { User } from "./views/User";
@@ -37,11 +35,11 @@ class App extends React.Component {
                     <Route path={"user"} component={User} />
                     <Route path={"home"} component={Home} />
                     <Route path={"upload"} component={Upload} />
-
                 </Route>
             </Router>
         );
     }
+    
 }
 
 render(<App />, window.document.getElementById('app'));

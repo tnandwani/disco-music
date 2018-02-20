@@ -4,13 +4,9 @@ import { browserHistory } from "react-router";
 
 
 export class Upload extends React.Component {
-    onNavigateHome() {
-        browserHistory.push("/home");
-    }
-
     render() {
         return (
-            <div className="container" >
+            <div >
                 <h3>Caption</h3>
                 <input type="text" className="form-control theme my-3" placeholder="100 Charater Limit" />
 

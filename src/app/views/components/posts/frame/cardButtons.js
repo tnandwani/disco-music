@@ -10,7 +10,6 @@ export class CardButtons extends React.Component {
 
 
             <div className="card-footer p-0 text-center container">
-                <div className="btn-group" role="group" aria-label="Basic example">
 
                     
                     <button type="button" className="btn btn-secondary">
@@ -25,7 +24,6 @@ export class CardButtons extends React.Component {
                         <span className="oi oi-plus postIcons pr-2" title="plus"></span>
                         Save
                         </button>
-                </div>
 
             </div>
 

@@ -28419,33 +28419,25 @@
 	
 				return _react2.default.createElement(
 					"div",
-					{ className: "theme" },
+					{ className: "layout-grid" },
 					_react2.default.createElement(
 						"div",
-						{ className: "row" },
+						{ className: "layoutMenu" },
+						_react2.default.createElement(_Leftbar.Leftbar, null)
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "layoutMain" },
 						_react2.default.createElement(
 							"div",
-							{ className: "col-2 d-none d-md-block pr-0" },
-							_react2.default.createElement(_Leftbar.Leftbar, null)
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "col mt-3" },
-							_react2.default.createElement(
-								"div",
-								{ className: "container-fluid" },
-								this.props.children
-							)
+							{ className: "container" },
+							this.props.children
 						)
 					),
 					_react2.default.createElement(
 						"div",
-						null,
-						_react2.default.createElement(
-							"h2",
-							null,
-							"Footer "
-						)
+						{ className: "layoutFooter" },
+						_react2.default.createElement(_Footer.Footer, null)
 					)
 				);
 			}
@@ -28701,69 +28693,11 @@
 	var Footer = exports.Footer = function Footer(props) {
 	    return _react2.default.createElement(
 	        "div",
-	        { className: "footer-theme" },
+	        { className: "footerBar dark text-center" },
 	        _react2.default.createElement(
-	            "footer",
-	            { className: "footer-theme" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "row" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "col-xs-6 col-sm-4" },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "row" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "col-xs-6 col-md-4 noPadding" },
-	                            _react2.default.createElement("span", { className: "oi oi-layers footerButtons mr-3", title: "layers" }),
-	                            _react2.default.createElement("img", { src: "images/coverArt.png", className: "footerCover" })
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "col-xs-12 col-sm-6 col-md-8 leftAlign" },
-	                            _react2.default.createElement(
-	                                "h4",
-	                                { className: "gray" },
-	                                "Song Name"
-	                            ),
-	                            _react2.default.createElement(
-	                                "h5",
-	                                null,
-	                                _react2.default.createElement(
-	                                    "i",
-	                                    null,
-	                                    "Artist"
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                "h6",
-	                                { className: "gray" },
-	                                "Album"
-	                            )
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "col-xs-6 col-sm-4" },
-	                    _react2.default.createElement("span", { className: "oi oi-loop footerButtons", title: "loop" }),
-	                    _react2.default.createElement("span", { className: "oi oi-media-skip-backward footerControls", title: "media-skip-backward" }),
-	                    _react2.default.createElement("span", { className: "oi oi-media-play footerControls", title: "media-play" }),
-	                    _react2.default.createElement("span", { className: "oi oi-media-skip-forward footerControls", title: "media-skip-forward" }),
-	                    _react2.default.createElement("span", { className: "oi oi-random footerButtons", title: "random" })
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "col-xs-6 col-sm-4" },
-	                    _react2.default.createElement("span", { className: "oi oi-share footerButtons", title: "share" }),
-	                    _react2.default.createElement("span", { className: "oi oi-fire footerButtons", title: "fire" }),
-	                    _react2.default.createElement("span", { className: "oi oi-heart footerButtons", title: "heart" }),
-	                    _react2.default.createElement("span", { className: "oi oi-plus footerButtons", title: "plus" }),
-	                    _react2.default.createElement("span", { className: "oi oi-volume-high footerButtons", title: "volume-high" })
-	                )
-	            )
+	            "h1",
+	            null,
+	            "FOOTER HERE"
 	        )
 	    );
 	};
@@ -28792,6 +28726,8 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 184);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28800,7 +28736,15 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee";
+	function routerHome() {
+	    _reactRouter.browserHistory.push("/home");
+	}
+	function routerUser() {
+	    _reactRouter.browserHistory.push("/user");
+	}
+	function routerUpload() {
+	    _reactRouter.browserHistory.push("/upload");
+	}
 	
 	var Leftbar = exports.Leftbar = function (_React$Component) {
 	    _inherits(Leftbar, _React$Component);
@@ -28816,10 +28760,10 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "leftbarNew dark" },
+	                { className: "leftbarNew dark pl-3" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "pt-3 pl-3 pr-2 dark" },
+	                    { className: "pt-3 pr-2 dark" },
 	                    _react2.default.createElement(
 	                        "a",
 	                        { href: "/home" },
@@ -28828,7 +28772,11 @@
 	                            "h1",
 	                            { className: "gold" },
 	                            " DISCO ",
-	                            _react2.default.createElement("span", { className: "oi oi-beaker postIcons", title: "beaker" }),
+	                            _react2.default.createElement(
+	                                "span",
+	                                { className: "oi oi-beaker postIcons", title: "beaker" },
+	                                "  "
+	                            ),
 	                            " "
 	                        )
 	                    ),
@@ -28836,323 +28784,94 @@
 	                        "div",
 	                        { className: "input-group" },
 	                        _react2.default.createElement("input", { type: "search", className: "form-control", placeholder: "Search" }),
-	                        _react2.default.createElement("span", { className: "oi oi-magnifying-glass mt-2 ml-1", title: "magnifying-glass" })
+	                        _react2.default.createElement("span", { className: "oi oi-magnifying-glass mt-2 ml-1 ", title: "magnifying-glass" })
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { href: "/user" },
+	                        { href: "" },
 	                        "  ",
 	                        _react2.default.createElement(
 	                            "h5",
-	                            { className: "mt-2 py-2 " },
+	                            { className: "mt-2 py-2", onClick: routerUser },
 	                            "  My Profile   "
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "/upload" },
-	                        "  ",
-	                        _react2.default.createElement(
-	                            "h5",
-	                            { className: "mt-2" },
-	                            "  Upload +   "
 	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    "nav",
-	                    { className: "nav flex-column" },
+	                    { className: "nav flex-column ml-3" },
 	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
+	                        "h6",
+	                        { className: "mt-3" },
+	                        " Feeds ",
+	                        _react2.default.createElement("span", { className: "oi oi-plus smallIcon ml-2", title: "plus" })
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Home"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "New Releases"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Popular"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Best Friends"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h6",
+	                        { className: "mt-3" },
+	                        " Playlists ",
+	                        _react2.default.createElement("span", { className: "oi oi-plus smallIcon ml-2", title: "plus" }),
+	                        " "
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Driving"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Study"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Beats"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Gym"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h6",
+	                        { className: "mt-3" },
+	                        " Library"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Songs"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Albums"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    "     ",
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    "     ",
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link active", href: "#" },
-	                        "Active"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link", href: "#" },
-	                        "Link"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link disabled", href: "#" },
-	                        "Disabled"
+	                        { className: "nav-link ml-2 ", href: "#" },
+	                        "Artists"
 	                    )
 	                )
 	            );
@@ -55702,7 +55421,7 @@
 	
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "container" },
+	                null,
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
@@ -55782,8 +55501,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee";
-	
 	var SongPost = exports.SongPost = function (_React$Component) {
 	    _inherits(SongPost, _React$Component);
 	
@@ -55803,7 +55520,7 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    null,
-	                    _react2.default.createElement("img", { src: coverArt, alt: "Card image cap", className: "card-img-top" })
+	                    _react2.default.createElement("img", { src: "images/coverArt.png", alt: "Card image cap", className: "card-img-top" })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
@@ -56066,8 +55783,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee";
-	
 	var AlbumPost = exports.AlbumPost = function (_React$Component) {
 	    _inherits(AlbumPost, _React$Component);
 	
@@ -56087,7 +55802,7 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    null,
-	                    _react2.default.createElement("img", { src: coverArt, alt: "Card image cap", className: "card-img-top" })
+	                    _react2.default.createElement("img", { src: "images/coverArt.png", alt: "Card image cap", className: "card-img-top" })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
@@ -56210,8 +55925,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee";
-	
 	var PlaylistPost = exports.PlaylistPost = function (_React$Component) {
 	    _inherits(PlaylistPost, _React$Component);
 	
@@ -56231,7 +55944,7 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    null,
-	                    _react2.default.createElement("img", { src: coverArt, alt: "Card image cap", className: "card-img-top" })
+	                    _react2.default.createElement("img", { src: "images/coverArt.png", alt: "Card image cap", className: "card-img-top" })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
@@ -56435,8 +56148,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var coverArt = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee";
-	
 	var TextPost = exports.TextPost = function (_React$Component) {
 	    _inherits(TextPost, _React$Component);
 	
@@ -56483,7 +56194,7 @@
 	    likes: 0,
 	    shares: 0,
 	    saves: 0,
-	    cover: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
+	    cover: "images/coverArt.png"
 	};
 
 /***/ }),
@@ -56623,6 +56334,11 @@
 	                                "h3",
 	                                null,
 	                                inUser.following.length
+	                            ),
+	                            _react2.default.createElement(
+	                                "button",
+	                                { type: "button", className: "btn btn-outline-success mt-2 px-5 mx-2" },
+	                                " Upload + "
 	                            ),
 	                            _react2.default.createElement(
 	                                "button",
@@ -56803,16 +56519,11 @@
 	    }
 	
 	    _createClass(Upload, [{
-	        key: "onNavigateHome",
-	        value: function onNavigateHome() {
-	            _reactRouter.browserHistory.push("/home");
-	        }
-	    }, {
 	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "container" },
+	                null,
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,

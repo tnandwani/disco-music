@@ -8,12 +8,13 @@ import { PlaylistPost } from "./components/posts/playlistPost";
 import { TextPost } from "./components/posts/textPost";
 
 
-var url = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed";
 
 var followers = 0;
 var following = 0;
 
-
+function routerUpload() {
+    browserHistory.push("/upload");
+}
 
 
 export class User extends React.Component {
@@ -27,11 +28,11 @@ export class User extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="">
                 <div className="jumbotron">
                     <div className="profile-grid">
                         <div className="profileImage text-center">
-                            <img src={url} className="rounded-circle profileCircle" />
+                            <img src= "images/profile.png"className="rounded-circle profileCircle" />
                         </div>
                         <div className="profileTags"><span className="badge badge-warning">{inUser.verified}</span>
 
@@ -50,7 +51,7 @@ export class User extends React.Component {
                             <h2 className="gold">Following</h2>
                             <h3>{inUser.following.length}</h3>
 
-                            <button type="button" className="btn btn-outline-success mt-2 px-5 mx-2"> Upload + </button>
+                            <button type="button" className="btn btn-outline-success mt-2 px-5 mx-2"  onClick={routerUpload} > Upload + </button>
                             <button type="button" className="btn btn-outline-success mt-2 px-5"  onClick={signOut} > Logout</button>
 
                         </div>

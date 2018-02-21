@@ -65,7 +65,7 @@
 	
 	var _User = __webpack_require__(/*! ./views/User */ 422);
 	
-	var _Upload = __webpack_require__(/*! ./views/Upload */ 423);
+	var _Upload = __webpack_require__(/*! ./views/Upload */ 424);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28422,12 +28422,12 @@
 					{ className: "layout-grid" },
 					_react2.default.createElement(
 						"div",
-						{ className: "layoutMenu" },
+						{ className: "layoutMenu dark d-none d-lg-block" },
 						_react2.default.createElement(_Leftbar.Leftbar, null)
 					),
 					_react2.default.createElement(
 						"div",
-						{ className: "layoutMain" },
+						{ className: "layoutMain pt-3" },
 						_react2.default.createElement(
 							"div",
 							{ className: "container" },
@@ -28742,9 +28742,6 @@
 	function routerUser() {
 	    _reactRouter.browserHistory.push("/user");
 	}
-	function routerUpload() {
-	    _reactRouter.browserHistory.push("/upload");
-	}
 	
 	var Leftbar = exports.Leftbar = function (_React$Component) {
 	    _inherits(Leftbar, _React$Component);
@@ -28760,7 +28757,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "leftbarNew dark pl-3" },
+	                { className: "dark pl-3" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "pt-3 pr-2 dark" },
@@ -28808,12 +28805,12 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home" },
 	                        "Home"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home" },
 	                        "New Releases"
 	                    ),
 	                    _react2.default.createElement(
@@ -55422,6 +55419,7 @@
 	            return _react2.default.createElement(
 	                "div",
 	                null,
+	                _react2.default.createElement("div", { className: "jumbotron dark" }),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
@@ -55631,26 +55629,22 @@
 	                "div",
 	                { className: "card-footer p-0 text-center container" },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "btn-group", role: "group", "aria-label": "Basic example" },
-	                    _react2.default.createElement(
-	                        "button",
-	                        { type: "button", className: "btn btn-secondary" },
-	                        _react2.default.createElement("span", { className: "oi oi-fire postIcons pr-2", title: "fire" }),
-	                        "Share"
-	                    ),
-	                    _react2.default.createElement(
-	                        "button",
-	                        { type: "button", className: "btn btn-secondary px-4" },
-	                        _react2.default.createElement("span", { className: "oi oi-heart postIcons pr-2", title: "heart" }),
-	                        "Like"
-	                    ),
-	                    _react2.default.createElement(
-	                        "button",
-	                        { type: "button", className: "btn btn-secondary" },
-	                        _react2.default.createElement("span", { className: "oi oi-plus postIcons pr-2", title: "plus" }),
-	                        "Save"
-	                    )
+	                    "button",
+	                    { type: "button", className: "btn btn-secondary" },
+	                    _react2.default.createElement("span", { className: "oi oi-fire postIcons pr-2", title: "fire" }),
+	                    "Share"
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { type: "button", className: "btn btn-secondary px-4" },
+	                    _react2.default.createElement("span", { className: "oi oi-heart postIcons pr-2", title: "heart" }),
+	                    "Like"
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { type: "button", className: "btn btn-secondary" },
+	                    _react2.default.createElement("span", { className: "oi oi-plus postIcons pr-2", title: "plus" }),
+	                    "Save"
 	                )
 	            );
 	        }
@@ -56231,6 +56225,8 @@
 	
 	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 421);
 	
+	var _UserBlock = __webpack_require__(/*! ./components/UserBlock */ 423);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56239,10 +56235,12 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var url = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed";
-	
 	var followers = 0;
 	var following = 0;
+	
+	function routerUpload() {
+	    _reactRouter.browserHistory.push("/upload");
+	}
 	
 	var User = exports.User = function (_React$Component) {
 	    _inherits(User, _React$Component);
@@ -56263,91 +56261,8 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "container" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "jumbotron" },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "profile-grid" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "profileImage text-center" },
-	                            _react2.default.createElement("img", { src: url, className: "rounded-circle profileCircle" })
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "profileTags" },
-	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "badge badge-warning" },
-	                                inUser.verified
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "profileInfo mt-4" },
-	                            _react2.default.createElement(
-	                                "h1",
-	                                null,
-	                                " ",
-	                                inUser.publicName
-	                            ),
-	                            _react2.default.createElement(
-	                                "h2",
-	                                { className: "gold" },
-	                                " ",
-	                                _react2.default.createElement(
-	                                    "i",
-	                                    null,
-	                                    " @",
-	                                    inUser.username,
-	                                    " "
-	                                ),
-	                                " "
-	                            ),
-	                            _react2.default.createElement(
-	                                "h5",
-	                                null,
-	                                " Location"
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "profileFollow mr-4" },
-	                            _react2.default.createElement(
-	                                "h2",
-	                                { className: "gold" },
-	                                "Followers"
-	                            ),
-	                            _react2.default.createElement(
-	                                "h3",
-	                                null,
-	                                inUser.followers.length
-	                            ),
-	                            _react2.default.createElement(
-	                                "h2",
-	                                { className: "gold" },
-	                                "Following"
-	                            ),
-	                            _react2.default.createElement(
-	                                "h3",
-	                                null,
-	                                inUser.following.length
-	                            ),
-	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-outline-success mt-2 px-5 mx-2" },
-	                                " Upload + "
-	                            ),
-	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-outline-success mt-2 px-5", onClick: signOut },
-	                                " Logout"
-	                            )
-	                        )
-	                    )
-	                ),
+	                { className: "" },
+	                _react2.default.createElement(_UserBlock.UserBlock, null),
 	                _react2.default.createElement(
 	                    "ul",
 	                    { className: "nav nav-pills nav-justified", id: "myTab", role: "tablist" },
@@ -56356,7 +56271,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-5 active", id: "home-tab", "data-toggle": "tab", href: "#all", role: "tab", "aria-controls": "all", "aria-selected": "true" },
+	                            { className: "nav-link px-1 active", id: "home-tab", "data-toggle": "tab", href: "#all", role: "tab", "aria-controls": "all", "aria-selected": "true" },
 	                            "All"
 	                        )
 	                    ),
@@ -56365,7 +56280,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-5", id: "profile-tab", "data-toggle": "tab", href: "#posts", role: "tab", "aria-controls": "posts", "aria-selected": "false" },
+	                            { className: "nav-link px-1", id: "profile-tab", "data-toggle": "tab", href: "#posts", role: "tab", "aria-controls": "posts", "aria-selected": "false" },
 	                            "Posts"
 	                        )
 	                    ),
@@ -56374,7 +56289,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-5", id: "messages-tab", "data-toggle": "tab", href: "#shares", role: "tab", "aria-controls": "shares", "aria-selected": "false" },
+	                            { className: "nav-link px-1", id: "messages-tab", "data-toggle": "tab", href: "#shares", role: "tab", "aria-controls": "shares", "aria-selected": "false" },
 	                            "Shares"
 	                        )
 	                    ),
@@ -56383,7 +56298,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-5", id: "settings-tab", "data-toggle": "tab", href: "#likes", role: "tab", "aria-controls": "likes", "aria-selected": "false" },
+	                            { className: "nav-link px-1", id: "settings-tab", "data-toggle": "tab", href: "#likes", role: "tab", "aria-controls": "likes", "aria-selected": "false" },
 	                            "Likes"
 	                        )
 	                    )
@@ -56396,7 +56311,7 @@
 	                        { className: "tab-pane active", id: "all", role: "tabpanel", "aria-labelledby": "home-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-4" },
+	                            { className: "card-columns mt-2" },
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
 	                            _react2.default.createElement(_textPost.TextPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
@@ -56415,7 +56330,7 @@
 	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-4" },
+	                            { className: "card-columns mt-2" },
 	                            _react2.default.createElement(_textPost.TextPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
 	                            _react2.default.createElement(_songPost.SongPost, null),
@@ -56433,7 +56348,7 @@
 	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-4" },
+	                            { className: "card-columns mt-2" },
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
 	                            _react2.default.createElement(_songPost.SongPost, null),
 	                            _react2.default.createElement(_albumPost.AlbumPost, null),
@@ -56453,7 +56368,7 @@
 	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-4" },
+	                            { className: "card-columns mt-2" },
 	                            _react2.default.createElement(_songPost.SongPost, null),
 	                            _react2.default.createElement(_albumPost.AlbumPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
@@ -56477,6 +56392,120 @@
 
 /***/ }),
 /* 423 */
+/*!***********************************************!*\
+  !*** ./src/app/views/components/UserBlock.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.UserBlock = undefined;
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 184);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 248);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var UserBlock = exports.UserBlock = function UserBlock(props) {
+	    return _react2.default.createElement(
+	        "div",
+	        { className: "jumbotron dark mb-2" },
+	        _react2.default.createElement(
+	            "div",
+	            { className: "profile-grid" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "profileImage text-center" },
+	                _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle" })
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "profileTags" },
+	                _react2.default.createElement(
+	                    "span",
+	                    { className: "badge badge-warning" },
+	                    inUser.verified
+	                )
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "profileInfo mt-4" },
+	                _react2.default.createElement(
+	                    "h1",
+	                    null,
+	                    " ",
+	                    inUser.publicName
+	                ),
+	                _react2.default.createElement(
+	                    "h2",
+	                    { className: "gold" },
+	                    " ",
+	                    _react2.default.createElement(
+	                        "i",
+	                        null,
+	                        " @",
+	                        inUser.username,
+	                        " "
+	                    ),
+	                    " "
+	                ),
+	                _react2.default.createElement(
+	                    "h5",
+	                    null,
+	                    _react2.default.createElement("span", { className: "oi oi-location postIcons pr-2", title: "location" }),
+	                    " Location"
+	                )
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "profileFollow mr-4" },
+	                _react2.default.createElement(
+	                    "h2",
+	                    { className: "gold" },
+	                    "Followers"
+	                ),
+	                _react2.default.createElement(
+	                    "h3",
+	                    null,
+	                    inUser.followers.length
+	                ),
+	                _react2.default.createElement(
+	                    "h2",
+	                    { className: "gold" },
+	                    "Following"
+	                ),
+	                _react2.default.createElement(
+	                    "h3",
+	                    null,
+	                    inUser.following.length
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { type: "button", className: "btn btn-outline-success mt-2 px-5 mx-2", onClick: routerUpload },
+	                    " Upload + "
+	                ),
+	                _react2.default.createElement(
+	                    "button",
+	                    { type: "button", className: "btn btn-outline-success mt-2 px-5", onClick: signOut },
+	                    " Logout"
+	                )
+	            )
+	        )
+	    );
+	};
+
+/***/ }),
+/* 424 */
 /*!*********************************!*\
   !*** ./src/app/views/Upload.js ***!
   \*********************************/
@@ -56529,7 +56558,7 @@
 	                    null,
 	                    "Caption"
 	                ),
-	                _react2.default.createElement("input", { type: "text", className: "form-control theme my-3", placeholder: "100 Charater Limit" }),
+	                _react2.default.createElement("input", { type: "text", className: "form-control dark my-3 py-3", placeholder: "100 Charater Limit" }),
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,
@@ -56541,12 +56570,12 @@
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "col-sm-4" },
-	                        _react2.default.createElement("img", { src: "images/coverArt.png", className: "fillCover" })
+	                        _react2.default.createElement("img", { src: "images/coverArt.png", className: "w-100 dark" })
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "col-sm-8 pt-1" },
-	                        _react2.default.createElement("input", { type: "text", className: "form-control theme py-3", placeholder: "Song Name" }),
+	                        _react2.default.createElement("input", { type: "text", className: "form-control dark py-3", placeholder: "Song Name" }),
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "input-group my-3" },
@@ -56559,7 +56588,7 @@
 	                                    "@"
 	                                )
 	                            ),
-	                            _react2.default.createElement("input", { type: "text", className: "form-control theme", placeholder: "Featuring" })
+	                            _react2.default.createElement("input", { type: "text", className: "form-control dark ", placeholder: "Featuring" })
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
@@ -56573,7 +56602,7 @@
 	                                    "#"
 	                                )
 	                            ),
-	                            _react2.default.createElement("input", { type: "text", className: "form-control theme", placeholder: "Vibes (5 Max)" })
+	                            _react2.default.createElement("input", { type: "text", className: "form-control dark", placeholder: "Vibes (5 Max)" })
 	                        ),
 	                        _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
 	                        _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
@@ -56596,151 +56625,115 @@
 	                        _react2.default.createElement("br", null),
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "rightAlign" },
+	                            { className: "text-right" },
 	                            _react2.default.createElement(
 	                                "button",
 	                                { className: "btn btn-light" },
-	                                " + Add Next Song"
-	                            ),
-	                            _react2.default.createElement(
-	                                "button",
-	                                { className: "btn btn-warning mx-3" },
-	                                " Publish ",
-	                                _react2.default.createElement("span", { className: "oi oi-cloud-upload", title: "cloud-upload" })
+	                                " + Add Another Song"
 	                            )
 	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "mt-5" },
-	                    _react2.default.createElement("input", { type: "text", className: "form-control theme py-3 mr-5 mb-3", placeholder: "Album Name" }),
+	                    ),
 	                    _react2.default.createElement(
-	                        "table",
-	                        { className: "table" },
+	                        "div",
+	                        { className: "container pt-4 " },
 	                        _react2.default.createElement(
-	                            "thead",
-	                            { className: "thead-light" },
-	                            _react2.default.createElement(
-	                                "tr",
-	                                null,
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "col" },
-	                                    "#"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "col" },
-	                                    "Song"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "col" },
-	                                    "@Features"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "col" },
-	                                    "#Vibes"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "col" },
-	                                    "Lyrics"
-	                                )
-	                            )
+	                            "div",
+	                            null,
+	                            _react2.default.createElement("input", { type: "text", className: "form-control dark py-4", placeholder: "Album Name" })
 	                        ),
 	                        _react2.default.createElement(
-	                            "tbody",
+	                            "div",
 	                            null,
 	                            _react2.default.createElement(
-	                                "tr",
-	                                null,
+	                                "table",
+	                                { className: "table dark" },
 	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "row" },
-	                                    "1"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
+	                                    "tbody",
 	                                    null,
-	                                    "Fun House"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "@Otto"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "#mdo, #driving, #rap "
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    _react2.default.createElement("span", { className: "oi oi-check", title: "check" })
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                "tr",
-	                                null,
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "row" },
-	                                    "2"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "Gold"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "@Thornton"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "#fat, #bass"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    _react2.default.createElement("span", { className: "oi oi-check", title: "check" })
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                "tr",
-	                                null,
-	                                _react2.default.createElement(
-	                                    "th",
-	                                    { scope: "row" },
-	                                    "3"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "Ice"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "@theBird"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    "#pop"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "td",
-	                                    null,
-	                                    _react2.default.createElement("span", { className: "oi oi-check", title: "check" })
+	                                    _react2.default.createElement(
+	                                        "tr",
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            "th",
+	                                            { scope: "row" },
+	                                            "1"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "Mark"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "Otto"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "@mdo"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "tr",
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            "th",
+	                                            { scope: "row" },
+	                                            "2"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "Jacob"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "Thornton"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "@fat"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "tr",
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            "th",
+	                                            { scope: "row" },
+	                                            "3"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "Larry"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "the Bird"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "td",
+	                                            null,
+	                                            "@twitter"
+	                                        )
+	                                    )
 	                                )
 	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "container text-right mt-3 " },
+	                        _react2.default.createElement(
+	                            "button",
+	                            { className: "btn btn-warning " },
+	                            " Publish ",
+	                            _react2.default.createElement("span", { className: "oi oi-cloud-upload", title: "cloud-upload" })
 	                        )
 	                    )
 	                )

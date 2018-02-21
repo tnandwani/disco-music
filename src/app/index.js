@@ -3,7 +3,6 @@ import { render } from "react-dom";
 import { Router, Route, browserHistory, IndexRoute } from "react-router";
 import { Root } from "./views/Root";
 import { Home } from "./views/Home";
-import { User } from "./views/User";
 import { Upload } from "./views/Upload";
 
 
@@ -32,7 +31,6 @@ class App extends React.Component {
             <Router history={browserHistory}>
                 <Route path={"/"} component={Root} >
                     <IndexRoute component={Home} />
-                    <Route path={"user"} component={User} />
                     <Route path={"home"} component={Home} />
                     <Route path={"upload"} component={Upload} />
                 </Route>

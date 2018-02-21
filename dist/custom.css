@@ -127,34 +127,9 @@ gray/silver: BDC6C6 */
 
 /* USER PROFILE CSS */
 
-.profileImage {
-    grid-area: profileImage;
-}
-
 .profileCircle {
     height: 200px;
     width: 200px;
-}
-
-.profileTags {
-    grid-area: profileTags;
-}
-
-.profileInfo {
-    grid-area: profileInfo;
-    text-align: left;
-}
-
-.profileFollow {
-    grid-area: profileFollow;
-    text-align: right;
-}
-
-.profile-grid {
-    display: grid;
-    grid-template-areas: 'profileImage profileInfo profileFollow' 'profileTags profileInfo profileFollow';
-    grid-gap: 10px;
-    padding: 10px;
 }
 
 /* POST CSS  */

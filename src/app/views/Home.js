@@ -6,6 +6,7 @@ import { SongPost } from "./components/posts/songPost";
 import { AlbumPost } from "./components/posts/albumPost";
 import { PlaylistPost } from "./components/posts/playlistPost";
 import { TextPost } from "./components/posts/textPost";
+import { UserBlock } from "./components/blocks/UserBlock";
 
 export class Home extends React.Component {
 
@@ -13,9 +14,14 @@ export class Home extends React.Component {
 
         return (
             <div>
-                
+
+                <div className="container dark mb-2"  >
+                    <UserBlock />
+                    
+                </div>
+
                 <div className="card-columns">
-              
+
                     <AlbumPost />
                     <TextPost />
                     <SongPost />

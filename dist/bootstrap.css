@@ -3886,7 +3886,7 @@ tbody.collapse.show {
 
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-item.show .nav-link {
-  color: #495057;
+  color: #D7B659;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
@@ -3903,8 +3903,8 @@ tbody.collapse.show {
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #D7B659;
+  color: #D7B659;
+  background-color: #111;
 }
 
 .nav-fill .nav-item {

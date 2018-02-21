@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 
-import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Leftbar } from "./components/Leftbar";
 import { Rightbar } from "./components/Rightbar";
-import { CreateAccount } from "./components/CreateAccount";
-import { SignIn } from "./components/SignIn";
+import { CreateAccount } from "./components/popups/CreateAccount";
+import { SignIn } from "./components/popups/SignIn";
 
 
 
@@ -71,7 +70,7 @@ export class Root extends React.Component {
 					<Leftbar /> 
 				</div>
 
-				<div className="layoutMain">
+				<div className="layoutMain pt-3">
 					<div className="container">
 						{this.props.children}
 					</div>

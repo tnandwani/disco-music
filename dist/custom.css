@@ -42,7 +42,6 @@ gray/silver: BDC6C6 */
     position: fixed;
     width: 18%;
     height: 100%;
-   
 }
 
 .layoutMain {
@@ -55,13 +54,9 @@ gray/silver: BDC6C6 */
 
 .layout-grid {
     display: grid;
-    grid-template-areas:
-     'menu main main main' 
-     'menu main main main  '
-      'footer footer footer footer  ';
+    grid-template-areas: 'menu main main main' 'menu main main main  ' 'footer footer footer footer  ';
     background-color: #222;
 }
-
 
 /* SLIDEOUT */
 
@@ -75,12 +70,15 @@ gray/silver: BDC6C6 */
 }
 
 .scroll {
-    overflow-y: scroll;       
+    overflow-y: scroll;
 }
+
+
+
 
 .leftbarNew {
     position: fixed;
-    width:25%;
+    width: 25%;
     top: 0;
     bottom: 0;
 }
@@ -117,7 +115,9 @@ gray/silver: BDC6C6 */
     min-height: 100vh;
 }
 
-.slideout-open, .slideout-open body, .slideout-open .slideout-panel {
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
     overflow: hidden;
 }
 
@@ -128,8 +128,8 @@ gray/silver: BDC6C6 */
 /* USER PROFILE CSS */
 
 .profileCircle {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
 }
 
 /* POST CSS  */
@@ -182,7 +182,28 @@ gray/silver: BDC6C6 */
     font-size: 12px;
 }
 
+.bigIcon {
+    font-size: 20px;
+}
+
 /* FOOTER CSS */
+
+.footerLeft {
+    grid-area: footerLeft;
+}
+
+.footerCenter {
+    grid-area: footerCenter;
+}
+
+.footerRight {
+    grid-area: footerRight;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-areas: 'footerLeft footerCenter footerCenter footerCenter footerCenter footerRight';
+}
 
 .footerBar {
     width: 100%;
@@ -191,6 +212,19 @@ gray/silver: BDC6C6 */
     bottom: 0;
 }
 
+.ten {
+    height: 10%;
+    position: fixed;
+    left: 0;
+}
+
 .footerCover {
     width: 100%;
+}
+
+.footerIcon {
+    font-size: 25px;
+}
+.controlIcon {
+    font-size: 35px;
 }

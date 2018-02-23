@@ -7,6 +7,7 @@ import { AlbumPost } from "./components/posts/albumPost";
 import { PlaylistPost } from "./components/posts/playlistPost";
 import { TextPost } from "./components/posts/textPost";
 import { UserBlock } from "./components/blocks/UserBlock";
+import { AlbumBlock } from "./components/blocks/AlbumBlock";
 
 export class Home extends React.Component {
 
@@ -15,8 +16,10 @@ export class Home extends React.Component {
         return (
             <div>
 
-                <div className="container dark mb-2"  >
-                    <UserBlock />
+                <div className="container dark "  >
+                    {/* <UserBlock /> */}
+{/*                     
+                    <AlbumBlock/> */}
                     
                 </div>
 

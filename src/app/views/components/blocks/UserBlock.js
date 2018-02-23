@@ -9,12 +9,13 @@ export class UserBlock extends React.Component {
 
             <div>
 
-                <div className="row p-3" >
-                    <div className="col text-center" >
-                        <img src="images/profile.png" className="rounded-circle w-75" />
+                <div className="row container p-3 text-center" >
+                    <div className="col text-right" >
+                        <img src="images/profile.png" className="rounded-circle profileCircle" />
+                        
 
                     </div>
-                    <div className="col p-3">
+                    <div className="col p-3 ">
                         <h1 > {inUser.publicName}</h1>
                         <h1 className="gold py-3"> <i> @{inUser.username} </i> </h1>
                         <h5 ><span className="oi oi-location postIcons pr-2" title="location"></span> Location</h5>
@@ -24,11 +25,10 @@ export class UserBlock extends React.Component {
                     </div>
                     <div className="col p-3">
 
-                        <h2 className="white">Followers</h2>             
-                        <h2 className="gold">{inUser.followers.length}</h2>       
-                        <h2 className="white">Following </h2>                    
-                        <h2 className="gold">{inUser.following.length}</h2>
-                        <button type="button" className="btn btn-outline-secondary mt-2 px-4" onClick={signOut} > Logout</button>
+                        <h2 className="white">Followers <small className="gold">{inUser.followers.length}</small> </h2>        
+                        <h2 className="white py-3">Following <small className="gold">{inUser.following.length}</small> </h2>             
+
+                        <button type="button" className="btn btn-outline-secondary mt-2 px-5" onClick={signOut} > Logout</button>
 
 
 

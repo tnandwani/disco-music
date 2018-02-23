@@ -77,7 +77,7 @@ export class Root extends React.Component {
 
 				</div>
 
-				<div className="layoutFooter">
+				<div className="layoutFooter footerBar dark">
 					<Footer />
 				</div>
 

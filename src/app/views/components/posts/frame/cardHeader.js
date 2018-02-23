@@ -18,7 +18,7 @@ export class CardHeader extends React.Component {
                         <a className="white" href=""><h6>@Username</h6></a>
 
                     </div>
-                    <div className="col-sm rightAlign">
+                    <div className="col-sm text-right">
                         <span className="oi oi-ellipses pr-2" title="ellipses"></span>
 
                     </div>

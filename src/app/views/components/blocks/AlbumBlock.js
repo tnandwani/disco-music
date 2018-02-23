@@ -2,45 +2,53 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 
-
-function routerUpload() {
-    browserHistory.push("/upload");
-}
-
-
-export class UserBlock extends React.Component {
+export class AlbumBlock extends React.Component {
 
     render() {
         return (
 
-            <div className=" container dark mb-2">
-                <div className="profile-grid">
-                    <div className="profileImage text-center">
-                        <img src="images/profile.png" className="rounded-circle profileCircle" />
-                    </div>
-                    <div className="profileTags"><span className="badge badge-warning">{inUser.verified}</span>
+            <div>
 
-                    </div>
-                    <div className="profileInfo mt-4">
-                        <h1> {inUser.publicName}</h1>
-                        <h2 className="gold"> <i> @{inUser.username} </i> </h2>
-                        <h5 ><span className="oi oi-location postIcons pr-2" title="location"></span> Location</h5>
+                <div className="row container p-3 text-center" >
+                    <div className="col text-right" >
+                        <img src="images/coverArt.png" className="profileCircle" />
 
 
                     </div>
-                    <div className="profileFollow mr-4">
+                    <div className="col p-3 ">
+                        <h1 > Album Name</h1>
+                        <h1 className="gold py-3"> Artist </h1>
+                        <h4 > <i> #Vibes</i></h4>
 
-                        <h2 className="gold">Followers</h2>
-                        <h3>{inUser.followers.length}</h3>
-                        <h2 className="gold">Following</h2>
-                        <h3>{inUser.following.length}</h3>
 
-                        <button type="button" className="btn btn-outline-success mt-2 px-5 mx-2" onClick={routerUpload} > Upload + </button>
-                        <button type="button" className="btn btn-outline-success mt-2 px-5" onClick={signOut} > Logout</button>
 
                     </div>
+                    <div className="col p-3">
 
+                        <button type="button" className="btn btn-outline-secondary w-75">
+                            <span className="oi oi-plus pr-2" title="plus"></span>
+                            Save
+                        </button>
+                        <br/>
+                        <button type="button" className="btn btn-outline-secondary w-75 my-3">
+                            <span className="oi oi-fire pr-2" title="fire"></span>
+                            Share
+                        </button>
+                        <br/>
+                        <button type="button" className="btn btn-outline-secondary w-75 mb-3">
+                            <span className="oi oi-heart pr-2" title="heart"></span>
+                            Like
+                        </button>
+
+                        <button type="button" className="btn btn-outline-secondary w-75">
+                            <span className="oi oi-share pr-2" title="share"></span>
+                            Send
+                        </button>
+
+
+                    </div>
                 </div>
+
 
             </div>
 

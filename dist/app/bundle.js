@@ -61,9 +61,9 @@
 	
 	var _Root = __webpack_require__(/*! ./views/Root */ 247);
 	
-	var _Home = __webpack_require__(/*! ./views/Home */ 415);
+	var _Home = __webpack_require__(/*! ./views/Home */ 414);
 	
-	var _User = __webpack_require__(/*! ./views/User */ 422);
+	var _User = __webpack_require__(/*! ./views/User */ 423);
 	
 	var _Upload = __webpack_require__(/*! ./views/Upload */ 424);
 	
@@ -103,9 +103,9 @@
 	                    _reactRouter.Route,
 	                    { path: "/", component: _Root.Root },
 	                    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home.Home }),
-	                    _react2.default.createElement(_reactRouter.Route, { path: "user", component: _User.User }),
 	                    _react2.default.createElement(_reactRouter.Route, { path: "home", component: _Home.Home }),
-	                    _react2.default.createElement(_reactRouter.Route, { path: "upload", component: _Upload.Upload })
+	                    _react2.default.createElement(_reactRouter.Route, { path: "upload", component: _Upload.Upload }),
+	                    _react2.default.createElement(_reactRouter.Route, { path: "user", component: _User.User })
 	                )
 	            );
 	        }
@@ -28341,19 +28341,17 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _Header = __webpack_require__(/*! ./components/Header */ 250);
+	var _Footer = __webpack_require__(/*! ./components/Footer */ 250);
 	
-	var _Footer = __webpack_require__(/*! ./components/Footer */ 251);
+	var _Leftbar = __webpack_require__(/*! ./components/Leftbar */ 251);
 	
-	var _Leftbar = __webpack_require__(/*! ./components/Leftbar */ 252);
+	var _Rightbar = __webpack_require__(/*! ./components/Rightbar */ 252);
 	
-	var _Rightbar = __webpack_require__(/*! ./components/Rightbar */ 253);
+	var _CreateAccount = __webpack_require__(/*! ./components/popups/CreateAccount */ 253);
 	
-	var _CreateAccount = __webpack_require__(/*! ./components/CreateAccount */ 254);
+	var _SignIn = __webpack_require__(/*! ./components/popups/SignIn */ 254);
 	
-	var _SignIn = __webpack_require__(/*! ./components/SignIn */ 255);
-	
-	var _firebase = __webpack_require__(/*! firebase */ 256);
+	var _firebase = __webpack_require__(/*! firebase */ 255);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -28436,7 +28434,7 @@
 					),
 					_react2.default.createElement(
 						"div",
-						{ className: "layoutFooter" },
+						{ className: "layoutFooter footerBar" },
 						_react2.default.createElement(_Footer.Footer, null)
 					)
 				);
@@ -28554,119 +28552,6 @@
 /***/ }),
 /* 250 */
 /*!********************************************!*\
-  !*** ./src/app/views/components/Header.js ***!
-  \********************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.Header = undefined;
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 184);
-	
-	var _propTypes = __webpack_require__(/*! prop-types */ 248);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Header = exports.Header = function Header(props) {
-	
-	    return _react2.default.createElement(
-	        "nav",
-	        { className: "navbar navbar-expand-lg navbar-dark bg-dark fixed-top" },
-	        _react2.default.createElement(
-	            "button",
-	            { className: "navbar-toggler", type: "button", "data-toggle": "collapse", "data-target": "#navbarTogglerDemo03", "aria-controls": "navbarTogglerDemo03", "aria-expanded": "false", "aria-label": "Toggle navigation" },
-	            _react2.default.createElement("span", { className: "navbar-toggler-icon" })
-	        ),
-	        _react2.default.createElement(
-	            "li",
-	            { className: "navbar-brand" },
-	            _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: "/home", activeStyle: { color: "#D7B659" } },
-	                "DISCO",
-	                _react2.default.createElement(
-	                    "span",
-	                    { className: "badge badge-secondary ml-2" },
-	                    _react2.default.createElement("span", { className: "oi oi-beaker pr-1", title: "beaker" }),
-	                    "Alpha"
-	                )
-	            )
-	        ),
-	        _react2.default.createElement(
-	            "div",
-	            { className: "collapse navbar-collapse", id: "navbarTogglerDemo03" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "navbar-nav mr-auto" },
-	                _react2.default.createElement(
-	                    "ul",
-	                    { className: "navbar-nav mt-2 mt-lg-0" },
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "nav-item px-3" },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { id: "propName", to: "/user", activeStyle: { color: "#D7B659" } },
-	                            props.name
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "nav-item" },
-	                        _react2.default.createElement(
-	                            _reactRouter.Link,
-	                            { to: "/upload", activeStyle: { color: "#D7B659" } },
-	                            "Upload +"
-	                        )
-	                    )
-	                )
-	            ),
-	            _react2.default.createElement(
-	                "form",
-	                { className: "form-inline my-2 my-lg-0 mr-auto" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "input-group" },
-	                    _react2.default.createElement(
-	                        "button",
-	                        { type: "button", className: "btn btn-warning px-3", "data-toggle": "modal", "data-target": "#signInModal" },
-	                        "Sign In"
-	                    ),
-	                    _react2.default.createElement(
-	                        "button",
-	                        { type: "button", className: "btn btn-outline-warning mx-2", "data-toggle": "modal", "data-target": "#createModal" },
-	                        "Create Account"
-	                    )
-	                )
-	            ),
-	            _react2.default.createElement(
-	                "form",
-	                { className: "form-inline my-2 my-lg-0" },
-	                _react2.default.createElement("span", { className: "oi oi-magnifying-glass postIcons mr-2", title: "magnifying-glass" }),
-	                _react2.default.createElement("input", { type: "text", className: "form-control searchbar px-4", placeholder: "Search Everything..." })
-	            ),
-	            _react2.default.createElement(
-	                "button",
-	                { type: "button", className: "btn btn-outline-warning" },
-	                "Search"
-	            )
-	        )
-	    );
-	};
-
-/***/ }),
-/* 251 */
-/*!********************************************!*\
   !*** ./src/app/views/components/Footer.js ***!
   \********************************************/
 /***/ (function(module, exports, __webpack_require__) {
@@ -28693,17 +28578,27 @@
 	var Footer = exports.Footer = function Footer(props) {
 	    return _react2.default.createElement(
 	        "div",
-	        { className: "footerBar dark text-center" },
+	        { className: "footer-grid" },
 	        _react2.default.createElement(
-	            "h1",
-	            null,
-	            "FOOTER HERE"
+	            "div",
+	            { className: "footerLeft" },
+	            "hi"
+	        ),
+	        _react2.default.createElement(
+	            "div",
+	            { className: "footerCenter" },
+	            "hi"
+	        ),
+	        _react2.default.createElement(
+	            "div",
+	            { className: "footerRight" },
+	            "hi"
 	        )
 	    );
 	};
 
 /***/ }),
-/* 252 */
+/* 251 */
 /*!*********************************************!*\
   !*** ./src/app/views/components/Leftbar.js ***!
   \*********************************************/
@@ -28739,6 +28634,11 @@
 	function routerHome() {
 	    _reactRouter.browserHistory.push("/home");
 	}
+	
+	function routerUpload() {
+	    _reactRouter.browserHistory.push("/upload");
+	}
+	
 	function routerUser() {
 	    _reactRouter.browserHistory.push("/user");
 	}
@@ -28762,36 +28662,42 @@
 	                    "div",
 	                    { className: "pt-3 pr-2 dark" },
 	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "/home" },
-	                        " ",
+	                        "div",
+	                        { className: "row" },
 	                        _react2.default.createElement(
-	                            "h1",
-	                            { className: "gold" },
-	                            " DISCO ",
+	                            "div",
+	                            { className: "col" },
 	                            _react2.default.createElement(
-	                                "span",
-	                                { className: "oi oi-beaker postIcons", title: "beaker" },
-	                                "  "
-	                            ),
-	                            " "
+	                                "a",
+	                                { href: "/home" },
+	                                " ",
+	                                _react2.default.createElement(
+	                                    "h1",
+	                                    { className: "gold" },
+	                                    " DISCO"
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col text-right pt-2 mr-3" },
+	                            _react2.default.createElement(
+	                                "a",
+	                                { href: "", className: "bigIcon" },
+	                                _react2.default.createElement("span", { className: "oi oi-person postIcons", title: "plus", onClick: routerUser }),
+	                                " Profile"
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "input-group" },
-	                        _react2.default.createElement("input", { type: "search", className: "form-control", placeholder: "Search" }),
-	                        _react2.default.createElement("span", { className: "oi oi-magnifying-glass mt-2 ml-1 ", title: "magnifying-glass" })
+	                        _react2.default.createElement("input", { type: "search", className: "form-control", placeholder: "Search" })
 	                    ),
 	                    _react2.default.createElement(
-	                        "a",
-	                        { href: "" },
-	                        "  ",
-	                        _react2.default.createElement(
-	                            "h5",
-	                            { className: "mt-2 py-2", onClick: routerUser },
-	                            "  My Profile   "
-	                        )
+	                        "button",
+	                        { className: "btn-sm btn-outline-warning px-3 mt-2 w-100 py-2", onClick: routerUpload },
+	                        " Upload + "
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -28800,28 +28706,22 @@
 	                    _react2.default.createElement(
 	                        "h6",
 	                        { className: "mt-3" },
-	                        " Feeds ",
-	                        _react2.default.createElement("span", { className: "oi oi-plus smallIcon ml-2", title: "plus" })
+	                        " Discover"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "home" },
+	                        { className: "nav-link ml-2 ", href: "#" },
 	                        "Home"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "home" },
+	                        { className: "nav-link ml-2 ", href: "#" },
 	                        "New Releases"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
 	                        { className: "nav-link ml-2 ", href: "#" },
 	                        "Popular"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
-	                        "Best Friends"
 	                    ),
 	                    _react2.default.createElement(
 	                        "h6",
@@ -28839,11 +28739,6 @@
 	                        "a",
 	                        { className: "nav-link ml-2 ", href: "#" },
 	                        "Study"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
-	                        "Beats"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
@@ -28879,7 +28774,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 253 */
+/* 252 */
 /*!**********************************************!*\
   !*** ./src/app/views/components/Rightbar.js ***!
   \**********************************************/
@@ -28938,10 +28833,10 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 254 */
-/*!***************************************************!*\
-  !*** ./src/app/views/components/CreateAccount.js ***!
-  \***************************************************/
+/* 253 */
+/*!**********************************************************!*\
+  !*** ./src/app/views/components/popups/CreateAccount.js ***!
+  \**********************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29048,10 +28943,10 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 255 */
-/*!********************************************!*\
-  !*** ./src/app/views/components/SignIn.js ***!
-  \********************************************/
+/* 254 */
+/*!***************************************************!*\
+  !*** ./src/app/views/components/popups/SignIn.js ***!
+  \***************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29151,7 +29046,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 256 */
+/* 255 */
 /*!*****************************!*\
   !*** ./~/firebase/index.js ***!
   \*****************************/
@@ -29173,17 +29068,17 @@
 	 * limitations under the License.
 	 */
 	
-	var firebase = __webpack_require__(/*! ./app */ 257);
-	__webpack_require__(/*! ./auth */ 284);
-	__webpack_require__(/*! ./database */ 286);
-	__webpack_require__(/*! ./messaging */ 369);
-	__webpack_require__(/*! ./storage */ 381);
+	var firebase = __webpack_require__(/*! ./app */ 256);
+	__webpack_require__(/*! ./auth */ 283);
+	__webpack_require__(/*! ./database */ 285);
+	__webpack_require__(/*! ./messaging */ 368);
+	__webpack_require__(/*! ./storage */ 380);
 	
 	module.exports = firebase;
 
 
 /***/ }),
-/* 257 */
+/* 256 */
 /*!*********************************!*\
   !*** ./~/firebase/app/index.js ***!
   \*********************************/
@@ -29205,12 +29100,12 @@
 	 * limitations under the License.
 	 */
 	
-	__webpack_require__(/*! @firebase/polyfill */ 258);
-	module.exports = __webpack_require__(/*! @firebase/app */ 265).default;
+	__webpack_require__(/*! @firebase/polyfill */ 257);
+	module.exports = __webpack_require__(/*! @firebase/app */ 264).default;
 
 
 /***/ }),
-/* 258 */
+/* 257 */
 /*!************************************************!*\
   !*** ./~/@firebase/polyfill/dist/cjs/index.js ***!
   \************************************************/
@@ -29233,15 +29128,15 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	__webpack_require__(/*! ./src/polyfills/promise */ 259);
-	__webpack_require__(/*! ./src/shims/find */ 263);
-	__webpack_require__(/*! ./src/shims/findIndex */ 264);
+	__webpack_require__(/*! ./src/polyfills/promise */ 258);
+	__webpack_require__(/*! ./src/shims/find */ 262);
+	__webpack_require__(/*! ./src/shims/findIndex */ 263);
 	
 	//# sourceMappingURL=index.js.map
 
 
 /***/ }),
-/* 259 */
+/* 258 */
 /*!****************************************************************!*\
   !*** ./~/@firebase/polyfill/dist/cjs/src/polyfills/promise.js ***!
   \****************************************************************/
@@ -29277,7 +29172,7 @@
 	// Polyfill Promise
 	if (typeof Promise === 'undefined') {
 	    // HACK: TS throws an error if I attempt to use 'dot-notation'
-	    __global['Promise'] = Promise = __webpack_require__(/*! promise-polyfill */ 260);
+	    __global['Promise'] = Promise = __webpack_require__(/*! promise-polyfill */ 259);
 	}
 	
 	//# sourceMappingURL=promise.js.map
@@ -29285,7 +29180,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 260 */
+/* 259 */
 /*!***************************************!*\
   !*** ./~/promise-polyfill/promise.js ***!
   \***************************************/
@@ -29525,10 +29420,10 @@
 	
 	})(this);
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../timers-browserify/main.js */ 261).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../timers-browserify/main.js */ 260).setImmediate))
 
 /***/ }),
-/* 261 */
+/* 260 */
 /*!*************************************!*\
   !*** ./~/timers-browserify/main.js ***!
   \*************************************/
@@ -29584,13 +29479,13 @@
 	};
 	
 	// setimmediate attaches itself to the global object
-	__webpack_require__(/*! setimmediate */ 262);
+	__webpack_require__(/*! setimmediate */ 261);
 	exports.setImmediate = setImmediate;
 	exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 262 */
+/* 261 */
 /*!****************************************!*\
   !*** ./~/setimmediate/setImmediate.js ***!
   \****************************************/
@@ -29786,7 +29681,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../process/browser.js */ 3)))
 
 /***/ }),
-/* 263 */
+/* 262 */
 /*!*********************************************************!*\
   !*** ./~/@firebase/polyfill/dist/cjs/src/shims/find.js ***!
   \*********************************************************/
@@ -29853,7 +29748,7 @@
 
 
 /***/ }),
-/* 264 */
+/* 263 */
 /*!**************************************************************!*\
   !*** ./~/@firebase/polyfill/dist/cjs/src/shims/findIndex.js ***!
   \**************************************************************/
@@ -29920,7 +29815,7 @@
 
 
 /***/ }),
-/* 265 */
+/* 264 */
 /*!*******************************************!*\
   !*** ./~/@firebase/app/dist/cjs/index.js ***!
   \*******************************************/
@@ -29943,7 +29838,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var firebaseApp_1 = __webpack_require__(/*! ./src/firebaseApp */ 266);
+	var firebaseApp_1 = __webpack_require__(/*! ./src/firebaseApp */ 265);
 	exports.firebase = firebaseApp_1.createFirebaseNamespace();
 	exports.default = exports.firebase;
 	
@@ -29952,7 +29847,7 @@
 
 
 /***/ }),
-/* 266 */
+/* 265 */
 /*!*****************************************************!*\
   !*** ./~/@firebase/app/dist/cjs/src/firebaseApp.js ***!
   \*****************************************************/
@@ -29975,8 +29870,8 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	var contains = function (obj, key) {
 	    return Object.prototype.hasOwnProperty.call(obj, key);
 	};
@@ -30325,7 +30220,7 @@
 
 
 /***/ }),
-/* 267 */
+/* 266 */
 /*!********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/index.js ***!
   \********************************************/
@@ -30351,27 +30246,27 @@
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
-	__export(__webpack_require__(/*! ./src/assert */ 268));
-	__export(__webpack_require__(/*! ./src/crypt */ 270));
-	__export(__webpack_require__(/*! ./src/constants */ 269));
-	__export(__webpack_require__(/*! ./src/deepCopy */ 271));
-	__export(__webpack_require__(/*! ./src/deferred */ 272));
-	__export(__webpack_require__(/*! ./src/environment */ 273));
-	__export(__webpack_require__(/*! ./src/errors */ 274));
-	__export(__webpack_require__(/*! ./src/json */ 275));
-	__export(__webpack_require__(/*! ./src/jwt */ 276));
-	__export(__webpack_require__(/*! ./src/obj */ 277));
-	__export(__webpack_require__(/*! ./src/query */ 278));
-	__export(__webpack_require__(/*! ./src/sha1 */ 279));
-	__export(__webpack_require__(/*! ./src/subscribe */ 281));
-	__export(__webpack_require__(/*! ./src/validation */ 282));
-	__export(__webpack_require__(/*! ./src/utf8 */ 283));
+	__export(__webpack_require__(/*! ./src/assert */ 267));
+	__export(__webpack_require__(/*! ./src/crypt */ 269));
+	__export(__webpack_require__(/*! ./src/constants */ 268));
+	__export(__webpack_require__(/*! ./src/deepCopy */ 270));
+	__export(__webpack_require__(/*! ./src/deferred */ 271));
+	__export(__webpack_require__(/*! ./src/environment */ 272));
+	__export(__webpack_require__(/*! ./src/errors */ 273));
+	__export(__webpack_require__(/*! ./src/json */ 274));
+	__export(__webpack_require__(/*! ./src/jwt */ 275));
+	__export(__webpack_require__(/*! ./src/obj */ 276));
+	__export(__webpack_require__(/*! ./src/query */ 277));
+	__export(__webpack_require__(/*! ./src/sha1 */ 278));
+	__export(__webpack_require__(/*! ./src/subscribe */ 280));
+	__export(__webpack_require__(/*! ./src/validation */ 281));
+	__export(__webpack_require__(/*! ./src/utf8 */ 282));
 	
 	//# sourceMappingURL=index.js.map
 
 
 /***/ }),
-/* 268 */
+/* 267 */
 /*!*************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/assert.js ***!
   \*************************************************/
@@ -30394,7 +30289,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var constants_1 = __webpack_require__(/*! ./constants */ 269);
+	var constants_1 = __webpack_require__(/*! ./constants */ 268);
 	/**
 	 * Throws an error if the provided assertion is falsy
 	 * @param {*} assertion The assertion to be tested for falsiness
@@ -30421,7 +30316,7 @@
 
 
 /***/ }),
-/* 269 */
+/* 268 */
 /*!****************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/constants.js ***!
   \****************************************************/
@@ -30466,7 +30361,7 @@
 
 
 /***/ }),
-/* 270 */
+/* 269 */
 /*!************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/crypt.js ***!
   \************************************************/
@@ -30754,7 +30649,7 @@
 
 
 /***/ }),
-/* 271 */
+/* 270 */
 /*!***************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/deepCopy.js ***!
   \***************************************************/
@@ -30838,7 +30733,7 @@
 
 
 /***/ }),
-/* 272 */
+/* 271 */
 /*!***************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/deferred.js ***!
   \***************************************************/
@@ -30908,7 +30803,7 @@
 
 
 /***/ }),
-/* 273 */
+/* 272 */
 /*!******************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/environment.js ***!
   \******************************************************/
@@ -30931,7 +30826,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var constants_1 = __webpack_require__(/*! ./constants */ 269);
+	var constants_1 = __webpack_require__(/*! ./constants */ 268);
 	/**
 	 * Returns navigator.userAgent string or '' if it's not defined.
 	 * @return {string} user agent string
@@ -30979,7 +30874,7 @@
 
 
 /***/ }),
-/* 274 */
+/* 273 */
 /*!*************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/errors.js ***!
   \*************************************************/
@@ -31071,7 +30966,7 @@
 
 
 /***/ }),
-/* 275 */
+/* 274 */
 /*!***********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/json.js ***!
   \***********************************************/
@@ -31118,7 +31013,7 @@
 
 
 /***/ }),
-/* 276 */
+/* 275 */
 /*!**********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/jwt.js ***!
   \**********************************************/
@@ -31141,8 +31036,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var crypt_1 = __webpack_require__(/*! ./crypt */ 270);
-	var json_1 = __webpack_require__(/*! ./json */ 275);
+	var crypt_1 = __webpack_require__(/*! ./crypt */ 269);
+	var json_1 = __webpack_require__(/*! ./json */ 274);
 	/**
 	 * Decodes a Firebase auth. token into constituent parts.
 	 *
@@ -31255,7 +31150,7 @@
 
 
 /***/ }),
-/* 277 */
+/* 276 */
 /*!**********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/obj.js ***!
   \**********************************************/
@@ -31399,7 +31294,7 @@
 
 
 /***/ }),
-/* 278 */
+/* 277 */
 /*!************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/query.js ***!
   \************************************************/
@@ -31422,7 +31317,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var obj_1 = __webpack_require__(/*! ./obj */ 277);
+	var obj_1 = __webpack_require__(/*! ./obj */ 276);
 	/**
 	 * Returns a querystring-formatted string (e.g. &arg=val&arg2=val2) from a params
 	 * object (e.g. {arg: 'val', arg2: 'val2'})
@@ -31467,7 +31362,7 @@
 
 
 /***/ }),
-/* 279 */
+/* 278 */
 /*!***********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/sha1.js ***!
   \***********************************************/
@@ -31500,7 +31395,7 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var hash_1 = __webpack_require__(/*! ./hash */ 280);
+	var hash_1 = __webpack_require__(/*! ./hash */ 279);
 	/**
 	 * @fileoverview SHA-1 cryptographic hash.
 	 * Variable names follow the notation in FIPS PUB 180-3:
@@ -31755,7 +31650,7 @@
 
 
 /***/ }),
-/* 280 */
+/* 279 */
 /*!***********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/hash.js ***!
   \***********************************************/
@@ -31819,7 +31714,7 @@
 
 
 /***/ }),
-/* 281 */
+/* 280 */
 /*!****************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/subscribe.js ***!
   \****************************************************/
@@ -32048,7 +31943,7 @@
 
 
 /***/ }),
-/* 282 */
+/* 281 */
 /*!*****************************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/validation.js ***!
   \*****************************************************/
@@ -32167,7 +32062,7 @@
 
 
 /***/ }),
-/* 283 */
+/* 282 */
 /*!***********************************************!*\
   !*** ./~/@firebase/util/dist/cjs/src/utf8.js ***!
   \***********************************************/
@@ -32190,7 +32085,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var assert_1 = __webpack_require__(/*! ./assert */ 268);
+	var assert_1 = __webpack_require__(/*! ./assert */ 267);
 	// Code originally came from goog.crypt.stringToUtf8ByteArray, but for some reason they
 	// automatically replaced '\r\n' with '\n', and they didn't handle surrogate pairs,
 	// so it's been modified.
@@ -32268,7 +32163,7 @@
 
 
 /***/ }),
-/* 284 */
+/* 283 */
 /*!**********************************!*\
   !*** ./~/firebase/auth/index.js ***!
   \**********************************/
@@ -32290,18 +32185,18 @@
 	 * limitations under the License.
 	 */
 	
-	__webpack_require__(/*! @firebase/auth */ 285);
+	__webpack_require__(/*! @firebase/auth */ 284);
 
 
 /***/ }),
-/* 285 */
+/* 284 */
 /*!***************************************!*\
   !*** ./~/@firebase/auth/dist/auth.js ***!
   \***************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {(function() {
-	  var firebase = __webpack_require__(/*! @firebase/app */ 265).default;
+	  var firebase = __webpack_require__(/*! @firebase/app */ 264).default;
 	  var h,aa=aa||{},k=this;function m(a){return"string"==typeof a}function ba(a){return"boolean"==typeof a}function ca(){}
 	function da(a){var b=typeof a;if("object"==b)if(a){if(a instanceof Array)return"array";if(a instanceof Object)return b;var c=Object.prototype.toString.call(a);if("[object Window]"==c)return"object";if("[object Array]"==c||"number"==typeof a.length&&"undefined"!=typeof a.splice&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("splice"))return"array";if("[object Function]"==c||"undefined"!=typeof a.call&&"undefined"!=typeof a.propertyIsEnumerable&&!a.propertyIsEnumerable("call"))return"function"}else return"null";
 	else if("function"==b&&"undefined"==typeof a.call)return"object";return b}function ea(a){return null===a}function fa(a){return"array"==da(a)}function ha(a){var b=da(a);return"array"==b||"object"==b&&"number"==typeof a.length}function p(a){return"function"==da(a)}function q(a){var b=typeof a;return"object"==b&&null!=a||"function"==b}var ia="closure_uid_"+(1E9*Math.random()>>>0),ja=0;function ka(a,b,c){return a.call.apply(a.bind,arguments)}
@@ -32593,7 +32488,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 286 */
+/* 285 */
 /*!**************************************!*\
   !*** ./~/firebase/database/index.js ***!
   \**************************************/
@@ -32615,11 +32510,11 @@
 	 * limitations under the License.
 	 */
 	
-	module.exports = __webpack_require__(/*! @firebase/database */ 287);
+	module.exports = __webpack_require__(/*! @firebase/database */ 286);
 
 
 /***/ }),
-/* 287 */
+/* 286 */
 /*!************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/index.js ***!
   \************************************************/
@@ -32642,19 +32537,19 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var app_1 = __webpack_require__(/*! @firebase/app */ 265);
-	var Database_1 = __webpack_require__(/*! ./src/api/Database */ 288);
+	var app_1 = __webpack_require__(/*! @firebase/app */ 264);
+	var Database_1 = __webpack_require__(/*! ./src/api/Database */ 287);
 	exports.Database = Database_1.Database;
-	var Query_1 = __webpack_require__(/*! ./src/api/Query */ 302);
+	var Query_1 = __webpack_require__(/*! ./src/api/Query */ 301);
 	exports.Query = Query_1.Query;
-	var Reference_1 = __webpack_require__(/*! ./src/api/Reference */ 297);
+	var Reference_1 = __webpack_require__(/*! ./src/api/Reference */ 296);
 	exports.Reference = Reference_1.Reference;
-	var util_1 = __webpack_require__(/*! ./src/core/util/util */ 289);
+	var util_1 = __webpack_require__(/*! ./src/core/util/util */ 288);
 	exports.enableLogging = util_1.enableLogging;
-	var RepoManager_1 = __webpack_require__(/*! ./src/core/RepoManager */ 364);
-	var INTERNAL = __webpack_require__(/*! ./src/api/internal */ 367);
-	var TEST_ACCESS = __webpack_require__(/*! ./src/api/test_access */ 368);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var RepoManager_1 = __webpack_require__(/*! ./src/core/RepoManager */ 363);
+	var INTERNAL = __webpack_require__(/*! ./src/api/internal */ 366);
+	var TEST_ACCESS = __webpack_require__(/*! ./src/api/test_access */ 367);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	var ServerValue = Database_1.Database.ServerValue;
 	exports.ServerValue = ServerValue;
 	function registerDatabase(instance) {
@@ -32676,16 +32571,16 @@
 	}
 	exports.registerDatabase = registerDatabase;
 	registerDatabase(app_1.default);
-	var DataSnapshot_1 = __webpack_require__(/*! ./src/api/DataSnapshot */ 318);
+	var DataSnapshot_1 = __webpack_require__(/*! ./src/api/DataSnapshot */ 317);
 	exports.DataSnapshot = DataSnapshot_1.DataSnapshot;
-	var onDisconnect_1 = __webpack_require__(/*! ./src/api/onDisconnect */ 298);
+	var onDisconnect_1 = __webpack_require__(/*! ./src/api/onDisconnect */ 297);
 	exports.OnDisconnect = onDisconnect_1.OnDisconnect;
 	
 	//# sourceMappingURL=index.js.map
 
 
 /***/ }),
-/* 288 */
+/* 287 */
 /*!***********************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/Database.js ***!
   \***********************************************************/
@@ -32708,14 +32603,14 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ../core/util/util */ 289);
-	var parser_1 = __webpack_require__(/*! ../core/util/libs/parser */ 293);
-	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 294);
-	var Reference_1 = __webpack_require__(/*! ./Reference */ 297);
-	var Repo_1 = __webpack_require__(/*! ../core/Repo */ 320);
-	var RepoManager_1 = __webpack_require__(/*! ../core/RepoManager */ 364);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 299);
+	var util_1 = __webpack_require__(/*! ../core/util/util */ 288);
+	var parser_1 = __webpack_require__(/*! ../core/util/libs/parser */ 292);
+	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 293);
+	var Reference_1 = __webpack_require__(/*! ./Reference */ 296);
+	var Repo_1 = __webpack_require__(/*! ../core/Repo */ 319);
+	var RepoManager_1 = __webpack_require__(/*! ../core/RepoManager */ 363);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 298);
 	/**
 	 * Class representing a firebase database.
 	 * @implements {FirebaseService}
@@ -32827,7 +32722,7 @@
 
 
 /***/ }),
-/* 289 */
+/* 288 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/util.js ***!
   \*************************************************************/
@@ -32850,14 +32745,14 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_4 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_5 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_6 = __webpack_require__(/*! @firebase/util */ 267);
-	var storage_1 = __webpack_require__(/*! ../storage/storage */ 290);
-	var util_7 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_4 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_5 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_6 = __webpack_require__(/*! @firebase/util */ 266);
+	var storage_1 = __webpack_require__(/*! ../storage/storage */ 289);
+	var util_7 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Returns a locally-unique ID (generated by just incrementing up from 0 each time its called).
 	 * @type {function(): number} Generated ID.
@@ -33467,7 +33362,7 @@
 
 
 /***/ }),
-/* 290 */
+/* 289 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/storage/storage.js ***!
   \*******************************************************************/
@@ -33490,8 +33385,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var DOMStorageWrapper_1 = __webpack_require__(/*! ./DOMStorageWrapper */ 291);
-	var MemoryStorage_1 = __webpack_require__(/*! ./MemoryStorage */ 292);
+	var DOMStorageWrapper_1 = __webpack_require__(/*! ./DOMStorageWrapper */ 290);
+	var MemoryStorage_1 = __webpack_require__(/*! ./MemoryStorage */ 291);
 	/**
 	 * Helper to create a DOMStorageWrapper or else fall back to MemoryStorage.
 	 * TODO: Once MemoryStorage and DOMStorageWrapper have a shared interface this method annotation should change
@@ -33528,7 +33423,7 @@
 
 
 /***/ }),
-/* 291 */
+/* 290 */
 /*!*****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/storage/DOMStorageWrapper.js ***!
   \*****************************************************************************/
@@ -33551,7 +33446,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Wraps a DOM Storage object and:
 	 * - automatically encode objects as JSON strings before storing them to allow us to store arbitrary types.
@@ -33620,7 +33515,7 @@
 
 
 /***/ }),
-/* 292 */
+/* 291 */
 /*!*************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/storage/MemoryStorage.js ***!
   \*************************************************************************/
@@ -33643,7 +33538,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * An in-memory storage implementation that matches the API of DOMStorageWrapper
 	 * (TODO: create interface for both to implement).
@@ -33680,7 +33575,7 @@
 
 
 /***/ }),
-/* 293 */
+/* 292 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/libs/parser.js ***!
   \********************************************************************/
@@ -33703,9 +33598,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Path_1 = __webpack_require__(/*! ../Path */ 294);
-	var RepoInfo_1 = __webpack_require__(/*! ../../RepoInfo */ 295);
-	var util_1 = __webpack_require__(/*! ../util */ 289);
+	var Path_1 = __webpack_require__(/*! ../Path */ 293);
+	var RepoInfo_1 = __webpack_require__(/*! ../../RepoInfo */ 294);
+	var util_1 = __webpack_require__(/*! ../util */ 288);
 	/**
 	 * @param {!string} pathString
 	 * @return {string}
@@ -33806,7 +33701,7 @@
 
 
 /***/ }),
-/* 294 */
+/* 293 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/Path.js ***!
   \*************************************************************/
@@ -33829,8 +33724,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ./util */ 289);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! ./util */ 288);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * An immutable object representing a parsed path.  It's immutable so that you
 	 * can pass them around to other functions without worrying about them changing
@@ -34141,7 +34036,7 @@
 
 
 /***/ }),
-/* 295 */
+/* 294 */
 /*!************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/RepoInfo.js ***!
   \************************************************************/
@@ -34164,10 +34059,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var storage_1 = __webpack_require__(/*! ./storage/storage */ 290);
-	var Constants_1 = __webpack_require__(/*! ../realtime/Constants */ 296);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var storage_1 = __webpack_require__(/*! ./storage/storage */ 289);
+	var Constants_1 = __webpack_require__(/*! ../realtime/Constants */ 295);
 	/**
 	 * A class that holds metadata about a Repo object
 	 *
@@ -34261,7 +34156,7 @@
 
 
 /***/ }),
-/* 296 */
+/* 295 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/realtime/Constants.js ***!
   \*****************************************************************/
@@ -34298,7 +34193,7 @@
 
 
 /***/ }),
-/* 297 */
+/* 296 */
 /*!************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/Reference.js ***!
   \************************************************************/
@@ -34331,18 +34226,18 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var onDisconnect_1 = __webpack_require__(/*! ./onDisconnect */ 298);
-	var TransactionResult_1 = __webpack_require__(/*! ./TransactionResult */ 300);
-	var util_1 = __webpack_require__(/*! ../core/util/util */ 289);
-	var NextPushId_1 = __webpack_require__(/*! ../core/util/NextPushId */ 301);
-	var Query_1 = __webpack_require__(/*! ./Query */ 302);
-	var Repo_1 = __webpack_require__(/*! ../core/Repo */ 320);
-	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 294);
-	var QueryParams_1 = __webpack_require__(/*! ../core/view/QueryParams */ 361);
-	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 299);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var SyncPoint_1 = __webpack_require__(/*! ../core/SyncPoint */ 331);
+	var onDisconnect_1 = __webpack_require__(/*! ./onDisconnect */ 297);
+	var TransactionResult_1 = __webpack_require__(/*! ./TransactionResult */ 299);
+	var util_1 = __webpack_require__(/*! ../core/util/util */ 288);
+	var NextPushId_1 = __webpack_require__(/*! ../core/util/NextPushId */ 300);
+	var Query_1 = __webpack_require__(/*! ./Query */ 301);
+	var Repo_1 = __webpack_require__(/*! ../core/Repo */ 319);
+	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 293);
+	var QueryParams_1 = __webpack_require__(/*! ../core/view/QueryParams */ 360);
+	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 298);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var SyncPoint_1 = __webpack_require__(/*! ../core/SyncPoint */ 330);
 	var Reference = /** @class */ (function (_super) {
 	    __extends(Reference, _super);
 	    /**
@@ -34615,7 +34510,7 @@
 
 
 /***/ }),
-/* 298 */
+/* 297 */
 /*!***************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/onDisconnect.js ***!
   \***************************************************************/
@@ -34638,10 +34533,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 299);
-	var util_2 = __webpack_require__(/*! ../core/util/util */ 289);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 298);
+	var util_2 = __webpack_require__(/*! ../core/util/util */ 288);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * @constructor
 	 */
@@ -34738,7 +34633,7 @@
 
 
 /***/ }),
-/* 299 */
+/* 298 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/validation.js ***!
   \*******************************************************************/
@@ -34761,11 +34656,11 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Path_1 = __webpack_require__(/*! ./Path */ 294);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ./util */ 289);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_4 = __webpack_require__(/*! @firebase/util */ 267);
+	var Path_1 = __webpack_require__(/*! ./Path */ 293);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ./util */ 288);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_4 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * True for invalid Firebase keys
 	 * @type {RegExp}
@@ -35128,7 +35023,7 @@
 
 
 /***/ }),
-/* 300 */
+/* 299 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/TransactionResult.js ***!
   \********************************************************************/
@@ -35151,7 +35046,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	var TransactionResult = /** @class */ (function () {
 	    /**
 	     * A type for the resolve value of Firebase.transaction.
@@ -35178,7 +35073,7 @@
 
 
 /***/ }),
-/* 301 */
+/* 300 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/NextPushId.js ***!
   \*******************************************************************/
@@ -35201,7 +35096,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Fancy ID generator that creates 20-character string identifiers with the
 	 * following properties:
@@ -35265,7 +35160,7 @@
 
 
 /***/ }),
-/* 302 */
+/* 301 */
 /*!********************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/Query.js ***!
   \********************************************************/
@@ -35288,17 +35183,17 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var KeyIndex_1 = __webpack_require__(/*! ../core/snap/indexes/KeyIndex */ 303);
-	var PriorityIndex_1 = __webpack_require__(/*! ../core/snap/indexes/PriorityIndex */ 306);
-	var ValueIndex_1 = __webpack_require__(/*! ../core/snap/indexes/ValueIndex */ 309);
-	var PathIndex_1 = __webpack_require__(/*! ../core/snap/indexes/PathIndex */ 316);
-	var util_2 = __webpack_require__(/*! ../core/util/util */ 289);
-	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 294);
-	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 299);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var EventRegistration_1 = __webpack_require__(/*! ../core/view/EventRegistration */ 317);
-	var util_4 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var KeyIndex_1 = __webpack_require__(/*! ../core/snap/indexes/KeyIndex */ 302);
+	var PriorityIndex_1 = __webpack_require__(/*! ../core/snap/indexes/PriorityIndex */ 305);
+	var ValueIndex_1 = __webpack_require__(/*! ../core/snap/indexes/ValueIndex */ 308);
+	var PathIndex_1 = __webpack_require__(/*! ../core/snap/indexes/PathIndex */ 315);
+	var util_2 = __webpack_require__(/*! ../core/util/util */ 288);
+	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 293);
+	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 298);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var EventRegistration_1 = __webpack_require__(/*! ../core/view/EventRegistration */ 316);
+	var util_4 = __webpack_require__(/*! @firebase/util */ 266);
 	var __referenceConstructor;
 	/**
 	 * A Query represents a filter to be applied to a firebase location.  This object purely represents the
@@ -35780,7 +35675,7 @@
 
 
 /***/ }),
-/* 303 */
+/* 302 */
 /*!*************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/indexes/KeyIndex.js ***!
   \*************************************************************************/
@@ -35813,10 +35708,10 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Index_1 = __webpack_require__(/*! ./Index */ 304);
-	var Node_1 = __webpack_require__(/*! ../Node */ 305);
-	var util_1 = __webpack_require__(/*! ../../util/util */ 289);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var Index_1 = __webpack_require__(/*! ./Index */ 303);
+	var Node_1 = __webpack_require__(/*! ../Node */ 304);
+	var util_1 = __webpack_require__(/*! ../../util/util */ 288);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	var __EMPTY_NODE;
 	var KeyIndex = /** @class */ (function (_super) {
 	    __extends(KeyIndex, _super);
@@ -35892,7 +35787,7 @@
 
 
 /***/ }),
-/* 304 */
+/* 303 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/indexes/Index.js ***!
   \**********************************************************************/
@@ -35915,8 +35810,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Node_1 = __webpack_require__(/*! ../Node */ 305);
-	var util_1 = __webpack_require__(/*! ../../util/util */ 289);
+	var Node_1 = __webpack_require__(/*! ../Node */ 304);
+	var util_1 = __webpack_require__(/*! ../../util/util */ 288);
 	/**
 	 *
 	 * @constructor
@@ -35959,7 +35854,7 @@
 
 
 /***/ }),
-/* 305 */
+/* 304 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/Node.js ***!
   \*************************************************************/
@@ -36011,7 +35906,7 @@
 
 
 /***/ }),
-/* 306 */
+/* 305 */
 /*!******************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/indexes/PriorityIndex.js ***!
   \******************************************************************************/
@@ -36044,10 +35939,10 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Index_1 = __webpack_require__(/*! ./Index */ 304);
-	var util_1 = __webpack_require__(/*! ../../util/util */ 289);
-	var Node_1 = __webpack_require__(/*! ../Node */ 305);
-	var LeafNode_1 = __webpack_require__(/*! ../LeafNode */ 307);
+	var Index_1 = __webpack_require__(/*! ./Index */ 303);
+	var util_1 = __webpack_require__(/*! ../../util/util */ 288);
+	var Node_1 = __webpack_require__(/*! ../Node */ 304);
+	var LeafNode_1 = __webpack_require__(/*! ../LeafNode */ 306);
 	var nodeFromJSON;
 	var MAX_NODE;
 	function setNodeFromJSON(val) {
@@ -36130,7 +36025,7 @@
 
 
 /***/ }),
-/* 307 */
+/* 306 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/LeafNode.js ***!
   \*****************************************************************/
@@ -36153,9 +36048,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../util/util */ 289);
-	var snap_1 = __webpack_require__(/*! ./snap */ 308);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../util/util */ 288);
+	var snap_1 = __webpack_require__(/*! ./snap */ 307);
 	var __childrenNodeConstructor;
 	/**
 	 * LeafNode is a class for storing leaf nodes in a DataSnapshot.  It
@@ -36406,7 +36301,7 @@
 
 
 /***/ }),
-/* 308 */
+/* 307 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/snap.js ***!
   \*************************************************************/
@@ -36429,9 +36324,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../util/util */ 289);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../util/util */ 288);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
 	var MAX_NODE;
 	function setMaxNode(val) {
 	    MAX_NODE = val;
@@ -36470,7 +36365,7 @@
 
 
 /***/ }),
-/* 309 */
+/* 308 */
 /*!***************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/indexes/ValueIndex.js ***!
   \***************************************************************************/
@@ -36503,10 +36398,10 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Index_1 = __webpack_require__(/*! ./Index */ 304);
-	var Node_1 = __webpack_require__(/*! ../Node */ 305);
-	var util_1 = __webpack_require__(/*! ../../util/util */ 289);
-	var nodeFromJSON_1 = __webpack_require__(/*! ../nodeFromJSON */ 310);
+	var Index_1 = __webpack_require__(/*! ./Index */ 303);
+	var Node_1 = __webpack_require__(/*! ../Node */ 304);
+	var util_1 = __webpack_require__(/*! ../../util/util */ 288);
+	var nodeFromJSON_1 = __webpack_require__(/*! ../nodeFromJSON */ 309);
 	/**
 	 * @constructor
 	 * @extends {Index}
@@ -36577,7 +36472,7 @@
 
 
 /***/ }),
-/* 310 */
+/* 309 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/nodeFromJSON.js ***!
   \*********************************************************************/
@@ -36600,15 +36495,15 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var ChildrenNode_1 = __webpack_require__(/*! ./ChildrenNode */ 311);
-	var LeafNode_1 = __webpack_require__(/*! ./LeafNode */ 307);
-	var Node_1 = __webpack_require__(/*! ./Node */ 305);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var childSet_1 = __webpack_require__(/*! ./childSet */ 314);
-	var comparators_1 = __webpack_require__(/*! ./comparators */ 315);
-	var IndexMap_1 = __webpack_require__(/*! ./IndexMap */ 313);
-	var PriorityIndex_1 = __webpack_require__(/*! ./indexes/PriorityIndex */ 306);
+	var ChildrenNode_1 = __webpack_require__(/*! ./ChildrenNode */ 310);
+	var LeafNode_1 = __webpack_require__(/*! ./LeafNode */ 306);
+	var Node_1 = __webpack_require__(/*! ./Node */ 304);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var childSet_1 = __webpack_require__(/*! ./childSet */ 313);
+	var comparators_1 = __webpack_require__(/*! ./comparators */ 314);
+	var IndexMap_1 = __webpack_require__(/*! ./IndexMap */ 312);
+	var PriorityIndex_1 = __webpack_require__(/*! ./indexes/PriorityIndex */ 305);
 	var USE_HINZE = true;
 	/**
 	 * Constructs a snapshot node representing the passed JSON and returns it.
@@ -36687,7 +36582,7 @@
 
 
 /***/ }),
-/* 311 */
+/* 310 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/ChildrenNode.js ***!
   \*********************************************************************/
@@ -36720,16 +36615,16 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../util/util */ 289);
-	var SortedMap_1 = __webpack_require__(/*! ../util/SortedMap */ 312);
-	var Node_1 = __webpack_require__(/*! ./Node */ 305);
-	var snap_1 = __webpack_require__(/*! ./snap */ 308);
-	var PriorityIndex_1 = __webpack_require__(/*! ./indexes/PriorityIndex */ 306);
-	var KeyIndex_1 = __webpack_require__(/*! ./indexes/KeyIndex */ 303);
-	var IndexMap_1 = __webpack_require__(/*! ./IndexMap */ 313);
-	var LeafNode_1 = __webpack_require__(/*! ./LeafNode */ 307);
-	var comparators_1 = __webpack_require__(/*! ./comparators */ 315);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../util/util */ 288);
+	var SortedMap_1 = __webpack_require__(/*! ../util/SortedMap */ 311);
+	var Node_1 = __webpack_require__(/*! ./Node */ 304);
+	var snap_1 = __webpack_require__(/*! ./snap */ 307);
+	var PriorityIndex_1 = __webpack_require__(/*! ./indexes/PriorityIndex */ 305);
+	var KeyIndex_1 = __webpack_require__(/*! ./indexes/KeyIndex */ 302);
+	var IndexMap_1 = __webpack_require__(/*! ./IndexMap */ 312);
+	var LeafNode_1 = __webpack_require__(/*! ./LeafNode */ 306);
+	var comparators_1 = __webpack_require__(/*! ./comparators */ 314);
 	// TODO: For memory savings, don't store priorityNode_ if it's empty.
 	var EMPTY_NODE;
 	/**
@@ -37200,7 +37095,7 @@
 
 
 /***/ }),
-/* 312 */
+/* 311 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/SortedMap.js ***!
   \******************************************************************/
@@ -37867,7 +37762,7 @@
 
 
 /***/ }),
-/* 313 */
+/* 312 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/IndexMap.js ***!
   \*****************************************************************/
@@ -37890,12 +37785,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var childSet_1 = __webpack_require__(/*! ./childSet */ 314);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var Node_1 = __webpack_require__(/*! ./Node */ 305);
-	var PriorityIndex_1 = __webpack_require__(/*! ./indexes/PriorityIndex */ 306);
-	var KeyIndex_1 = __webpack_require__(/*! ./indexes/KeyIndex */ 303);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var childSet_1 = __webpack_require__(/*! ./childSet */ 313);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var Node_1 = __webpack_require__(/*! ./Node */ 304);
+	var PriorityIndex_1 = __webpack_require__(/*! ./indexes/PriorityIndex */ 305);
+	var KeyIndex_1 = __webpack_require__(/*! ./indexes/KeyIndex */ 302);
 	var _defaultIndexMap;
 	var fallbackObject = {};
 	/**
@@ -38057,7 +37952,7 @@
 
 
 /***/ }),
-/* 314 */
+/* 313 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/childSet.js ***!
   \*****************************************************************/
@@ -38080,8 +37975,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var SortedMap_1 = __webpack_require__(/*! ../util/SortedMap */ 312);
-	var SortedMap_2 = __webpack_require__(/*! ../util/SortedMap */ 312);
+	var SortedMap_1 = __webpack_require__(/*! ../util/SortedMap */ 311);
+	var SortedMap_2 = __webpack_require__(/*! ../util/SortedMap */ 311);
 	var LOG_2 = Math.log(2);
 	/**
 	 * @constructor
@@ -38196,7 +38091,7 @@
 
 
 /***/ }),
-/* 315 */
+/* 314 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/comparators.js ***!
   \********************************************************************/
@@ -38219,7 +38114,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ../util/util */ 289);
+	var util_1 = __webpack_require__(/*! ../util/util */ 288);
 	function NAME_ONLY_COMPARATOR(left, right) {
 	    return util_1.nameCompare(left.name, right.name);
 	}
@@ -38233,7 +38128,7 @@
 
 
 /***/ }),
-/* 316 */
+/* 315 */
 /*!**************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/snap/indexes/PathIndex.js ***!
   \**************************************************************************/
@@ -38266,12 +38161,12 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../../util/util */ 289);
-	var Index_1 = __webpack_require__(/*! ./Index */ 304);
-	var ChildrenNode_1 = __webpack_require__(/*! ../ChildrenNode */ 311);
-	var Node_1 = __webpack_require__(/*! ../Node */ 305);
-	var nodeFromJSON_1 = __webpack_require__(/*! ../nodeFromJSON */ 310);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../../util/util */ 288);
+	var Index_1 = __webpack_require__(/*! ./Index */ 303);
+	var ChildrenNode_1 = __webpack_require__(/*! ../ChildrenNode */ 310);
+	var Node_1 = __webpack_require__(/*! ../Node */ 304);
+	var nodeFromJSON_1 = __webpack_require__(/*! ../nodeFromJSON */ 309);
 	/**
 	 * @param {!Path} indexPath
 	 * @constructor
@@ -38342,7 +38237,7 @@
 
 
 /***/ }),
-/* 317 */
+/* 316 */
 /*!**************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/EventRegistration.js ***!
   \**************************************************************************/
@@ -38365,10 +38260,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var DataSnapshot_1 = __webpack_require__(/*! ../../api/DataSnapshot */ 318);
-	var Event_1 = __webpack_require__(/*! ./Event */ 319);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var DataSnapshot_1 = __webpack_require__(/*! ../../api/DataSnapshot */ 317);
+	var Event_1 = __webpack_require__(/*! ./Event */ 318);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Represents registration for 'value' events.
 	 */
@@ -38566,7 +38461,7 @@
 
 
 /***/ }),
-/* 318 */
+/* 317 */
 /*!***************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/DataSnapshot.js ***!
   \***************************************************************/
@@ -38589,10 +38484,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 299);
-	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 294);
-	var PriorityIndex_1 = __webpack_require__(/*! ../core/snap/indexes/PriorityIndex */ 306);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var validation_1 = __webpack_require__(/*! ../core/util/validation */ 298);
+	var Path_1 = __webpack_require__(/*! ../core/util/Path */ 293);
+	var PriorityIndex_1 = __webpack_require__(/*! ../core/snap/indexes/PriorityIndex */ 305);
 	/**
 	 * Class representing a firebase data snapshot.  It wraps a SnapshotNode and
 	 * surfaces the public methods (val, forEach, etc.) we want to expose.
@@ -38748,7 +38643,7 @@
 
 
 /***/ }),
-/* 319 */
+/* 318 */
 /*!**************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/Event.js ***!
   \**************************************************************/
@@ -38771,7 +38666,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Encapsulates the data needed to raise an event
 	 * @implements {Event}
@@ -38869,7 +38764,7 @@
 
 
 /***/ }),
-/* 320 */
+/* 319 */
 /*!********************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/Repo.js ***!
   \********************************************************/
@@ -38892,23 +38787,23 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var ServerValues_1 = __webpack_require__(/*! ./util/ServerValues */ 321);
-	var nodeFromJSON_1 = __webpack_require__(/*! ./snap/nodeFromJSON */ 310);
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var SparseSnapshotTree_1 = __webpack_require__(/*! ./SparseSnapshotTree */ 322);
-	var SyncTree_1 = __webpack_require__(/*! ./SyncTree */ 324);
-	var SnapshotHolder_1 = __webpack_require__(/*! ./SnapshotHolder */ 343);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ./util/util */ 289);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var AuthTokenProvider_1 = __webpack_require__(/*! ./AuthTokenProvider */ 344);
-	var StatsManager_1 = __webpack_require__(/*! ./stats/StatsManager */ 345);
-	var StatsReporter_1 = __webpack_require__(/*! ./stats/StatsReporter */ 347);
-	var StatsListener_1 = __webpack_require__(/*! ./stats/StatsListener */ 348);
-	var EventQueue_1 = __webpack_require__(/*! ./view/EventQueue */ 349);
-	var PersistentConnection_1 = __webpack_require__(/*! ./PersistentConnection */ 350);
-	var ReadonlyRestClient_1 = __webpack_require__(/*! ./ReadonlyRestClient */ 360);
-	var Database_1 = __webpack_require__(/*! ../api/Database */ 288);
+	var ServerValues_1 = __webpack_require__(/*! ./util/ServerValues */ 320);
+	var nodeFromJSON_1 = __webpack_require__(/*! ./snap/nodeFromJSON */ 309);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var SparseSnapshotTree_1 = __webpack_require__(/*! ./SparseSnapshotTree */ 321);
+	var SyncTree_1 = __webpack_require__(/*! ./SyncTree */ 323);
+	var SnapshotHolder_1 = __webpack_require__(/*! ./SnapshotHolder */ 342);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ./util/util */ 288);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var AuthTokenProvider_1 = __webpack_require__(/*! ./AuthTokenProvider */ 343);
+	var StatsManager_1 = __webpack_require__(/*! ./stats/StatsManager */ 344);
+	var StatsReporter_1 = __webpack_require__(/*! ./stats/StatsReporter */ 346);
+	var StatsListener_1 = __webpack_require__(/*! ./stats/StatsListener */ 347);
+	var EventQueue_1 = __webpack_require__(/*! ./view/EventQueue */ 348);
+	var PersistentConnection_1 = __webpack_require__(/*! ./PersistentConnection */ 349);
+	var ReadonlyRestClient_1 = __webpack_require__(/*! ./ReadonlyRestClient */ 359);
+	var Database_1 = __webpack_require__(/*! ../api/Database */ 287);
 	var INTERRUPT_REASON = 'repo_interrupt';
 	/**
 	 * A connection to a single data repository.
@@ -39406,7 +39301,7 @@
 
 
 /***/ }),
-/* 321 */
+/* 320 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/ServerValues.js ***!
   \*********************************************************************/
@@ -39429,12 +39324,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Path_1 = __webpack_require__(/*! ./Path */ 294);
-	var SparseSnapshotTree_1 = __webpack_require__(/*! ../SparseSnapshotTree */ 322);
-	var LeafNode_1 = __webpack_require__(/*! ../snap/LeafNode */ 307);
-	var nodeFromJSON_1 = __webpack_require__(/*! ../snap/nodeFromJSON */ 310);
-	var PriorityIndex_1 = __webpack_require__(/*! ../snap/indexes/PriorityIndex */ 306);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Path_1 = __webpack_require__(/*! ./Path */ 293);
+	var SparseSnapshotTree_1 = __webpack_require__(/*! ../SparseSnapshotTree */ 321);
+	var LeafNode_1 = __webpack_require__(/*! ../snap/LeafNode */ 306);
+	var nodeFromJSON_1 = __webpack_require__(/*! ../snap/nodeFromJSON */ 309);
+	var PriorityIndex_1 = __webpack_require__(/*! ../snap/indexes/PriorityIndex */ 305);
 	/**
 	 * Generate placeholders for deferred values.
 	 * @param {?Object} values
@@ -39518,7 +39413,7 @@
 
 
 /***/ }),
-/* 322 */
+/* 321 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/SparseSnapshotTree.js ***!
   \**********************************************************************/
@@ -39541,9 +39436,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 306);
-	var CountedSet_1 = __webpack_require__(/*! ./util/CountedSet */ 323);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 305);
+	var CountedSet_1 = __webpack_require__(/*! ./util/CountedSet */ 322);
 	/**
 	 * Helper class to store a sparse set of snapshots.
 	 *
@@ -39703,7 +39598,7 @@
 
 
 /***/ }),
-/* 323 */
+/* 322 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/CountedSet.js ***!
   \*******************************************************************/
@@ -39726,7 +39621,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Implements a set with a count of elements.
 	 *
@@ -39808,7 +39703,7 @@
 
 
 /***/ }),
-/* 324 */
+/* 323 */
 /*!************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/SyncTree.js ***!
   \************************************************************/
@@ -39831,19 +39726,19 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ./util/util */ 289);
-	var AckUserWrite_1 = __webpack_require__(/*! ./operation/AckUserWrite */ 325);
-	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 311);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var ImmutableTree_1 = __webpack_require__(/*! ./util/ImmutableTree */ 327);
-	var ListenComplete_1 = __webpack_require__(/*! ./operation/ListenComplete */ 328);
-	var Merge_1 = __webpack_require__(/*! ./operation/Merge */ 329);
-	var Operation_1 = __webpack_require__(/*! ./operation/Operation */ 326);
-	var Overwrite_1 = __webpack_require__(/*! ./operation/Overwrite */ 330);
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var SyncPoint_1 = __webpack_require__(/*! ./SyncPoint */ 331);
-	var WriteTree_1 = __webpack_require__(/*! ./WriteTree */ 341);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ./util/util */ 288);
+	var AckUserWrite_1 = __webpack_require__(/*! ./operation/AckUserWrite */ 324);
+	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 310);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var ImmutableTree_1 = __webpack_require__(/*! ./util/ImmutableTree */ 326);
+	var ListenComplete_1 = __webpack_require__(/*! ./operation/ListenComplete */ 327);
+	var Merge_1 = __webpack_require__(/*! ./operation/Merge */ 328);
+	var Operation_1 = __webpack_require__(/*! ./operation/Operation */ 325);
+	var Overwrite_1 = __webpack_require__(/*! ./operation/Overwrite */ 329);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var SyncPoint_1 = __webpack_require__(/*! ./SyncPoint */ 330);
+	var WriteTree_1 = __webpack_require__(/*! ./WriteTree */ 340);
 	/**
 	 * SyncTree is the central class for managing event callback registration, data caching, views
 	 * (query processing), and event generation.  There are typically two SyncTree instances for
@@ -40528,7 +40423,7 @@
 
 
 /***/ }),
-/* 325 */
+/* 324 */
 /*!**************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/operation/AckUserWrite.js ***!
   \**************************************************************************/
@@ -40551,9 +40446,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Path_1 = __webpack_require__(/*! ../util/Path */ 294);
-	var Operation_1 = __webpack_require__(/*! ./Operation */ 326);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Path_1 = __webpack_require__(/*! ../util/Path */ 293);
+	var Operation_1 = __webpack_require__(/*! ./Operation */ 325);
 	var AckUserWrite = /** @class */ (function () {
 	    /**
 	     *
@@ -40599,7 +40494,7 @@
 
 
 /***/ }),
-/* 326 */
+/* 325 */
 /*!***********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/operation/Operation.js ***!
   \***********************************************************************/
@@ -40622,7 +40517,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 *
 	 * @enum
@@ -40680,7 +40575,7 @@
 
 
 /***/ }),
-/* 327 */
+/* 326 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/ImmutableTree.js ***!
   \**********************************************************************/
@@ -40703,10 +40598,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var SortedMap_1 = __webpack_require__(/*! ./SortedMap */ 312);
-	var Path_1 = __webpack_require__(/*! ./Path */ 294);
-	var util_1 = __webpack_require__(/*! ./util */ 289);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var SortedMap_1 = __webpack_require__(/*! ./SortedMap */ 311);
+	var Path_1 = __webpack_require__(/*! ./Path */ 293);
+	var util_1 = __webpack_require__(/*! ./util */ 288);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	var emptyChildrenSingleton;
 	/**
 	 * Singleton empty children collection.
@@ -41046,7 +40941,7 @@
 
 
 /***/ }),
-/* 328 */
+/* 327 */
 /*!****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/operation/ListenComplete.js ***!
   \****************************************************************************/
@@ -41069,8 +40964,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Path_1 = __webpack_require__(/*! ../util/Path */ 294);
-	var Operation_1 = __webpack_require__(/*! ./Operation */ 326);
+	var Path_1 = __webpack_require__(/*! ../util/Path */ 293);
+	var Operation_1 = __webpack_require__(/*! ./Operation */ 325);
 	/**
 	 * @param {!OperationSource} source
 	 * @param {!Path} path
@@ -41100,7 +40995,7 @@
 
 
 /***/ }),
-/* 329 */
+/* 328 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/operation/Merge.js ***!
   \*******************************************************************/
@@ -41123,10 +41018,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Operation_1 = __webpack_require__(/*! ./Operation */ 326);
-	var Overwrite_1 = __webpack_require__(/*! ./Overwrite */ 330);
-	var Path_1 = __webpack_require__(/*! ../util/Path */ 294);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var Operation_1 = __webpack_require__(/*! ./Operation */ 325);
+	var Overwrite_1 = __webpack_require__(/*! ./Overwrite */ 329);
+	var Path_1 = __webpack_require__(/*! ../util/Path */ 293);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * @param {!OperationSource} source
 	 * @param {!Path} path
@@ -41189,7 +41084,7 @@
 
 
 /***/ }),
-/* 330 */
+/* 329 */
 /*!***********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/operation/Overwrite.js ***!
   \***********************************************************************/
@@ -41212,8 +41107,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Operation_1 = __webpack_require__(/*! ./Operation */ 326);
-	var Path_1 = __webpack_require__(/*! ../util/Path */ 294);
+	var Operation_1 = __webpack_require__(/*! ./Operation */ 325);
+	var Path_1 = __webpack_require__(/*! ../util/Path */ 293);
 	/**
 	 * @param {!OperationSource} source
 	 * @param {!Path} path
@@ -41245,7 +41140,7 @@
 
 
 /***/ }),
-/* 331 */
+/* 330 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/SyncPoint.js ***!
   \*************************************************************/
@@ -41268,12 +41163,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var CacheNode_1 = __webpack_require__(/*! ./view/CacheNode */ 332);
-	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 311);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var ViewCache_1 = __webpack_require__(/*! ./view/ViewCache */ 333);
-	var View_1 = __webpack_require__(/*! ./view/View */ 334);
+	var CacheNode_1 = __webpack_require__(/*! ./view/CacheNode */ 331);
+	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 310);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var ViewCache_1 = __webpack_require__(/*! ./view/ViewCache */ 332);
+	var View_1 = __webpack_require__(/*! ./view/View */ 333);
 	var __referenceConstructor;
 	/**
 	 * SyncPoint represents a single location in a SyncTree with 1 or more event registrations, meaning we need to
@@ -41504,7 +41399,7 @@
 
 
 /***/ }),
-/* 332 */
+/* 331 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/CacheNode.js ***!
   \******************************************************************/
@@ -41590,7 +41485,7 @@
 
 
 /***/ }),
-/* 333 */
+/* 332 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/ViewCache.js ***!
   \******************************************************************/
@@ -41613,8 +41508,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var ChildrenNode_1 = __webpack_require__(/*! ../snap/ChildrenNode */ 311);
-	var CacheNode_1 = __webpack_require__(/*! ./CacheNode */ 332);
+	var ChildrenNode_1 = __webpack_require__(/*! ../snap/ChildrenNode */ 310);
+	var CacheNode_1 = __webpack_require__(/*! ./CacheNode */ 331);
 	/**
 	 * Stores the data we have cached for a view.
 	 *
@@ -41695,7 +41590,7 @@
 
 
 /***/ }),
-/* 334 */
+/* 333 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/View.js ***!
   \*************************************************************/
@@ -41718,16 +41613,16 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var IndexedFilter_1 = __webpack_require__(/*! ./filter/IndexedFilter */ 335);
-	var ViewProcessor_1 = __webpack_require__(/*! ./ViewProcessor */ 337);
-	var ChildrenNode_1 = __webpack_require__(/*! ../snap/ChildrenNode */ 311);
-	var CacheNode_1 = __webpack_require__(/*! ./CacheNode */ 332);
-	var ViewCache_1 = __webpack_require__(/*! ./ViewCache */ 333);
-	var EventGenerator_1 = __webpack_require__(/*! ./EventGenerator */ 340);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Operation_1 = __webpack_require__(/*! ../operation/Operation */ 326);
-	var Change_1 = __webpack_require__(/*! ./Change */ 336);
-	var PriorityIndex_1 = __webpack_require__(/*! ../snap/indexes/PriorityIndex */ 306);
+	var IndexedFilter_1 = __webpack_require__(/*! ./filter/IndexedFilter */ 334);
+	var ViewProcessor_1 = __webpack_require__(/*! ./ViewProcessor */ 336);
+	var ChildrenNode_1 = __webpack_require__(/*! ../snap/ChildrenNode */ 310);
+	var CacheNode_1 = __webpack_require__(/*! ./CacheNode */ 331);
+	var ViewCache_1 = __webpack_require__(/*! ./ViewCache */ 332);
+	var EventGenerator_1 = __webpack_require__(/*! ./EventGenerator */ 339);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Operation_1 = __webpack_require__(/*! ../operation/Operation */ 325);
+	var Change_1 = __webpack_require__(/*! ./Change */ 335);
+	var PriorityIndex_1 = __webpack_require__(/*! ../snap/indexes/PriorityIndex */ 305);
 	/**
 	 * A view represents a specific location and query that has 1 or more event registrations.
 	 *
@@ -41912,7 +41807,7 @@
 
 
 /***/ }),
-/* 335 */
+/* 334 */
 /*!*****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/filter/IndexedFilter.js ***!
   \*****************************************************************************/
@@ -41935,10 +41830,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Change_1 = __webpack_require__(/*! ../Change */ 336);
-	var ChildrenNode_1 = __webpack_require__(/*! ../../snap/ChildrenNode */ 311);
-	var PriorityIndex_1 = __webpack_require__(/*! ../../snap/indexes/PriorityIndex */ 306);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Change_1 = __webpack_require__(/*! ../Change */ 335);
+	var ChildrenNode_1 = __webpack_require__(/*! ../../snap/ChildrenNode */ 310);
+	var PriorityIndex_1 = __webpack_require__(/*! ../../snap/indexes/PriorityIndex */ 305);
 	/**
 	 * Doesn't really filter nodes but applies an index to the node and keeps track of any changes
 	 *
@@ -42054,7 +41949,7 @@
 
 
 /***/ }),
-/* 336 */
+/* 335 */
 /*!***************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/Change.js ***!
   \***************************************************************/
@@ -42153,7 +42048,7 @@
 
 
 /***/ }),
-/* 337 */
+/* 336 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/ViewProcessor.js ***!
   \**********************************************************************/
@@ -42176,15 +42071,15 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Operation_1 = __webpack_require__(/*! ../operation/Operation */ 326);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var ChildChangeAccumulator_1 = __webpack_require__(/*! ./ChildChangeAccumulator */ 338);
-	var Change_1 = __webpack_require__(/*! ./Change */ 336);
-	var ChildrenNode_1 = __webpack_require__(/*! ../snap/ChildrenNode */ 311);
-	var KeyIndex_1 = __webpack_require__(/*! ../snap/indexes/KeyIndex */ 303);
-	var ImmutableTree_1 = __webpack_require__(/*! ../util/ImmutableTree */ 327);
-	var Path_1 = __webpack_require__(/*! ../util/Path */ 294);
-	var CompleteChildSource_1 = __webpack_require__(/*! ./CompleteChildSource */ 339);
+	var Operation_1 = __webpack_require__(/*! ../operation/Operation */ 325);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var ChildChangeAccumulator_1 = __webpack_require__(/*! ./ChildChangeAccumulator */ 337);
+	var Change_1 = __webpack_require__(/*! ./Change */ 335);
+	var ChildrenNode_1 = __webpack_require__(/*! ../snap/ChildrenNode */ 310);
+	var KeyIndex_1 = __webpack_require__(/*! ../snap/indexes/KeyIndex */ 302);
+	var ImmutableTree_1 = __webpack_require__(/*! ../util/ImmutableTree */ 326);
+	var Path_1 = __webpack_require__(/*! ../util/Path */ 293);
+	var CompleteChildSource_1 = __webpack_require__(/*! ./CompleteChildSource */ 338);
 	/**
 	 * @constructor
 	 * @struct
@@ -42757,7 +42652,7 @@
 
 
 /***/ }),
-/* 338 */
+/* 337 */
 /*!*******************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/ChildChangeAccumulator.js ***!
   \*******************************************************************************/
@@ -42780,9 +42675,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Change_1 = __webpack_require__(/*! ./Change */ 336);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Change_1 = __webpack_require__(/*! ./Change */ 335);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * @constructor
 	 */
@@ -42847,7 +42742,7 @@
 
 
 /***/ }),
-/* 339 */
+/* 338 */
 /*!****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/CompleteChildSource.js ***!
   \****************************************************************************/
@@ -42870,7 +42765,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var CacheNode_1 = __webpack_require__(/*! ./CacheNode */ 332);
+	var CacheNode_1 = __webpack_require__(/*! ./CacheNode */ 331);
 	/**
 	 * An implementation of CompleteChildSource that never returns any additional children
 	 *
@@ -42959,7 +42854,7 @@
 
 
 /***/ }),
-/* 340 */
+/* 339 */
 /*!***********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/EventGenerator.js ***!
   \***********************************************************************/
@@ -42982,9 +42877,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var Node_1 = __webpack_require__(/*! ../snap/Node */ 305);
-	var Change_1 = __webpack_require__(/*! ./Change */ 336);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var Node_1 = __webpack_require__(/*! ../snap/Node */ 304);
+	var Change_1 = __webpack_require__(/*! ./Change */ 335);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * An EventGenerator is used to convert "raw" changes (Change) as computed by the
 	 * CacheDiffer into actual events (Event) that can be raised.  See generateEventsForChanges()
@@ -43098,7 +42993,7 @@
 
 
 /***/ }),
-/* 341 */
+/* 340 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/WriteTree.js ***!
   \*************************************************************/
@@ -43121,12 +43016,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var CompoundWrite_1 = __webpack_require__(/*! ./CompoundWrite */ 342);
-	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 306);
-	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 311);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var CompoundWrite_1 = __webpack_require__(/*! ./CompoundWrite */ 341);
+	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 305);
+	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 310);
 	/**
 	 * WriteTree tracks all pending user-initiated writes and has methods to calculate the result of merging them
 	 * with underlying server data (to create "event cache" data).  Pending writes are added with addOverwrite()
@@ -43740,7 +43635,7 @@
 
 
 /***/ }),
-/* 342 */
+/* 341 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/CompoundWrite.js ***!
   \*****************************************************************/
@@ -43763,12 +43658,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var ImmutableTree_1 = __webpack_require__(/*! ./util/ImmutableTree */ 327);
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Node_1 = __webpack_require__(/*! ./snap/Node */ 305);
-	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 306);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var ImmutableTree_1 = __webpack_require__(/*! ./util/ImmutableTree */ 326);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Node_1 = __webpack_require__(/*! ./snap/Node */ 304);
+	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 305);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * This class holds a collection of writes that can be applied to nodes in unison. It abstracts away the logic with
 	 * dealing with priority writes and multiple nested writes. At any given path there is only allowed to be one write
@@ -43966,7 +43861,7 @@
 
 
 /***/ }),
-/* 343 */
+/* 342 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/SnapshotHolder.js ***!
   \******************************************************************/
@@ -43989,7 +43884,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 311);
+	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 310);
 	/**
 	 * Mutable object which basically just stores a reference to the "latest" immutable snapshot.
 	 *
@@ -44013,7 +43908,7 @@
 
 
 /***/ }),
-/* 344 */
+/* 343 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/AuthTokenProvider.js ***!
   \*********************************************************************/
@@ -44036,7 +43931,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ./util/util */ 289);
+	var util_1 = __webpack_require__(/*! ./util/util */ 288);
 	/**
 	 * Abstraction around FirebaseApp's token fetching capabilities.
 	 */
@@ -44107,7 +44002,7 @@
 
 
 /***/ }),
-/* 345 */
+/* 344 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/stats/StatsManager.js ***!
   \**********************************************************************/
@@ -44130,7 +44025,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var StatsCollection_1 = __webpack_require__(/*! ./StatsCollection */ 346);
+	var StatsCollection_1 = __webpack_require__(/*! ./StatsCollection */ 345);
 	var StatsManager = /** @class */ (function () {
 	    function StatsManager() {
 	    }
@@ -44158,7 +44053,7 @@
 
 
 /***/ }),
-/* 346 */
+/* 345 */
 /*!*************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/stats/StatsCollection.js ***!
   \*************************************************************************/
@@ -44181,8 +44076,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Tracks a collection of stats.
 	 *
@@ -44209,7 +44104,7 @@
 
 
 /***/ }),
-/* 347 */
+/* 346 */
 /*!***********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/stats/StatsReporter.js ***!
   \***********************************************************************/
@@ -44232,9 +44127,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../util/util */ 289);
-	var StatsListener_1 = __webpack_require__(/*! ./StatsListener */ 348);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../util/util */ 288);
+	var StatsListener_1 = __webpack_require__(/*! ./StatsListener */ 347);
 	// Assuming some apps may have a short amount of time on page, and a bulk of firebase operations probably
 	// happen on page load, we try to report our first set of stats pretty quickly, but we wait at least 10
 	// seconds to try to ensure the Firebase connection is established / settled.
@@ -44286,7 +44181,7 @@
 
 
 /***/ }),
-/* 348 */
+/* 347 */
 /*!***********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/stats/StatsListener.js ***!
   \***********************************************************************/
@@ -44309,7 +44204,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Returns the delta from the previous call to get stats.
 	 *
@@ -44340,7 +44235,7 @@
 
 
 /***/ }),
-/* 349 */
+/* 348 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/EventQueue.js ***!
   \*******************************************************************/
@@ -44363,7 +44258,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ../util/util */ 289);
+	var util_1 = __webpack_require__(/*! ../util/util */ 288);
 	/**
 	 * The event queue serves a few purposes:
 	 * 1. It ensures we maintain event order in the face of event callbacks doing operations that result in more
@@ -44521,7 +44416,7 @@
 
 
 /***/ }),
-/* 350 */
+/* 349 */
 /*!************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/PersistentConnection.js ***!
   \************************************************************************/
@@ -44554,19 +44449,19 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var app_1 = __webpack_require__(/*! @firebase/app */ 265);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_4 = __webpack_require__(/*! ./util/util */ 289);
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var VisibilityMonitor_1 = __webpack_require__(/*! ./util/VisibilityMonitor */ 351);
-	var OnlineMonitor_1 = __webpack_require__(/*! ./util/OnlineMonitor */ 353);
-	var util_5 = __webpack_require__(/*! @firebase/util */ 267);
-	var Connection_1 = __webpack_require__(/*! ../realtime/Connection */ 354);
-	var util_6 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_7 = __webpack_require__(/*! @firebase/util */ 267);
-	var ServerActions_1 = __webpack_require__(/*! ./ServerActions */ 359);
+	var app_1 = __webpack_require__(/*! @firebase/app */ 264);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_4 = __webpack_require__(/*! ./util/util */ 288);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var VisibilityMonitor_1 = __webpack_require__(/*! ./util/VisibilityMonitor */ 350);
+	var OnlineMonitor_1 = __webpack_require__(/*! ./util/OnlineMonitor */ 352);
+	var util_5 = __webpack_require__(/*! @firebase/util */ 266);
+	var Connection_1 = __webpack_require__(/*! ../realtime/Connection */ 353);
+	var util_6 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_7 = __webpack_require__(/*! @firebase/util */ 266);
+	var ServerActions_1 = __webpack_require__(/*! ./ServerActions */ 358);
 	var RECONNECT_MIN_DELAY = 1000;
 	var RECONNECT_MAX_DELAY_DEFAULT = 60 * 5 * 1000; // 5 minutes in milliseconds (Case: 1858)
 	var RECONNECT_MAX_DELAY_FOR_ADMINS = 30 * 1000; // 30 seconds for admin clients (likely to be a backend server)
@@ -45339,7 +45234,7 @@
 
 
 /***/ }),
-/* 351 */
+/* 350 */
 /*!**************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/VisibilityMonitor.js ***!
   \**************************************************************************/
@@ -45372,8 +45267,8 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var EventEmitter_1 = __webpack_require__(/*! ./EventEmitter */ 352);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var EventEmitter_1 = __webpack_require__(/*! ./EventEmitter */ 351);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * @extends {EventEmitter}
 	 */
@@ -45438,7 +45333,7 @@
 
 
 /***/ }),
-/* 352 */
+/* 351 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/EventEmitter.js ***!
   \*********************************************************************/
@@ -45461,7 +45356,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Base class to be used if you want to emit events. Call the constructor with
 	 * the set of allowed event names.
@@ -45526,7 +45421,7 @@
 
 
 /***/ }),
-/* 353 */
+/* 352 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/OnlineMonitor.js ***!
   \**********************************************************************/
@@ -45559,9 +45454,9 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var EventEmitter_1 = __webpack_require__(/*! ./EventEmitter */ 352);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var EventEmitter_1 = __webpack_require__(/*! ./EventEmitter */ 351);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Monitors online state (as reported by window.online/offline events).
 	 *
@@ -45623,7 +45518,7 @@
 
 
 /***/ }),
-/* 354 */
+/* 353 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/realtime/Connection.js ***!
   \******************************************************************/
@@ -45646,10 +45541,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ../core/util/util */ 289);
-	var storage_1 = __webpack_require__(/*! ../core/storage/storage */ 290);
-	var Constants_1 = __webpack_require__(/*! ./Constants */ 296);
-	var TransportManager_1 = __webpack_require__(/*! ./TransportManager */ 355);
+	var util_1 = __webpack_require__(/*! ../core/util/util */ 288);
+	var storage_1 = __webpack_require__(/*! ../core/storage/storage */ 289);
+	var Constants_1 = __webpack_require__(/*! ./Constants */ 295);
+	var TransportManager_1 = __webpack_require__(/*! ./TransportManager */ 354);
 	// Abort upgrade attempt if it takes longer than 60s.
 	var UPGRADE_TIMEOUT = 60000;
 	// For some transports (WebSockets), we need to "validate" the transport by exchanging a few requests and responses.
@@ -46125,7 +46020,7 @@
 
 
 /***/ }),
-/* 355 */
+/* 354 */
 /*!************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/realtime/TransportManager.js ***!
   \************************************************************************/
@@ -46148,9 +46043,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var BrowserPollConnection_1 = __webpack_require__(/*! ./BrowserPollConnection */ 356);
-	var WebSocketConnection_1 = __webpack_require__(/*! ./WebSocketConnection */ 358);
-	var util_1 = __webpack_require__(/*! ../core/util/util */ 289);
+	var BrowserPollConnection_1 = __webpack_require__(/*! ./BrowserPollConnection */ 355);
+	var WebSocketConnection_1 = __webpack_require__(/*! ./WebSocketConnection */ 357);
+	var util_1 = __webpack_require__(/*! ../core/util/util */ 288);
 	/**
 	 * Currently simplistic, this class manages what transport a Connection should use at various stages of its
 	 * lifecycle.
@@ -46233,7 +46128,7 @@
 
 
 /***/ }),
-/* 356 */
+/* 355 */
 /*!*****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/realtime/BrowserPollConnection.js ***!
   \*****************************************************************************/
@@ -46256,13 +46151,13 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ../core/util/util */ 289);
-	var CountedSet_1 = __webpack_require__(/*! ../core/util/CountedSet */ 323);
-	var StatsManager_1 = __webpack_require__(/*! ../core/stats/StatsManager */ 345);
-	var PacketReceiver_1 = __webpack_require__(/*! ./polling/PacketReceiver */ 357);
-	var Constants_1 = __webpack_require__(/*! ./Constants */ 296);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! ../core/util/util */ 288);
+	var CountedSet_1 = __webpack_require__(/*! ../core/util/CountedSet */ 322);
+	var StatsManager_1 = __webpack_require__(/*! ../core/stats/StatsManager */ 344);
+	var PacketReceiver_1 = __webpack_require__(/*! ./polling/PacketReceiver */ 356);
+	var Constants_1 = __webpack_require__(/*! ./Constants */ 295);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
 	// URL query parameters associated with longpolling
 	exports.FIREBASE_LONGPOLL_START_PARAM = 'start';
 	exports.FIREBASE_LONGPOLL_CLOSE_COMMAND = 'close';
@@ -46871,7 +46766,7 @@
 
 
 /***/ }),
-/* 357 */
+/* 356 */
 /*!******************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/realtime/polling/PacketReceiver.js ***!
   \******************************************************************************/
@@ -46894,7 +46789,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! ../../core/util/util */ 289);
+	var util_1 = __webpack_require__(/*! ../../core/util/util */ 288);
 	/**
 	 * This class ensures the packets from the server arrive in order
 	 * This class takes data from the server and ensures it gets passed into the callbacks in order.
@@ -46966,7 +46861,7 @@
 
 
 /***/ }),
-/* 358 */
+/* 357 */
 /*!***************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/realtime/WebSocketConnection.js ***!
   \***************************************************************************/
@@ -46989,15 +46884,15 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var app_1 = __webpack_require__(/*! @firebase/app */ 265);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../core/util/util */ 289);
-	var StatsManager_1 = __webpack_require__(/*! ../core/stats/StatsManager */ 345);
-	var Constants_1 = __webpack_require__(/*! ./Constants */ 296);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var storage_1 = __webpack_require__(/*! ../core/storage/storage */ 290);
-	var util_4 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_5 = __webpack_require__(/*! @firebase/util */ 267);
+	var app_1 = __webpack_require__(/*! @firebase/app */ 264);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../core/util/util */ 288);
+	var StatsManager_1 = __webpack_require__(/*! ../core/stats/StatsManager */ 344);
+	var Constants_1 = __webpack_require__(/*! ./Constants */ 295);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var storage_1 = __webpack_require__(/*! ../core/storage/storage */ 289);
+	var util_4 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_5 = __webpack_require__(/*! @firebase/util */ 266);
 	var WEBSOCKET_MAX_FRAME_SIZE = 16384;
 	var WEBSOCKET_KEEPALIVE_INTERVAL = 45000;
 	var WebSocketImpl = null;
@@ -47327,7 +47222,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../../../../process/browser.js */ 3)))
 
 /***/ }),
-/* 359 */
+/* 358 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/ServerActions.js ***!
   \*****************************************************************/
@@ -47407,7 +47302,7 @@
 
 
 /***/ }),
-/* 360 */
+/* 359 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/ReadonlyRestClient.js ***!
   \**********************************************************************/
@@ -47440,12 +47335,12 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ./util/util */ 289);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_4 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_5 = __webpack_require__(/*! @firebase/util */ 267);
-	var ServerActions_1 = __webpack_require__(/*! ./ServerActions */ 359);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ./util/util */ 288);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_4 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_5 = __webpack_require__(/*! @firebase/util */ 266);
+	var ServerActions_1 = __webpack_require__(/*! ./ServerActions */ 358);
 	/**
 	 * An implementation of ServerActions that communicates with the server via REST requests.
 	 * This is mostly useful for compatibility with crawlers, where we don't want to spin up a full
@@ -47606,7 +47501,7 @@
 
 
 /***/ }),
-/* 361 */
+/* 360 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/QueryParams.js ***!
   \********************************************************************/
@@ -47629,16 +47524,16 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var util_2 = __webpack_require__(/*! ../util/util */ 289);
-	var KeyIndex_1 = __webpack_require__(/*! ../snap/indexes/KeyIndex */ 303);
-	var PriorityIndex_1 = __webpack_require__(/*! ../snap/indexes/PriorityIndex */ 306);
-	var ValueIndex_1 = __webpack_require__(/*! ../snap/indexes/ValueIndex */ 309);
-	var PathIndex_1 = __webpack_require__(/*! ../snap/indexes/PathIndex */ 316);
-	var IndexedFilter_1 = __webpack_require__(/*! ./filter/IndexedFilter */ 335);
-	var LimitedFilter_1 = __webpack_require__(/*! ./filter/LimitedFilter */ 362);
-	var RangedFilter_1 = __webpack_require__(/*! ./filter/RangedFilter */ 363);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var util_2 = __webpack_require__(/*! ../util/util */ 288);
+	var KeyIndex_1 = __webpack_require__(/*! ../snap/indexes/KeyIndex */ 302);
+	var PriorityIndex_1 = __webpack_require__(/*! ../snap/indexes/PriorityIndex */ 305);
+	var ValueIndex_1 = __webpack_require__(/*! ../snap/indexes/ValueIndex */ 308);
+	var PathIndex_1 = __webpack_require__(/*! ../snap/indexes/PathIndex */ 315);
+	var IndexedFilter_1 = __webpack_require__(/*! ./filter/IndexedFilter */ 334);
+	var LimitedFilter_1 = __webpack_require__(/*! ./filter/LimitedFilter */ 361);
+	var RangedFilter_1 = __webpack_require__(/*! ./filter/RangedFilter */ 362);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * This class is an immutable-from-the-public-api struct containing a set of query parameters defining a
 	 * range to be returned for a particular location. It is assumed that validation of parameters is done at the
@@ -48021,7 +47916,7 @@
 
 
 /***/ }),
-/* 362 */
+/* 361 */
 /*!*****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/filter/LimitedFilter.js ***!
   \*****************************************************************************/
@@ -48044,11 +47939,11 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var RangedFilter_1 = __webpack_require__(/*! ./RangedFilter */ 363);
-	var ChildrenNode_1 = __webpack_require__(/*! ../../snap/ChildrenNode */ 311);
-	var Node_1 = __webpack_require__(/*! ../../snap/Node */ 305);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Change_1 = __webpack_require__(/*! ../Change */ 336);
+	var RangedFilter_1 = __webpack_require__(/*! ./RangedFilter */ 362);
+	var ChildrenNode_1 = __webpack_require__(/*! ../../snap/ChildrenNode */ 310);
+	var Node_1 = __webpack_require__(/*! ../../snap/Node */ 304);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Change_1 = __webpack_require__(/*! ../Change */ 335);
 	/**
 	 * Applies a limit and a range to a node and uses RangedFilter to do the heavy lifting where possible
 	 *
@@ -48289,7 +48184,7 @@
 
 
 /***/ }),
-/* 363 */
+/* 362 */
 /*!****************************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/view/filter/RangedFilter.js ***!
   \****************************************************************************/
@@ -48312,10 +48207,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var IndexedFilter_1 = __webpack_require__(/*! ./IndexedFilter */ 335);
-	var PriorityIndex_1 = __webpack_require__(/*! ../../snap/indexes/PriorityIndex */ 306);
-	var Node_1 = __webpack_require__(/*! ../../../core/snap/Node */ 305);
-	var ChildrenNode_1 = __webpack_require__(/*! ../../snap/ChildrenNode */ 311);
+	var IndexedFilter_1 = __webpack_require__(/*! ./IndexedFilter */ 334);
+	var PriorityIndex_1 = __webpack_require__(/*! ../../snap/indexes/PriorityIndex */ 305);
+	var Node_1 = __webpack_require__(/*! ../../../core/snap/Node */ 304);
+	var ChildrenNode_1 = __webpack_require__(/*! ../../snap/ChildrenNode */ 310);
 	/**
 	 * Filters nodes by range and uses an IndexFilter to track any changes after filtering the node
 	 *
@@ -48441,7 +48336,7 @@
 
 
 /***/ }),
-/* 364 */
+/* 363 */
 /*!***************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/RepoManager.js ***!
   \***************************************************************/
@@ -48464,12 +48359,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Repo_1 = __webpack_require__(/*! ./Repo */ 320);
-	var util_2 = __webpack_require__(/*! ./util/util */ 289);
-	var parser_1 = __webpack_require__(/*! ./util/libs/parser */ 293);
-	var validation_1 = __webpack_require__(/*! ./util/validation */ 299);
-	__webpack_require__(/*! ./Repo_transaction */ 365);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Repo_1 = __webpack_require__(/*! ./Repo */ 319);
+	var util_2 = __webpack_require__(/*! ./util/util */ 288);
+	var parser_1 = __webpack_require__(/*! ./util/libs/parser */ 292);
+	var validation_1 = __webpack_require__(/*! ./util/validation */ 298);
+	__webpack_require__(/*! ./Repo_transaction */ 364);
 	/** @const {string} */
 	var DATABASE_URL_OPTION = 'databaseURL';
 	var _staticInstance;
@@ -48583,7 +48478,7 @@
 
 
 /***/ }),
-/* 365 */
+/* 364 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/Repo_transaction.js ***!
   \********************************************************************/
@@ -48606,19 +48501,19 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Reference_1 = __webpack_require__(/*! ../api/Reference */ 297);
-	var DataSnapshot_1 = __webpack_require__(/*! ../api/DataSnapshot */ 318);
-	var Path_1 = __webpack_require__(/*! ./util/Path */ 294);
-	var Tree_1 = __webpack_require__(/*! ./util/Tree */ 366);
-	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 306);
-	var util_2 = __webpack_require__(/*! ./util/util */ 289);
-	var ServerValues_1 = __webpack_require__(/*! ./util/ServerValues */ 321);
-	var validation_1 = __webpack_require__(/*! ./util/validation */ 299);
-	var util_3 = __webpack_require__(/*! @firebase/util */ 267);
-	var nodeFromJSON_1 = __webpack_require__(/*! ./snap/nodeFromJSON */ 310);
-	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 311);
-	var Repo_1 = __webpack_require__(/*! ./Repo */ 320);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Reference_1 = __webpack_require__(/*! ../api/Reference */ 296);
+	var DataSnapshot_1 = __webpack_require__(/*! ../api/DataSnapshot */ 317);
+	var Path_1 = __webpack_require__(/*! ./util/Path */ 293);
+	var Tree_1 = __webpack_require__(/*! ./util/Tree */ 365);
+	var PriorityIndex_1 = __webpack_require__(/*! ./snap/indexes/PriorityIndex */ 305);
+	var util_2 = __webpack_require__(/*! ./util/util */ 288);
+	var ServerValues_1 = __webpack_require__(/*! ./util/ServerValues */ 320);
+	var validation_1 = __webpack_require__(/*! ./util/validation */ 298);
+	var util_3 = __webpack_require__(/*! @firebase/util */ 266);
+	var nodeFromJSON_1 = __webpack_require__(/*! ./snap/nodeFromJSON */ 309);
+	var ChildrenNode_1 = __webpack_require__(/*! ./snap/ChildrenNode */ 310);
+	var Repo_1 = __webpack_require__(/*! ./Repo */ 319);
 	// TODO: This is pretty messy.  Ideally, a lot of this would move into FirebaseData, or a transaction-specific
 	// component used by FirebaseData, but it has ties to user callbacks (transaction update and onComplete) as well
 	// as the realtime connection (to send transactions to the server).  So that all needs to be decoupled first.
@@ -49157,7 +49052,7 @@
 
 
 /***/ }),
-/* 366 */
+/* 365 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/core/util/Tree.js ***!
   \*************************************************************/
@@ -49180,9 +49075,9 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var Path_1 = __webpack_require__(/*! ./Path */ 294);
-	var util_2 = __webpack_require__(/*! @firebase/util */ 267);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var Path_1 = __webpack_require__(/*! ./Path */ 293);
+	var util_2 = __webpack_require__(/*! @firebase/util */ 266);
 	/**
 	 * Node in a Tree.
 	 */
@@ -49393,7 +49288,7 @@
 
 
 /***/ }),
-/* 367 */
+/* 366 */
 /*!***********************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/internal.js ***!
   \***********************************************************/
@@ -49416,8 +49311,8 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var WebSocketConnection_1 = __webpack_require__(/*! ../realtime/WebSocketConnection */ 358);
-	var BrowserPollConnection_1 = __webpack_require__(/*! ../realtime/BrowserPollConnection */ 356);
+	var WebSocketConnection_1 = __webpack_require__(/*! ../realtime/WebSocketConnection */ 357);
+	var BrowserPollConnection_1 = __webpack_require__(/*! ../realtime/BrowserPollConnection */ 355);
 	/**
 	 * INTERNAL methods for internal-use only (tests, etc.).
 	 *
@@ -49456,7 +49351,7 @@
 
 
 /***/ }),
-/* 368 */
+/* 367 */
 /*!**************************************************************!*\
   !*** ./~/@firebase/database/dist/cjs/src/api/test_access.js ***!
   \**************************************************************/
@@ -49479,10 +49374,10 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var RepoInfo_1 = __webpack_require__(/*! ../core/RepoInfo */ 295);
-	var PersistentConnection_1 = __webpack_require__(/*! ../core/PersistentConnection */ 350);
-	var RepoManager_1 = __webpack_require__(/*! ../core/RepoManager */ 364);
-	var Connection_1 = __webpack_require__(/*! ../realtime/Connection */ 354);
+	var RepoInfo_1 = __webpack_require__(/*! ../core/RepoInfo */ 294);
+	var PersistentConnection_1 = __webpack_require__(/*! ../core/PersistentConnection */ 349);
+	var RepoManager_1 = __webpack_require__(/*! ../core/RepoManager */ 363);
+	var Connection_1 = __webpack_require__(/*! ../realtime/Connection */ 353);
 	exports.DataConnection = PersistentConnection_1.PersistentConnection;
 	/**
 	 * @param {!string} pathString
@@ -49547,7 +49442,7 @@
 
 
 /***/ }),
-/* 369 */
+/* 368 */
 /*!***************************************!*\
   !*** ./~/firebase/messaging/index.js ***!
   \***************************************/
@@ -49569,11 +49464,11 @@
 	 * limitations under the License.
 	 */
 	
-	__webpack_require__(/*! @firebase/messaging */ 370);
+	__webpack_require__(/*! @firebase/messaging */ 369);
 
 
 /***/ }),
-/* 370 */
+/* 369 */
 /*!*************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/index.js ***!
   \*************************************************/
@@ -49596,9 +49491,9 @@
 	 */
 	'use strict';
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var window_controller_1 = __webpack_require__(/*! ./src/controllers/window-controller */ 371);
-	var sw_controller_1 = __webpack_require__(/*! ./src/controllers/sw-controller */ 380);
-	var app_1 = __webpack_require__(/*! @firebase/app */ 265);
+	var window_controller_1 = __webpack_require__(/*! ./src/controllers/window-controller */ 370);
+	var sw_controller_1 = __webpack_require__(/*! ./src/controllers/sw-controller */ 379);
+	var app_1 = __webpack_require__(/*! @firebase/app */ 264);
 	function registerMessaging(instance) {
 	    var messagingName = 'messaging';
 	    var factoryMethod = function (app) {
@@ -49621,7 +49516,7 @@
 
 
 /***/ }),
-/* 371 */
+/* 370 */
 /*!*****************************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/controllers/window-controller.js ***!
   \*****************************************************************************/
@@ -49654,12 +49549,12 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var controller_interface_1 = __webpack_require__(/*! ./controller-interface */ 372);
-	var errors_1 = __webpack_require__(/*! ../models/errors */ 373);
-	var worker_page_message_1 = __webpack_require__(/*! ../models/worker-page-message */ 378);
-	var default_sw_1 = __webpack_require__(/*! ../models/default-sw */ 379);
-	var notification_permission_1 = __webpack_require__(/*! ../models/notification-permission */ 377);
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
+	var controller_interface_1 = __webpack_require__(/*! ./controller-interface */ 371);
+	var errors_1 = __webpack_require__(/*! ../models/errors */ 372);
+	var worker_page_message_1 = __webpack_require__(/*! ../models/worker-page-message */ 377);
+	var default_sw_1 = __webpack_require__(/*! ../models/default-sw */ 378);
+	var notification_permission_1 = __webpack_require__(/*! ../models/notification-permission */ 376);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
 	var WindowController = /** @class */ (function (_super) {
 	    __extends(WindowController, _super);
 	    /**
@@ -49970,7 +49865,7 @@
 
 
 /***/ }),
-/* 372 */
+/* 371 */
 /*!********************************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/controllers/controller-interface.js ***!
   \********************************************************************************/
@@ -49993,10 +49888,10 @@
 	 */
 	'use strict';
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var errors_1 = __webpack_require__(/*! ../models/errors */ 373);
-	var token_manager_1 = __webpack_require__(/*! ../models/token-manager */ 374);
-	var notification_permission_1 = __webpack_require__(/*! ../models/notification-permission */ 377);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var errors_1 = __webpack_require__(/*! ../models/errors */ 372);
+	var token_manager_1 = __webpack_require__(/*! ../models/token-manager */ 373);
+	var notification_permission_1 = __webpack_require__(/*! ../models/notification-permission */ 376);
 	var SENDER_ID_OPTION_NAME = 'messagingSenderId';
 	var ControllerInterface = /** @class */ (function () {
 	    /**
@@ -50149,7 +50044,7 @@
 
 
 /***/ }),
-/* 373 */
+/* 372 */
 /*!*************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/models/errors.js ***!
   \*************************************************************/
@@ -50269,7 +50164,7 @@
 
 
 /***/ }),
-/* 374 */
+/* 373 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/models/token-manager.js ***!
   \********************************************************************/
@@ -50292,10 +50187,10 @@
 	 */
 	'use strict';
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var util_1 = __webpack_require__(/*! @firebase/util */ 267);
-	var errors_1 = __webpack_require__(/*! ./errors */ 373);
-	var array_buffer_to_base64_1 = __webpack_require__(/*! ../helpers/array-buffer-to-base64 */ 375);
-	var fcm_details_1 = __webpack_require__(/*! ./fcm-details */ 376);
+	var util_1 = __webpack_require__(/*! @firebase/util */ 266);
+	var errors_1 = __webpack_require__(/*! ./errors */ 372);
+	var array_buffer_to_base64_1 = __webpack_require__(/*! ../helpers/array-buffer-to-base64 */ 374);
+	var fcm_details_1 = __webpack_require__(/*! ./fcm-details */ 375);
 	var FCM_TOKEN_OBJ_STORE = 'fcm_token_object_Store';
 	var FCM_TOKEN_DETAILS_DB_VERSION = 1;
 	var TokenManager = /** @class */ (function () {
@@ -50645,7 +50540,7 @@
 
 
 /***/ }),
-/* 375 */
+/* 374 */
 /*!******************************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/helpers/array-buffer-to-base64.js ***!
   \******************************************************************************/
@@ -50684,7 +50579,7 @@
 
 
 /***/ }),
-/* 376 */
+/* 375 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/models/fcm-details.js ***!
   \******************************************************************/
@@ -50788,7 +50683,7 @@
 
 
 /***/ }),
-/* 377 */
+/* 376 */
 /*!******************************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/models/notification-permission.js ***!
   \******************************************************************************/
@@ -50821,7 +50716,7 @@
 
 
 /***/ }),
-/* 378 */
+/* 377 */
 /*!**************************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/models/worker-page-message.js ***!
   \**************************************************************************/
@@ -50874,7 +50769,7 @@
 
 
 /***/ }),
-/* 379 */
+/* 378 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/models/default-sw.js ***!
   \*****************************************************************/
@@ -50906,7 +50801,7 @@
 
 
 /***/ }),
-/* 380 */
+/* 379 */
 /*!*************************************************************************!*\
   !*** ./~/@firebase/messaging/dist/cjs/src/controllers/sw-controller.js ***!
   \*************************************************************************/
@@ -50939,10 +50834,10 @@
 	    };
 	})();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var controller_interface_1 = __webpack_require__(/*! ./controller-interface */ 372);
-	var errors_1 = __webpack_require__(/*! ../models/errors */ 373);
-	var worker_page_message_1 = __webpack_require__(/*! ../models/worker-page-message */ 378);
-	var fcm_details_1 = __webpack_require__(/*! ../models/fcm-details */ 376);
+	var controller_interface_1 = __webpack_require__(/*! ./controller-interface */ 371);
+	var errors_1 = __webpack_require__(/*! ../models/errors */ 372);
+	var worker_page_message_1 = __webpack_require__(/*! ../models/worker-page-message */ 377);
+	var fcm_details_1 = __webpack_require__(/*! ../models/fcm-details */ 375);
 	var FCM_MSG = 'FCM_MSG';
 	var SWController = /** @class */ (function (_super) {
 	    __extends(SWController, _super);
@@ -51228,7 +51123,7 @@
 
 
 /***/ }),
-/* 381 */
+/* 380 */
 /*!*************************************!*\
   !*** ./~/firebase/storage/index.js ***!
   \*************************************/
@@ -51250,11 +51145,11 @@
 	 * limitations under the License.
 	 */
 	
-	__webpack_require__(/*! @firebase/storage */ 382);
+	__webpack_require__(/*! @firebase/storage */ 381);
 
 
 /***/ }),
-/* 382 */
+/* 381 */
 /*!***********************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/index.js ***!
   \***********************************************/
@@ -51277,13 +51172,13 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var app_1 = __webpack_require__(/*! @firebase/app */ 265);
-	var string_1 = __webpack_require__(/*! ./src/implementation/string */ 383);
-	var taskenums_1 = __webpack_require__(/*! ./src/implementation/taskenums */ 386);
-	var taskenums_2 = __webpack_require__(/*! ./src/implementation/taskenums */ 386);
-	var xhriopool_1 = __webpack_require__(/*! ./src/implementation/xhriopool */ 387);
-	var reference_1 = __webpack_require__(/*! ./src/reference */ 393);
-	var service_1 = __webpack_require__(/*! ./src/service */ 409);
+	var app_1 = __webpack_require__(/*! @firebase/app */ 264);
+	var string_1 = __webpack_require__(/*! ./src/implementation/string */ 382);
+	var taskenums_1 = __webpack_require__(/*! ./src/implementation/taskenums */ 385);
+	var taskenums_2 = __webpack_require__(/*! ./src/implementation/taskenums */ 385);
+	var xhriopool_1 = __webpack_require__(/*! ./src/implementation/xhriopool */ 386);
+	var reference_1 = __webpack_require__(/*! ./src/reference */ 392);
+	var service_1 = __webpack_require__(/*! ./src/service */ 408);
 	/**
 	 * Type constant for Firebase Storage.
 	 */
@@ -51311,7 +51206,7 @@
 
 
 /***/ }),
-/* 383 */
+/* 382 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/string.js ***!
   \*******************************************************************/
@@ -51334,7 +51229,7 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
 	exports.StringFormat = {
 	    RAW: 'raw',
 	    BASE64: 'base64',
@@ -51526,7 +51421,7 @@
 
 
 /***/ }),
-/* 384 */
+/* 383 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/error.js ***!
   \******************************************************************/
@@ -51549,7 +51444,7 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var constants_1 = __webpack_require__(/*! ./constants */ 385);
+	var constants_1 = __webpack_require__(/*! ./constants */ 384);
 	var FirebaseStorageError = /** @class */ (function () {
 	    function FirebaseStorageError(code, message) {
 	        this.code_ = prependCode(code);
@@ -51776,7 +51671,7 @@
 
 
 /***/ }),
-/* 385 */
+/* 384 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/constants.js ***!
   \**********************************************************************/
@@ -51845,7 +51740,7 @@
 
 
 /***/ }),
-/* 386 */
+/* 385 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/taskenums.js ***!
   \**********************************************************************/
@@ -51918,7 +51813,7 @@
 
 
 /***/ }),
-/* 387 */
+/* 386 */
 /*!**********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/xhriopool.js ***!
   \**********************************************************************/
@@ -51941,7 +51836,7 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var xhrio_network_1 = __webpack_require__(/*! ./xhrio_network */ 388);
+	var xhrio_network_1 = __webpack_require__(/*! ./xhrio_network */ 387);
 	/**
 	 * Factory-like class for creating XhrIo instances.
 	 */
@@ -51959,7 +51854,7 @@
 
 
 /***/ }),
-/* 388 */
+/* 387 */
 /*!**************************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/xhrio_network.js ***!
   \**************************************************************************/
@@ -51982,11 +51877,11 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
-	var object = __webpack_require__(/*! ./object */ 389);
-	var promiseimpl = __webpack_require__(/*! ./promise_external */ 390);
-	var type = __webpack_require__(/*! ./type */ 391);
-	var XhrIoExports = __webpack_require__(/*! ./xhrio */ 392);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
+	var object = __webpack_require__(/*! ./object */ 388);
+	var promiseimpl = __webpack_require__(/*! ./promise_external */ 389);
+	var type = __webpack_require__(/*! ./type */ 390);
+	var XhrIoExports = __webpack_require__(/*! ./xhrio */ 391);
 	/**
 	 * We use this instead of goog.net.XhrIo because goog.net.XhrIo is hyuuuuge and
 	 * doesn't work in React Native on Android.
@@ -52104,7 +51999,7 @@
 
 
 /***/ }),
-/* 389 */
+/* 388 */
 /*!*******************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/object.js ***!
   \*******************************************************************/
@@ -52158,7 +52053,7 @@
 
 
 /***/ }),
-/* 390 */
+/* 389 */
 /*!*****************************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/promise_external.js ***!
   \*****************************************************************************/
@@ -52210,7 +52105,7 @@
 
 
 /***/ }),
-/* 391 */
+/* 390 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/type.js ***!
   \*****************************************************************/
@@ -52281,7 +52176,7 @@
 
 
 /***/ }),
-/* 392 */
+/* 391 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/xhrio.js ***!
   \******************************************************************/
@@ -52318,7 +52213,7 @@
 
 
 /***/ }),
-/* 393 */
+/* 392 */
 /*!*******************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/reference.js ***!
   \*******************************************************/
@@ -52344,18 +52239,18 @@
 	/**
 	 * @fileoverview Defines the Firebase Storage Reference class.
 	 */
-	var args = __webpack_require__(/*! ./implementation/args */ 394);
-	var blob_1 = __webpack_require__(/*! ./implementation/blob */ 400);
-	var errorsExports = __webpack_require__(/*! ./implementation/error */ 384);
-	var location_1 = __webpack_require__(/*! ./implementation/location */ 397);
-	var metadata = __webpack_require__(/*! ./implementation/metadata */ 395);
-	var object = __webpack_require__(/*! ./implementation/object */ 389);
-	var path = __webpack_require__(/*! ./implementation/path */ 398);
-	var requests = __webpack_require__(/*! ./implementation/requests */ 402);
-	var fbsString = __webpack_require__(/*! ./implementation/string */ 383);
-	var string_1 = __webpack_require__(/*! ./implementation/string */ 383);
-	var type = __webpack_require__(/*! ./implementation/type */ 391);
-	var task_1 = __webpack_require__(/*! ./task */ 405);
+	var args = __webpack_require__(/*! ./implementation/args */ 393);
+	var blob_1 = __webpack_require__(/*! ./implementation/blob */ 399);
+	var errorsExports = __webpack_require__(/*! ./implementation/error */ 383);
+	var location_1 = __webpack_require__(/*! ./implementation/location */ 396);
+	var metadata = __webpack_require__(/*! ./implementation/metadata */ 394);
+	var object = __webpack_require__(/*! ./implementation/object */ 388);
+	var path = __webpack_require__(/*! ./implementation/path */ 397);
+	var requests = __webpack_require__(/*! ./implementation/requests */ 401);
+	var fbsString = __webpack_require__(/*! ./implementation/string */ 382);
+	var string_1 = __webpack_require__(/*! ./implementation/string */ 382);
+	var type = __webpack_require__(/*! ./implementation/type */ 390);
+	var task_1 = __webpack_require__(/*! ./task */ 404);
 	/**
 	 * Provides methods to interact with a bucket in the Firebase Storage service.
 	 * @param location An fbs.location, or the URL at
@@ -52568,7 +52463,7 @@
 
 
 /***/ }),
-/* 394 */
+/* 393 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/args.js ***!
   \*****************************************************************/
@@ -52591,9 +52486,9 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
-	var MetadataUtils = __webpack_require__(/*! ./metadata */ 395);
-	var type = __webpack_require__(/*! ./type */ 391);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
+	var MetadataUtils = __webpack_require__(/*! ./metadata */ 394);
+	var type = __webpack_require__(/*! ./type */ 390);
 	/**
 	 * @param name Name of the function.
 	 * @param specs Argument specs.
@@ -52722,7 +52617,7 @@
 
 
 /***/ }),
-/* 395 */
+/* 394 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/metadata.js ***!
   \*********************************************************************/
@@ -52745,11 +52640,11 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var json = __webpack_require__(/*! ./json */ 396);
-	var location_1 = __webpack_require__(/*! ./location */ 397);
-	var path = __webpack_require__(/*! ./path */ 398);
-	var type = __webpack_require__(/*! ./type */ 391);
-	var UrlUtils = __webpack_require__(/*! ./url */ 399);
+	var json = __webpack_require__(/*! ./json */ 395);
+	var location_1 = __webpack_require__(/*! ./location */ 396);
+	var path = __webpack_require__(/*! ./path */ 397);
+	var type = __webpack_require__(/*! ./type */ 390);
+	var UrlUtils = __webpack_require__(/*! ./url */ 398);
 	function noXform_(metadata, value) {
 	    return value;
 	}
@@ -52916,7 +52811,7 @@
 
 
 /***/ }),
-/* 396 */
+/* 395 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/json.js ***!
   \*****************************************************************/
@@ -52939,7 +52834,7 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var type = __webpack_require__(/*! ./type */ 391);
+	var type = __webpack_require__(/*! ./type */ 390);
 	/**
 	 * Returns the Object resulting from parsing the given JSON, or null if the
 	 * given string does not represent a JSON object.
@@ -52965,7 +52860,7 @@
 
 
 /***/ }),
-/* 397 */
+/* 396 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/location.js ***!
   \*********************************************************************/
@@ -52992,7 +52887,7 @@
 	 * @fileoverview Functionality related to the parsing/composition of bucket/
 	 * object location.
 	 */
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
 	/**
 	 * @struct
 	 */
@@ -53087,7 +52982,7 @@
 
 
 /***/ }),
-/* 398 */
+/* 397 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/path.js ***!
   \*****************************************************************/
@@ -53164,7 +53059,7 @@
 
 
 /***/ }),
-/* 399 */
+/* 398 */
 /*!****************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/url.js ***!
   \****************************************************************/
@@ -53190,8 +53085,8 @@
 	/**
 	 * @fileoverview Functions to create and manipulate URLs for the server API.
 	 */
-	var constants = __webpack_require__(/*! ./constants */ 385);
-	var object = __webpack_require__(/*! ./object */ 389);
+	var constants = __webpack_require__(/*! ./constants */ 384);
+	var object = __webpack_require__(/*! ./object */ 388);
 	function makeNormalUrl(urlPart) {
 	    return constants.domainBase + constants.apiBaseUrl + urlPart;
 	}
@@ -53221,7 +53116,7 @@
 
 
 /***/ }),
-/* 400 */
+/* 399 */
 /*!*****************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/blob.js ***!
   \*****************************************************************/
@@ -53249,10 +53144,10 @@
 	 * native Blob type). This makes it possible to upload types like ArrayBuffers,
 	 * making uploads possible in environments without the native Blob type.
 	 */
-	var fs = __webpack_require__(/*! ./fs */ 401);
-	var string = __webpack_require__(/*! ./string */ 383);
-	var string_1 = __webpack_require__(/*! ./string */ 383);
-	var type = __webpack_require__(/*! ./type */ 391);
+	var fs = __webpack_require__(/*! ./fs */ 400);
+	var string = __webpack_require__(/*! ./string */ 382);
+	var string_1 = __webpack_require__(/*! ./string */ 382);
+	var type = __webpack_require__(/*! ./type */ 390);
 	/**
 	 * @param opt_elideCopy If true, doesn't copy mutable input data
 	 *     (e.g. Uint8Arrays). Pass true only if you know the objects will not be
@@ -53361,7 +53256,7 @@
 
 
 /***/ }),
-/* 401 */
+/* 400 */
 /*!***************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/fs.js ***!
   \***************************************************************/
@@ -53369,7 +53264,7 @@
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var type = __webpack_require__(/*! ./type */ 391);
+	var type = __webpack_require__(/*! ./type */ 390);
 	function getBlobBuilder() {
 	    if (typeof BlobBuilder !== 'undefined') {
 	        return BlobBuilder;
@@ -53437,7 +53332,7 @@
 
 
 /***/ }),
-/* 402 */
+/* 401 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/requests.js ***!
   \*********************************************************************/
@@ -53460,14 +53355,14 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var array = __webpack_require__(/*! ./array */ 403);
-	var blob_1 = __webpack_require__(/*! ./blob */ 400);
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
-	var MetadataUtils = __webpack_require__(/*! ./metadata */ 395);
-	var object = __webpack_require__(/*! ./object */ 389);
-	var requestinfo_1 = __webpack_require__(/*! ./requestinfo */ 404);
-	var type = __webpack_require__(/*! ./type */ 391);
-	var UrlUtils = __webpack_require__(/*! ./url */ 399);
+	var array = __webpack_require__(/*! ./array */ 402);
+	var blob_1 = __webpack_require__(/*! ./blob */ 399);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
+	var MetadataUtils = __webpack_require__(/*! ./metadata */ 394);
+	var object = __webpack_require__(/*! ./object */ 388);
+	var requestinfo_1 = __webpack_require__(/*! ./requestinfo */ 403);
+	var type = __webpack_require__(/*! ./type */ 390);
+	var UrlUtils = __webpack_require__(/*! ./url */ 398);
 	/**
 	 * Throws the UNKNOWN FirebaseStorageError if cndn is false.
 	 */
@@ -53793,7 +53688,7 @@
 
 
 /***/ }),
-/* 403 */
+/* 402 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/array.js ***!
   \******************************************************************/
@@ -53849,7 +53744,7 @@
 
 
 /***/ }),
-/* 404 */
+/* 403 */
 /*!************************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/requestinfo.js ***!
   \************************************************************************/
@@ -53891,7 +53786,7 @@
 
 
 /***/ }),
-/* 405 */
+/* 404 */
 /*!**************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/task.js ***!
   \**************************************************/
@@ -53917,18 +53812,18 @@
 	 * @fileoverview Defines types for interacting with blob transfer tasks.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var taskenums_1 = __webpack_require__(/*! ./implementation/taskenums */ 386);
-	var observer_1 = __webpack_require__(/*! ./implementation/observer */ 406);
-	var taskenums_2 = __webpack_require__(/*! ./implementation/taskenums */ 386);
-	var tasksnapshot_1 = __webpack_require__(/*! ./tasksnapshot */ 407);
-	var fbsArgs = __webpack_require__(/*! ./implementation/args */ 394);
-	var fbsArray = __webpack_require__(/*! ./implementation/array */ 403);
-	var async_1 = __webpack_require__(/*! ./implementation/async */ 408);
-	var errors = __webpack_require__(/*! ./implementation/error */ 384);
-	var fbsPromiseimpl = __webpack_require__(/*! ./implementation/promise_external */ 390);
-	var fbsRequests = __webpack_require__(/*! ./implementation/requests */ 402);
-	var fbsTaskEnums = __webpack_require__(/*! ./implementation/taskenums */ 386);
-	var typeUtils = __webpack_require__(/*! ./implementation/type */ 391);
+	var taskenums_1 = __webpack_require__(/*! ./implementation/taskenums */ 385);
+	var observer_1 = __webpack_require__(/*! ./implementation/observer */ 405);
+	var taskenums_2 = __webpack_require__(/*! ./implementation/taskenums */ 385);
+	var tasksnapshot_1 = __webpack_require__(/*! ./tasksnapshot */ 406);
+	var fbsArgs = __webpack_require__(/*! ./implementation/args */ 393);
+	var fbsArray = __webpack_require__(/*! ./implementation/array */ 402);
+	var async_1 = __webpack_require__(/*! ./implementation/async */ 407);
+	var errors = __webpack_require__(/*! ./implementation/error */ 383);
+	var fbsPromiseimpl = __webpack_require__(/*! ./implementation/promise_external */ 389);
+	var fbsRequests = __webpack_require__(/*! ./implementation/requests */ 401);
+	var fbsTaskEnums = __webpack_require__(/*! ./implementation/taskenums */ 385);
+	var typeUtils = __webpack_require__(/*! ./implementation/type */ 390);
 	/**
 	 * Represents a blob being uploaded. Can be used to pause/resume/cancel the
 	 * upload and manage callbacks for various events.
@@ -54464,7 +54359,7 @@
 
 
 /***/ }),
-/* 406 */
+/* 405 */
 /*!*********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/observer.js ***!
   \*********************************************************************/
@@ -54487,7 +54382,7 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var type = __webpack_require__(/*! ./type */ 391);
+	var type = __webpack_require__(/*! ./type */ 390);
 	/**
 	 * @struct
 	 */
@@ -54516,7 +54411,7 @@
 
 
 /***/ }),
-/* 407 */
+/* 406 */
 /*!**********************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/tasksnapshot.js ***!
   \**********************************************************/
@@ -54559,7 +54454,7 @@
 
 
 /***/ }),
-/* 408 */
+/* 407 */
 /*!******************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/async.js ***!
   \******************************************************************/
@@ -54585,7 +54480,7 @@
 	/**
 	 * @fileoverview Method for invoking a callback asynchronously.
 	 */
-	var promiseimpl = __webpack_require__(/*! ./promise_external */ 390);
+	var promiseimpl = __webpack_require__(/*! ./promise_external */ 389);
 	/**
 	 * Returns a function that invokes f with its arguments asynchronously as a
 	 * microtask, i.e. as soon as possible after the current script returns back
@@ -54608,7 +54503,7 @@
 
 
 /***/ }),
-/* 409 */
+/* 408 */
 /*!*****************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/service.js ***!
   \*****************************************************/
@@ -54631,12 +54526,12 @@
 	 * limitations under the License.
 	 */
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var args = __webpack_require__(/*! ./implementation/args */ 394);
-	var authwrapper_1 = __webpack_require__(/*! ./implementation/authwrapper */ 410);
-	var location_1 = __webpack_require__(/*! ./implementation/location */ 397);
-	var fbsPromiseImpl = __webpack_require__(/*! ./implementation/promise_external */ 390);
-	var RequestExports = __webpack_require__(/*! ./implementation/request */ 413);
-	var reference_1 = __webpack_require__(/*! ./reference */ 393);
+	var args = __webpack_require__(/*! ./implementation/args */ 393);
+	var authwrapper_1 = __webpack_require__(/*! ./implementation/authwrapper */ 409);
+	var location_1 = __webpack_require__(/*! ./implementation/location */ 396);
+	var fbsPromiseImpl = __webpack_require__(/*! ./implementation/promise_external */ 389);
+	var RequestExports = __webpack_require__(/*! ./implementation/request */ 412);
+	var reference_1 = __webpack_require__(/*! ./reference */ 392);
 	/**
 	 * A service that provides firebaseStorage.Reference instances.
 	 * @param opt_url gs:// url to a custom Storage Bucket
@@ -54765,7 +54660,7 @@
 
 
 /***/ }),
-/* 410 */
+/* 409 */
 /*!************************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/authwrapper.js ***!
   \************************************************************************/
@@ -54773,13 +54668,13 @@
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var constants = __webpack_require__(/*! ./constants */ 385);
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
-	var failrequest_1 = __webpack_require__(/*! ./failrequest */ 411);
-	var location_1 = __webpack_require__(/*! ./location */ 397);
-	var promiseimpl = __webpack_require__(/*! ./promise_external */ 390);
-	var requestmap_1 = __webpack_require__(/*! ./requestmap */ 412);
-	var type = __webpack_require__(/*! ./type */ 391);
+	var constants = __webpack_require__(/*! ./constants */ 384);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
+	var failrequest_1 = __webpack_require__(/*! ./failrequest */ 410);
+	var location_1 = __webpack_require__(/*! ./location */ 396);
+	var promiseimpl = __webpack_require__(/*! ./promise_external */ 389);
+	var requestmap_1 = __webpack_require__(/*! ./requestmap */ 411);
+	var type = __webpack_require__(/*! ./type */ 390);
 	/**
 	 * @param app If null, getAuthToken always resolves with null.
 	 * @param service The storage service associated with this auth wrapper.
@@ -54897,7 +54792,7 @@
 
 
 /***/ }),
-/* 411 */
+/* 410 */
 /*!************************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/failrequest.js ***!
   \************************************************************************/
@@ -54905,7 +54800,7 @@
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var promiseimpl = __webpack_require__(/*! ./promise_external */ 390);
+	var promiseimpl = __webpack_require__(/*! ./promise_external */ 389);
 	/**
 	 * A request whose promise always fails.
 	 * @struct
@@ -54931,7 +54826,7 @@
 
 
 /***/ }),
-/* 412 */
+/* 411 */
 /*!***********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/requestmap.js ***!
   \***********************************************************************/
@@ -54954,8 +54849,8 @@
 	 * See the License for the specific language governing permissions and
 	 * limitations under the License.
 	 */
-	var object = __webpack_require__(/*! ./object */ 389);
-	var constants = __webpack_require__(/*! ./constants */ 385);
+	var object = __webpack_require__(/*! ./object */ 388);
+	var constants = __webpack_require__(/*! ./constants */ 384);
 	/**
 	 * @struct
 	 */
@@ -54998,7 +54893,7 @@
 
 
 /***/ }),
-/* 413 */
+/* 412 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/request.js ***!
   \********************************************************************/
@@ -55025,15 +54920,15 @@
 	 * @fileoverview Defines methods used to actually send HTTP requests from
 	 * abstract representations.
 	 */
-	var app_1 = __webpack_require__(/*! @firebase/app */ 265);
-	var array = __webpack_require__(/*! ./array */ 403);
-	var backoff = __webpack_require__(/*! ./backoff */ 414);
-	var errorsExports = __webpack_require__(/*! ./error */ 384);
-	var object = __webpack_require__(/*! ./object */ 389);
-	var promiseimpl = __webpack_require__(/*! ./promise_external */ 390);
-	var type = __webpack_require__(/*! ./type */ 391);
-	var UrlUtils = __webpack_require__(/*! ./url */ 399);
-	var XhrIoExports = __webpack_require__(/*! ./xhrio */ 392);
+	var app_1 = __webpack_require__(/*! @firebase/app */ 264);
+	var array = __webpack_require__(/*! ./array */ 402);
+	var backoff = __webpack_require__(/*! ./backoff */ 413);
+	var errorsExports = __webpack_require__(/*! ./error */ 383);
+	var object = __webpack_require__(/*! ./object */ 388);
+	var promiseimpl = __webpack_require__(/*! ./promise_external */ 389);
+	var type = __webpack_require__(/*! ./type */ 390);
+	var UrlUtils = __webpack_require__(/*! ./url */ 398);
+	var XhrIoExports = __webpack_require__(/*! ./xhrio */ 391);
 	/**
 	 * @struct
 	 * @template T
@@ -55232,7 +55127,7 @@
 
 
 /***/ }),
-/* 414 */
+/* 413 */
 /*!********************************************************************!*\
   !*** ./~/@firebase/storage/dist/cjs/src/implementation/backoff.js ***!
   \********************************************************************/
@@ -55362,7 +55257,7 @@
 
 
 /***/ }),
-/* 415 */
+/* 414 */
 /*!*******************************!*\
   !*** ./src/app/views/Home.js ***!
   \*******************************/
@@ -55387,13 +55282,17 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 416);
+	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 415);
 	
-	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 419);
+	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 418);
 	
-	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 420);
+	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 419);
 	
-	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 421);
+	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 420);
+	
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 421);
+	
+	var _AlbumBlock = __webpack_require__(/*! ./components/blocks/AlbumBlock */ 422);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -55419,7 +55318,7 @@
 	            return _react2.default.createElement(
 	                "div",
 	                null,
-	                _react2.default.createElement("div", { className: "jumbotron dark" }),
+	                _react2.default.createElement("div", { className: "container dark " }),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
@@ -55458,7 +55357,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 416 */
+/* 415 */
 /*!****************************************************!*\
   !*** ./src/app/views/components/posts/songPost.js ***!
   \****************************************************/
@@ -55477,7 +55376,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _firebase = __webpack_require__(/*! firebase */ 256);
+	var _firebase = __webpack_require__(/*! firebase */ 255);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -55485,9 +55384,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 417);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 416);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 418);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 417);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -55582,7 +55481,7 @@
 	};
 
 /***/ }),
-/* 417 */
+/* 416 */
 /*!*************************************************************!*\
   !*** ./src/app/views/components/posts/frame/cardButtons.js ***!
   \*************************************************************/
@@ -55654,7 +55553,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 418 */
+/* 417 */
 /*!************************************************************!*\
   !*** ./src/app/views/components/posts/frame/cardHeader.js ***!
   \************************************************************/
@@ -55719,7 +55618,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col-sm rightAlign" },
+	                        { className: "col-sm text-right" },
 	                        _react2.default.createElement("span", { className: "oi oi-ellipses pr-2", title: "ellipses" })
 	                    )
 	                ),
@@ -55736,7 +55635,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 419 */
+/* 418 */
 /*!*****************************************************!*\
   !*** ./src/app/views/components/posts/albumPost.js ***!
   \*****************************************************/
@@ -55755,7 +55654,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _firebase = __webpack_require__(/*! firebase */ 256);
+	var _firebase = __webpack_require__(/*! firebase */ 255);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -55763,9 +55662,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 417);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 416);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 418);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 417);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -55878,7 +55777,7 @@
 	};
 
 /***/ }),
-/* 420 */
+/* 419 */
 /*!********************************************************!*\
   !*** ./src/app/views/components/posts/playlistPost.js ***!
   \********************************************************/
@@ -55897,7 +55796,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _firebase = __webpack_require__(/*! firebase */ 256);
+	var _firebase = __webpack_require__(/*! firebase */ 255);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -55905,9 +55804,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 417);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 416);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 418);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 417);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -56101,7 +56000,7 @@
 	};
 
 /***/ }),
-/* 421 */
+/* 420 */
 /*!****************************************************!*\
   !*** ./src/app/views/components/posts/textPost.js ***!
   \****************************************************/
@@ -56120,7 +56019,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _firebase = __webpack_require__(/*! firebase */ 256);
+	var _firebase = __webpack_require__(/*! firebase */ 255);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -56128,9 +56027,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 417);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 416);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 418);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 417);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -56192,7 +56091,274 @@
 	};
 
 /***/ }),
+/* 421 */
+/*!******************************************************!*\
+  !*** ./src/app/views/components/blocks/UserBlock.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.UserBlock = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 248);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var UserBlock = exports.UserBlock = function (_React$Component) {
+	    _inherits(UserBlock, _React$Component);
+	
+	    function UserBlock() {
+	        _classCallCheck(this, UserBlock);
+	
+	        return _possibleConstructorReturn(this, (UserBlock.__proto__ || Object.getPrototypeOf(UserBlock)).apply(this, arguments));
+	    }
+	
+	    _createClass(UserBlock, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "row container p-3 text-center" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col text-right" },
+	                        _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col p-3 " },
+	                        _react2.default.createElement(
+	                            "h1",
+	                            null,
+	                            " ",
+	                            inUser.publicName
+	                        ),
+	                        _react2.default.createElement(
+	                            "h1",
+	                            { className: "gold py-3" },
+	                            " ",
+	                            _react2.default.createElement(
+	                                "i",
+	                                null,
+	                                " @",
+	                                inUser.username,
+	                                " "
+	                            ),
+	                            " "
+	                        ),
+	                        _react2.default.createElement(
+	                            "h5",
+	                            null,
+	                            _react2.default.createElement("span", { className: "oi oi-location postIcons pr-2", title: "location" }),
+	                            " Location"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col p-3" },
+	                        _react2.default.createElement(
+	                            "h2",
+	                            { className: "white" },
+	                            "Followers ",
+	                            _react2.default.createElement(
+	                                "small",
+	                                { className: "gold" },
+	                                inUser.followers.length
+	                            ),
+	                            " "
+	                        ),
+	                        _react2.default.createElement(
+	                            "h2",
+	                            { className: "white py-3" },
+	                            "Following ",
+	                            _react2.default.createElement(
+	                                "small",
+	                                { className: "gold" },
+	                                inUser.following.length
+	                            ),
+	                            " "
+	                        ),
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-outline-secondary mt-2 px-5", onClick: signOut },
+	                            " Logout"
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return UserBlock;
+	}(_react2.default.Component);
+	
+	// <div className="profile-grid">
+	//                     <div className="profileImage text-center">
+	//                         <img src="images/profile.png" className="rounded-circle profileCircle" />
+	//                     </div>
+	//                     <div className="profileTags"><span className="badge badge-warning">{inUser.verified}</span>
+	
+	//                     </div>
+	//                     <div className="profileInfo mt-4">
+	//                         <h1> {inUser.publicName}</h1>
+	//                         <h2 className="gold"> <i> @{inUser.username} </i> </h2>
+	//                         <h5 ><span className="oi oi-location postIcons pr-2" title="location"></span> Location</h5>
+	
+	
+	//                     </div>
+	//                     <div className="profileFollow mr-4">
+	
+	//                         <h2 className="gold">Followers</h2>
+	//                         <h3>{inUser.followers.length}</h3>
+	//                         <h2 className="gold">Following</h2>
+	//                         <h3>{inUser.following.length}</h3>
+	
+	//                         <button type="button" className="btn btn-outline-secondary mt-2 px-4" onClick={signOut} > Logout</button>
+	
+	//                     </div>
+	
+	//                 </div>
+
+/***/ }),
 /* 422 */
+/*!*******************************************************!*\
+  !*** ./src/app/views/components/blocks/AlbumBlock.js ***!
+  \*******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.AlbumBlock = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 248);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AlbumBlock = exports.AlbumBlock = function (_React$Component) {
+	    _inherits(AlbumBlock, _React$Component);
+	
+	    function AlbumBlock() {
+	        _classCallCheck(this, AlbumBlock);
+	
+	        return _possibleConstructorReturn(this, (AlbumBlock.__proto__ || Object.getPrototypeOf(AlbumBlock)).apply(this, arguments));
+	    }
+	
+	    _createClass(AlbumBlock, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                null,
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "row container p-3 text-center" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col text-right" },
+	                        _react2.default.createElement("img", { src: "images/coverArt.png", className: "profileCircle" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col p-3 " },
+	                        _react2.default.createElement(
+	                            "h1",
+	                            null,
+	                            " Album Name"
+	                        ),
+	                        _react2.default.createElement(
+	                            "h1",
+	                            { className: "gold py-3" },
+	                            " Artist "
+	                        ),
+	                        _react2.default.createElement(
+	                            "h4",
+	                            null,
+	                            " ",
+	                            _react2.default.createElement(
+	                                "i",
+	                                null,
+	                                " #Vibes"
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "col p-3" },
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-outline-secondary w-75" },
+	                            _react2.default.createElement("span", { className: "oi oi-plus pr-2", title: "plus" }),
+	                            "Save"
+	                        ),
+	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-outline-secondary w-75 my-3" },
+	                            _react2.default.createElement("span", { className: "oi oi-fire pr-2", title: "fire" }),
+	                            "Share"
+	                        ),
+	                        _react2.default.createElement("br", null),
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-outline-secondary w-75 mb-3" },
+	                            _react2.default.createElement("span", { className: "oi oi-heart pr-2", title: "heart" }),
+	                            "Like"
+	                        ),
+	                        _react2.default.createElement(
+	                            "button",
+	                            { type: "button", className: "btn btn-outline-secondary w-75" },
+	                            _react2.default.createElement("span", { className: "oi oi-share pr-2", title: "share" }),
+	                            "Send"
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return AlbumBlock;
+	}(_react2.default.Component);
+
+/***/ }),
+/* 423 */
 /*!*******************************!*\
   !*** ./src/app/views/User.js ***!
   \*******************************/
@@ -56217,15 +56383,15 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 184);
 	
-	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 416);
+	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 415);
 	
-	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 419);
+	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 418);
 	
-	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 420);
+	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 419);
 	
-	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 421);
+	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 420);
 	
-	var _UserBlock = __webpack_require__(/*! ./components/UserBlock */ 423);
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 421);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -56235,12 +56401,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var url = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed";
+	
 	var followers = 0;
 	var following = 0;
-	
-	function routerUpload() {
-	    _reactRouter.browserHistory.push("/upload");
-	}
 	
 	var User = exports.User = function (_React$Component) {
 	    _inherits(User, _React$Component);
@@ -56261,17 +56425,21 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "" },
-	                _react2.default.createElement(_UserBlock.UserBlock, null),
+	                { className: "container" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "dark" },
+	                    _react2.default.createElement(_UserBlock.UserBlock, null)
+	                ),
 	                _react2.default.createElement(
 	                    "ul",
-	                    { className: "nav nav-pills nav-justified", id: "myTab", role: "tablist" },
+	                    { className: "nav nav-pills nav-justified my-2", id: "myTab", role: "tablist" },
 	                    _react2.default.createElement(
 	                        "li",
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-1 active", id: "home-tab", "data-toggle": "tab", href: "#all", role: "tab", "aria-controls": "all", "aria-selected": "true" },
+	                            { className: "nav-link px-5 active", id: "home-tab", "data-toggle": "tab", href: "#all", role: "tab", "aria-controls": "all", "aria-selected": "true" },
 	                            "All"
 	                        )
 	                    ),
@@ -56280,7 +56448,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-1", id: "profile-tab", "data-toggle": "tab", href: "#posts", role: "tab", "aria-controls": "posts", "aria-selected": "false" },
+	                            { className: "nav-link px-5", id: "profile-tab", "data-toggle": "tab", href: "#posts", role: "tab", "aria-controls": "posts", "aria-selected": "false" },
 	                            "Posts"
 	                        )
 	                    ),
@@ -56289,7 +56457,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-1", id: "messages-tab", "data-toggle": "tab", href: "#shares", role: "tab", "aria-controls": "shares", "aria-selected": "false" },
+	                            { className: "nav-link px-5", id: "messages-tab", "data-toggle": "tab", href: "#shares", role: "tab", "aria-controls": "shares", "aria-selected": "false" },
 	                            "Shares"
 	                        )
 	                    ),
@@ -56298,7 +56466,7 @@
 	                        { className: "nav-item" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "nav-link px-1", id: "settings-tab", "data-toggle": "tab", href: "#likes", role: "tab", "aria-controls": "likes", "aria-selected": "false" },
+	                            { className: "nav-link px-5", id: "settings-tab", "data-toggle": "tab", href: "#likes", role: "tab", "aria-controls": "likes", "aria-selected": "false" },
 	                            "Likes"
 	                        )
 	                    )
@@ -56311,7 +56479,7 @@
 	                        { className: "tab-pane active", id: "all", role: "tabpanel", "aria-labelledby": "home-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-2" },
+	                            { className: "card-columns" },
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
 	                            _react2.default.createElement(_textPost.TextPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
@@ -56330,7 +56498,7 @@
 	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-2" },
+	                            { className: "card-columns mt-4" },
 	                            _react2.default.createElement(_textPost.TextPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
 	                            _react2.default.createElement(_songPost.SongPost, null),
@@ -56348,7 +56516,7 @@
 	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-2" },
+	                            { className: "card-columns mt-4" },
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
 	                            _react2.default.createElement(_songPost.SongPost, null),
 	                            _react2.default.createElement(_albumPost.AlbumPost, null),
@@ -56368,7 +56536,7 @@
 	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "card-columns mt-2" },
+	                            { className: "card-columns mt-4" },
 	                            _react2.default.createElement(_songPost.SongPost, null),
 	                            _react2.default.createElement(_albumPost.AlbumPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
@@ -56389,120 +56557,6 @@
 	
 	    return User;
 	}(_react2.default.Component);
-
-/***/ }),
-/* 423 */
-/*!***********************************************!*\
-  !*** ./src/app/views/components/UserBlock.js ***!
-  \***********************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.UserBlock = undefined;
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 184);
-	
-	var _propTypes = __webpack_require__(/*! prop-types */ 248);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var UserBlock = exports.UserBlock = function UserBlock(props) {
-	    return _react2.default.createElement(
-	        "div",
-	        { className: "jumbotron dark mb-2" },
-	        _react2.default.createElement(
-	            "div",
-	            { className: "profile-grid" },
-	            _react2.default.createElement(
-	                "div",
-	                { className: "profileImage text-center" },
-	                _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle" })
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "profileTags" },
-	                _react2.default.createElement(
-	                    "span",
-	                    { className: "badge badge-warning" },
-	                    inUser.verified
-	                )
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "profileInfo mt-4" },
-	                _react2.default.createElement(
-	                    "h1",
-	                    null,
-	                    " ",
-	                    inUser.publicName
-	                ),
-	                _react2.default.createElement(
-	                    "h2",
-	                    { className: "gold" },
-	                    " ",
-	                    _react2.default.createElement(
-	                        "i",
-	                        null,
-	                        " @",
-	                        inUser.username,
-	                        " "
-	                    ),
-	                    " "
-	                ),
-	                _react2.default.createElement(
-	                    "h5",
-	                    null,
-	                    _react2.default.createElement("span", { className: "oi oi-location postIcons pr-2", title: "location" }),
-	                    " Location"
-	                )
-	            ),
-	            _react2.default.createElement(
-	                "div",
-	                { className: "profileFollow mr-4" },
-	                _react2.default.createElement(
-	                    "h2",
-	                    { className: "gold" },
-	                    "Followers"
-	                ),
-	                _react2.default.createElement(
-	                    "h3",
-	                    null,
-	                    inUser.followers.length
-	                ),
-	                _react2.default.createElement(
-	                    "h2",
-	                    { className: "gold" },
-	                    "Following"
-	                ),
-	                _react2.default.createElement(
-	                    "h3",
-	                    null,
-	                    inUser.following.length
-	                ),
-	                _react2.default.createElement(
-	                    "button",
-	                    { type: "button", className: "btn btn-outline-success mt-2 px-5 mx-2", onClick: routerUpload },
-	                    " Upload + "
-	                ),
-	                _react2.default.createElement(
-	                    "button",
-	                    { type: "button", className: "btn btn-outline-success mt-2 px-5", onClick: signOut },
-	                    " Logout"
-	                )
-	            )
-	        )
-	    );
-	};
 
 /***/ }),
 /* 424 */

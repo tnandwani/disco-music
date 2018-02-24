@@ -37,92 +37,18 @@ gray/silver: BDC6C6 */
 
 /* LAYOUT GRID CSS */
 
-.layoutMenu {
-    grid-area: menu;
+.layoutMenu{
+    float: left;
+    width: 20%;
     position: fixed;
-    width: 18%;
-    height: 100%;
-}
-
-.layoutMain {
-    grid-area: main;
-}
-
-.layoutFooter {
-    grid-area: footer;
-}
-
-.layout-grid {
-    display: grid;
-    grid-template-areas: 'menu main main main' 'menu main main main  ' 'footer footer footer footer  ';
-    background-color: #222;
-}
-
-/* SLIDEOUT */
-
-@media screen and (min-width: 780px) {
-    .slideout-menu {
-        display: block;
-    }
-    .btn-hamburger {
-        display: none;
-    }
-}
-
-.scroll {
-    overflow-y: scroll;
-}
-
-
-
-
-.leftbarNew {
-    position: fixed;
-    width: 25%;
-    top: 0;
+    top:0;
     bottom: 0;
 }
 
-.slideout-menu {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 25%;
-    min-height: 100vh;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    z-index: 0;
-    display: none;
-}
+.layoutMain{
+    float: right;
+    width: 80%;
 
-.slideout-menu-left {
-    left: 0;
-}
-
-.slideout-menu-right {
-    right: 0;
-}
-
-.slideout-panel {
-    position: relative;
-    z-index: 1;
-    will-change: transform;
-    overflow-y: scroll;
-    left: 0;
-    top: 0;
-    background-color: #222;
-    /* A background-color is required */
-    min-height: 100vh;
-}
-
-.slideout-open,
-.slideout-open body,
-.slideout-open .slideout-panel {
-    overflow: hidden;
-}
-
-.slideout-open .slideout-menu {
-    display: block;
 }
 
 /* USER PROFILE CSS */

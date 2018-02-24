@@ -22,20 +22,20 @@ function routerUser() {
 export class Leftbar extends React.Component {
     render() {
         return (
-            <div className="dark pl-3">
+            <div className="dark pl-3 w-100">
 
                 <div className="pt-3 pr-2 dark">
 
 
                     <div className="row">
                         <div className="col">
-                            <a href="/home"> <h1 className="gold"> DISCO</h1></a>
+                            <h1 className="gold" onClick= {routerHome}> DISCO</h1>
 
 
                         </div>
-                        <div className="col text-right pt-2 mr-3">
+                        <div className="col text-right pt-3 mr-3">
 
-                            <a href="" className="bigIcon"><span className="oi oi-person postIcons" title="plus"  onClick={routerUser}></span> Profile</a>
+                            <h6 onClick={routerUser}> <span className="oi oi-person postIcons pr-2" title="plus" ></span>Profile</h6> 
                         </div>
                     </div>
 

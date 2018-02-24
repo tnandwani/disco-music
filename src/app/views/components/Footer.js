@@ -44,8 +44,8 @@ export const Footer = (props) => {
             <div className="footerRight mt-3 px-0 mx-0">
 
                 <div className="pt-3">
-                    <span className="oi oi-fire footerIcon px-3" title="fire"></span>
                     <span className="oi oi-share footerIcon px-3" title="share"></span>
+                    <span className="oi oi-fire footerIcon px-3" title="fire"></span>
                     <span className="oi oi-heart footerIcon px-3" title="heart"></span>
                     <span className="oi oi-plus footerIcon px-3" title="plus"></span>
                     <span className="oi oi-volume-high footerIcon pl-3" title="volume-high"></span>

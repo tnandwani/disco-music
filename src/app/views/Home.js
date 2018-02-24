@@ -14,14 +14,12 @@ export class Home extends React.Component {
     render() {
 
         return (
-            <div>
+            <div className="container" >
 
-                <div className="container dark "  >
                     {/* <UserBlock /> */}
 {/*                     
                     <AlbumBlock/> */}
-                    
-                </div>
+   
 
                 <div className="card-columns">
 

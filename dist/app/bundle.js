@@ -28420,22 +28420,26 @@
 					{ className: "layout-grid" },
 					_react2.default.createElement(
 						"div",
-						{ className: "layoutMenu dark d-none d-lg-block" },
+						{ id: "menu", className: "layoutMenu dark d-none d-lg-block" },
 						_react2.default.createElement(_Leftbar.Leftbar, null)
 					),
 					_react2.default.createElement(
 						"div",
-						{ className: "layoutMain pt-3" },
+						{ id: "panel" },
 						_react2.default.createElement(
 							"div",
-							{ className: "container" },
-							this.props.children
+							{ className: "layoutMain pt-3" },
+							_react2.default.createElement(
+								"div",
+								{ className: "container" },
+								this.props.children
+							)
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "layoutFooter footerBar dark" },
+							_react2.default.createElement(_Footer.Footer, null)
 						)
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "layoutFooter footerBar" },
-						_react2.default.createElement(_Footer.Footer, null)
 					)
 				);
 			}
@@ -28578,21 +28582,70 @@
 	var Footer = exports.Footer = function Footer(props) {
 	    return _react2.default.createElement(
 	        "div",
-	        { className: "footer-grid" },
+	        { className: "footer-grid container-fluid text-center px-0 ten " },
 	        _react2.default.createElement(
 	            "div",
 	            { className: "footerLeft" },
-	            "hi"
+	            _react2.default.createElement(
+	                "div",
+	                { className: "float-left ten" },
+	                _react2.default.createElement("span", { className: "oi oi-layers bigIcon px-3 gold", title: "layers" }),
+	                _react2.default.createElement("img", { src: "images/coverArt.png", className: "h-100" })
+	            ),
+	            _react2.default.createElement(
+	                "div",
+	                { className: "ml-5 float-right" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "ml-5 mr-5" },
+	                    _react2.default.createElement(
+	                        "h4",
+	                        null,
+	                        " Song Name"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h5",
+	                        { className: "gold" },
+	                        " Artist"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h6",
+	                        null,
+	                        " ",
+	                        _react2.default.createElement(
+	                            "i",
+	                            null,
+	                            "#Vibes"
+	                        )
+	                    )
+	                )
+	            )
 	        ),
 	        _react2.default.createElement(
 	            "div",
 	            { className: "footerCenter" },
-	            "hi"
+	            _react2.default.createElement(
+	                "div",
+	                { className: "pt-4 gold" },
+	                _react2.default.createElement("span", { className: "oi oi-reload bigIcon px-3", title: "reload" }),
+	                _react2.default.createElement("span", { className: "oi oi-media-skip-backward controlIcon px-5", title: "media-skip-backward" }),
+	                _react2.default.createElement("span", { className: "oi oi-media-play controlIcon px-2", title: "media-play" }),
+	                _react2.default.createElement("span", { className: "oi oi-media-skip-forward controlIcon px-5", title: "media-skip-forward" }),
+	                _react2.default.createElement("span", { className: "oi oi-random bigIcon pl-3", title: "random" })
+	            )
 	        ),
 	        _react2.default.createElement(
 	            "div",
-	            { className: "footerRight" },
-	            "hi"
+	            { className: "footerRight mt-3 px-0 mx-0" },
+	            _react2.default.createElement(
+	                "div",
+	                { className: "pt-3" },
+	                _react2.default.createElement("span", { className: "oi oi-fire footerIcon px-3", title: "fire" }),
+	                _react2.default.createElement("span", { className: "oi oi-share footerIcon px-3", title: "share" }),
+	                _react2.default.createElement("span", { className: "oi oi-heart footerIcon px-3", title: "heart" }),
+	                _react2.default.createElement("span", { className: "oi oi-plus footerIcon px-3", title: "plus" }),
+	                _react2.default.createElement("span", { className: "oi oi-volume-high footerIcon pl-3", title: "volume-high" })
+	            )
 	        )
 	    );
 	};

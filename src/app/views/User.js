@@ -10,12 +10,6 @@ import { TextPost } from "./components/posts/textPost";
 import { UserBlock } from "./components/blocks/UserBlock";
 
 
-var url = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed";
-
-var followers = 0;
-var following = 0;
-
-
 
 
 export class User extends React.Component {

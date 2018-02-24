@@ -6,7 +6,7 @@ import { browserHistory } from "react-router";
 export class Upload extends React.Component {
     render() {
         return (
-            <div >
+            <div className="container" >
                 <h3>Caption</h3>
                 <input type="text" className="form-control dark my-3 py-3" placeholder="100 Charater Limit" />
 

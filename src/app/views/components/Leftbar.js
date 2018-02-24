@@ -35,7 +35,7 @@ export class Leftbar extends React.Component {
                         </div>
                         <div className="col text-right pt-3 mr-3">
 
-                            <h6 onClick={routerUser}> <span className="oi oi-person postIcons pr-2" title="plus" ></span>Profile</h6> 
+                            <h6 className = "nav-link"  onClick={routerUser}> <span className="oi oi-person postIcons pr-2" title="plus" ></span>Profile</h6> 
                         </div>
                     </div>
 
@@ -59,20 +59,22 @@ export class Leftbar extends React.Component {
 
 
                     <h6 className="mt-3"> Discover</h6>
-                    <a className="nav-link ml-2 " href="#">Home</a>
-                    <a className="nav-link ml-2 " href="#">New Releases</a>
-                    <a className="nav-link ml-2 " href="#">Popular</a>
+                    <a className="nav-link ml-2" href="home#">Home</a>
+                    <a className="nav-link ml-2 " href="home#">New Releases</a>
+                    <a className="nav-link ml-2 " href="home#">Popular</a>
 
 
                     <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
-                    <a className="nav-link ml-2 " href="#">Driving</a>
-                    <a className="nav-link ml-2 " href="#">Study</a>
-                    <a className="nav-link ml-2 " href="#">Gym</a>
+                    <a className="nav-link ml-2 " href="home#">Driving</a>
+                    <a className="nav-link ml-2 " href="home#">Study</a>
+                    <a className="nav-link ml-2 " href="home#">Gym</a>
 
                     <h6 className="mt-3"> Library</h6>
-                    <a className="nav-link ml-2 " href="#">Songs</a>
-                    <a className="nav-link ml-2 " href="#">Albums</a>
-                    <a className="nav-link ml-2 " href="#">Artists</a>
+                    <a className="nav-link ml-2" href="home#">Songs</a>
+                    <a className="nav-link ml-2" href="home#">Albums</a>
+                    <a className="nav-link ml-2" href="home#">Artists</a>
+
+
 
 
 

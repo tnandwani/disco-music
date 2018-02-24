@@ -41,6 +41,7 @@ gray/silver: BDC6C6 */
     float: left;
     width: 20%;
     position: fixed;
+    left: 0;
     top:0;
     bottom: 0;
 }
@@ -49,6 +50,10 @@ gray/silver: BDC6C6 */
     float: right;
     width: 80%;
 
+}
+
+.scroll{
+    overflow-y: scroll;
 }
 
 /* USER PROFILE CSS */

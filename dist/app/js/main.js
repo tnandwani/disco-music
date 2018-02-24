@@ -80,11 +80,15 @@ function writeUser(user) {
 		})
 		.then(function () {
 			console.log("Document successfully written!");
+			window.location.href = '/user';
+
 		})
 		.catch(function (error) {
 			console.error("Error writing document: ", error);
 		});
 }
+
+
 
 function getUser() {
 
@@ -107,6 +111,7 @@ function getUser() {
 					// };
 
 
+
 				} else {
 					// doc.data() will be undefined in this case
 					console.log("No such user!");
@@ -125,38 +130,6 @@ function getUser() {
 
 
 }
-
-function showLinks() {
-
-	rawPublicName = document.getElementById("rawPublicName").value;
-	rawUsername = document.getElementById("rawUsername").value;
-
-
-	console.log(rawPublicName);
-
-
-	if (rawPublicName.length > 1 && rawUsername.length > 1) {
-
-		document.getElementById("nextButton").style.display = 'none';
-		document.getElementById("firebaseui-auth-container").style.display = 'block';
-
-
-	} else {
-
-		// not there
-		console.log("fill something out!!");
-
-	}
-}
-
-function showLoginLinks() {
-
-	document.getElementById("firebaseui-auth-container").style.display = 'block';
-
-
-}
-
-
 
 
 function verifyDetails() {
@@ -217,12 +190,17 @@ function verifyDetails() {
 						uid: user.uid
 					};
 
+					console.log("going to write new user: ");
+					console.log(newUser);
 					writeUser(newUser);
 
 
 
 
-				} else {}
+
+				} else {
+
+				}
 
 
 			}
@@ -235,6 +213,53 @@ function verifyDetails() {
 
 
 }
+
+function checkUpload() {
+
+
+	firebase.auth().onAuthStateChanged(function (user) {
+		if (user) {
+			window.location.href = '/upload';
+		} else {
+			// No user is signed in.
+			$('#signInModal').modal('toggle');
+
+		}
+	});
+
+
+
+
+}
+
+function checkUser() {
+
+
+	firebase.auth().onAuthStateChanged(function (user) {
+		if (user) {
+			window.location.href = '/user';
+		} else {
+			// No user is signed in.
+			$('#signInModal').modal('toggle');
+
+		}
+	});
+
+
+
+
+}
+
+
+function showCreateModal() {
+
+	$('#signInModal').modal('toggle');
+	$('#createModal').modal('toggle');
+
+}
+
+
+
 
 
 function signIn() {
@@ -251,7 +276,7 @@ function signIn() {
 
 	firebase.auth().onAuthStateChanged(function (user) {
 		if (user) {
-			window.location.href = '/home';
+			window.location.href = '/user';
 		} else {}
 	});
 

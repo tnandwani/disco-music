@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 export class CreateAccount extends React.Component {
     render() {
         return (
-            <div className="modal content" tabIndex="-1" role="dialog" id="createModal">
+            <div className="modal text-center" tabIndex="-1" role="dialog" id="createModal">
                 <div className="modal-dialog theme" role="document">
                     <div className="modal-content theme">
                         <div className="modal-body">

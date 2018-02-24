@@ -12,15 +12,15 @@ export class CardButtons extends React.Component {
             <div className="card-footer p-0 text-center container">
 
                     
-                    <button type="button" className="btn btn-secondary">
+                    <button type="button" className="btn btn-secondary ">
                         <span className="oi oi-fire postIcons pr-2"  title="fire"></span>
                         Share
                         </button>
-                    <button type="button" className="btn btn-secondary px-4">
+                    <button type="button" className="btn btn-secondary  px-4">
                         <span className="oi oi-heart postIcons pr-2"  title="heart"></span>
                         Like
                         </button>
-                    <button type="button" className="btn btn-secondary">
+                    <button type="button" className="btn btn-secondary ">
                         <span className="oi oi-plus postIcons pr-2" title="plus"></span>
                         Save
                         </button>

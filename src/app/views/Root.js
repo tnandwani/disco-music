@@ -66,13 +66,15 @@ export class Root extends React.Component {
 
 			<div className="">
 
-				<div className="layoutMenu dark">
+				<div className="layoutMenu dark d-none d-lg-block">
 					<Leftbar />
 				</div>
 
 
 				<div className="layoutMain pt-3">
 					{this.props.children}
+					<CreateAccount/>
+					<SignIn/>
 				</div>
 
 		

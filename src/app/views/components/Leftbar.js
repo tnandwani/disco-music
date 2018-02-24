@@ -27,7 +27,7 @@ export class Leftbar extends React.Component {
                 <div className="pt-3 pr-2 dark">
 
 
-                    <div className="row">
+                    <div className="row"> 
                         <div className="col">
                             <h1 className="gold" onClick= {routerHome}> DISCO</h1>
 
@@ -35,7 +35,7 @@ export class Leftbar extends React.Component {
                         </div>
                         <div className="col text-right pt-3 mr-3">
 
-                            <h6 className = "nav-link"  onClick={routerUser}> <span className="oi oi-person postIcons pr-2" title="plus" ></span>Profile</h6> 
+                            <h6 className = "nav-link"  onClick={checkUser}> <span className="oi oi-person postIcons pr-2" title="plus" ></span>Profile</h6> 
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@ export class Leftbar extends React.Component {
                         {/* <span className="oi oi-magnifying-glass mt-2 ml-1 " title="magnifying-glass"></span> */}
                     </div>
 
-                    <button className="btn-sm btn-outline-warning px-3 mt-2 w-100 py-2" onClick={routerUpload}> Upload + </button>
+                    <button className="btn-sm btn-outline-warning px-3 mt-2 w-100 py-2" onClick={checkUpload}> Upload + </button>
 
 
 

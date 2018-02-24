@@ -23,7 +23,7 @@ export class SongPost extends React.Component {
                 <div className="card-body leftAlign">
                     <h3>Song Name</h3>
                     <h4> <i className= "gold">Artist</i></h4>
-                    <h5><i>Album</i></h5>
+                    <h5><i>#Vibes</i></h5>
 
                 </div>
                 <CardButtons/>

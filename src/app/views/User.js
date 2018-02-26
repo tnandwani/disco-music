@@ -23,7 +23,7 @@ export class User extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="">
 
                 <div className="dark">
                     <UserBlock />

@@ -30,11 +30,6 @@ var config = {
 firebase.initializeApp(config);
 
 
-
-
-
-
-
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -64,29 +59,71 @@ export class Root extends React.Component {
 
 		return (
 
-			<div className="">
+			<div>
 
-				<div className="layoutMenu dark d-none d-lg-block">
-					<Leftbar />
+				<div className="row">
+					<div className="col-2 dark d-none d-lg-block">
+						<Leftbar />
+
+					</div>
+
+					<div className="col">
+						<div className="container">
+							{this.props.children}
+							<CreateAccount />
+							<SignIn />
+
+						</div>
+
+					</div>
+					<div className="col-2 d-none d-lg-block">
+
+
+
+					</div>
+
+
+
 				</div>
 
-
-				<div className="layoutMain pt-3">
-					{this.props.children}
-					<CreateAccount/>
-					<SignIn/>
-				</div>
-
-		
 				<div className="footerBar dark">
 					<Footer />
 				</div>
 
 
-
 			</div>
+
+
+
 
 
 		);
 	}
 }
+
+
+// <div className="">
+
+// <div className="layoutMenu dark d-none d-lg-block">
+// 	<Leftbar />
+// </div>
+
+
+// <div className="layoutMain text-center p-3">
+{/* <div className="container">
+	{this.props.children}
+	<CreateAccount />
+	<SignIn />
+
+</div> */}
+
+// </div>
+
+
+// <div className="footerBar dark">
+// 	<Footer />
+// </div>
+
+
+
+// </div>

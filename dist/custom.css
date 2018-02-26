@@ -9,6 +9,7 @@ MAIN color: #D7B659
 gray/silver: BDC6C6 */
 
 /* THEME COLORS CSS  */
+
 .dark {
     background-color: #111;
 }
@@ -36,22 +37,16 @@ gray/silver: BDC6C6 */
 
 /* LAYOUT GRID CSS */
 
-.layoutMenu{
-    float: left;
-    width: 20%;
+.layoutMenu {
     position: fixed;
-    left: 0;
-    top:0;
-    bottom: 0;
+    width: 15%;
 }
 
-.layoutMain{
+.layoutMain {
     float: right;
-    width: 80%;
-
 }
 
-.scroll{
+.scroll {
     overflow-y: scroll;
 }
 
@@ -155,6 +150,7 @@ gray/silver: BDC6C6 */
 .footerIcon {
     font-size: 25px;
 }
+
 .controlIcon {
     font-size: 35px;
 }

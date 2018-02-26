@@ -15,7 +15,7 @@ export class CardHeader extends React.Component {
 
                     </div>
                     <div className="col">
-                        <a className="white" href=""><h6>@Username</h6></a>
+                        <a className="text-white" href=""><h6>@Username</h6></a>
 
                     </div>
                     <div className="col text-right">
@@ -26,7 +26,8 @@ export class CardHeader extends React.Component {
 
                             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a className="dropdown-item" href="#">Send</a>
-                                <a className="dropdown-item" href="#">Another action</a>
+                                <a className="dropdown-item" href="#">Play Next</a>
+                                <a className="dropdown-item" href="#">Add to Queue</a>
                                 <a className="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div>
@@ -35,7 +36,7 @@ export class CardHeader extends React.Component {
                     </div>
                 </div>
 
-                <h6 className="gray pt-2 text-center">Caption Over Here</h6>
+                <h6 className="gray pt-2 text-center "> <i>Caption Over Here (100 Characters Max)</i> </h6>
 
             </div>
 

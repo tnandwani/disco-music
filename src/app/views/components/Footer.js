@@ -43,7 +43,7 @@ export const Footer = (props) => {
 
             <div className="footerRight mt-3 px-0 mx-0">
 
-                <div className="pt-3">
+                <div className="pt-3 text-muted">
                     <span className="oi oi-share footerIcon px-3" title="share"></span>
                     <span className="oi oi-fire footerIcon px-3" title="fire"></span>
                     <span className="oi oi-heart footerIcon px-3" title="heart"></span>

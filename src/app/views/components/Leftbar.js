@@ -16,26 +16,23 @@ function routerUser() {
 }
 
 
-
-
-
 export class Leftbar extends React.Component {
     render() {
         return (
-            <div className="dark pl-3 w-100">
+            <div className="dark pl-3 layoutMenu">
 
                 <div className="pt-3 pr-2 dark">
 
 
-                    <div className="row"> 
+                    <div className="row">
                         <div className="col">
-                            <h1 className="gold" onClick= {routerHome}> DISCO</h1>
+                            <h1 className="gold" onClick={routerHome}> DISCO</h1>
 
 
                         </div>
-                        <div className="col text-right pt-3 mr-3">
+                        <div className="col text-right pt-3">
 
-                            <h6 className = "nav-link"  onClick={checkUser}> <span className="oi oi-person postIcons pr-2" title="plus" ></span>Profile</h6> 
+                            <a onClick={checkUser}> <span className="oi oi-person bigIcon pr-2" title="plus" ></span></a>
                         </div>
                     </div>
 
@@ -59,15 +56,14 @@ export class Leftbar extends React.Component {
 
 
                     <h6 className="mt-3"> Discover</h6>
-                    <a className="nav-link ml-2" href="home#">Home</a>
-                    <a className="nav-link ml-2 " href="home#">New Releases</a>
-                    <a className="nav-link ml-2 " href="home#">Popular</a>
-
+                    <a className="nav-link ml-2" href="home#Home">Home</a>
+                    <a className="nav-link ml-2 " href="home#NewReleases">New Releases</a>
+                    <a className="nav-link ml-2 " href="home#Popular">Popular</a>
 
                     <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
-                    <a className="nav-link ml-2 " href="home#">Driving</a>
-                    <a className="nav-link ml-2 " href="home#">Study</a>
-                    <a className="nav-link ml-2 " href="home#">Gym</a>
+                    <a className="nav-link ml-2 " href="home#Driving">Driving</a>
+                    <a className="nav-link ml-2 " href="home#Study">Study</a>
+                    <a className="nav-link ml-2 " href="home#Gym">Gym</a>
 
                     <h6 className="mt-3"> Library</h6>
                     <a className="nav-link ml-2" href="home#">Songs</a>

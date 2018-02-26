@@ -28417,29 +28417,23 @@
 	
 				return _react2.default.createElement(
 					"div",
-					{ className: "layout-grid" },
+					{ className: "" },
 					_react2.default.createElement(
 						"div",
-						{ id: "menu", className: "layoutMenu dark d-none d-lg-block" },
+						{ className: "layoutMenu dark d-none d-lg-block" },
 						_react2.default.createElement(_Leftbar.Leftbar, null)
 					),
 					_react2.default.createElement(
 						"div",
-						{ id: "panel" },
-						_react2.default.createElement(
-							"div",
-							{ className: "layoutMain pt-3" },
-							_react2.default.createElement(
-								"div",
-								{ className: "container" },
-								this.props.children
-							)
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "layoutFooter footerBar dark" },
-							_react2.default.createElement(_Footer.Footer, null)
-						)
+						{ className: "layoutMain p-3" },
+						this.props.children,
+						_react2.default.createElement(_CreateAccount.CreateAccount, null),
+						_react2.default.createElement(_SignIn.SignIn, null)
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "footerBar dark" },
+						_react2.default.createElement(_Footer.Footer, null)
 					)
 				);
 			}
@@ -28639,9 +28633,9 @@
 	            { className: "footerRight mt-3 px-0 mx-0" },
 	            _react2.default.createElement(
 	                "div",
-	                { className: "pt-3" },
-	                _react2.default.createElement("span", { className: "oi oi-fire footerIcon px-3", title: "fire" }),
+	                { className: "pt-3 text-muted" },
 	                _react2.default.createElement("span", { className: "oi oi-share footerIcon px-3", title: "share" }),
+	                _react2.default.createElement("span", { className: "oi oi-fire footerIcon px-3", title: "fire" }),
 	                _react2.default.createElement("span", { className: "oi oi-heart footerIcon px-3", title: "heart" }),
 	                _react2.default.createElement("span", { className: "oi oi-plus footerIcon px-3", title: "plus" }),
 	                _react2.default.createElement("span", { className: "oi oi-volume-high footerIcon pl-3", title: "volume-high" })
@@ -28710,7 +28704,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "dark pl-3" },
+	                { className: "dark pl-3 w-100" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "pt-3 pr-2 dark" },
@@ -28721,24 +28715,20 @@
 	                            "div",
 	                            { className: "col" },
 	                            _react2.default.createElement(
-	                                "a",
-	                                { href: "/home" },
-	                                " ",
-	                                _react2.default.createElement(
-	                                    "h1",
-	                                    { className: "gold" },
-	                                    " DISCO"
-	                                )
+	                                "h1",
+	                                { className: "gold", onClick: routerHome },
+	                                " DISCO"
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "col text-right pt-2 mr-3" },
+	                            { className: "col text-right pt-3" },
 	                            _react2.default.createElement(
-	                                "a",
-	                                { href: "", className: "bigIcon" },
-	                                _react2.default.createElement("span", { className: "oi oi-person postIcons", title: "plus", onClick: routerUser }),
-	                                " Profile"
+	                                "h6",
+	                                { className: "nav-link", onClick: checkUser },
+	                                " ",
+	                                _react2.default.createElement("span", { className: "oi oi-person postIcons pr-2", title: "plus" }),
+	                                "Profile"
 	                            )
 	                        )
 	                    ),
@@ -28749,7 +28739,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
-	                        { className: "btn-sm btn-outline-warning px-3 mt-2 w-100 py-2", onClick: routerUpload },
+	                        { className: "btn-sm btn-outline-warning px-3 mt-2 w-100 py-2", onClick: checkUpload },
 	                        " Upload + "
 	                    )
 	                ),
@@ -28763,17 +28753,17 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2", href: "home#Home" },
 	                        "Home"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home#NewReleases" },
 	                        "New Releases"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home#Popular" },
 	                        "Popular"
 	                    ),
 	                    _react2.default.createElement(
@@ -28785,17 +28775,17 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home#Driving" },
 	                        "Driving"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home#Study" },
 	                        "Study"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2 ", href: "home#Gym" },
 	                        "Gym"
 	                    ),
 	                    _react2.default.createElement(
@@ -28805,17 +28795,17 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2", href: "home#" },
 	                        "Songs"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2", href: "home#" },
 	                        "Albums"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "#" },
+	                        { className: "nav-link ml-2", href: "home#" },
 	                        "Artists"
 	                    )
 	                )
@@ -28931,7 +28921,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "modal content", tabIndex: "-1", role: "dialog", id: "createModal" },
+	                { className: "modal text-center", tabIndex: "-1", role: "dialog", id: "createModal" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "modal-dialog theme", role: "document" },
@@ -29041,7 +29031,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "modal content", tabIndex: "-1", role: "dialog", id: "signInModal" },
+	                { className: "modal", tabIndex: "-1", role: "dialog", id: "signInModal" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "modal-dialog theme", role: "document" },
@@ -29062,12 +29052,12 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                "h2",
-	                                { className: "mb-4 gold " },
+	                                { className: "mb-4 gold text-center" },
 	                                " ",
 	                                _react2.default.createElement(
 	                                    "i",
 	                                    null,
-	                                    "Welcome Back to Disco"
+	                                    "Welcome to Disco"
 	                                ),
 	                                " "
 	                            ),
@@ -29084,9 +29074,18 @@
 	                            ),
 	                            _react2.default.createElement("input", { id: "rawPassword", type: "password", className: "form-control mb-3", placeholder: "Password" }),
 	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-warning my-2", onClick: signIn },
-	                                "Sign In"
+	                                "div",
+	                                { className: "text-right" },
+	                                _react2.default.createElement(
+	                                    "button",
+	                                    { type: "button", className: "btn btn-outline-warning m-2", onClick: showCreateModal },
+	                                    "Create Account"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "button",
+	                                    { type: "button", className: "btn btn-warning m-2", onClick: signIn },
+	                                    "Sign In"
+	                                )
 	                            )
 	                        )
 	                    )
@@ -55370,8 +55369,16 @@
 	
 	            return _react2.default.createElement(
 	                "div",
-	                null,
-	                _react2.default.createElement("div", { className: "container dark " }),
+	                { className: "container-fluid" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "dark mb-3  p-4  " },
+	                    _react2.default.createElement(
+	                        "h1",
+	                        { className: "gold" },
+	                        "Home"
+	                    )
+	                ),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
@@ -55496,7 +55503,7 @@
 	                        _react2.default.createElement(
 	                            "i",
 	                            null,
-	                            "Album"
+	                            "#Vibes"
 	                        )
 	                    )
 	                ),
@@ -55582,19 +55589,19 @@
 	                { className: "card-footer p-0 text-center container" },
 	                _react2.default.createElement(
 	                    "button",
-	                    { type: "button", className: "btn btn-secondary" },
+	                    { type: "button", className: "btn btn-secondary " },
 	                    _react2.default.createElement("span", { className: "oi oi-fire postIcons pr-2", title: "fire" }),
 	                    "Share"
 	                ),
 	                _react2.default.createElement(
 	                    "button",
-	                    { type: "button", className: "btn btn-secondary px-4" },
+	                    { type: "button", className: "btn btn-secondary  px-4" },
 	                    _react2.default.createElement("span", { className: "oi oi-heart postIcons pr-2", title: "heart" }),
 	                    "Like"
 	                ),
 	                _react2.default.createElement(
 	                    "button",
-	                    { type: "button", className: "btn btn-secondary" },
+	                    { type: "button", className: "btn btn-secondary " },
 	                    _react2.default.createElement("span", { className: "oi oi-plus postIcons pr-2", title: "plus" }),
 	                    "Save"
 	                )
@@ -55651,17 +55658,17 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "card-header p-2" },
+	                { className: "card-header p-2 text-center" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "row" },
-	                    _react2.default.createElement("div", { className: "col-sm leftAlign" }),
+	                    _react2.default.createElement("div", { className: "col" }),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col-sm" },
+	                        { className: "col" },
 	                        _react2.default.createElement(
 	                            "a",
-	                            { className: "white", href: "" },
+	                            { className: "text-white", href: "" },
 	                            _react2.default.createElement(
 	                                "h6",
 	                                null,
@@ -55671,14 +55678,52 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col-sm text-right" },
-	                        _react2.default.createElement("span", { className: "oi oi-ellipses pr-2", title: "ellipses" })
+	                        { className: "col text-right" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "dropdown show" },
+	                            _react2.default.createElement(
+	                                "a",
+	                                { className: "", href: "#", role: "button", id: "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+	                                _react2.default.createElement("span", { className: "oi oi-ellipses pr-2", title: "ellipses" })
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "dropdown-menu", "aria-labelledby": "dropdownMenuLink" },
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { className: "dropdown-item", href: "#" },
+	                                    "Send"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { className: "dropdown-item", href: "#" },
+	                                    "Play Next"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { className: "dropdown-item", href: "#" },
+	                                    "Add to Queue"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { className: "dropdown-item", href: "#" },
+	                                    "Something else here"
+	                                )
+	                            )
+	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    "h6",
-	                    { className: "gray pt-2 text-center" },
-	                    "Caption Over Here"
+	                    { className: "gray pt-2 text-center " },
+	                    " ",
+	                    _react2.default.createElement(
+	                        "i",
+	                        null,
+	                        "Caption Over Here (100 Characters Max)"
+	                    ),
+	                    " "
 	                )
 	            );
 	        }
@@ -55885,7 +55930,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "card noPadding text-white bg-dark  mb-3" },
+	                { className: "card text-white bg-dark  mb-3" },
 	                _react2.default.createElement(_cardHeader.CardHeader, null),
 	                _react2.default.createElement(
 	                    "div",
@@ -56454,11 +56499,6 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var url = "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed";
-	
-	var followers = 0;
-	var following = 0;
-	
 	var User = exports.User = function (_React$Component) {
 	    _inherits(User, _React$Component);
 	
@@ -56659,7 +56699,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                null,
+	                { className: "container" },
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,

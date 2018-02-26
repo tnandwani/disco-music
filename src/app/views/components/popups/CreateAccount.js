@@ -2,6 +2,13 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 
+
+
+function chooseProfileImage(){
+    document.getElementById("profileImage").click();
+}
+
+
 export class CreateAccount extends React.Component {
     render() {
         return (
@@ -20,9 +27,11 @@ export class CreateAccount extends React.Component {
 
                                     <h2 className="mb-4 gold"> <i>Welcome to Disco</i> </h2>
 
-                                    <img src="https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed" className="rounded-circle profileCircle" />
+                                    <img src="images/profile.png" className="rounded-circle profileCircle" onClick={chooseProfileImage} />
 
-                                    <p className="mb-4 mt-2 gray" > Choose Image</p>
+                                    <p className="mb-4 mt-2 gray" onClick={chooseProfileImage} > Choose Image</p>
+                                    
+                                    <input className="d-none" type="file"  accept="image/*" id="profileImage"/>
 
                                     <input id="rawPublicName" type="text" className="form-control my-3" placeholder="Name or Artist Name" />
                                     <input id="rawUsername" type="text" className="form-control my-3" placeholder="@Username" />

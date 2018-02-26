@@ -62,7 +62,7 @@ export class Root extends React.Component {
 			<div>
 
 				<div className="row">
-					<div className="col-2 dark d-none d-lg-block">
+					<div className="col-2 pr-0 dark d-none d-lg-block">
 						<Leftbar />
 
 					</div>
@@ -76,6 +76,7 @@ export class Root extends React.Component {
 						</div>
 
 					</div>
+
 					<div className="col-2 d-none d-lg-block">
 
 

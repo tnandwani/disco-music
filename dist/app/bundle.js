@@ -28417,18 +28417,27 @@
 	
 				return _react2.default.createElement(
 					"div",
-					{ className: "" },
+					null,
 					_react2.default.createElement(
 						"div",
-						{ className: "layoutMenu dark d-none d-lg-block" },
-						_react2.default.createElement(_Leftbar.Leftbar, null)
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "layoutMain p-3" },
-						this.props.children,
-						_react2.default.createElement(_CreateAccount.CreateAccount, null),
-						_react2.default.createElement(_SignIn.SignIn, null)
+						{ className: "row" },
+						_react2.default.createElement(
+							"div",
+							{ className: "col-2 pr-0 dark d-none d-lg-block" },
+							_react2.default.createElement(_Leftbar.Leftbar, null)
+						),
+						_react2.default.createElement(
+							"div",
+							{ className: "col" },
+							_react2.default.createElement(
+								"div",
+								{ className: "container" },
+								this.props.children,
+								_react2.default.createElement(_CreateAccount.CreateAccount, null),
+								_react2.default.createElement(_SignIn.SignIn, null)
+							)
+						),
+						_react2.default.createElement("div", { className: "col-2 d-none d-lg-block" })
 					),
 					_react2.default.createElement(
 						"div",
@@ -28441,6 +28450,32 @@
 	
 		return Root;
 	}(_react2.default.Component);
+	
+	// <div className="">
+	
+	// <div className="layoutMenu dark d-none d-lg-block">
+	// 	<Leftbar />
+	// </div>
+	
+	
+	// <div className="layoutMain text-center p-3">
+	
+	
+	{} /* <div className="container">
+	   {this.props.children}
+	   <CreateAccount />
+	   <SignIn />
+	   </div> */
+	
+	// </div>
+	
+	
+	// <div className="footerBar dark">
+	// 	<Footer />
+	// </div>
+	
+	
+	// </div>
 
 /***/ }),
 /* 248 */
@@ -28704,10 +28739,10 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "dark pl-3 w-100" },
+	                { className: "dark pl-3 layoutMenu" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "pt-3 pr-2 dark" },
+	                    { className: "pt-3 dark" },
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "row" },
@@ -28724,11 +28759,10 @@
 	                            "div",
 	                            { className: "col text-right pt-3" },
 	                            _react2.default.createElement(
-	                                "h6",
-	                                { className: "nav-link", onClick: checkUser },
+	                                "a",
+	                                { onClick: checkUser },
 	                                " ",
-	                                _react2.default.createElement("span", { className: "oi oi-person postIcons pr-2", title: "plus" }),
-	                                "Profile"
+	                                _react2.default.createElement("span", { className: "oi oi-person bigIcon pr-2", title: "plus" })
 	                            )
 	                        )
 	                    ),
@@ -28769,6 +28803,26 @@
 	                    _react2.default.createElement(
 	                        "h6",
 	                        { className: "mt-3" },
+	                        " Library"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2", href: "home#" },
+	                        "Songs"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2", href: "home#" },
+	                        "Albums"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2", href: "home#" },
+	                        "Artists"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h6",
+	                        { className: "mt-3" },
 	                        " Playlists ",
 	                        _react2.default.createElement("span", { className: "oi oi-plus smallIcon ml-2", title: "plus" }),
 	                        " "
@@ -28787,26 +28841,6 @@
 	                        "a",
 	                        { className: "nav-link ml-2 ", href: "home#Gym" },
 	                        "Gym"
-	                    ),
-	                    _react2.default.createElement(
-	                        "h6",
-	                        { className: "mt-3" },
-	                        " Library"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2", href: "home#" },
-	                        "Songs"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2", href: "home#" },
-	                        "Albums"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2", href: "home#" },
-	                        "Artists"
 	                    )
 	                )
 	            );
@@ -28907,6 +28941,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	function chooseProfileImage() {
+	    document.getElementById("profileImage").click();
+	}
+	
 	var CreateAccount = exports.CreateAccount = function (_React$Component) {
 	    _inherits(CreateAccount, _React$Component);
 	
@@ -28957,12 +28995,13 @@
 	                                        ),
 	                                        " "
 	                                    ),
-	                                    _react2.default.createElement("img", { src: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/profileImages%2Fprofile.png?alt=media&token=bf906fc5-bc41-4a1b-ba29-6376e4a626ed", className: "rounded-circle profileCircle" }),
+	                                    _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle", onClick: chooseProfileImage }),
 	                                    _react2.default.createElement(
 	                                        "p",
-	                                        { className: "mb-4 mt-2 gray" },
+	                                        { className: "mb-4 mt-2 gray", onClick: chooseProfileImage },
 	                                        " Choose Image"
 	                                    ),
+	                                    _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "profileImage" }),
 	                                    _react2.default.createElement("input", { id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
 	                                    _react2.default.createElement("input", { id: "rawUsername", type: "text", className: "form-control my-3", placeholder: "@Username" }),
 	                                    _react2.default.createElement("input", { id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
@@ -55369,10 +55408,10 @@
 	
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "container-fluid" },
+	                { className: "mt-4" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "dark mb-3  p-4  " },
+	                    { className: " dark jumbotron py-4 my-3" },
 	                    _react2.default.createElement(
 	                        "h1",
 	                        { className: "gold" },
@@ -56518,7 +56557,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "container" },
+	                { className: "" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "dark" },
@@ -56699,7 +56738,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "container" },
+	                { className: "" },
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,

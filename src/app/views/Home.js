@@ -14,9 +14,9 @@ export class Home extends React.Component {
     render() {
 
         return (
-            <div className="" >
+            <div className="mt-4" >
 
-                <div className="dark mb-3  p-4  ">
+                <div className=" dark jumbotron py-4 my-3">
 
                     <h1 className="gold">Home</h1>
             

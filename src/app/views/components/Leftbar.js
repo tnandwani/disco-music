@@ -9,32 +9,32 @@ function routerHome() {
 
 function checkUpload() {
 
+    var user = firebase.auth().currentUser;
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            window.location.href = '/upload';
+    if (user) {
+        // User is signed in.
+        window.location.href = '/upload';
+    } else {
+        // No user is signed in.
+        $('#signInModal').modal('toggle');
+    }
 
-        } else {
-            $('#signInModal').modal('toggle');
-        }
-    });
 
-    
 }
 
 function checkUser() {
 
+    var user = firebase.auth().currentUser;
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            window.location.href = '/user';
+    if (user) {
+        // User is signed in.
+        window.location.href = '/user';
+    } else {
+        // No user is signed in.
+        $('#signInModal').modal('toggle');
+    }
 
-        } else {
-            $('#signInModal').modal('toggle');
-        }
-    });
 
-   
 }
 
 

@@ -15,6 +15,7 @@ function handleProfile() {
 
 
     // set file
+    
     rawImage = file;
 
     reader.addEventListener("load", function () {
@@ -54,11 +55,11 @@ export class CreateAccount extends React.Component {
 
                                     <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
 
-                                    <input autoComplete='name' id="rawPublicName" type="text" className="form-control my-3" placeholder="Name or Artist Name" />
-                                    <input autoComplete='name' id="rawUsername" type="text" className="form-control my-3" placeholder="@Username" />
-                                    <input  autoComplete='email'id="rawNewEmail" type="email" className="form-control my-3" placeholder="Email" />
-                                    <input autoComplete='password' id="rawNewPassword" type="password" className="form-control my-3" placeholder="Password" />
-                                    <input  autoComplete='password'id="rawNewPasswordConfirm" type="password" className="form-control my-3" placeholder="Confirm Password" />
+                                    <input  autoComplete= "name" id="rawPublicName" type="text" className="form-control my-3" placeholder="Name or Artist Name" />
+                                    <input autoComplete= "name" id="rawUsername" type="text" className="form-control my-3" placeholder="@Username" />
+                                    <input  autoComplete= "email"  id="rawNewEmail" type="email" className="form-control my-3" placeholder="Email" />
+                                    <input autoComplete= "password"  id="rawNewPassword" type="password" className="form-control my-3" placeholder="Password" />
+                                    <input  autoComplete= "password" id="rawNewPasswordConfirm" type="password" className="form-control my-3" placeholder="Confirm Password" />
 
 
                                 </div>

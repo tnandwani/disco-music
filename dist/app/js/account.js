@@ -36,8 +36,8 @@ var inUser = {
     username: "username",
     uid: "uid",
     publicName: "My Profile",
-    followers: ["username"],
-    following: ["username"]
+    followers: ["disco"],
+    following: ["disco"]
 };
 
 
@@ -48,12 +48,12 @@ function login() {
         if (user) {
 
             console.log("Welcome " + user.displayName);
-            
+
 
         } else {
 
             console.log("No One Here");
-            
+
         }
     });
 
@@ -74,7 +74,7 @@ function signIn() {
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            window.location.href = '/user';
+            browserHistory.push("/user");
         } else {}
     });
 
@@ -83,7 +83,7 @@ function signIn() {
 
 function signOut() {
     firebase.auth().signOut();
-    window.location.href = '/home';
+    browserHistory.push("/home");
 }
 
 
@@ -100,7 +100,9 @@ var rawUser = {
     username: "username",
     uid: "uid",
     publicName: "My Profile",
-    email: "email"
+    email: "email",
+    followers: ["disco"],
+    following: ["disco"]
 }
 
 
@@ -154,6 +156,10 @@ function verifyDetails() {
     var inputUsername = document.getElementById("rawUsername").value;
     // make username lowercase
     inputUsername = inputUsername.toLowerCase();
+    inputUsername = inputUsername.replace(/\s/g, "");
+
+    console.log("username is now: " + inputUsername);
+
 
 
     // set RAW DATA
@@ -196,12 +202,12 @@ function verifyDetails() {
                         // ...
                     });
 
+
                     firebase.auth().onAuthStateChanged(function (user) {
                         if (user) {
                             // User is signed in.
                             var user = firebase.auth().currentUser;
                             rawUser.uid = user.uid;
-
                             saveUser(rawUser);
                         } else {
                             // No user is signed in.
@@ -224,20 +230,25 @@ function verifyDetails() {
 }
 
 function saveUser(incomingUser) {
+
     rawUser = incomingUser;
-    console.log("ready to write user: ");
-    console.log(rawUser);
-    writeUser(rawUser);
+
+
+    writeUser(incomingUser);
 }
 
-function writeUser(user) {
+
+function writeUser(incomingUser) {
+
+    console.log("ready to write user: ");
+    console.log(incomingUser);
 
     // Add a new document in collection "cities"
-    firestore.collection("users").doc(user.username).set({
-            username: user.username,
-            publicName: user.publicName,
-            uid: user.uid,
-            email: user.email,
+    firestore.collection("users").doc(incomingUser.username).set({
+            username: incomingUser.username,
+            publicName: incomingUser.publicName,
+            uid: incomingUser.uid,
+            email: incomingUser.email,
             followers: ["disco"],
             following: ["disco"]
         })
@@ -246,7 +257,10 @@ function writeUser(user) {
 
             // update profile
 
+            // User is signed in.
             var user = firebase.auth().currentUser;
+
+            console.log("going to update: " + user);
 
             user.updateProfile({
                 displayName: rawUser.username
@@ -254,28 +268,32 @@ function writeUser(user) {
             }).then(function () {
                 // Update successful.
 
+                console.log("successfully updated profile!");
+
+                console.log("raw image is ");
+                console.log(rawImage);
+
                 // upload profile picture 
                 if (rawImage) {
-                    var userProfileRef = storageRef.child('profileImages/' + user.uid + '.png');
+
+                    var userProfileRef = storageRef.child('profileImages/' + rawUser.uid + '.png');
 
                     userProfileRef.put(rawImage).then(function (snapshot) {
+
                         console.log('Uploaded a blob or file to: ');
                         console.log(userProfileRef);
-                        window.location.href = '/user';
+                        browserHistory.push("/user");
 
                     });
+                } else {
+                    browserHistory.push("/user");
+
                 }
-                window.location.href = '/user';
+
 
             }).catch(function (error) {
                 // An error happened.
             });
-
-
-
-
-
-
 
 
         })
@@ -295,6 +313,3 @@ function writeUser(user) {
 // START SCRIPT
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-
-
-login();

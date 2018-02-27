@@ -65,6 +65,12 @@ export class CreateAccount extends React.Component {
 
                             </form>
 
+                            <div >
+
+                                <p id= "errorTip" className="text-warning" > </p>
+
+                            </div>
+
                             <div className="text-right pr-5">
                                 <button type="button" className="btn btn-warning my-2" onClick={verifyDetails} >Create Account</button>
 

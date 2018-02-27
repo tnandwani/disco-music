@@ -40,19 +40,25 @@ var inUser = {
     following: ["username"]
 };
 
-function loggedIn() {
+
+
+function login() {
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            console.log("WELCOME BACK " + user.email);
-            return true;
+
+            console.log("Welcome " + user.displayName);
+            
+
         } else {
-            console.log("NO ONE HERE");
-            return false;
+
+            console.log("No One Here");
+            
         }
     });
 
 }
+
 
 function signIn() {
 
@@ -106,8 +112,19 @@ function checkPassword(inputPassword, inputPasswordConfirm) {
         if (inputPassword.length > 5) {
             return true
         }
+        document.getElementById("errorTip").innerHTML = "Passwords Too Weak";
+        return false;
 
-    } else return false;
+
+
+    } else {
+
+        document.getElementById("errorTip").innerHTML = "Passwords Don't Match";
+        return false;
+
+
+    }
+
 }
 
 function checkUsername(inputUsername) {
@@ -144,50 +161,65 @@ function verifyDetails() {
     rawUser.publicName = inputPublicName;
 
 
-    // check passwords
-    if (checkPassword(inputPassword, inputPasswordConfirm)) {
+    if (inputUsername.length > 1 && inputPublicName.length > 1) {
 
-        // check username
+        // check passwords
+        if (checkPassword(inputPassword, inputPasswordConfirm)) {
 
-        // username taken?
-        var usernameRef = usersRef.doc(inputUsername);
+            // check username
 
-        usernameRef.get().then(function (doc) {
-            if (doc.exists) {
-                console.log("TAKEN");
-            } else {
-                console.log("AVAILABLE!");
-
-                // set RAW DATA
-                rawUser.username = inputUsername;
+            // username taken?
+            var usernameRef = usersRef.doc(inputUsername);
 
 
-                // create account
-                firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // ...
-                });
+            usernameRef.get().then(function (doc) {
+                if (doc.exists) {
+                    console.log("TAKEN");
+                    document.getElementById("errorTip").innerHTML = "Username Taken :(";
 
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        // User is signed in.
-                        var user = firebase.auth().currentUser;
-                        rawUser.uid = user.uid;
+                } else {
+                    console.log("AVAILABLE!");
 
-                        saveUser(rawUser);
-                    } else {
-                        // No user is signed in.
-                    }
-                });
-            }
-        }).catch(function (error) {
-            console.log("Error getting user:", error);
-        });
+                    // set RAW DATA
+                    rawUser.username = inputUsername;
+
+
+                    // create account
+                    firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+
+                        document.getElementById("errorTip").innerHTML = errorMessage;
+
+
+                        // ...
+                    });
+
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (user) {
+                            // User is signed in.
+                            var user = firebase.auth().currentUser;
+                            rawUser.uid = user.uid;
+
+                            saveUser(rawUser);
+                        } else {
+                            // No user is signed in.
+                        }
+                    });
+                }
+            }).catch(function (error) {
+                console.log("Error getting user:", error);
+            });
+
+        } else {
+
+        }
+
+    } else {
+        document.getElementById("errorTip").innerHTML = "Please Fill In All Fields";
 
     }
-
 
 }
 
@@ -264,4 +296,5 @@ function writeUser(user) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-loggedIn();
+
+login();

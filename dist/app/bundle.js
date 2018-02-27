@@ -28732,28 +28732,26 @@
 	    _reactRouter.browserHistory.push("/home");
 	}
 	
-	function routerUpload() {
-	    _reactRouter.browserHistory.push("/upload");
-	}
-	
-	function routerUser() {
-	    _reactRouter.browserHistory.push("/user");
-	}
-	
 	function checkUpload() {
-	    if (loggedIn()) {
-	        window.location.href = '/upload';
-	    } else {
-	        $('#signInModal').modal('toggle');
-	    }
+	
+	    firebase.auth().onAuthStateChanged(function (user) {
+	        if (user) {
+	            window.location.href = '/upload';
+	        } else {
+	            $('#signInModal').modal('toggle');
+	        }
+	    });
 	}
 	
 	function checkUser() {
-	    if (loggedIn()) {
-	        window.location.href = '/user';
-	    } else {
-	        $('#signInModal').modal('toggle');
-	    }
+	
+	    firebase.auth().onAuthStateChanged(function (user) {
+	        if (user) {
+	            window.location.href = '/user';
+	        } else {
+	            $('#signInModal').modal('toggle');
+	        }
+	    });
 	}
 	
 	var Leftbar = exports.Leftbar = function (_React$Component) {
@@ -29056,6 +29054,15 @@
 	                                    _react2.default.createElement("input", { autoComplete: "email", id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
 	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" }),
 	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPasswordConfirm", type: "password", className: "form-control my-3", placeholder: "Confirm Password" })
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "p",
+	                                    { id: "errorTip", className: "text-warning" },
+	                                    " "
 	                                )
 	                            ),
 	                            _react2.default.createElement(

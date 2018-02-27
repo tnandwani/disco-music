@@ -7,28 +7,34 @@ function routerHome() {
     browserHistory.push("/home");
 }
 
-function routerUpload() {
-    browserHistory.push("/upload");
-}
-
-function routerUser() {
-    browserHistory.push("/user");
-}
-
 function checkUpload() {
-    if (loggedIn()) {
-        window.location.href = '/upload';
-    } else {
-        $('#signInModal').modal('toggle');
-    }
+
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            window.location.href = '/upload';
+
+        } else {
+            $('#signInModal').modal('toggle');
+        }
+    });
+
+    
 }
 
 function checkUser() {
-    if (loggedIn()) {
-        window.location.href = '/user';
-    } else {
-        $('#signInModal').modal('toggle');
-    }
+
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            window.location.href = '/user';
+
+        } else {
+            $('#signInModal').modal('toggle');
+        }
+    });
+
+   
 }
 
 

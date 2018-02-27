@@ -28437,7 +28437,7 @@
 								_react2.default.createElement(_SignIn.SignIn, null)
 							)
 						),
-						_react2.default.createElement("div", { className: "col-2 d-none d-lg-block" })
+						_react2.default.createElement("div", { className: "col-2  d-none d-lg-block" })
 					),
 					_react2.default.createElement(
 						"div",
@@ -28608,6 +28608,21 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function togglePlay() {
+	
+	    if (document.getElementById("playButton").classList.contains("oi-media-play")) {
+	        // is playing 
+	        console.log("is playing");
+	        document.getElementById("playButton").classList.remove('oi-media-play');
+	        document.getElementById("playButton").classList.add('oi-media-pause');
+	    } else {
+	        // is paused
+	        console.log("is paused");
+	        document.getElementById("playButton").classList.remove('oi-media-pause');
+	        document.getElementById("playButton").classList.add('oi-media-play');
+	    }
+	}
+	
 	var Footer = exports.Footer = function Footer(props) {
 	    return _react2.default.createElement(
 	        "div",
@@ -28658,7 +28673,7 @@
 	                { className: "pt-4 gold" },
 	                _react2.default.createElement("span", { className: "oi oi-reload bigIcon px-3", title: "reload" }),
 	                _react2.default.createElement("span", { className: "oi oi-media-skip-backward controlIcon px-5", title: "media-skip-backward" }),
-	                _react2.default.createElement("span", { className: "oi oi-media-play controlIcon px-2", title: "media-play" }),
+	                _react2.default.createElement("span", { id: "playButton", onClick: togglePlay, className: "oi oi-media-play controlIcon px-2", title: "media-play" }),
 	                _react2.default.createElement("span", { className: "oi oi-media-skip-forward controlIcon px-5", title: "media-skip-forward" }),
 	                _react2.default.createElement("span", { className: "oi oi-random bigIcon pl-3", title: "random" })
 	            )
@@ -28723,6 +28738,22 @@
 	
 	function routerUser() {
 	    _reactRouter.browserHistory.push("/user");
+	}
+	
+	function checkUpload() {
+	    if (loggedIn()) {
+	        window.location.href = '/upload';
+	    } else {
+	        $('#signInModal').modal('toggle');
+	    }
+	}
+	
+	function checkUser() {
+	    if (loggedIn()) {
+	        window.location.href = '/user';
+	    } else {
+	        $('#signInModal').modal('toggle');
+	    }
 	}
 	
 	var Leftbar = exports.Leftbar = function (_React$Component) {
@@ -28942,7 +28973,25 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	function chooseProfileImage() {
-	    document.getElementById("profileImage").click();
+	    document.getElementById("inputProfile").click();
+	}
+	
+	function handleProfile() {
+	
+	    var preview = document.getElementById("selectedImage");
+	    var file = document.getElementById("inputProfile").files[0];
+	    var reader = new FileReader();
+	
+	    // set file
+	    rawImage = file;
+	
+	    reader.addEventListener("load", function () {
+	        preview.src = reader.result;
+	    }, false);
+	
+	    if (file) {
+	        reader.readAsDataURL(file);
+	    }
 	}
 	
 	var CreateAccount = exports.CreateAccount = function (_React$Component) {
@@ -28995,13 +29044,13 @@
 	                                        ),
 	                                        " "
 	                                    ),
-	                                    _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle", onClick: chooseProfileImage }),
+	                                    _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle", id: "selectedImage", onClick: chooseProfileImage }),
 	                                    _react2.default.createElement(
 	                                        "p",
 	                                        { className: "mb-4 mt-2 gray", onClick: chooseProfileImage },
 	                                        " Choose Image"
 	                                    ),
-	                                    _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "profileImage" }),
+	                                    _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputProfile", onChange: handleProfile }),
 	                                    _react2.default.createElement("input", { id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
 	                                    _react2.default.createElement("input", { id: "rawUsername", type: "text", className: "form-control my-3", placeholder: "@Username" }),
 	                                    _react2.default.createElement("input", { id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
@@ -29010,9 +29059,13 @@
 	                                )
 	                            ),
 	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "btn btn-warning my-2", onClick: verifyDetails },
-	                                "Create Account"
+	                                "div",
+	                                { className: "text-right pr-5" },
+	                                _react2.default.createElement(
+	                                    "button",
+	                                    { type: "button", className: "btn btn-warning my-2", onClick: verifyDetails },
+	                                    "Create Account"
+	                                )
 	                            )
 	                        )
 	                    )
@@ -29031,7 +29084,7 @@
   \***************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -29056,6 +29109,11 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	function showCreateModal() {
+	    $('#signInModal').modal('toggle');
+	    $('#createModal').modal('toggle');
+	}
+	
 	var SignIn = exports.SignIn = function (_React$Component) {
 	    _inherits(SignIn, _React$Component);
 	
@@ -29066,64 +29124,64 @@
 	    }
 	
 	    _createClass(SignIn, [{
-	        key: "render",
+	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                "div",
-	                { className: "modal", tabIndex: "-1", role: "dialog", id: "signInModal" },
+	                'div',
+	                { className: 'modal', tabIndex: '-1', role: 'dialog', id: 'signInModal' },
 	                _react2.default.createElement(
-	                    "div",
-	                    { className: "modal-dialog theme", role: "document" },
+	                    'div',
+	                    { className: 'modal-dialog theme', role: 'document' },
 	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "modal-content theme" },
+	                        'div',
+	                        { className: 'modal-content theme' },
 	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "modal-body leftAlign" },
+	                            'div',
+	                            { className: 'modal-body leftAlign' },
 	                            _react2.default.createElement(
-	                                "button",
-	                                { type: "button", className: "close white", "data-dismiss": "modal", "aria-label": "Close" },
+	                                'button',
+	                                { type: 'button', className: 'close white', 'data-dismiss': 'modal', 'aria-label': 'Close' },
 	                                _react2.default.createElement(
-	                                    "span",
-	                                    { "aria-hidden": "true" },
-	                                    "\xD7"
+	                                    'span',
+	                                    { 'aria-hidden': 'true' },
+	                                    '\xD7'
 	                                )
 	                            ),
 	                            _react2.default.createElement(
-	                                "h2",
-	                                { className: "mb-4 gold text-center" },
-	                                " ",
+	                                'h2',
+	                                { className: 'mb-4 gold text-center' },
+	                                ' ',
 	                                _react2.default.createElement(
-	                                    "i",
+	                                    'i',
 	                                    null,
-	                                    "Welcome to Disco"
+	                                    'Welcome to Disco'
 	                                ),
-	                                " "
+	                                ' '
 	                            ),
 	                            _react2.default.createElement(
-	                                "label",
+	                                'label',
 	                                null,
-	                                "Email"
+	                                'Email'
 	                            ),
-	                            _react2.default.createElement("input", { id: "rawEmail", type: "text", className: "form-control mb-3", placeholder: "Email" }),
+	                            _react2.default.createElement('input', { id: 'rawEmail', type: 'text', className: 'form-control mb-3', placeholder: 'Email' }),
 	                            _react2.default.createElement(
-	                                "label",
+	                                'label',
 	                                null,
-	                                "Password"
+	                                'Password'
 	                            ),
-	                            _react2.default.createElement("input", { id: "rawPassword", type: "password", className: "form-control mb-3", placeholder: "Password" }),
+	                            _react2.default.createElement('input', { id: 'rawPassword', type: 'password', className: 'form-control mb-3', placeholder: 'Password' }),
 	                            _react2.default.createElement(
-	                                "div",
-	                                { className: "text-right" },
+	                                'div',
+	                                { className: 'text-right' },
 	                                _react2.default.createElement(
-	                                    "button",
-	                                    { type: "button", className: "btn btn-outline-warning m-2", onClick: showCreateModal },
-	                                    "Create Account"
+	                                    'button',
+	                                    { type: 'button', className: 'btn btn-outline-warning m-2', onClick: showCreateModal },
+	                                    'Create Account'
 	                                ),
 	                                _react2.default.createElement(
-	                                    "button",
-	                                    { type: "button", className: "btn btn-warning m-2", onClick: signIn },
-	                                    "Sign In"
+	                                    'button',
+	                                    { type: 'button', className: 'btn btn-warning m-2', onClick: signIn },
+	                                    'Sign In'
 	                                )
 	                            )
 	                        )

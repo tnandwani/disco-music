@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
+function showCreateModal() {
+    $('#signInModal').modal('toggle');
+    $('#createModal').modal('toggle');
+}
+
 
 export class SignIn extends React.Component {
     render() {

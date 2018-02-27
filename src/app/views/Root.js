@@ -77,7 +77,7 @@ export class Root extends React.Component {
 
 					</div>
 
-					<div className="col-2 d-none d-lg-block">
+					<div className="col-2  d-none d-lg-block">
 
 
 

@@ -53,6 +53,7 @@ gray/silver: BDC6C6 */
 /* USER PROFILE CSS */
 
 .profileCircle {
+    object-fit: cover;
     height: 250px;
     width: 250px;
 }

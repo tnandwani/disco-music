@@ -15,6 +15,26 @@ function routerUser() {
     browserHistory.push("/user");
 }
 
+function checkUpload() {
+    if (loggedIn()) {
+        window.location.href = '/upload';
+    } else {
+        $('#signInModal').modal('toggle');
+    }
+}
+
+function checkUser() {
+    if (loggedIn()) {
+        window.location.href = '/user';
+    } else {
+        $('#signInModal').modal('toggle');
+    }
+}
+
+
+
+
+
 
 export class Leftbar extends React.Component {
     render() {
@@ -60,13 +80,13 @@ export class Leftbar extends React.Component {
                     <a className="nav-link ml-2 " href="home#NewReleases">New Releases</a>
                     <a className="nav-link ml-2 " href="home#Popular">Popular</a>
 
-                   
+
                     <h6 className="mt-3"> Library</h6>
                     <a className="nav-link ml-2" href="home#">Songs</a>
                     <a className="nav-link ml-2" href="home#">Albums</a>
                     <a className="nav-link ml-2" href="home#">Artists</a>
 
-                     <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
+                    <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
                     <a className="nav-link ml-2 " href="home#Driving">Driving</a>
                     <a className="nav-link ml-2 " href="home#Study">Study</a>
                     <a className="nav-link ml-2 " href="home#Gym">Gym</a>

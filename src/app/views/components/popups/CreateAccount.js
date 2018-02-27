@@ -3,10 +3,30 @@ import PropTypes from 'prop-types';
 
 
 
-
-function chooseProfileImage(){
-    document.getElementById("profileImage").click();
+function chooseProfileImage() {
+    document.getElementById("inputProfile").click();
 }
+
+function handleProfile() {
+
+    var preview = document.getElementById("selectedImage");
+    var file = document.getElementById("inputProfile").files[0];
+    var reader = new FileReader();
+
+
+    // set file
+    rawImage = file;
+
+    reader.addEventListener("load", function () {
+        preview.src = reader.result;
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
+
+
 
 
 export class CreateAccount extends React.Component {
@@ -26,12 +46,13 @@ export class CreateAccount extends React.Component {
                                 <div className="container px-5 mt-3">
 
                                     <h2 className="mb-4 gold"> <i>Welcome to Disco</i> </h2>
+                                    <img src="images/profile.png" className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
 
-                                    <img src="images/profile.png" className="rounded-circle profileCircle" onClick={chooseProfileImage} />
+
 
                                     <p className="mb-4 mt-2 gray" onClick={chooseProfileImage} > Choose Image</p>
-                                    
-                                    <input className="d-none" type="file"  accept="image/*" id="profileImage"/>
+
+                                    <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
 
                                     <input id="rawPublicName" type="text" className="form-control my-3" placeholder="Name or Artist Name" />
                                     <input id="rawUsername" type="text" className="form-control my-3" placeholder="@Username" />
@@ -44,7 +65,11 @@ export class CreateAccount extends React.Component {
 
                             </form>
 
-                            <button type="button" className="btn btn-warning my-2" onClick = {verifyDetails} >Create Account</button>
+                            <div className="text-right pr-5">
+                                <button type="button" className="btn btn-warning my-2" onClick={verifyDetails} >Create Account</button>
+
+                            </div>
+
 
                         </div>
 

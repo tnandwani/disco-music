@@ -24,6 +24,8 @@ var newAlbumRef = firestore.collection("albums").doc();
 
 function startCoverUpload() {
     document.getElementById('coverFile').click();
+
+    
 }
 
 function handleCoverSelect(input) {

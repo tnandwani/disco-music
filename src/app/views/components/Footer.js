@@ -2,6 +2,33 @@ import React from "react";
 import { Link } from "react-router";
 import PropTypes from 'prop-types';
 
+function togglePlay() {
+
+    if (document.getElementById("playButton").classList.contains("oi-media-play")) {
+        // is playing 
+        console.log("is playing");
+        document.getElementById("playButton").classList.remove('oi-media-play');
+        document.getElementById("playButton").classList.add('oi-media-pause');
+
+
+
+    }
+    else {
+        // is paused
+        console.log("is paused");
+        document.getElementById("playButton").classList.remove('oi-media-pause');
+        document.getElementById("playButton").classList.add('oi-media-play');
+
+
+
+    }
+
+
+
+
+
+}
+
 
 export const Footer = (props) => {
     return (
@@ -9,9 +36,11 @@ export const Footer = (props) => {
 
             <div className="footerLeft">
                 <div className="float-left ten">
-                    <span className="oi oi-layers bigIcon px-3 gold" title="layers"></span>
 
+                    <span className="oi oi-layers bigIcon px-3 gold" title="layers"></span>
                     <img src="images/coverArt.png" className="h-100" />
+
+
 
                 </div>
                 <div className="ml-5 float-right">
@@ -32,7 +61,7 @@ export const Footer = (props) => {
                 <div className="pt-4 gold">
                     <span className="oi oi-reload bigIcon px-3" title="reload"></span>
                     <span className="oi oi-media-skip-backward controlIcon px-5" title="media-skip-backward"></span>
-                    <span className="oi oi-media-play controlIcon px-2" title="media-play"></span>
+                    <span id="playButton" onClick={togglePlay} className="oi oi-media-play controlIcon px-2" title="media-play"></span>
                     <span className="oi oi-media-skip-forward controlIcon px-5" title="media-skip-forward"></span>
                     <span className="oi oi-random bigIcon pl-3" title="random"></span>
 

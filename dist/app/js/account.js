@@ -15,6 +15,9 @@ var config = {
 firebase.initializeApp(config);
 
 var firestore = firebase.firestore();
+var storageRef = firebase.storage().ref();
+
+
 var usersRef = firestore.collection("users");
 var postsRef = firestore.collection("posts");
 var songsRef = firestore.collection("songs");
@@ -208,13 +211,47 @@ function writeUser(user) {
         })
         .then(function () {
             console.log("Document successfully written!");
-            window.location.href = '/user';
+
+            // update profile
+
+            var user = firebase.auth().currentUser;
+
+            user.updateProfile({
+                displayName: rawUser.username
+
+            }).then(function () {
+                // Update successful.
+
+                // upload profile picture 
+                if (rawImage) {
+                    var userProfileRef = storageRef.child('profileImages/' + user.uid + '.png');
+
+                    userProfileRef.put(rawImage).then(function (snapshot) {
+                        console.log('Uploaded a blob or file to: ');
+                        console.log(userProfileRef);
+                        window.location.href = '/user';
+
+                    });
+                }
+                window.location.href = '/user';
+
+            }).catch(function (error) {
+                // An error happened.
+            });
+
+
+
+
+
+
 
 
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
         });
+
+
 
 
 

@@ -21,16 +21,21 @@ export class SignIn extends React.Component {
 
 
                             <h2 className="mb-4 gold text-center"> <i>Welcome to Disco</i> </h2>
-                            <label>Email</label>
-                            <input id="rawEmail" type="text" className="form-control mb-3" placeholder="Email" />
-                            <label>Password</label>
 
-                            <input id="rawPassword" type="password" className="form-control mb-3" placeholder="Password" />
-                            <div className= "text-right">
+                            <form>
+                                <label>Email</label>
+                                <input autoComplete='email' id="rawEmail" type="text" className="form-control mb-3" placeholder="Email" />
+                                <label>Password</label>
+
+
+                                <input autoComplete='password' id="rawPassword" type="password" className="form-control mb-3" placeholder="Password" />
+                            </form>
+
+                            <div className="text-right">
                                 <button type="button" className="btn btn-outline-warning m-2" onClick={showCreateModal} >Create Account</button>
                                 <button type="button" className="btn btn-warning m-2" onClick={signIn} >Sign In</button>
-                                
-                                
+
+
                             </div>
 
 

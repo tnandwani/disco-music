@@ -28633,7 +28633,7 @@
 	            _react2.default.createElement(
 	                "div",
 	                { className: "float-left ten" },
-	                _react2.default.createElement("span", { className: "oi oi-layers bigIcon px-3 gold", title: "layers" }),
+	                _react2.default.createElement("span", { className: "oi oi-layers bigIcon px-3 gold", title: "Queue" }),
 	                _react2.default.createElement("img", { src: "images/coverArt.png", className: "h-100" })
 	            ),
 	            _react2.default.createElement(
@@ -28671,11 +28671,11 @@
 	            _react2.default.createElement(
 	                "div",
 	                { className: "pt-4 gold" },
-	                _react2.default.createElement("span", { className: "oi oi-reload bigIcon px-3", title: "reload" }),
-	                _react2.default.createElement("span", { className: "oi oi-media-skip-backward controlIcon px-5", title: "media-skip-backward" }),
-	                _react2.default.createElement("span", { id: "playButton", onClick: togglePlay, className: "oi oi-media-play controlIcon px-2", title: "media-play" }),
-	                _react2.default.createElement("span", { className: "oi oi-media-skip-forward controlIcon px-5", title: "media-skip-forward" }),
-	                _react2.default.createElement("span", { className: "oi oi-random bigIcon pl-3", title: "random" })
+	                _react2.default.createElement("span", { className: "oi oi-reload bigIcon px-3", title: "Loop" }),
+	                _react2.default.createElement("span", { className: "oi oi-media-skip-backward controlIcon px-5", title: "Back" }),
+	                _react2.default.createElement("span", { id: "playButton", onClick: togglePlay, className: "oi oi-media-play controlIcon px-2", title: "Play" }),
+	                _react2.default.createElement("span", { className: "oi oi-media-skip-forward controlIcon px-5", title: "Next" }),
+	                _react2.default.createElement("span", { className: "oi oi-random bigIcon pl-3", title: "Shuffle" })
 	            )
 	        ),
 	        _react2.default.createElement(
@@ -28684,11 +28684,11 @@
 	            _react2.default.createElement(
 	                "div",
 	                { className: "pt-3 text-muted" },
-	                _react2.default.createElement("span", { className: "oi oi-share footerIcon px-3", title: "share" }),
-	                _react2.default.createElement("span", { className: "oi oi-fire footerIcon px-3", title: "fire" }),
-	                _react2.default.createElement("span", { className: "oi oi-heart footerIcon px-3", title: "heart" }),
-	                _react2.default.createElement("span", { className: "oi oi-plus footerIcon px-3", title: "plus" }),
-	                _react2.default.createElement("span", { className: "oi oi-volume-high footerIcon pl-3", title: "volume-high" })
+	                _react2.default.createElement("span", { className: "oi oi-share footerIcon px-3", title: "Send" }),
+	                _react2.default.createElement("span", { className: "oi oi-fire footerIcon px-3", title: "Share" }),
+	                _react2.default.createElement("span", { className: "oi oi-heart footerIcon px-3", title: "Like" }),
+	                _react2.default.createElement("span", { className: "oi oi-plus footerIcon px-3", title: "Add" }),
+	                _react2.default.createElement("span", { className: "oi oi-volume-high footerIcon pl-3", title: "Volume" })
 	            )
 	        )
 	    );
@@ -28793,7 +28793,7 @@
 	                                "a",
 	                                { onClick: checkUser },
 	                                " ",
-	                                _react2.default.createElement("span", { className: "oi oi-person bigIcon pr-2", title: "plus" })
+	                                _react2.default.createElement("span", { className: "oi oi-person bigIcon pr-2", title: "Profile" })
 	                            )
 	                        )
 	                    ),
@@ -29051,11 +29051,11 @@
 	                                        " Choose Image"
 	                                    ),
 	                                    _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputProfile", onChange: handleProfile }),
-	                                    _react2.default.createElement("input", { id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
-	                                    _react2.default.createElement("input", { id: "rawUsername", type: "text", className: "form-control my-3", placeholder: "@Username" }),
-	                                    _react2.default.createElement("input", { id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
-	                                    _react2.default.createElement("input", { id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" }),
-	                                    _react2.default.createElement("input", { id: "rawNewPasswordConfirm", type: "password", className: "form-control my-3", placeholder: "Confirm Password" })
+	                                    _react2.default.createElement("input", { autoComplete: "name", id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
+	                                    _react2.default.createElement("input", { autoComplete: "name", id: "rawUsername", type: "text", className: "form-control my-3", placeholder: "@Username" }),
+	                                    _react2.default.createElement("input", { autoComplete: "email", id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
+	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" }),
+	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPasswordConfirm", type: "password", className: "form-control my-3", placeholder: "Confirm Password" })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -29159,17 +29159,21 @@
 	                                ' '
 	                            ),
 	                            _react2.default.createElement(
-	                                'label',
+	                                'form',
 	                                null,
-	                                'Email'
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    'Email'
+	                                ),
+	                                _react2.default.createElement('input', { autoComplete: 'email', id: 'rawEmail', type: 'text', className: 'form-control mb-3', placeholder: 'Email' }),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    'Password'
+	                                ),
+	                                _react2.default.createElement('input', { autoComplete: 'password', id: 'rawPassword', type: 'password', className: 'form-control mb-3', placeholder: 'Password' })
 	                            ),
-	                            _react2.default.createElement('input', { id: 'rawEmail', type: 'text', className: 'form-control mb-3', placeholder: 'Email' }),
-	                            _react2.default.createElement(
-	                                'label',
-	                                null,
-	                                'Password'
-	                            ),
-	                            _react2.default.createElement('input', { id: 'rawPassword', type: 'password', className: 'form-control mb-3', placeholder: 'Password' }),
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'text-right' },

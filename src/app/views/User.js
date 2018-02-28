@@ -10,6 +10,10 @@ import { TextPost } from "./components/posts/textPost";
 import { UserBlock } from "./components/blocks/UserBlock";
 
 
+function signOut() {
+    firebase.auth().signOut();
+    browserHistory.push("/home");
+}
 
 
 export class User extends React.Component {

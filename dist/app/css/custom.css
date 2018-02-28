@@ -39,6 +39,8 @@ gray/silver: BDC6C6 */
 
 .layoutMenu {
     position: fixed;
+    top: 0;
+    bottom: 0;
     width: 15%;
 }
 

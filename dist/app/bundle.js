@@ -28738,24 +28738,28 @@
 	
 	function checkUpload() {
 	
-	    firebase.auth().onAuthStateChanged(function (user) {
-	        if (user) {
-	            window.location.href = '/upload';
-	        } else {
-	            $('#signInModal').modal('toggle');
-	        }
-	    });
+	    var user = firebase.auth().currentUser;
+	
+	    if (user) {
+	        // User is signed in.
+	        window.location.href = '/upload';
+	    } else {
+	        // No user is signed in.
+	        $('#signInModal').modal('toggle');
+	    }
 	}
 	
 	function checkUser() {
 	
-	    firebase.auth().onAuthStateChanged(function (user) {
-	        if (user) {
-	            window.location.href = '/user';
-	        } else {
-	            $('#signInModal').modal('toggle');
-	        }
-	    });
+	    var user = firebase.auth().currentUser;
+	
+	    if (user) {
+	        // User is signed in.
+	        window.location.href = '/user';
+	    } else {
+	        // No user is signed in.
+	        $('#signInModal').modal('toggle');
+	    }
 	}
 	
 	var Leftbar = exports.Leftbar = function (_React$Component) {
@@ -28985,6 +28989,7 @@
 	    var reader = new FileReader();
 	
 	    // set file
+	
 	    rawImage = file;
 	
 	    reader.addEventListener("load", function () {
@@ -56873,13 +56878,7 @@
 	                            "button",
 	                            { className: "btn btn-outline-success my-3" },
 	                            " + Song File ",
-	                            _react2.default.createElement("span", { className: "oi oi-check", title: "check" })
-	                        ),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { className: "btn btn-outline-success mx-3" },
-	                            "+  Lyrics File ",
-	                            _react2.default.createElement("span", { className: "oi oi-check", title: "check" })
+	                            _react2.default.createElement("span", { className: "oi oi-check pl-2", title: "check" })
 	                        ),
 	                        _react2.default.createElement("br", null),
 	                        _react2.default.createElement(

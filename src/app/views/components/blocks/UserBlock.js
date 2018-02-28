@@ -1,5 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { browserHistory } from "react-router";
+
+
+function signOut() {
+    firebase.auth().signOut();
+    browserHistory.push("/home");
+}
+
+
 
 
 export class UserBlock extends React.Component {

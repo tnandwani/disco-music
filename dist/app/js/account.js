@@ -81,231 +81,225 @@ function signIn() {
 
 }
 
-function signOut() {
-    firebase.auth().signOut();
-    browserHistory.push("/home");
-}
 
+// ////////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////////
+// // CREATE ACCOUNT JS
+// ////////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////////
 
+// var rawImage;
 
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-// CREATE ACCOUNT JS
-////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
+// var rawUser = {
+//     username: "username",
+//     uid: "uid",
+//     publicName: "My Profile",
+//     email: "email",
+//     followers: ["disco"],
+//     following: ["disco"]
+// }
 
-var rawImage;
 
-var rawUser = {
-    username: "username",
-    uid: "uid",
-    publicName: "My Profile",
-    email: "email",
-    followers: ["disco"],
-    following: ["disco"]
-}
+// function checkPassword(inputPassword, inputPasswordConfirm) {
 
+//     // pass match?
+//     if (inputPassword === inputPasswordConfirm) {
+//         // longer than 6 
+//         if (inputPassword.length > 5) {
+//             return true
+//         }
+//         document.getElementById("errorTip").innerHTML = "Passwords Too Weak";
+//         return false;
 
-function checkPassword(inputPassword, inputPasswordConfirm) {
 
-    // pass match?
-    if (inputPassword === inputPasswordConfirm) {
-        // longer than 6 
-        if (inputPassword.length > 5) {
-            return true
-        }
-        document.getElementById("errorTip").innerHTML = "Passwords Too Weak";
-        return false;
 
+//     } else {
 
+//         document.getElementById("errorTip").innerHTML = "Passwords Don't Match";
+//         return false;
 
-    } else {
 
-        document.getElementById("errorTip").innerHTML = "Passwords Don't Match";
-        return false;
+//     }
 
+// }
 
-    }
+// function checkUsername(inputUsername) {
 
-}
+//     // username taken?
+//     var usernameRef = usersRef.doc(inputUsername);
 
-function checkUsername(inputUsername) {
+//     usernameRef.get().then(function (doc) {
+//         if (doc.exists) {
+//             console.log("TAKEN");
+//         } else {
+//             console.log("AVAILABLE!");
+//         }
+//     }).catch(function (error) {
+//         console.log("Error getting user:", error);
+//     });
 
-    // username taken?
-    var usernameRef = usersRef.doc(inputUsername);
+// }
 
-    usernameRef.get().then(function (doc) {
-        if (doc.exists) {
-            console.log("TAKEN");
-        } else {
-            console.log("AVAILABLE!");
-        }
-    }).catch(function (error) {
-        console.log("Error getting user:", error);
-    });
 
-}
+// function verifyDetails() {
 
+//     var inputEmail = document.getElementById("rawNewEmail").value;
+//     var inputPassword = document.getElementById("rawNewPassword").value;
+//     var inputPasswordConfirm = document.getElementById("rawNewPasswordConfirm").value;
+//     var inputPublicName = document.getElementById("rawPublicName").value;
+//     var inputUsername = document.getElementById("rawUsername").value;
+//     // make username lowercase
+//     inputUsername = inputUsername.toLowerCase();
+//     inputUsername = inputUsername.replace(/\s/g, "");
 
-function verifyDetails() {
+//     console.log("username is now: " + inputUsername);
 
-    var inputEmail = document.getElementById("rawNewEmail").value;
-    var inputPassword = document.getElementById("rawNewPassword").value;
-    var inputPasswordConfirm = document.getElementById("rawNewPasswordConfirm").value;
-    var inputPublicName = document.getElementById("rawPublicName").value;
-    var inputUsername = document.getElementById("rawUsername").value;
-    // make username lowercase
-    inputUsername = inputUsername.toLowerCase();
-    inputUsername = inputUsername.replace(/\s/g, "");
 
-    console.log("username is now: " + inputUsername);
 
+//     // set RAW DATA
+//     rawUser.email = inputEmail;
+//     rawUser.publicName = inputPublicName;
 
 
-    // set RAW DATA
-    rawUser.email = inputEmail;
-    rawUser.publicName = inputPublicName;
+//     if (inputUsername.length > 1 && inputPublicName.length > 1) {
 
+//         // check passwords
+//         if (checkPassword(inputPassword, inputPasswordConfirm)) {
 
-    if (inputUsername.length > 1 && inputPublicName.length > 1) {
+//             // check username
 
-        // check passwords
-        if (checkPassword(inputPassword, inputPasswordConfirm)) {
+//             // username taken?
+//             var usernameRef = usersRef.doc(inputUsername);
 
-            // check username
 
-            // username taken?
-            var usernameRef = usersRef.doc(inputUsername);
+//             usernameRef.get().then(function (doc) {
+//                 if (doc.exists) {
+//                     console.log("TAKEN");
+//                     document.getElementById("errorTip").innerHTML = "Username Taken :(";
 
+//                 } else {
+//                     console.log("AVAILABLE!");
 
-            usernameRef.get().then(function (doc) {
-                if (doc.exists) {
-                    console.log("TAKEN");
-                    document.getElementById("errorTip").innerHTML = "Username Taken :(";
+//                     // set RAW DATA
+//                     rawUser.username = inputUsername;
 
-                } else {
-                    console.log("AVAILABLE!");
 
-                    // set RAW DATA
-                    rawUser.username = inputUsername;
+//                     // create account
+//                     firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+//                         // Handle Errors here.
+//                         var errorCode = error.code;
+//                         var errorMessage = error.message;
 
+//                         document.getElementById("errorTip").innerHTML = errorMessage;
 
-                    // create account
-                    firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
 
-                        document.getElementById("errorTip").innerHTML = errorMessage;
+//                         // ...
+//                     });
 
 
-                        // ...
-                    });
+//                     firebase.auth().onAuthStateChanged(function (user) {
+//                         if (user) {
+//                             // User is signed in.
+//                             var user = firebase.auth().currentUser;
+//                             rawUser.uid = user.uid;
+//                             saveUser(rawUser);
+//                         } else {
+//                             // No user is signed in.
+//                         }
+//                     });
+//                 }
+//             }).catch(function (error) {
+//                 console.log("Error getting user:", error);
+//             });
 
+//         } else {
 
-                    firebase.auth().onAuthStateChanged(function (user) {
-                        if (user) {
-                            // User is signed in.
-                            var user = firebase.auth().currentUser;
-                            rawUser.uid = user.uid;
-                            saveUser(rawUser);
-                        } else {
-                            // No user is signed in.
-                        }
-                    });
-                }
-            }).catch(function (error) {
-                console.log("Error getting user:", error);
-            });
+//         }
 
-        } else {
+//     } else {
+//         document.getElementById("errorTip").innerHTML = "Please Fill In All Fields";
 
-        }
+//     }
 
-    } else {
-        document.getElementById("errorTip").innerHTML = "Please Fill In All Fields";
+// }
 
-    }
+// function saveUser(incomingUser) {
 
-}
+//     rawUser = incomingUser;
 
-function saveUser(incomingUser) {
 
-    rawUser = incomingUser;
+//     writeUser(incomingUser);
+// }
 
 
-    writeUser(incomingUser);
-}
+// function writeUser(incomingUser) {
 
+//     console.log("ready to write user: ");
+//     console.log(incomingUser);
 
-function writeUser(incomingUser) {
+//     // Add a new document in collection "cities"
+//     firestore.collection("users").doc(incomingUser.username).set({
+//             username: incomingUser.username,
+//             publicName: incomingUser.publicName,
+//             uid: incomingUser.uid,
+//             email: incomingUser.email,
+//             followers: ["disco"],
+//             following: ["disco"]
+//         })
+//         .then(function () {
+//             console.log("Document successfully written!");
 
-    console.log("ready to write user: ");
-    console.log(incomingUser);
+//             // update profile
 
-    // Add a new document in collection "cities"
-    firestore.collection("users").doc(incomingUser.username).set({
-            username: incomingUser.username,
-            publicName: incomingUser.publicName,
-            uid: incomingUser.uid,
-            email: incomingUser.email,
-            followers: ["disco"],
-            following: ["disco"]
-        })
-        .then(function () {
-            console.log("Document successfully written!");
+//             // User is signed in.
+//             var user = firebase.auth().currentUser;
 
-            // update profile
+//             console.log("going to update: " + user);
 
-            // User is signed in.
-            var user = firebase.auth().currentUser;
+//             user.updateProfile({
+//                 displayName: rawUser.username
 
-            console.log("going to update: " + user);
+//             }).then(function () {
+//                 // Update successful.
 
-            user.updateProfile({
-                displayName: rawUser.username
+//                 console.log("successfully updated profile!");
 
-            }).then(function () {
-                // Update successful.
+//                 console.log("raw image is ");
+//                 console.log(rawImage);
 
-                console.log("successfully updated profile!");
+//                 // upload profile picture 
+//                 if (rawImage) {
 
-                console.log("raw image is ");
-                console.log(rawImage);
+//                     var userProfileRef = storageRef.child('profileImages/' + rawUser.uid);
 
-                // upload profile picture 
-                if (rawImage) {
+//                     userProfileRef.put(rawImage).then(function (snapshot) {
 
-                    var userProfileRef = storageRef.child('profileImages/' + rawUser.uid + '.png');
+//                         console.log('Uploaded a blob or file to: ');
+//                         console.log(userProfileRef);
+//                         checkUser();
 
-                    userProfileRef.put(rawImage).then(function (snapshot) {
+//                     });
+//                 } else {
+//                     checkUser();
 
-                        console.log('Uploaded a blob or file to: ');
-                        console.log(userProfileRef);
-                        browserHistory.push("/user");
+//                 }
 
-                    });
-                } else {
-                    browserHistory.push("/user");
 
-                }
+//             }).catch(function (error) {
+//                 // An error happened.
+//             });
 
 
-            }).catch(function (error) {
-                // An error happened.
-            });
+//         })
+//         .catch(function (error) {
+//             console.error("Error writing document: ", error);
+//         });
 
 
-        })
-        .catch(function (error) {
-            console.error("Error writing document: ", error);
-        });
 
 
 
-
-
-}
+// }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////

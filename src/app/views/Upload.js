@@ -6,7 +6,7 @@ import { browserHistory } from "react-router";
 export class Upload extends React.Component {
     render() {
         return (
-            <div className="" >
+            <div className="mt-4">
                 <h3>Caption</h3>
                 <input type="text" className="form-control dark my-3 py-3" placeholder="100 Charater Limit" />
 
@@ -47,9 +47,7 @@ export class Upload extends React.Component {
 
 
                         <br />
-                        <button className="btn btn-outline-success my-3"> + Song File <span className="oi oi-check" title="check"></span></button>
-
-                        <button className="btn btn-outline-success mx-3">+  Lyrics File <span className="oi oi-check" title="check"></span></button>
+                        <button className="btn btn-outline-success my-3"> + Song File <span className="oi oi-check pl-2" title="check"></span></button>
 
                         <br />
 
@@ -64,7 +62,7 @@ export class Upload extends React.Component {
 
                     </div>
 
-                    <div className="container pt-4 " >
+                    <div className="container pt-4 mt-4" >
 
                         <div>
                             <input type="text" className="form-control dark py-4" placeholder="Album Name" />

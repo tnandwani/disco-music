@@ -10,7 +10,7 @@ function showCreateModal() {
 export class SignIn extends React.Component {
     render() {
         return (
-            <div className="modal" tabIndex="-1" role="dialog" id="signInModal">
+            <div className="modal mt-5" tabIndex="-1" role="dialog" id="signInModal">
                 <div className="modal-dialog theme" role="document">
                     <div className="modal-content theme">
                         <div className="modal-body leftAlign">
@@ -24,11 +24,11 @@ export class SignIn extends React.Component {
 
                             <form>
                                 <label>Email</label>
-                                <input autoComplete='email' id="rawEmail" type="text" className="form-control mb-3" placeholder="Email" />
+                                <input autoComplete='email' id="rawEmail" type="text" className="form-control dark mb-3" placeholder="Email" />
                                 <label>Password</label>
 
 
-                                <input autoComplete='password' id="rawPassword" type="password" className="form-control mb-3" placeholder="Password" />
+                                <input autoComplete='password' id="rawPassword" type="password" className="form-control dark mb-3" placeholder="Password" />
                             </form>
 
                             <div className="text-right">

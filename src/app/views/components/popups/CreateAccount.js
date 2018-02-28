@@ -29,10 +29,13 @@ function checkUser() {
 
     if (user) {
         // User is signed in.
+        
         browserHistory.push("/user");
+        $('#createModal').modal('toggle');
+
+
     } else {
         // No user is signed in.
-        $('#signInModal').modal('toggle');
     }
 
 

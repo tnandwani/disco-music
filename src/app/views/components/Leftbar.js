@@ -60,7 +60,7 @@ export class Leftbar extends React.Component {
                         </div>
                         <div className="col text-right pt-3">
 
-                            <a onClick={checkUser}> <span className="oi oi-person bigIcon pr-2" title="Profile" ></span></a>
+                            <a onClick={checkUser}> <span className="oi oi-person postIcons pr-2" title="Profile" ></span></a>
                         </div>
                     </div>
 

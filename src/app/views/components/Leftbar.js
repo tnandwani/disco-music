@@ -13,7 +13,8 @@ function checkUpload() {
 
     if (user) {
         // User is signed in.
-        window.location.href = '/upload';
+        browserHistory.push("/upload");
+
     } else {
         // No user is signed in.
         $('#signInModal').modal('toggle');
@@ -28,7 +29,8 @@ function checkUser() {
 
     if (user) {
         // User is signed in.
-        window.location.href = '/user';
+        browserHistory.push("/user");
+
     } else {
         // No user is signed in.
         $('#signInModal').modal('toggle');

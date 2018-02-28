@@ -67,7 +67,7 @@ export class Leftbar extends React.Component {
 
 
                     <div className="input-group">
-                        <input type="search" className="form-control" placeholder="Search" />
+                        <input type="search" className="form-control lessDark" placeholder="Search" />
                         {/* <span className="oi oi-magnifying-glass mt-2 ml-1 " title="magnifying-glass"></span> */}
                     </div>
 

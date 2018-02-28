@@ -1960,7 +1960,7 @@ pre code {
   font-size: 1rem;
   line-height: 1.5;
   color: #D7B659;
-  background-color: #222;
+  background-color: #111;
   background-clip: padding-box;
   border: 1px solid black;
   border-radius: 0.25rem;
@@ -1974,7 +1974,7 @@ pre code {
 
 .form-control:focus {
   color: #D7B659;
-  background-color: #222;
+  background-color: #111;
   border-color: black;
   outline: 0;
 }

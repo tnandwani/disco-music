@@ -23,6 +23,7 @@ var rawUser = {
 }
 
 
+
 function checkUser() {
 
     var user = firebase.auth().currentUser;
@@ -270,6 +271,17 @@ function handleProfile() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 export class CreateAccount extends React.Component {
     render() {
         return (
@@ -295,8 +307,7 @@ export class CreateAccount extends React.Component {
 
                                     <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
 
-                                    <input  autoComplete= "name" id="rawPublicName" type="text" className="form-control dark my-3" placeholder="Name or Artist Name" />
-                                    <input autoComplete= "name" id="rawUsername" type="text" className="form-control dark my-3" placeholder="@Username" />
+                                    <input autoComplete= "name" id="rawUsername" onkeydown="return (event.keyCode!=64);" type="text" className="form-control dark my-3" placeholder="Username" />
                                     <input  autoComplete= "email"  id="rawNewEmail" type="email" className="form-control dark my-3" placeholder="Email" />
                                     <input autoComplete= "password"  id="rawNewPassword" type="password" className="form-control dark my-3" placeholder="Password" />
                                     <input  autoComplete= "password" id="rawNewPasswordConfirm" type="password" className="form-control dark my-3" placeholder="Confirm Password" />

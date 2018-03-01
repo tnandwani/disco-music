@@ -216,6 +216,7 @@ function writeUser(incomingUser) {
 
                         console.log('Uploaded a blob or file to: ');
                         console.log(userProfileRef);
+                        
                         checkUser();
 
                     });

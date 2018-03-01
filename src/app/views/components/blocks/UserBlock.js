@@ -62,7 +62,7 @@ export class UserBlock extends React.Component {
 
                 <div className="row container p-3 text-center" >
                     <div className="col text-right" >
-                        <img src="images/profile.png" className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
+                        <img src= {inUser.photoUrl} className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
                         <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
 
                     </div>

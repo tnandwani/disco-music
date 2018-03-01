@@ -37,7 +37,8 @@ var inUser = {
     email: "email",
     publicName: "My Profile",
     followers: ["disco"],
-    following: ["disco"]
+    following: ["disco"],
+    photoUrl: "images/profile.png"
 };
 
 function getUser() {
@@ -69,8 +70,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
         storageRef.child('profileImages/' + user.uid).getDownloadURL().then(function (url) {
-            var img = document.getElementById('selectedImage');
-            img.src = url;
+            inUser.photoUrl = url;
         }).catch(function (error) {
             // Handle any errors
         });

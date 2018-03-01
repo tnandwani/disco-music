@@ -1,16 +1,42 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { browserHistory } from "react-router";
+
 
 function showCreateModal() {
     $('#signInModal').modal('toggle');
     $('#createModal').modal('toggle');
 }
 
+function signIn() {
+
+    var inputEmail = document.getElementById("rawEmail").value;
+    var inputPassword = document.getElementById("rawPassword").value;
+
+    firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        document.getElementById("errorTip").innerHTML = {errorMessage};
+
+        // ...
+    });
+
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            browserHistory.push("/user");
+        } else { }
+    });
+
+
+}
+
+
 
 export class SignIn extends React.Component {
     render() {
         return (
-            <div className="modal mt-5" tabIndex="-1" role="dialog" id="signInModal">
+            <div className="modal" tabIndex="-1" role="dialog" id="signInModal">
                 <div className="modal-dialog theme" role="document">
                     <div className="modal-content theme">
                         <div className="modal-body leftAlign">
@@ -30,6 +56,12 @@ export class SignIn extends React.Component {
 
                                 <input autoComplete='password' id="rawPassword" type="password" className="form-control dark mb-3" placeholder="Password" />
                             </form>
+
+                            <div >
+
+                                <p id="errorTip" className="text-warning" > </p>
+
+                            </div>
 
                             <div className="text-right">
                                 <button type="button" className="btn btn-outline-warning m-2" onClick={showCreateModal} >Create Account</button>

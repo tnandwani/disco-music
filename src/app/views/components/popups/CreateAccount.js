@@ -2,9 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { browserHistory } from "react-router";
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 // CREATE ACCOUNT JS
@@ -30,7 +27,7 @@ function checkUser() {
 
     if (user) {
         // User is signed in.
-        
+
         browserHistory.push("/user");
         $('#createModal').modal('toggle');
 
@@ -182,13 +179,13 @@ function writeUser(incomingUser) {
 
     // Add a new document in collection "cities"
     firestore.collection("users").doc(incomingUser.username).set({
-            username: incomingUser.username,
-            publicName: incomingUser.publicName,
-            uid: incomingUser.uid,
-            email: incomingUser.email,
-            followers: ["disco"],
-            following: ["disco"]
-        })
+        username: incomingUser.username,
+        publicName: incomingUser.publicName,
+        uid: incomingUser.uid,
+        email: incomingUser.email,
+        followers: ["disco"],
+        following: ["disco"]
+    })
         .then(function () {
             console.log("Document successfully written!");
 
@@ -256,7 +253,7 @@ function handleProfile() {
 
 
     // set file
-    
+
     rawImage = file;
 
     reader.addEventListener("load", function () {
@@ -272,20 +269,10 @@ function handleProfile() {
 
 
 
-
-
-
-
-
-
-
-
-
-
 export class CreateAccount extends React.Component {
     render() {
         return (
-            <div className="modal mt-5 text-center" tabIndex="-1" role="dialog" id="createModal">
+            <div className="modal text-center" tabIndex="-1" role="dialog" id="createModal">
                 <div className="modal-dialog theme" role="document">
                     <div className="modal-content theme">
                         <div className="modal-body">
@@ -307,10 +294,11 @@ export class CreateAccount extends React.Component {
 
                                     <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
 
-                                    <input autoComplete= "name" id="rawUsername" onkeydown="return (event.keyCode!=64);" type="text" className="form-control dark my-3" placeholder="Username" />
-                                    <input  autoComplete= "email"  id="rawNewEmail" type="email" className="form-control dark my-3" placeholder="Email" />
-                                    <input autoComplete= "password"  id="rawNewPassword" type="password" className="form-control dark my-3" placeholder="Password" />
-                                    <input  autoComplete= "password" id="rawNewPasswordConfirm" type="password" className="form-control dark my-3" placeholder="Confirm Password" />
+                                    <input autoComplete="name" id="rawPublicName" type="text" className="form-control my-3" placeholder="Name or Artist Name" />
+                                    <input autoComplete="name" id="rawUsername" type="text" className="form-control my-3" placeholder="@Username" />
+                                    <input autoComplete="email" id="rawNewEmail" type="email" className="form-control my-3" placeholder="Email" />
+                                    <input autoComplete="password" id="rawNewPassword" type="password" className="form-control my-3" placeholder="Password" />
+                                    <input autoComplete="password" id="rawNewPasswordConfirm" type="password" className="form-control dark my-3" placeholder="Confirm Password" />
 
 
                                 </div>
@@ -319,7 +307,7 @@ export class CreateAccount extends React.Component {
 
                             <div >
 
-                                <p id= "errorTip" className="text-warning" > </p>
+                                <p id="errorTip" className="text-warning" > </p>
 
                             </div>
 

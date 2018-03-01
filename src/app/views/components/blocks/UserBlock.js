@@ -2,12 +2,54 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { browserHistory } from "react-router";
 
+var rawImage;
+
+
+
 
 function signOut() {
     firebase.auth().signOut();
     browserHistory.push("/home");
 }
 
+
+function chooseProfileImage() {
+    document.getElementById("inputProfile").click();
+}
+
+function handleProfile() {
+
+    var preview = document.getElementById("selectedImage");
+    var file = document.getElementById("inputProfile").files[0];
+    var reader = new FileReader();
+
+
+    // set file
+
+    rawImage = file;
+
+    if (rawImage) {
+
+        var userProfileRef = storageRef.child('profileImages/' + inUser.uid);
+
+        userProfileRef.put(rawImage).then(function (snapshot) {
+
+            console.log('Uploaded a blob or file to: ');
+            console.log(userProfileRef);
+
+        });
+    } else {
+        console.log(":((((");
+    }
+
+    reader.addEventListener("load", function () {
+        preview.src = reader.result;
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
 
 
 
@@ -20,8 +62,8 @@ export class UserBlock extends React.Component {
 
                 <div className="row container p-3 text-center" >
                     <div className="col text-right" >
-                        <img src="images/profile.png" className="rounded-circle profileCircle" />
-                        
+                        <img src="images/profile.png" className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
+                        <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
 
                     </div>
                     <div className="col p-3 ">
@@ -34,8 +76,8 @@ export class UserBlock extends React.Component {
                     </div>
                     <div className="col p-3">
 
-                        <h2 className="white">Followers <small className="gold">{inUser.followers.length}</small> </h2>        
-                        <h2 className="white py-3">Following <small className="gold">{inUser.following.length}</small> </h2>             
+                        <h2 className="white">Followers <small className="gold">{inUser.followers.length}</small> </h2>
+                        <h2 className="white py-3">Following <small className="gold">{inUser.following.length}</small> </h2>
 
                         <button type="button" className="btn btn-outline-secondary mt-2 px-5" onClick={signOut} > Logout</button>
 

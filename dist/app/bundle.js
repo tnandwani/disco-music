@@ -28742,7 +28742,7 @@
 	
 	    if (user) {
 	        // User is signed in.
-	        window.location.href = '/upload';
+	        _reactRouter.browserHistory.push("/upload");
 	    } else {
 	        // No user is signed in.
 	        $('#signInModal').modal('toggle');
@@ -28755,7 +28755,7 @@
 	
 	    if (user) {
 	        // User is signed in.
-	        window.location.href = '/user';
+	        _reactRouter.browserHistory.push("/user");
 	    } else {
 	        // No user is signed in.
 	        $('#signInModal').modal('toggle');
@@ -28799,14 +28799,14 @@
 	                                "a",
 	                                { onClick: checkUser },
 	                                " ",
-	                                _react2.default.createElement("span", { className: "oi oi-person bigIcon pr-2", title: "Profile" })
+	                                _react2.default.createElement("span", { className: "oi oi-person postIcons pr-2", title: "Profile" })
 	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "input-group" },
-	                        _react2.default.createElement("input", { type: "search", className: "form-control", placeholder: "Search" })
+	                        _react2.default.createElement("input", { type: "search", className: "form-control lessDark", placeholder: "Search" })
 	                    ),
 	                    _react2.default.createElement(
 	                        "button",
@@ -28970,6 +28970,8 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28977,6 +28979,201 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// CREATE ACCOUNT JS
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	var rawImage;
+	
+	var rawUser = {
+	    username: "username",
+	    uid: "uid",
+	    publicName: "My Profile",
+	    email: "email",
+	    followers: ["disco"],
+	    following: ["disco"]
+	};
+	
+	function checkUser() {
+	
+	    var user = firebase.auth().currentUser;
+	
+	    if (user) {
+	        // User is signed in.
+	
+	        _reactRouter.browserHistory.push("/user");
+	        $('#createModal').modal('toggle');
+	    } else {
+	        // No user is signed in.
+	    }
+	}
+	
+	function checkPassword(inputPassword, inputPasswordConfirm) {
+	
+	    // pass match?
+	    if (inputPassword === inputPasswordConfirm) {
+	        // longer than 6 
+	        if (inputPassword.length > 5) {
+	            return true;
+	        }
+	        document.getElementById("errorTip").innerHTML = "Passwords Too Weak";
+	        return false;
+	    } else {
+	
+	        document.getElementById("errorTip").innerHTML = "Passwords Don't Match";
+	        return false;
+	    }
+	}
+	
+	function checkUsername(inputUsername) {
+	
+	    // username taken?
+	    var usernameRef = usersRef.doc(inputUsername);
+	
+	    usernameRef.get().then(function (doc) {
+	        if (doc.exists) {
+	            console.log("TAKEN");
+	        } else {
+	            console.log("AVAILABLE!");
+	        }
+	    }).catch(function (error) {
+	        console.log("Error getting user:", error);
+	    });
+	}
+	
+	function verifyDetails() {
+	
+	    var inputEmail = document.getElementById("rawNewEmail").value;
+	    var inputPassword = document.getElementById("rawNewPassword").value;
+	    var inputPasswordConfirm = document.getElementById("rawNewPasswordConfirm").value;
+	    var inputPublicName = document.getElementById("rawPublicName").value;
+	    var inputUsername = document.getElementById("rawUsername").value;
+	    // make username lowercase
+	    inputUsername = inputUsername.toLowerCase();
+	    inputUsername = inputUsername.replace(/\s/g, "");
+	
+	    console.log("username is now: " + inputUsername);
+	
+	    // set RAW DATA
+	    rawUser.email = inputEmail;
+	    rawUser.publicName = inputPublicName;
+	
+	    if (inputUsername.length > 1 && inputPublicName.length > 1) {
+	
+	        // check passwords
+	        if (checkPassword(inputPassword, inputPasswordConfirm)) {
+	
+	            // check username
+	
+	            // username taken?
+	            var usernameRef = usersRef.doc(inputUsername);
+	
+	            usernameRef.get().then(function (doc) {
+	                if (doc.exists) {
+	                    console.log("TAKEN");
+	                    document.getElementById("errorTip").innerHTML = "Username Taken :(";
+	                } else {
+	                    console.log("AVAILABLE!");
+	
+	                    // set RAW DATA
+	                    rawUser.username = inputUsername;
+	
+	                    // create account
+	                    firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+	                        // Handle Errors here.
+	                        var errorCode = error.code;
+	                        var errorMessage = error.message;
+	
+	                        document.getElementById("errorTip").innerHTML = errorMessage;
+	
+	                        // ...
+	                    });
+	
+	                    firebase.auth().onAuthStateChanged(function (user) {
+	                        if (user) {
+	                            // User is signed in.
+	                            var user = firebase.auth().currentUser;
+	                            rawUser.uid = user.uid;
+	                            saveUser(rawUser);
+	                        } else {
+	                            // No user is signed in.
+	                        }
+	                    });
+	                }
+	            }).catch(function (error) {
+	                console.log("Error getting user:", error);
+	            });
+	        } else {}
+	    } else {
+	        document.getElementById("errorTip").innerHTML = "Please Fill In All Fields";
+	    }
+	}
+	
+	function saveUser(incomingUser) {
+	
+	    rawUser = incomingUser;
+	
+	    writeUser(incomingUser);
+	}
+	
+	function writeUser(incomingUser) {
+	
+	    console.log("ready to write user: ");
+	    console.log(incomingUser);
+	
+	    // Add a new document in collection "cities"
+	    firestore.collection("users").doc(incomingUser.username).set({
+	        username: incomingUser.username,
+	        publicName: incomingUser.publicName,
+	        uid: incomingUser.uid,
+	        email: incomingUser.email,
+	        followers: ["disco"],
+	        following: ["disco"]
+	    }).then(function () {
+	        console.log("Document successfully written!");
+	
+	        // update profile
+	
+	        // User is signed in.
+	        var user = firebase.auth().currentUser;
+	
+	        console.log("going to update: " + user);
+	
+	        user.updateProfile({
+	            displayName: rawUser.username
+	
+	        }).then(function () {
+	            // Update successful.
+	
+	            console.log("successfully updated profile!");
+	
+	            console.log("raw image is ");
+	            console.log(rawImage);
+	
+	            // upload profile picture 
+	            if (rawImage) {
+	
+	                var userProfileRef = storageRef.child('profileImages/' + rawUser.uid);
+	
+	                userProfileRef.put(rawImage).then(function (snapshot) {
+	
+	                    console.log('Uploaded a blob or file to: ');
+	                    console.log(userProfileRef);
+	                    checkUser();
+	                });
+	            } else {
+	                checkUser();
+	            }
+	        }).catch(function (error) {
+	            // An error happened.
+	        });
+	    }).catch(function (error) {
+	        console.error("Error writing document: ", error);
+	    });
+	}
 	
 	function chooseProfileImage() {
 	    document.getElementById("inputProfile").click();
@@ -29001,6 +29198,11 @@
 	    }
 	}
 	
+	function blockMe(input) {
+	    console.log("got: ");
+	    console.log(input);
+	}
+	
 	var CreateAccount = exports.CreateAccount = function (_React$Component) {
 	    _inherits(CreateAccount, _React$Component);
 	
@@ -29015,7 +29217,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "modal text-center", tabIndex: "-1", role: "dialog", id: "createModal" },
+	                { className: "modal mt-5 text-center", tabIndex: "-1", role: "dialog", id: "createModal" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "modal-dialog theme", role: "document" },
@@ -29061,8 +29263,7 @@
 	                                    _react2.default.createElement("input", { autoComplete: "name", id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
 	                                    _react2.default.createElement("input", { autoComplete: "name", id: "rawUsername", type: "text", className: "form-control my-3", placeholder: "@Username" }),
 	                                    _react2.default.createElement("input", { autoComplete: "email", id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
-	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" }),
-	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPasswordConfirm", type: "password", className: "form-control my-3", placeholder: "Confirm Password" })
+	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -29130,6 +29331,27 @@
 	    $('#createModal').modal('toggle');
 	}
 	
+	function signIn() {
+	
+	    var inputEmail = document.getElementById("rawEmail").value;
+	    var inputPassword = document.getElementById("rawPassword").value;
+	
+	    firebase.auth().signInWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
+	        // Handle Errors here.
+	        var errorCode = error.code;
+	        var errorMessage = error.message;
+	        document.getElementById("errorTip").innerHTML = { errorMessage: errorMessage };
+	
+	        // ...
+	    });
+	
+	    firebase.auth().onAuthStateChanged(function (user) {
+	        if (user) {
+	            browserHistory.push("/user");
+	        } else {}
+	    });
+	}
+	
 	var SignIn = exports.SignIn = function (_React$Component) {
 	    _inherits(SignIn, _React$Component);
 	
@@ -29144,7 +29366,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'modal', tabIndex: '-1', role: 'dialog', id: 'signInModal' },
+	                { className: 'modal mt-5', tabIndex: '-1', role: 'dialog', id: 'signInModal' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'modal-dialog theme', role: 'document' },
@@ -29182,13 +29404,22 @@
 	                                    null,
 	                                    'Email'
 	                                ),
-	                                _react2.default.createElement('input', { autoComplete: 'email', id: 'rawEmail', type: 'text', className: 'form-control mb-3', placeholder: 'Email' }),
+	                                _react2.default.createElement('input', { autoComplete: 'email', id: 'rawEmail', type: 'text', className: 'form-control dark mb-3', placeholder: 'Email' }),
 	                                _react2.default.createElement(
 	                                    'label',
 	                                    null,
 	                                    'Password'
 	                                ),
-	                                _react2.default.createElement('input', { autoComplete: 'password', id: 'rawPassword', type: 'password', className: 'form-control mb-3', placeholder: 'Password' })
+	                                _react2.default.createElement('input', { autoComplete: 'password', id: 'rawPassword', type: 'password', className: 'form-control dark mb-3', placeholder: 'Password' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    { id: 'errorTip', className: 'text-warning' },
+	                                    ' '
+	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
@@ -56329,6 +56560,8 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56336,6 +56569,11 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function signOut() {
+	    firebase.auth().signOut();
+	    _reactRouter.browserHistory.push("/home");
+	}
 	
 	var UserBlock = exports.UserBlock = function (_React$Component) {
 	    _inherits(UserBlock, _React$Component);
@@ -56816,7 +57054,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "" },
+	                { className: "mt-4" },
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,
@@ -56893,7 +57131,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "container pt-4 " },
+	                        { className: "container pt-4 mt-4" },
 	                        _react2.default.createElement(
 	                            "div",
 	                            null,

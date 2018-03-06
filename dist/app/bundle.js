@@ -29348,6 +29348,7 @@
 	    firebase.auth().onAuthStateChanged(function (user) {
 	        if (user) {
 	            _reactRouter.browserHistory.push("/user");
+	            $('#signInModal').modal('toggle');
 	        } else {}
 	    });
 	}
@@ -56669,7 +56670,7 @@
 	                            "Followers ",
 	                            _react2.default.createElement(
 	                                "small",
-	                                { className: "gold" },
+	                                { className: "gold pl-2" },
 	                                inUser.followers.length
 	                            ),
 	                            " "
@@ -56680,7 +56681,7 @@
 	                            "Following ",
 	                            _react2.default.createElement(
 	                                "small",
-	                                { className: "gold" },
+	                                { className: "gold pl-2" },
 	                                inUser.following.length
 	                            ),
 	                            " "

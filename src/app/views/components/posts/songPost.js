@@ -14,7 +14,7 @@ export class SongPost extends React.Component {
     render() {
         return (
 
-            <div className="card noPadding text-white bg-dark mb-3">
+            <div className="card text-white bg-dark mb-3">
                 <CardHeader/>
                 <div>
                     <img src= "images/coverArt.png" alt="Card image cap" className="card-img-top" />

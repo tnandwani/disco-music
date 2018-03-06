@@ -8,7 +8,7 @@ export class Upload extends React.Component {
         return (
             <div className="mt-4">
                 <h3>Caption</h3>
-                <input type="text" className="form-control dark my-3 py-3" placeholder="100 Charater Limit" />
+                <input type="text" className="form-control dark my-3 py-3"  maxLength="100" placeholder="100 Charater Limit" />
 
                 <h3 >Music </h3>
 

@@ -44,9 +44,6 @@ var inUser = {
 function getUser() {
 
     var userRef = usersCollection.doc(inUser.username);
-
-    console.log("user ref:" + userRef);
-
     userRef.get().then(function (doc) {
         if (doc.exists) {
             inUser = doc.data();

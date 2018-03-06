@@ -65,12 +65,17 @@ function getUser() {
 
 }
 
+function setPhotoUrl(url) { 
+    inUser.photoUrl = url;
+
+ }
+
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
         storageRef.child('profileImages/' + user.uid).getDownloadURL().then(function (url) {
-            inUser.photoUrl = url;
+            setPhotoUrl(url);
         }).catch(function (error) {
             // Handle any errors
         });

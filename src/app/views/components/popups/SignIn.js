@@ -25,6 +25,8 @@ function signIn() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             browserHistory.push("/user");
+            $('#signInModal').modal('toggle');
+
         } else { }
     });
 

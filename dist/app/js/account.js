@@ -47,13 +47,21 @@ function getUser() {
 
     console.log("user ref:" + userRef);
 
-
-
     userRef.get().then(function (doc) {
         if (doc.exists) {
             inUser = doc.data();
-            console.log("Got User: ");
-            console.log(inUser);
+            storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
+                setPhotoUrl(url);
+                console.log("Got User: ");
+                console.log(inUser);
+               
+            }).catch(function (error) {
+                // Handle any errors
+                console.log("Got User: ");
+                console.log(inUser);
+                
+            });
+          
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -74,14 +82,11 @@ function setPhotoUrl(url) {
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
-        storageRef.child('profileImages/' + user.uid).getDownloadURL().then(function (url) {
-            setPhotoUrl(url);
-        }).catch(function (error) {
-            // Handle any errors
-        });
+
         inUser.username = user.displayName;
-        console.log(inUser);
+        inUser.uid = user.uid;
         getUser();
+      
 
     } else {
         // No user is signed in.

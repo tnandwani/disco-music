@@ -28530,6 +28530,7 @@
 					_react2.default.createElement(
 						"div",
 						{ className: "row" },
+						_react2.default.createElement("div", null),
 						_react2.default.createElement(
 							"div",
 							{ className: "col-2 pr-0 dark d-none d-lg-block" },
@@ -29162,6 +29163,7 @@
 	
 	                    console.log('Uploaded a blob or file to: ');
 	                    console.log(userProfileRef);
+	
 	                    checkUser();
 	                });
 	            } else {
@@ -29198,11 +29200,6 @@
 	    }
 	}
 	
-	function blockMe(input) {
-	    console.log("got: ");
-	    console.log(input);
-	}
-	
 	var CreateAccount = exports.CreateAccount = function (_React$Component) {
 	    _inherits(CreateAccount, _React$Component);
 	
@@ -29217,7 +29214,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "modal mt-5 text-center", tabIndex: "-1", role: "dialog", id: "createModal" },
+	                { className: "modal text-center", tabIndex: "-1", role: "dialog", id: "createModal" },
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "modal-dialog theme", role: "document" },
@@ -29263,7 +29260,8 @@
 	                                    _react2.default.createElement("input", { autoComplete: "name", id: "rawPublicName", type: "text", className: "form-control my-3", placeholder: "Name or Artist Name" }),
 	                                    _react2.default.createElement("input", { autoComplete: "name", id: "rawUsername", type: "text", className: "form-control my-3", placeholder: "@Username" }),
 	                                    _react2.default.createElement("input", { autoComplete: "email", id: "rawNewEmail", type: "email", className: "form-control my-3", placeholder: "Email" }),
-	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" })
+	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPassword", type: "password", className: "form-control my-3", placeholder: "Password" }),
+	                                    _react2.default.createElement("input", { autoComplete: "password", id: "rawNewPasswordConfirm", type: "password", className: "form-control dark my-3", placeholder: "Confirm Password" })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -29301,7 +29299,7 @@
   \***************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -29317,6 +29315,8 @@
 	var _propTypes = __webpack_require__(/*! prop-types */ 184);
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29347,7 +29347,7 @@
 	
 	    firebase.auth().onAuthStateChanged(function (user) {
 	        if (user) {
-	            browserHistory.push("/user");
+	            _reactRouter.browserHistory.push("/user");
 	        } else {}
 	    });
 	}
@@ -29362,77 +29362,77 @@
 	    }
 	
 	    _createClass(SignIn, [{
-	        key: 'render',
+	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'div',
-	                { className: 'modal mt-5', tabIndex: '-1', role: 'dialog', id: 'signInModal' },
+	                "div",
+	                { className: "modal", tabIndex: "-1", role: "dialog", id: "signInModal" },
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'modal-dialog theme', role: 'document' },
+	                    "div",
+	                    { className: "modal-dialog theme", role: "document" },
 	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'modal-content theme' },
+	                        "div",
+	                        { className: "modal-content theme" },
 	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'modal-body leftAlign' },
+	                            "div",
+	                            { className: "modal-body leftAlign" },
 	                            _react2.default.createElement(
-	                                'button',
-	                                { type: 'button', className: 'close white', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+	                                "button",
+	                                { type: "button", className: "close white", "data-dismiss": "modal", "aria-label": "Close" },
 	                                _react2.default.createElement(
-	                                    'span',
-	                                    { 'aria-hidden': 'true' },
-	                                    '\xD7'
+	                                    "span",
+	                                    { "aria-hidden": "true" },
+	                                    "\xD7"
 	                                )
 	                            ),
 	                            _react2.default.createElement(
-	                                'h2',
-	                                { className: 'mb-4 gold text-center' },
-	                                ' ',
+	                                "h2",
+	                                { className: "mb-4 gold text-center" },
+	                                " ",
 	                                _react2.default.createElement(
-	                                    'i',
+	                                    "i",
 	                                    null,
-	                                    'Welcome to Disco'
+	                                    "Welcome to Disco"
 	                                ),
-	                                ' '
+	                                " "
 	                            ),
 	                            _react2.default.createElement(
-	                                'form',
+	                                "form",
 	                                null,
 	                                _react2.default.createElement(
-	                                    'label',
+	                                    "label",
 	                                    null,
-	                                    'Email'
+	                                    "Email"
 	                                ),
-	                                _react2.default.createElement('input', { autoComplete: 'email', id: 'rawEmail', type: 'text', className: 'form-control dark mb-3', placeholder: 'Email' }),
+	                                _react2.default.createElement("input", { autoComplete: "email", id: "rawEmail", type: "text", className: "form-control dark mb-3", placeholder: "Email" }),
 	                                _react2.default.createElement(
-	                                    'label',
+	                                    "label",
 	                                    null,
-	                                    'Password'
+	                                    "Password"
 	                                ),
-	                                _react2.default.createElement('input', { autoComplete: 'password', id: 'rawPassword', type: 'password', className: 'form-control dark mb-3', placeholder: 'Password' })
+	                                _react2.default.createElement("input", { autoComplete: "password", id: "rawPassword", type: "password", className: "form-control dark mb-3", placeholder: "Password" })
 	                            ),
 	                            _react2.default.createElement(
-	                                'div',
+	                                "div",
 	                                null,
 	                                _react2.default.createElement(
-	                                    'p',
-	                                    { id: 'errorTip', className: 'text-warning' },
-	                                    ' '
+	                                    "p",
+	                                    { id: "errorTip", className: "text-warning" },
+	                                    " "
 	                                )
 	                            ),
 	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'text-right' },
+	                                "div",
+	                                { className: "text-right" },
 	                                _react2.default.createElement(
-	                                    'button',
-	                                    { type: 'button', className: 'btn btn-outline-warning m-2', onClick: showCreateModal },
-	                                    'Create Account'
+	                                    "button",
+	                                    { type: "button", className: "btn btn-outline-warning m-2", onClick: showCreateModal },
+	                                    "Create Account"
 	                                ),
 	                                _react2.default.createElement(
-	                                    'button',
-	                                    { type: 'button', className: 'btn btn-warning m-2', onClick: signIn },
-	                                    'Sign In'
+	                                    "button",
+	                                    { type: "button", className: "btn btn-warning m-2", onClick: signIn },
+	                                    "Sign In"
 	                                )
 	                            )
 	                        )
@@ -56570,9 +56570,47 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var rawImage;
+	
 	function signOut() {
 	    firebase.auth().signOut();
 	    _reactRouter.browserHistory.push("/home");
+	}
+	
+	function chooseProfileImage() {
+	    document.getElementById("inputProfile").click();
+	}
+	
+	function handleProfile() {
+	
+	    var preview = document.getElementById("selectedImage");
+	    var file = document.getElementById("inputProfile").files[0];
+	    var reader = new FileReader();
+	
+	    // set file
+	
+	    rawImage = file;
+	
+	    if (rawImage) {
+	
+	        var userProfileRef = storageRef.child('profileImages/' + inUser.uid);
+	
+	        userProfileRef.put(rawImage).then(function (snapshot) {
+	
+	            console.log('Uploaded a blob or file to: ');
+	            console.log(userProfileRef);
+	        });
+	    } else {
+	        console.log(":((((");
+	    }
+	
+	    reader.addEventListener("load", function () {
+	        preview.src = reader.result;
+	    }, false);
+	
+	    if (file) {
+	        reader.readAsDataURL(file);
+	    }
 	}
 	
 	var UserBlock = exports.UserBlock = function (_React$Component) {
@@ -56595,12 +56633,13 @@
 	                    { className: "row container p-3 text-center" },
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col text-right" },
-	                        _react2.default.createElement("img", { src: "images/profile.png", className: "rounded-circle profileCircle" })
+	                        { className: "col text-right py-2" },
+	                        _react2.default.createElement("img", { src: inUser.photoUrl, className: "rounded-circle profileCircle", id: "selectedImage", onClick: chooseProfileImage }),
+	                        _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputProfile", onChange: handleProfile })
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col p-3 " },
+	                        { className: "col p-3 pt-5 " },
 	                        _react2.default.createElement(
 	                            "h1",
 	                            null,
@@ -56619,17 +56658,11 @@
 	                                " "
 	                            ),
 	                            " "
-	                        ),
-	                        _react2.default.createElement(
-	                            "h5",
-	                            null,
-	                            _react2.default.createElement("span", { className: "oi oi-location postIcons pr-2", title: "location" }),
-	                            " Location"
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col p-3" },
+	                        { className: "col p-3 pt-5 " },
 	                        _react2.default.createElement(
 	                            "h2",
 	                            { className: "white" },
@@ -56928,63 +56961,6 @@
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "card-columns" },
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_textPost.TextPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null)
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "card-columns mt-4" },
-	                            _react2.default.createElement(_textPost.TextPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null)
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "card-columns mt-4" },
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            "s",
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_textPost.TextPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null)
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "card-columns mt-4" },
 	                            _react2.default.createElement(_songPost.SongPost, null),
 	                            _react2.default.createElement(_albumPost.AlbumPost, null),
 	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
@@ -56997,6 +56973,21 @@
 	                            _react2.default.createElement(_songPost.SongPost, null),
 	                            _react2.default.createElement(_albumPost.AlbumPost, null)
 	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
 	                    )
 	                )
 	            );

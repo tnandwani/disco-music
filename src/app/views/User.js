@@ -49,68 +49,37 @@ export class User extends React.Component {
                     <div className="tab-pane active" id="all" role="tabpanel" aria-labelledby="home-tab">
                         <div className="card-columns">
 
+                             <SongPost />
+                            <AlbumPost />
                             <PlaylistPost />
                             <TextPost />
-                            <PlaylistPost />
-                            <SongPost />
-                            <AlbumPost />
-                            <PlaylistPost />
-                            <PlaylistPost />
                             <SongPost />
                             <SongPost />
                             <AlbumPost />
                             <SongPost />
+                            <TextPost />
+                            <SongPost />
+                            <AlbumPost />
+
 
                         </div>
                     </div>
                     <div className="tab-pane" id="posts" role="tabpanel" aria-labelledby="profile-tab">
-                        <div className="card-columns mt-4">
+                        <div className="card-columns">
 
-                            <TextPost />
-                            <PlaylistPost />
-                            <SongPost />
-                            <SongPost />
-                            <AlbumPost />
-                            <PlaylistPost />
-                            <SongPost />
-                            <AlbumPost />
-                            <PlaylistPost />
-                            <SongPost />
 
                         </div>
                     </div>
                     <div className="tab-pane" id="shares" role="tabpanel" aria-labelledby="messages-tab">
-                        <div className="card-columns mt-4">
+                        <div className="card-columns">
 
-                            <PlaylistPost />
-                            <SongPost />
-                            <AlbumPost />
-                            <PlaylistPost />s
-                            <PlaylistPost />
-                            <SongPost />
-                            <SongPost />
-                            <PlaylistPost />
-                            <TextPost />
-                            <AlbumPost />
-                            <SongPost />
 
                         </div>
                     </div>
                     <div className="tab-pane" id="likes" role="tabpanel" aria-labelledby="settings-tab">
-                        <div className="card-columns mt-4">
+                        <div className="card-columns">
 
-                            <SongPost />
-                            <AlbumPost />
-                            <PlaylistPost />
-                            <TextPost />
-                            <SongPost />
-                            <SongPost />
-                            <AlbumPost />
-                            <SongPost />
-                            <TextPost />
-                            <SongPost />
-                            <AlbumPost />
-
+                   
                         </div>
                     </div>
                 </div>

@@ -29,7 +29,6 @@ var config = {
 
 firebase.initializeApp(config);
 
-
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -62,6 +61,13 @@ export class Root extends React.Component {
 			<div>
 
 				<div className="row">
+
+					<div>
+
+
+
+
+					</div>
 					<div className="col-2 pr-0 dark d-none d-lg-block">
 						<Leftbar />
 

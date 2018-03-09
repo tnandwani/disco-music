@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { Footer } from "./components/Footer";
 import { Leftbar } from "./components/Leftbar";
 import { Rightbar } from "./components/Rightbar";
+import { Header } from "./components/Header";
+
 import { CreateAccount } from "./components/popups/CreateAccount";
 import { SignIn } from "./components/popups/SignIn";
 
@@ -60,21 +62,19 @@ export class Root extends React.Component {
 
 			<div>
 
+			
+
 				<div className="row">
 
-					<div>
-
-
-
-
-					</div>
-					<div className="col-2 pr-0 dark d-none d-lg-block">
+					<div className="col-2 dark">
 						<Leftbar />
 
 					</div>
 
 					<div className="col">
-						<div className="container">
+
+
+						<div className="container-fluid">
 							{this.props.children}
 							<CreateAccount />
 							<SignIn />
@@ -83,17 +83,14 @@ export class Root extends React.Component {
 
 					</div>
 
-					<div className="col-2  d-none d-lg-block">
-
-
+					<div className="col-2 dark">
 
 					</div>
 
 
-
 				</div>
 
-				<div className="footerBar dark">
+				<div className="layoutFooter dark">
 					<Footer />
 				</div>
 
@@ -109,28 +106,10 @@ export class Root extends React.Component {
 }
 
 
-// <div className="">
-
-// <div className="layoutMenu dark d-none d-lg-block">
-// 	<Leftbar />
-// </div>
-
-
-// <div className="layoutMain text-center p-3">
-{/* <div className="container">
-	{this.props.children}
-	<CreateAccount />
-	<SignIn />
-
-</div> */}
-
-// </div>
-
-
-// <div className="footerBar dark">
-// 	<Footer />
-// </div>
 
 
 
-// </div>
+// <div className="col-2 pr-0 dark d-none d-lg-block">
+// 						<Leftbar />
+
+// 					</div>

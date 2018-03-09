@@ -28529,29 +28529,23 @@
 					null,
 					_react2.default.createElement(
 						"div",
-						{ className: "row" },
-						_react2.default.createElement("div", null),
-						_react2.default.createElement(
-							"div",
-							{ className: "col-2 pr-0 dark d-none d-lg-block" },
-							_react2.default.createElement(_Leftbar.Leftbar, null)
-						),
-						_react2.default.createElement(
-							"div",
-							{ className: "col" },
-							_react2.default.createElement(
-								"div",
-								{ className: "container" },
-								this.props.children,
-								_react2.default.createElement(_CreateAccount.CreateAccount, null),
-								_react2.default.createElement(_SignIn.SignIn, null)
-							)
-						),
-						_react2.default.createElement("div", { className: "col-2  d-none d-lg-block" })
+						null,
+						_react2.default.createElement(_Rightbar.Header, null)
 					),
 					_react2.default.createElement(
 						"div",
-						{ className: "footerBar dark" },
+						{ className: "row" },
+						_react2.default.createElement(
+							"div",
+							{ className: "col-2 dark" },
+							_react2.default.createElement(_Leftbar.Leftbar, null)
+						),
+						_react2.default.createElement("div", { className: "col" }),
+						_react2.default.createElement("div", { className: "col-2 dark" })
+					),
+					_react2.default.createElement(
+						"div",
+						{ className: "layoutFooter dark" },
 						_react2.default.createElement(_Footer.Footer, null)
 					)
 				);
@@ -28561,31 +28555,10 @@
 		return Root;
 	}(_react2.default.Component);
 	
-	// <div className="">
+	// <div className="col-2 pr-0 dark d-none d-lg-block">
+	// 						<Leftbar />
 	
-	// <div className="layoutMenu dark d-none d-lg-block">
-	// 	<Leftbar />
-	// </div>
-	
-	
-	// <div className="layoutMain text-center p-3">
-	
-	
-	{} /* <div className="container">
-	   {this.props.children}
-	   <CreateAccount />
-	   <SignIn />
-	   </div> */
-	
-	// </div>
-	
-	
-	// <div className="footerBar dark">
-	// 	<Footer />
-	// </div>
-	
-	
-	// </div>
+	// 					</div>
 
 /***/ }),
 /* 250 */
@@ -55821,7 +55794,7 @@
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "card noPadding text-white bg-dark mb-3" },
+	                { className: "card text-white bg-dark mb-3" },
 	                _react2.default.createElement(_cardHeader.CardHeader, null),
 	                _react2.default.createElement(
 	                    "div",
@@ -57032,6 +57005,11 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	function showAlbum() {
+	
+	    document.getElementById("albumDiv").classList.remove('d-none');
+	}
+	
 	var Upload = exports.Upload = function (_React$Component) {
 	    _inherits(Upload, _React$Component);
 	
@@ -57052,7 +57030,7 @@
 	                    null,
 	                    "Caption"
 	                ),
-	                _react2.default.createElement("input", { type: "text", className: "form-control dark my-3 py-3", placeholder: "100 Charater Limit" }),
+	                _react2.default.createElement("input", { type: "text", className: "form-control dark my-3 py-3", maxLength: "100", placeholder: "100 Charater Limit" }),
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,
@@ -57069,7 +57047,7 @@
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "col-sm-8 pt-1" },
-	                        _react2.default.createElement("input", { type: "text", className: "form-control dark py-3", placeholder: "Song Name" }),
+	                        _react2.default.createElement("input", { type: "text", className: "form-control dark py-3", maxLength: "50", placeholder: "Song Name" }),
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "input-group my-3" },
@@ -57116,14 +57094,14 @@
 	                            { className: "text-right" },
 	                            _react2.default.createElement(
 	                                "button",
-	                                { className: "btn btn-light" },
+	                                { className: "btn btn-light", onClick: showAlbum },
 	                                " + Add Another Song"
 	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "container pt-4 mt-4" },
+	                        { id: "albumDiv", className: "container pt-3 mt-3 d-none" },
 	                        _react2.default.createElement(
 	                            "div",
 	                            null,
@@ -57216,7 +57194,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "container text-right mt-3 " },
+	                        { className: "container text-right my-3 " },
 	                        _react2.default.createElement(
 	                            "button",
 	                            { className: "btn btn-warning " },

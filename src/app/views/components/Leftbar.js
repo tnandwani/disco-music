@@ -47,15 +47,13 @@ function checkUser() {
 export class Leftbar extends React.Component {
     render() {
         return (
-            <div className="dark pl-3 layoutMenu">
+            <div className="dark pl-3 pt-3 layoutMenu">
 
-                <div className="pt-3 dark">
-
+                <div className="dark">
 
                     <div className="row">
                         <div className="col">
                             <h1 className="gold" onClick={routerHome}> DISCO</h1>
-
 
                         </div>
                         <div className="col text-right pt-3">
@@ -71,7 +69,9 @@ export class Leftbar extends React.Component {
                         {/* <span className="oi oi-magnifying-glass mt-2 ml-1 " title="magnifying-glass"></span> */}
                     </div>
 
-                    <button className="btn-sm btn-outline-warning px-3 mt-2 w-100 py-2" onClick={checkUpload}> Upload + </button>
+                    <button className="btn-sm btn-outline-warning px-3 mt-3 w-100 py-2" onClick={checkUpload}> Upload + </button>
+
+
 
 
 

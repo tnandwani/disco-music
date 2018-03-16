@@ -58,7 +58,7 @@ export class UserBlock extends React.Component {
     render() {
         return (
 
-            <div>
+            <div className= "">
 
                 <div className="row container p-3 text-center" >
                     <div className="col text-right py-2" >

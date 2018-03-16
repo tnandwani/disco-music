@@ -9,6 +9,8 @@ import { TextPost } from "./components/posts/textPost";
 import { UserBlock } from "./components/blocks/UserBlock";
 import { AlbumBlock } from "./components/blocks/AlbumBlock";
 
+
+
 export class Home extends React.Component {
 
     render() {

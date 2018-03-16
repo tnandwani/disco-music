@@ -308,7 +308,7 @@ export class CreateAccount extends React.Component {
 
                             <div >
 
-                                <p id="errorTip" className="text-warning" > </p>
+                                <p id="errorTip" className="text-danger" > </p>
 
                             </div>
 

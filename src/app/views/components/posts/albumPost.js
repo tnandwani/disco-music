@@ -13,23 +13,24 @@ export class AlbumPost extends React.Component {
         return (
 
             <div className="card p-0 text-white bg-dark mb-3 container">
-                <CardHeader/>
+                <CardHeader />
                 <div>
-                    <img src="images/coverArt.png"  alt="Card image cap" className="card-img-top" />
+                    <img src="images/coverArt.png" alt="Card image cap" className="card-img-top" />
 
                 </div>
                 <div className="card-body leftAlign">
                     <h3>Album Name</h3>
-                    <h4><i className= "gold">Artist</i></h4>
+                    <h4><i className="gold">Artist</i></h4>
                     <h5><i>#Vibes</i></h5>
 
                 </div>
-                <ul className="list-group list-group-flush leftAlign">
+                <ul className="list-group list-group-flush darkFade">
                     <li className="list-group-item">Song Name</li>
                     <li className="list-group-item">Song Name</li>
                     <li className="list-group-item">Song Name</li>
                 </ul>
-                <CardButtons/>
+
+                <CardButtons />
 
 
 

@@ -71,12 +71,6 @@ export class Leftbar extends React.Component {
 
                     <button className="btn-sm btn-outline-warning px-3 mt-3 w-100 py-2" onClick={checkUpload}> Upload + </button>
 
-
-
-
-
-
-
                 </div>
 
 

@@ -10,6 +10,16 @@ gray/silver: BDC6C6 */
 
 /* THEME COLORS CSS  */
 
+.darkFade{
+
+    background: #111; /* For browsers that do not support gradients */
+    background: linear-gradient(#333, #111); 
+}
+
+.shadow{
+    box-shadow: 5px 5px grey;
+}
+
 .dark {
     background-color: #111;
 }
@@ -73,6 +83,8 @@ gray/silver: BDC6C6 */
 }
 
 /* POST CSS  */
+
+
 
 .postSource {
     grid-area: postSource;

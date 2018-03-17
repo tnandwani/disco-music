@@ -4,17 +4,36 @@ import { browserHistory } from "react-router";
 
 var rawCover;
 
-function finishedUploading(){
+function finishedUploading() {
     console.log("MADE IT");
     browserHistory.push("/home");
 }
 
 function showMusic() {
-    document.getElementById("musicDiv").classList.remove('d-none');
+    if (document.getElementById("musicDiv").classList.contains('d-none')) {
+        // NOT VISIBLE
+        document.getElementById("musicDiv").classList.remove('d-none');
+    }
+    else {
+        // VISIBLE
+        document.getElementById("musicDiv").classList.add('d-none');
+
+    }
+
+
 }
 
 function showAlbum() {
-    document.getElementById("albumDiv").classList.remove('d-none');
+    if (document.getElementById("albumDiv").classList.contains('d-none')) {
+        // NOT VISIBLE
+        document.getElementById("albumDiv").classList.remove('d-none');
+    }
+    else {
+        // VISIBLE
+        document.getElementById("albumDiv").classList.add('d-none');
+
+    }
+
 }
 function chooseCover() {
     document.getElementById("inputCover").click();
@@ -49,9 +68,12 @@ export class Upload extends React.Component {
     render() {
         return (
             <div className="mt-4">
+
+                <h6 className="gold text-center"><i >BETA: Only Text Uploads Working</i></h6>
+
                 <h3>Caption</h3>
                 <div>
-                    <input id= "rawCaption" type="text" className="form-control dark my-3 py-3" maxLength="100" placeholder="100 Charater Limit" />
+                    <input id="rawCaption" type="text" className="form-control dark my-3 py-3" maxLength="100" placeholder="100 Charater Limit" />
 
                     <div className="text-right">
                         <button className="btn btn-light" onClick={showMusic}> + Add Song(s)</button>
@@ -61,7 +83,7 @@ export class Upload extends React.Component {
                 </div>
 
 
-                <div id= "musicDiv" className= "d-none">
+                <div id="musicDiv" className="d-none">
                     <h3 >Music </h3>
 
                     <div className="row">
@@ -69,21 +91,21 @@ export class Upload extends React.Component {
 
                             <div className="w-100">
                                 <img id="previewCover" onClick={chooseCover} src="images/coverArt.png" className="dark uploadCover" />
-                                <input  id="inputCover" className="d-none" type="file" accept="image/*" onChange={handleProfile} />
+                                <input id="inputCover" className="d-none" type="file" accept="image/*" onChange={handleProfile} />
 
                             </div>
 
                         </div>
 
                         <div className="col-8 pt-1">
-                            <input id= "rawSongName"  type="text" className="form-control dark py-3" maxLength="50" placeholder="Song Name" />
+                            <input id="rawSongName" type="text" className="form-control dark py-3" maxLength="50" placeholder="Song Name" />
 
 
                             <div className="input-group mt-3">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">@</span>
                                 </div>
-                                <input  type="text" className="form-control dark " placeholder="Featuring" />
+                                <input type="text" className="form-control dark " placeholder="Featuring" />
 
 
                             </div>
@@ -106,7 +128,7 @@ export class Upload extends React.Component {
                             <button className="btn px-3 mr-2"></button>
 
                             <br />
-                            <button className="btn btn-outline-success my-3"> + Song File <span className="oi oi-check pl-2" title="check"></span></button>
+                            <button className="btn btn-outline-success my-3"> + Song File <span className="oi oi-check pl-2 d-none" title="check"></span></button>
 
                             <br />
 
@@ -154,12 +176,12 @@ export class Upload extends React.Component {
 
                 </div>
 
-                <h3  className="mt-3" >Publish </h3>
+                <h3 className="mt-4" >Publish </h3>
                 <div>
                     <div className="text-right mb-5">
 
                         <h6 id="uploadError" className="text-danger"></h6>
-                        <button onClick = {verifyPublish} className="btn btn-warning "> Publish <span className="oi oi-cloud-upload" title="cloud-upload"></span></button>
+                        <button id="publishButton" onClick={verifyPublish} className="btn btn-warning"> Publish <span className="oi oi-cloud-upload" title="cloud-upload"></span></button>
 
                     </div>
 

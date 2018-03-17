@@ -79,13 +79,15 @@ function publishText(rawPost) {
     postsCollection.doc(newPostRef.key).set(post)
         .then(function () {
             console.log("Document successfully written!");
-            finishedUploading();
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
         });
 
 }
+
+
+
 
 function publishSong(rawPost) {
 

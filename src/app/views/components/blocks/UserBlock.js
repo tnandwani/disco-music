@@ -9,6 +9,15 @@ var rawImage;
 
 function signOut() {
     firebase.auth().signOut();
+    inUser = {
+        username: "username",
+        uid: "uid",
+        email: "email",
+        publicName: "My Profile",
+        followers: ["disco"],
+        following: ["disco"],
+        photoUrl: "images/profile.png"
+    };
     browserHistory.push("/home");
 }
 

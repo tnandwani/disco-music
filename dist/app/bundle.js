@@ -57840,6 +57840,15 @@
 	
 	function signOut() {
 	    firebase.auth().signOut();
+	    inUser = {
+	        username: "username",
+	        uid: "uid",
+	        email: "email",
+	        publicName: "My Profile",
+	        followers: ["disco"],
+	        following: ["disco"],
+	        photoUrl: "images/profile.png"
+	    };
 	    _reactRouter.browserHistory.push("/home");
 	}
 	
@@ -58299,6 +58308,11 @@
 	
 	var rawCover;
 	
+	function finishedUploading() {
+	    console.log("MADE IT");
+	    _reactRouter.browserHistory.push("/home");
+	}
+	
 	function showMusic() {
 	    document.getElementById("musicDiv").classList.remove('d-none');
 	}
@@ -58384,13 +58398,13 @@
 	                                "div",
 	                                { className: "w-100" },
 	                                _react2.default.createElement("img", { id: "previewCover", onClick: chooseCover, src: "images/coverArt.png", className: "dark uploadCover" }),
-	                                _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputCover", onChange: handleProfile })
+	                                _react2.default.createElement("input", { id: "inputCover", className: "d-none", type: "file", accept: "image/*", onChange: handleProfile })
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "col-8 pt-1" },
-	                            _react2.default.createElement("input", { type: "text", className: "form-control dark py-3", maxLength: "50", placeholder: "Song Name" }),
+	                            _react2.default.createElement("input", { id: "rawSongName", type: "text", className: "form-control dark py-3", maxLength: "50", placeholder: "Song Name" }),
 	                            _react2.default.createElement(
 	                                "div",
 	                                { className: "input-group mt-3" },

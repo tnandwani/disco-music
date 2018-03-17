@@ -4,6 +4,11 @@ import { browserHistory } from "react-router";
 
 var rawCover;
 
+function finishedUploading(){
+    console.log("MADE IT");
+    browserHistory.push("/home");
+}
+
 function showMusic() {
     document.getElementById("musicDiv").classList.remove('d-none');
 }
@@ -64,21 +69,21 @@ export class Upload extends React.Component {
 
                             <div className="w-100">
                                 <img id="previewCover" onClick={chooseCover} src="images/coverArt.png" className="dark uploadCover" />
-                                <input className="d-none" type="file" accept="image/*" id="inputCover" onChange={handleProfile} />
+                                <input  id="inputCover" className="d-none" type="file" accept="image/*" onChange={handleProfile} />
 
                             </div>
 
                         </div>
 
                         <div className="col-8 pt-1">
-                            <input type="text" className="form-control dark py-3" maxLength="50" placeholder="Song Name" />
+                            <input id= "rawSongName"  type="text" className="form-control dark py-3" maxLength="50" placeholder="Song Name" />
 
 
                             <div className="input-group mt-3">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text" id="basic-addon1">@</span>
                                 </div>
-                                <input type="text" className="form-control dark " placeholder="Featuring" />
+                                <input  type="text" className="form-control dark " placeholder="Featuring" />
 
 
                             </div>

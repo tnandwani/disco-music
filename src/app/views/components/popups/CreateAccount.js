@@ -124,6 +124,7 @@ function verifyDetails() {
                     // set RAW DATA
                     rawUser.username = inputUsername;
 
+                    document.getElementById("spinner").classList.remove('d-none');
 
                     // create account
                     firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPassword).catch(function (error) {
@@ -316,7 +317,7 @@ export class CreateAccount extends React.Component {
                             </div>
 
                             <div className="text-right pr-5">
-                                <button type="button" className="btn btn-warning my-2" onClick={verifyDetails} >Create Account</button>
+                               <span><img  id= "spinner" className = "spinner d-none" src="images/loader.svg"/></span> <button type="button" className="btn btn-warning my-2" onClick={verifyDetails} >Create Account</button>
 
                             </div>
 

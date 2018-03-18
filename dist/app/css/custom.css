@@ -179,3 +179,7 @@ gray/silver: BDC6C6 */
     width: 20vw;
     height: 20vw;
 }
+
+.spinner {
+    width: 40px;
+}

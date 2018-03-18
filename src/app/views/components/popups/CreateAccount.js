@@ -17,6 +17,7 @@ var rawUser = {
     email: "email",
     followers: ["disco"],
     following: ["disco"]
+
 }
 
 
@@ -28,7 +29,7 @@ function checkUser() {
     if (user) {
         // User is signed in.
 
-        browserHistory.push("/user");
+        window.location.reload();
         $('#createModal').modal('toggle');
 
 
@@ -66,7 +67,7 @@ function checkPassword(inputPassword, inputPasswordConfirm) {
 function checkUsername(inputUsername) {
 
     // username taken?
-    var usernameRef = usersRef.doc(inputUsername);
+    var usernameRef = usersCollection.doc(inputUsername);
 
     usernameRef.get().then(function (doc) {
         if (doc.exists) {
@@ -109,7 +110,7 @@ function verifyDetails() {
             // check username
 
             // username taken?
-            var usernameRef = usersRef.doc(inputUsername);
+            var usernameRef = usersCollection.doc(inputUsername);
 
 
             usernameRef.get().then(function (doc) {
@@ -177,14 +178,16 @@ function writeUser(incomingUser) {
     console.log("ready to write user: ");
     console.log(incomingUser);
 
-    // Add a new document in collection "cities"
+    // Add a new user
     firestore.collection("users").doc(incomingUser.username).set({
         username: incomingUser.username,
         publicName: incomingUser.publicName,
         uid: incomingUser.uid,
         email: incomingUser.email,
         followers: ["disco"],
-        following: ["disco"]
+        following: ["disco"],
+        photoUrl: "images/profile.png"
+
     })
         .then(function () {
             console.log("Document successfully written!");

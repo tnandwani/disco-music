@@ -28866,7 +28866,12 @@
 	                    _react2.default.createElement(
 	                        "a",
 	                        { className: "nav-link ml-2", href: "home#Home" },
-	                        "Home"
+	                        "Home",
+	                        _react2.default.createElement(
+	                            "span",
+	                            { className: "badge badge-pill badge-warning ml-2" },
+	                            "17"
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
@@ -28908,7 +28913,12 @@
 	                    _react2.default.createElement(
 	                        "a",
 	                        { className: "nav-link ml-2 ", href: "home#Driving" },
-	                        "Driving"
+	                        "Driving",
+	                        _react2.default.createElement(
+	                            "span",
+	                            { className: "badge badge-pill badge-warning ml-2" },
+	                            "2"
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
@@ -29093,6 +29103,7 @@
 	    email: "email",
 	    followers: ["disco"],
 	    following: ["disco"]
+	
 	};
 	
 	function checkUser() {
@@ -29129,7 +29140,7 @@
 	function checkUsername(inputUsername) {
 	
 	    // username taken?
-	    var usernameRef = usersRef.doc(inputUsername);
+	    var usernameRef = usersCollection.doc(inputUsername);
 	
 	    usernameRef.get().then(function (doc) {
 	        if (doc.exists) {
@@ -29167,7 +29178,7 @@
 	            // check username
 	
 	            // username taken?
-	            var usernameRef = usersRef.doc(inputUsername);
+	            var usernameRef = usersCollection.doc(inputUsername);
 	
 	            usernameRef.get().then(function (doc) {
 	                if (doc.exists) {
@@ -58306,6 +58317,134 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	function routerHome() {
+	    _reactRouter.browserHistory.push("/home");
+	}
+	
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// FIREBASE VARIABLES
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	// FIRESTORE
+	var firestore = firebase.firestore();
+	var publishBatch = firestore.batch();
+	var usersCollection = firestore.collection("users");
+	var postsCollection = firestore.collection("posts");
+	var songCollection = firestore.collection("songs");
+	var albumCollection = firestore.collection("albums");
+	var playlistCollection = firestore.collection("playlists");
+	
+	// REALTIME
+	var database = firebase.database();
+	
+	var uploadPercent = {
+	    width: "100%"
+	};
+	
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	// FUNCTIONS
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	function verifyPublish() {
+	
+	    var rawCaption = document.getElementById("rawCaption").value;
+	    var rawSongName = document.getElementById("rawSongName").value;
+	    var rawFeaturing = document.getElementById("rawFeaturing").value;
+	    var rawVibes = document.getElementById("rawVibes").value;
+	    var rawAlbumName = document.getElementById("rawAlbumName").value;
+	
+	    // is text post
+	    // requires: only caption no song name
+	    if (rawCaption.length > 0 && rawSongName.length == 0) {
+	
+	        var rawPost = {
+	            caption: rawCaption
+	        };
+	        publishText(rawPost);
+	    }
+	
+	    // song post
+	    // requires: song name && song file && 1 vibe
+	
+	
+	    // album post
+	    // requires: song name && song file && 1 vibe && album Name 
+	
+	    // INVALIDS     
+	    // No caption or Song 
+	    if (rawCaption.length == 0 && rawSongName.length == 0) {
+	        document.getElementById("uploadError").innerHTML = "No Caption or Song Entered";
+	    }
+	}
+	
+	function publishText(rawPost) {
+	
+	    var timestamp = Date.now();
+	    document.getElementById("progressBar").style.width = "0%";
+	
+	    var post = {
+	        username: inUser.username,
+	        uid: inUser.uid,
+	        caption: rawPost.caption,
+	        type: "text",
+	        date: timestamp,
+	        content: false
+	    };
+	
+	    // Post ID to User Database
+	    var userPostsRef = database.ref(inUser.username + '/posts');
+	    var newPostRef = userPostsRef.push();
+	
+	    newPostRef.set(timestamp);
+	
+	    // Post to Main with key
+	    postsCollection.doc(newPostRef.key).set(post).then(function () {
+	        console.log("Document successfully written!");
+	        document.getElementById("progressBar").style.width = "100%";
+	        setTimeout(function () {
+	            routerHome();
+	        }, 1000);
+	    }).catch(function (error) {
+	        console.error("Error writing document: ", error);
+	    });
+	}
+	
+	function publishSong(rawPost) {
+	
+	    var timestamp = Date.now();
+	
+	    var post = {
+	        username: inUser.username,
+	        uid: inUser.uid,
+	        caption: rawPost.caption,
+	        type: "song",
+	        date: Date.now(),
+	        content: true,
+	        likes: 0,
+	        shares: 0,
+	        saves: 0
+	    };
+	}
+	
+	function publishAlbum(rawPost) {
+	
+	    var timestamp = Date.now();
+	
+	    var post = {
+	        username: inUser.username,
+	        uid: inUser.uid,
+	        caption: rawPost.caption,
+	        type: "album",
+	        date: Date.now(),
+	        content: true
+	    };
+	}
+	
 	var rawCover;
 	
 	function finishedUploading() {
@@ -58571,16 +58710,7 @@
 	                            _react2.default.createElement(
 	                                "div",
 	                                { className: "progress mt-2 h-75" },
-	                                _react2.default.createElement(
-	                                    "div",
-	                                    { className: "progress-bar progress-bar-striped bg-warning text-dark", role: "progressbar", style: uploadPercent },
-	                                    " ",
-	                                    _react2.default.createElement(
-	                                        "h6",
-	                                        { className: "mt-2" },
-	                                        uploadPercent.width
-	                                    )
-	                                )
+	                                _react2.default.createElement("div", { id: "progressBar", className: "progress-bar progress-bar-striped bg-warning text-dark", role: "progressbar" })
 	                            )
 	                        ),
 	                        _react2.default.createElement(

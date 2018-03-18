@@ -58314,11 +58314,24 @@
 	}
 	
 	function showMusic() {
-	    document.getElementById("musicDiv").classList.remove('d-none');
+	
+	    if (document.getElementById("musicDiv").classList.contains('d-none')) {
+	        // NOT VISIBLE
+	        document.getElementById("musicDiv").classList.remove('d-none');
+	    } else {
+	        // VISIBLE
+	        document.getElementById("musicDiv").classList.add('d-none');
+	    }
 	}
 	
 	function showAlbum() {
-	    document.getElementById("albumDiv").classList.remove('d-none');
+	    if (document.getElementById("albumDiv").classList.contains('d-none')) {
+	        // NOT VISIBLE
+	        document.getElementById("albumDiv").classList.remove('d-none');
+	    } else {
+	        // VISIBLE
+	        document.getElementById("albumDiv").classList.add('d-none');
+	    }
 	}
 	function chooseCover() {
 	    document.getElementById("inputCover").click();
@@ -58361,6 +58374,15 @@
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "mt-4" },
+	                _react2.default.createElement(
+	                    "h6",
+	                    { className: "gold text-center" },
+	                    _react2.default.createElement(
+	                        "i",
+	                        null,
+	                        "BETA: Only Text Uploads Working"
+	                    )
+	                ),
 	                _react2.default.createElement(
 	                    "h3",
 	                    null,
@@ -58417,7 +58439,7 @@
 	                                        "@"
 	                                    )
 	                                ),
-	                                _react2.default.createElement("input", { type: "text", className: "form-control dark ", placeholder: "Featuring" })
+	                                _react2.default.createElement("input", { id: "rawFeaturing", type: "text", className: "form-control dark ", placeholder: "Featuring" })
 	                            ),
 	                            _react2.default.createElement(
 	                                "h5",
@@ -58436,7 +58458,7 @@
 	                                        "#"
 	                                    )
 	                                ),
-	                                _react2.default.createElement("input", { type: "text", className: "form-control dark", placeholder: "Vibes (5 Max)" })
+	                                _react2.default.createElement("input", { id: "rawVibes", type: "text", className: "form-control dark", placeholder: "Vibes (5 Max)" })
 	                            ),
 	                            _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
 	                            _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
@@ -58448,7 +58470,7 @@
 	                                "button",
 	                                { className: "btn btn-outline-success my-3" },
 	                                " + Song File ",
-	                                _react2.default.createElement("span", { className: "oi oi-check pl-2", title: "check" })
+	                                _react2.default.createElement("span", { className: "oi oi-check pl-2 d-none", title: "check" })
 	                            ),
 	                            _react2.default.createElement("br", null),
 	                            _react2.default.createElement(
@@ -58457,7 +58479,7 @@
 	                                _react2.default.createElement(
 	                                    "button",
 	                                    { className: "btn btn-light", onClick: showAlbum },
-	                                    " + Add Another Song"
+	                                    " + Add Song to Album"
 	                                )
 	                            )
 	                        ),
@@ -58467,7 +58489,7 @@
 	                            _react2.default.createElement(
 	                                "div",
 	                                null,
-	                                _react2.default.createElement("input", { type: "text", className: "form-control dark py-4", placeholder: "Album Name" })
+	                                _react2.default.createElement("input", { id: "rawAlbumName", type: "text", className: "form-control dark py-4", placeholder: "Album Name" })
 	                            ),
 	                            _react2.default.createElement(
 	                                "div",
@@ -58534,7 +58556,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    "h3",
-	                    { className: "mt-3" },
+	                    { className: "mt-4" },
 	                    "Publish "
 	                ),
 	                _react2.default.createElement(
@@ -58542,13 +58564,35 @@
 	                    null,
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "text-right mb-5" },
-	                        _react2.default.createElement("h6", { id: "uploadError", className: "text-danger" }),
+	                        { className: "row mb-5" },
 	                        _react2.default.createElement(
-	                            "button",
-	                            { onClick: verifyPublish, className: "btn btn-warning " },
-	                            " Publish ",
-	                            _react2.default.createElement("span", { className: "oi oi-cloud-upload", title: "cloud-upload" })
+	                            "div",
+	                            { className: "col-10" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "progress mt-2 h-75" },
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "progress-bar progress-bar-striped bg-warning text-dark", role: "progressbar", style: uploadPercent },
+	                                    " ",
+	                                    _react2.default.createElement(
+	                                        "h6",
+	                                        { className: "mt-2" },
+	                                        uploadPercent.width
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col text-right" },
+	                            _react2.default.createElement("h6", { id: "uploadError", className: "text-danger" }),
+	                            _react2.default.createElement(
+	                                "button",
+	                                { id: "publishButton", onClick: verifyPublish, className: "btn btn-warning px-4 py-2" },
+	                                " Publish ",
+	                                _react2.default.createElement("span", { className: "oi oi-cloud-upload", title: "cloud-upload" })
+	                            )
 	                        )
 	                    ),
 	                    _react2.default.createElement(

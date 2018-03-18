@@ -5111,7 +5111,7 @@ tbody.collapse.show {
   height: 1rem;
   overflow: hidden;
   font-size: 0.75rem;
-  background-color: #e9ecef;
+  background-color: #222;
   border-radius: 0.25rem;
 }
 
@@ -5126,7 +5126,7 @@ tbody.collapse.show {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  color: #fff;
+  color: #333333;
   text-align: center;
   background-color: #007bff;
   transition: width 0.6s ease;

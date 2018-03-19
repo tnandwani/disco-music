@@ -186,7 +186,7 @@ function writeUser(incomingUser) {
         uid: incomingUser.uid,
         email: incomingUser.email,
         followers: ["disco"],
-        following: ["disco"],
+        following: ["disco", incomingUser.username],
         photoUrl: "images/profile.png"
 
     })

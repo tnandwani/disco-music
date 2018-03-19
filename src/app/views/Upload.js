@@ -192,6 +192,8 @@ function publishTextPost(rawPost) {
 
     var timestamp = Date.now();
     document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressBar").innerHTML = "0%";
+
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 
@@ -225,6 +227,8 @@ function publishTextPost(rawPost) {
         .then(function () {
             console.log("Document successfully written!");
             document.getElementById("progressBar").style.width = "100%";
+            document.getElementById("progressBar").innerHTML = "100%";
+
             setTimeout(function () { routerHome(); }, 1000);
         })
         .catch(function (error) {
@@ -240,6 +244,8 @@ function publishSongPost(rawPost) {
 
     var timestamp = Date.now();
     document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressBar").innerHTML = "0%";
+
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 
@@ -253,8 +259,7 @@ function publishSongPost(rawPost) {
         date: timestamp,
         likes: 0,
         shares: 0,
-        saves: 0,
-        coverFile: false
+        saves: 0
     }
 
     songCollection.add(song)
@@ -291,6 +296,8 @@ function publishSongPost(rawPost) {
                 .then(function () {
                     console.log("Document successfully written!");
                     document.getElementById("progressBar").style.width = "25%";
+                    document.getElementById("progressBar").innerHTML = "25%";
+
 
                     // UPLOAD SONG FILE
                     if (rawSong != false) {
@@ -306,11 +313,15 @@ function publishSongPost(rawPost) {
                                 console.log('GOT A COVER');
 
                                 document.getElementById("progressBar").style.width = "50%";
+                                document.getElementById("progressBar").innerHTML = "50%";
+
                                 var newCoverRef = storageRef.child('covers/' + songKey);
 
                                 newCoverRef.put(rawCover).then(function (snapshot) {
                                     console.log('Uploaded Song');
                                     document.getElementById("progressBar").style.width = "100%";
+                                    document.getElementById("progressBar").innerHTML = "100%";
+
                                     setTimeout(function () { routerHome(); }, 1000);
 
 
@@ -318,6 +329,8 @@ function publishSongPost(rawPost) {
                             }
                             else {
                                 document.getElementById("progressBar").style.width = "100%";
+                                document.getElementById("progressBar").innerHTML = "100%";
+
                                 setTimeout(function () { routerHome(); }, 1000);
 
                             }
@@ -350,6 +363,8 @@ function publishAlbumPost(rawPost) {
 
     var timestamp = Date.now();
     document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressBar").innerHTML = "0%";
+
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 

@@ -81,6 +81,8 @@ export class Leftbar extends React.Component {
                     <a className="nav-link ml-2" href="home#Home">Home<span className="badge badge-pill badge-warning ml-2">17</span></a>
                     <a className="nav-link ml-2 " href="home#NewReleases">New Releases</a>
                     <a className="nav-link ml-2 " href="home#Popular">Popular</a>
+                    <a className="nav-link ml-2 " href="home#Popular">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a>
+
 
 
                     <h6 className="mt-3"> Library</h6>
@@ -92,6 +94,20 @@ export class Leftbar extends React.Component {
                     <a className="nav-link ml-2 " href="home#Driving">Driving<span className="badge badge-pill badge-warning ml-2">2</span></a>
                     <a className="nav-link ml-2 " href="home#Study">Study</a>
                     <a className="nav-link ml-2 " href="home#Gym">Gym</a>
+                    
+                    
+                    
+                    {/* SPACERS */}
+                    <div className="my-5">
+
+                        <br />
+
+                    </div>
+                    <div className="my-5">
+
+                        <br />
+
+                    </div>
 
                 </nav>
 

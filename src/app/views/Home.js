@@ -21,12 +21,17 @@ export class Home extends React.Component {
                 <div className="dark jumbotron py-4 my-3">
 
                     <h1 className="gold">Home</h1>
-            
+
                     {/* <UserBlock /> */}
                     {/*                     
                     <AlbumBlock/> */}
 
                 </div>
+
+                <div className="text-center d-none" >
+                    <img src="images/loader.svg" />
+                </div>
+
 
 
 

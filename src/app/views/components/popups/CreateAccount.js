@@ -317,7 +317,7 @@ export class CreateAccount extends React.Component {
                             </div>
 
                             <div className="text-right pr-5">
-                               <span><img  id= "spinner" className = "spinner d-none" src="images/loader.svg"/></span> <button type="button" className="btn btn-warning my-2" onClick={verifyDetails} >Create Account</button>
+                               <button type="button" className="btn btn-warning my-2" onClick={verifyDetails} >Create Account</button><span><img  id= "spinner" className = "spinner d-none" src="images/loader.svg"/></span> 
 
                             </div>
 

@@ -75,9 +75,12 @@ export class Root extends React.Component {
 
 
 						<div className="container-fluid">
+
 							{this.props.children}
 							<CreateAccount />
 							<SignIn />
+
+
 
 						</div>
 

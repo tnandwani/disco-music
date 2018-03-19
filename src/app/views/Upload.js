@@ -9,7 +9,7 @@ function routerHome() {
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-// FIREBASE VARIABLES
+//  VARIABLES
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,9 +27,103 @@ var playlistCollection = firestore.collection("playlists");
 var database = firebase.database();
 
 
+// LOCAL
 var uploadPercent = {
     width: "100%"
 };
+
+var rawCover, rawSong = false;
+
+
+var vibes = [
+    "Acoustic",
+    "Alternative",
+    "Ambient",
+    "Anime",
+    "Bass",
+    "Beach",
+    "Beats",
+    "Blues",
+    "BreakUp",
+    "Calm",
+    "Chill",
+    "Christmas",
+    "Classical",
+    "Clean",
+    "Country",
+    "Covers",
+    "Dance",
+    "Dark",
+    "Disco",
+    "Driving",
+    "Drugs",
+    "Dubstep",
+    "EDM",
+    "Electronic",
+    "Experimental",
+    "Folk",
+    "Fun",
+    "Funk",
+    "Gospel",
+    "Grime",
+    "Grunge",
+    "Halloween",
+    "Happy",
+    "Heavy",
+    "HipHop",
+    "House",
+    "Indie",
+    "Instrumental",
+    "Island",
+    "Jazz",
+    "KPop",
+    "Light",
+    "Love",
+    "Meditation",
+    "Melody",
+    "Metal",
+    "Morning",
+    "Night",
+    "OldSchool",
+    "Oldies",
+    "Opera",
+    "Orchestra",
+    "Party",
+    "Piano",
+    "Pop",
+    "Punk",
+    "R&B",
+    "Rain",
+    "Rap",
+    "Reggae",
+    "Relax",
+    "Religious",
+    "Remix",
+    "RoadTrip",
+    "Rock",
+    "Running",
+    "Sad",
+    "Sex",
+    "Sleep",
+    "Slow",
+    "Smoking",
+    "Soft",
+    "Soul",
+    "Space",
+    "Spring",
+    "Study",
+    "Summer",
+    "Swing",
+    "Techno",
+    "Trance",
+    "Trap",
+    "Underground",
+    "Upbeat",
+    "Vacation",
+    "Vocals",
+    "Weed",
+    "Workout"
+]
 
 
 
@@ -53,22 +147,40 @@ function verifyPublish() {
     // requires: only caption no song name
     if (rawCaption.length > 0 && rawSongName.length == 0) {
 
-        var rawPost = {
+        var rawTextPost = {
             caption: rawCaption
         }
-        publishText(rawPost);
+        publishTextPost(rawTextPost);
     }
 
     // song post
-    // requires: song name && song file && 1 vibe
 
+    // requires: song name && song file && 1 vibe
+    if (rawSongName.length > 0) {
+        if (rawSong != false) {
+
+            var rawSongPost = {
+                name: rawSongName,
+                caption: rawCaption,
+                featuring: rawFeaturing,
+                vibes: rawVibes
+            }
+            publishSongPost(rawSongPost);
+
+
+        }
+        else {
+            document.getElementById("uploadError").innerHTML = "Missing Song File";
+        }
+
+    }
 
     // album post
     // requires: song name && song file && 1 vibe && album Name 
 
     // INVALIDS     
     // No caption or Song 
-    if (rawCaption.length == 0 && rawSongName.length == 0){
+    if (rawCaption.length == 0 && rawSongName.length == 0) {
         document.getElementById("uploadError").innerHTML = "No Caption or Song Entered"
     }
 
@@ -76,32 +188,44 @@ function verifyPublish() {
 }
 
 
-function publishText(rawPost) {
+function publishTextPost(rawPost) {
 
     var timestamp = Date.now();
     document.getElementById("progressBar").style.width = "0%";
+    // User database ref
+    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 
     var post = {
         username: inUser.username,
-        uid: inUser.uid,
         caption: rawPost.caption,
         type: "text",
         date: timestamp,
-        content: false
+        content: false,
+        likes: 0,
+        shares: 0,
+        saves: 0
     };
 
-    // Post ID to User Database
-    var userPostsRef = database.ref(inUser.username + '/posts');
+
+
+
+    // create post ID
     var newPostRef = userPostsRef.push();
 
-    newPostRef.set(timestamp);
+    // Post ID to User Database
+
+    newPostRef.set(post.type);
+
+    // Post ID to User Database
+    var allPostsRef = database.ref('posts/' + newPostRef.key);
+    allPostsRef.set(post.type);
 
     // Post to Main with key
     postsCollection.doc(newPostRef.key).set(post)
         .then(function () {
             console.log("Document successfully written!");
             document.getElementById("progressBar").style.width = "100%";
-            setTimeout(function(){ routerHome(); }, 1000);
+            setTimeout(function () { routerHome(); }, 1000);
         })
         .catch(function (error) {
             console.error("Error writing document: ", error);
@@ -112,16 +236,127 @@ function publishText(rawPost) {
 
 
 
-function publishSong(rawPost) {
+function publishSongPost(rawPost) {
 
     var timestamp = Date.now();
+    document.getElementById("progressBar").style.width = "0%";
+    // User database ref
+    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 
+    // songID to Library
+
+    var song = {
+        name: rawPost.name,
+        artist: inUser.publicName,
+        featuring: rawPost.featuring,
+        vibes: rawPost.vibes,
+        date: timestamp,
+        likes: 0,
+        shares: 0,
+        saves: 0,
+        coverFile: false
+    }
+
+    songCollection.add(song)
+        .then(function (docRef) {
+            console.log("Document written with ID: ", docRef.id);
+
+
+            var songKey = docRef.id;
+            // add songID to post 
+
+            var post = {
+                username: inUser.username,
+                caption: rawPost.caption,
+                type: "song",
+                date: Date.now(),
+                content: songKey,
+                likes: 0,
+                shares: 0,
+                saves: 0
+            };
+            // create post ID
+            var newPostRef = userPostsRef.push();
+
+            // Post ID to User Database
+
+            newPostRef.set(post.type);
+
+            // Post ID to User Database
+            var allPostsRef = database.ref('posts/' + newPostRef.key);
+            allPostsRef.set(post.type);
+
+            // Post to Main with key
+            postsCollection.doc(newPostRef.key).set(post)
+                .then(function () {
+                    console.log("Document successfully written!");
+                    document.getElementById("progressBar").style.width = "25%";
+
+                    // UPLOAD SONG FILE
+                    if (rawSong != false) {
+                        console.log('GOT A SONG');
+
+                        var newSongRef = storageRef.child('songs/' + songKey);
+
+                        newSongRef.put(rawSong).then(function (snapshot) {
+                            console.log('Uploaded Song');
+
+                            // UPLOAD COVER FILE
+                            if (rawCover != false) {
+                                console.log('GOT A COVER');
+
+                                document.getElementById("progressBar").style.width = "50%";
+                                var newCoverRef = storageRef.child('covers/' + songKey);
+
+                                newCoverRef.put(rawCover).then(function (snapshot) {
+                                    console.log('Uploaded Song');
+                                    document.getElementById("progressBar").style.width = "100%";
+                                    setTimeout(function () { routerHome(); }, 1000);
+
+
+                                });
+                            }
+                            else {
+                                document.getElementById("progressBar").style.width = "100%";
+                                setTimeout(function () { routerHome(); }, 1000);
+
+                            }
+
+
+                        });
+                    } else {
+                        console.log(":((((");
+                    }
+
+
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
+
+
+
+
+        })
+        .catch(function (error) {
+            console.error("Error adding document: ", error);
+        });
+
+
+
+}
+
+function publishAlbumPost(rawPost) {
+
+    var timestamp = Date.now();
+    document.getElementById("progressBar").style.width = "0%";
+    // User database ref
+    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 
     var post = {
         username: inUser.username,
-        uid: inUser.uid,
         caption: rawPost.caption,
-        type: "song",
+        type: "album",
         date: Date.now(),
         content: true,
         likes: 0,
@@ -131,31 +366,21 @@ function publishSong(rawPost) {
 
 }
 
-function publishAlbum(rawPost) {
 
-    var timestamp = Date.now();
-
-    var post = {
-        username: inUser.username,
-        uid: inUser.uid,
-        caption: rawPost.caption,
-        type: "album",
-        date: Date.now(),
-        content: true
-    };
-
+function uploadSong(song) {
+    // 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+// CONTROLLERS
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-var rawCover;
-
-
-function finishedUploading() {
-    console.log("MADE IT");
-    browserHistory.push("/home");
-}
 
 function showMusic() {
+
+
 
     if (document.getElementById("musicDiv").classList.contains('d-none')) {
         // NOT VISIBLE
@@ -185,11 +410,8 @@ function showAlbum() {
 function chooseCover() {
     document.getElementById("inputCover").click();
 }
-function chooseSong() {
-    document.getElementById("inputSong").click();
-}
 
-function handleProfile() {
+function handleCover() {
 
     var preview = document.getElementById("previewCover");
     var file = document.getElementById("inputCover").files[0];
@@ -208,7 +430,43 @@ function handleProfile() {
     }
 }
 
+function chooseSong() {
+    document.getElementById("inputSong").click();
+}
 
+function handleSong() {
+
+    var file = document.getElementById("inputSong").files[0];
+    rawSong = file;
+    document.getElementById("fileCheck").classList.remove('d-none');
+
+
+
+
+
+
+    // var reader = new FileReader();
+    // reader.addEventListener("load", function () {
+    //     preview.src = reader.result;
+    // }, false);
+
+    // if (file) {
+    //     reader.readAsDataURL(file);
+    // }
+
+    // set file
+
+
+
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+// RENDER
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
 
 export class Upload extends React.Component {
@@ -217,6 +475,7 @@ export class Upload extends React.Component {
             <div className="mt-4">
 
                 <h6 className="gold text-center"><i >BETA: Only Text Uploads Working</i></h6>
+
 
                 <h3>Caption</h3>
                 <div>
@@ -236,7 +495,7 @@ export class Upload extends React.Component {
 
                             <div className="w-100">
                                 <img id="previewCover" onClick={chooseCover} src="images/coverArt.png" className="dark uploadCover" />
-                                <input id="inputCover" className="d-none" type="file" accept="image/*" onChange={handleProfile} />
+                                <input id="inputCover" className="d-none" type="file" accept="image/*" onChange={handleCover} />
 
                             </div>
 
@@ -257,11 +516,11 @@ export class Upload extends React.Component {
                             <h5 id="featuresList" className="my-3">  </h5>
 
 
-                            <div className="input-group mb-3">
+                            <div className=" input-group mb-3 ">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text pl-3" id="basic-addon1">#</span>
                                 </div>
-                                <input id="rawVibes" type="text" className="form-control dark" placeholder="Vibes (5 Max)" />
+                                <input id="rawVibes" type="text" list={vibes} className="form-control dark" placeholder="Vibes (5 Max)" />
 
                             </div>
 
@@ -273,7 +532,8 @@ export class Upload extends React.Component {
                             <button className="btn px-3 mr-2"></button>
 
                             <br />
-                            <button className="btn btn-outline-success my-3"> + Song File <span className="oi oi-check pl-2 d-none" title="check"></span></button>
+                            <button onClick={chooseSong} className="btn btn-outline-success my-3"> + Song File <span id="fileCheck" className="oi oi-check pl-2 text-warning d-none" title="check"></span></button>
+                            <input id="inputSong" className="d-none" type="file" accept="audio/*" onChange={handleSong} />
 
                             <br />
 
@@ -325,15 +585,15 @@ export class Upload extends React.Component {
                 <div>
                     <div className="row mb-5">
 
-                        <div className="col-10">
+                        <div className="col-9">
                             <div className="progress mt-2 h-75">
-                                <div id = "progressBar" className="progress-bar progress-bar-striped bg-warning text-dark" role="progressbar" ></div>
+                                <div id="progressBar" className="progress-bar progress-bar-striped bg-warning text-dark" role="progressbar" ></div>
                             </div>
                         </div>
                         <div className="col text-right">
 
                             <h6 id="uploadError" className="text-danger"></h6>
-                            <button id="publishButton" onClick={verifyPublish} className="btn btn-warning px-4 py-2"> Publish <span className="oi oi-cloud-upload" title="cloud-upload"></span></button>
+                            <button id="publishButton" onClick={verifyPublish} className="btn btn-warning px-4 py-2"> Publish <span className="oi oi-cloud-upload ml-2" title="cloud-upload"></span></button>
 
 
                         </div>

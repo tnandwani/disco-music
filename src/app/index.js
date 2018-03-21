@@ -51,4 +51,4 @@ console.log("LOG 2");
 setTimeout(function () { 
     document.getElementById("spinner").classList.add("d-none");
     render(<App />, window.document.getElementById('app')); 
-}, 1500);
+}, 500);

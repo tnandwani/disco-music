@@ -21,6 +21,7 @@ export class PlaylistPost extends React.Component {
                     <img src= "images/coverArt.png" alt="Card image cap" className="card-img-top" />
 
                 </div>
+                
                 <div className="card-body">
                     <h3>Playlist Name</h3>
                     <h4><i className= "gold">@Username</i></h4>

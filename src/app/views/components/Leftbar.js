@@ -81,8 +81,7 @@ export class Leftbar extends React.Component {
                     <h6 className="mt-3"> Discover</h6>
                     <a className="nav-link ml-2" href="home#Home">Home<span className="badge badge-pill badge-warning ml-2">17</span></a>
                     <a className="nav-link ml-2 " href="home#NewReleases">New Releases</a>
-                    <a className="nav-link ml-2 " href="home#Popular">Popular</a>
-                    <a className="nav-link ml-2 " href="home#Popular">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a>
+                    <a className="nav-link ml-2 " href="home#Suggestions">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a>
 
 
 

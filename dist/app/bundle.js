@@ -67,9 +67,9 @@
 	
 	var _Home = __webpack_require__(/*! ./views/Home */ 423);
 	
-	var _User = __webpack_require__(/*! ./views/User */ 432);
+	var _User = __webpack_require__(/*! ./views/User */ 433);
 	
-	var _Upload = __webpack_require__(/*! ./views/Upload */ 433);
+	var _Upload = __webpack_require__(/*! ./views/Upload */ 434);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -118,7 +118,12 @@
 	    return App;
 	}(_react2.default.Component);
 	
-	(0, _reactDom.render)(_react2.default.createElement(App, null), window.document.getElementById('app'));
+	console.log("LOG 2");
+	
+	setTimeout(function () {
+	    document.getElementById("spinner").classList.add("d-none");
+	    (0, _reactDom.render)(_react2.default.createElement(App, null), window.document.getElementById('app'));
+	}, 0);
 
 /***/ }),
 /* 1 */
@@ -28880,12 +28885,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "home#Popular" },
-	                        "Popular"
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2 ", href: "home#Popular" },
+	                        { className: "nav-link ml-2 ", href: "home#Suggestions" },
 	                        "Suggestions",
 	                        _react2.default.createElement(
 	                            "span",
@@ -56985,17 +56985,19 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 424);
+	var _Post = __webpack_require__(/*! ./components/posts/Post */ 424);
 	
-	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 427);
+	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 427);
 	
-	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 428);
+	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 428);
 	
-	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 429);
+	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 429);
 	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 430);
+	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 430);
 	
-	var _AlbumBlock = __webpack_require__(/*! ./components/blocks/AlbumBlock */ 431);
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 431);
+	
+	var _AlbumBlock = __webpack_require__(/*! ./components/blocks/AlbumBlock */ 432);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -57038,32 +57040,15 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
-	                    _react2.default.createElement(_albumPost.AlbumPost, null),
-	                    _react2.default.createElement(_textPost.TextPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_albumPost.AlbumPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_textPost.TextPost, null),
-	                    _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                    _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_albumPost.AlbumPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_textPost.TextPost, null),
-	                    _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                    _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                    _react2.default.createElement(_albumPost.AlbumPost, null),
-	                    _react2.default.createElement(_textPost.TextPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null),
-	                    _react2.default.createElement(_textPost.TextPost, null),
-	                    _react2.default.createElement(_albumPost.AlbumPost, null),
-	                    _react2.default.createElement(_textPost.TextPost, null),
-	                    _react2.default.createElement(_songPost.SongPost, null)
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null),
+	                    _react2.default.createElement(_Post.Post, null)
 	                )
 	            );
 	        }
@@ -57074,9 +57059,9 @@
 
 /***/ }),
 /* 424 */
-/*!****************************************************!*\
-  !*** ./src/app/views/components/posts/songPost.js ***!
-  \****************************************************/
+/*!************************************************!*\
+  !*** ./src/app/views/components/posts/Post.js ***!
+  \************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -57084,7 +57069,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.SongPost = undefined;
+	exports.Post = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -57114,22 +57099,96 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var SongPost = exports.SongPost = function (_React$Component) {
-	    _inherits(SongPost, _React$Component);
+	var Post = exports.Post = function (_React$Component) {
+	    _inherits(Post, _React$Component);
 	
-	    function SongPost() {
-	        _classCallCheck(this, SongPost);
+	    function Post() {
+	        _classCallCheck(this, Post);
 	
-	        return _possibleConstructorReturn(this, (SongPost.__proto__ || Object.getPrototypeOf(SongPost)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).apply(this, arguments));
 	    }
 	
-	    _createClass(SongPost, [{
+	    _createClass(Post, [{
 	        key: "render",
 	        value: function render() {
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "card text-white bg-dark mb-3" },
-	                _react2.default.createElement(_cardHeader.CardHeader, null),
+	                { className: "card p-0 text-white bg-dark mb-3 container" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "card-header p-2 text-center" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "row" },
+	                        _react2.default.createElement("div", { className: "col" }),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col" },
+	                            _react2.default.createElement(
+	                                "a",
+	                                { className: "text-white", href: "" },
+	                                _react2.default.createElement(
+	                                    "h6",
+	                                    null,
+	                                    "@Username"
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col text-right" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "dropdown show" },
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { className: "", href: "#", role: "button", id: "dropdownMenuLink", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" },
+	                                    _react2.default.createElement("span", { className: "oi oi-ellipses pr-2", title: "ellipses" })
+	                                ),
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "dropdown-menu", "aria-labelledby": "dropdownMenuLink" },
+	                                    _react2.default.createElement(
+	                                        "a",
+	                                        { className: "dropdown-item", href: "#" },
+	                                        "Send"
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "a",
+	                                        { className: "dropdown-item", href: "#" },
+	                                        "Play Next"
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "a",
+	                                        { className: "dropdown-item", href: "#" },
+	                                        "Add to Queue"
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "a",
+	                                        { className: "dropdown-item", href: "#" },
+	                                        "Report"
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "a",
+	                                        { className: "dropdown-item", href: "#" },
+	                                        "Something else here"
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "h6",
+	                        { className: "gray pt-2 text-center " },
+	                        " ",
+	                        _react2.default.createElement(
+	                            "i",
+	                            null,
+	                            "Caption Over Here (100 Characters Max)"
+	                        ),
+	                        " "
+	                    )
+	                ),
 	                _react2.default.createElement(
 	                    "div",
 	                    null,
@@ -57141,12 +57200,11 @@
 	                    _react2.default.createElement(
 	                        "h3",
 	                        null,
-	                        "Song Name"
+	                        "Album Name"
 	                    ),
 	                    _react2.default.createElement(
 	                        "h4",
 	                        null,
-	                        " ",
 	                        _react2.default.createElement(
 	                            "i",
 	                            { className: "gold" },
@@ -57163,12 +57221,52 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement(_cardButtons.CardButtons, null)
+	                _react2.default.createElement(
+	                    "ul",
+	                    { className: "list-group list-group-flush darkFade" },
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "list-group-item" },
+	                        "Song Name"
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "list-group-item" },
+	                        "Song Name"
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "list-group-item" },
+	                        "Song Name"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "card-footer p-0 text-center container" },
+	                    _react2.default.createElement(
+	                        "button",
+	                        { type: "button", className: "btn btn-secondary " },
+	                        _react2.default.createElement("span", { className: "oi oi-fire postIcons pr-2", title: "fire" }),
+	                        "Share"
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { type: "button", className: "btn btn-secondary  px-4" },
+	                        _react2.default.createElement("span", { className: "oi oi-heart postIcons pr-2", title: "heart" }),
+	                        "Like"
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { type: "button", className: "btn btn-secondary " },
+	                        _react2.default.createElement("span", { className: "oi oi-plus postIcons pr-2", title: "plus" }),
+	                        "Save"
+	                    )
+	                )
 	            );
 	        }
 	    }]);
 	
-	    return SongPost;
+	    return Post;
 	}(_react2.default.Component);
 	
 	// <div>
@@ -57185,7 +57283,7 @@
 	// Specifies the default values for props:
 	
 	
-	SongPost.defaultProps = {
+	AlbumPost.defaultProps = {
 	    username: 'Username',
 	    song: 'Song Name',
 	    artist: 'Artist Name',
@@ -57395,6 +57493,130 @@
 
 /***/ }),
 /* 427 */
+/*!****************************************************!*\
+  !*** ./src/app/views/components/posts/songPost.js ***!
+  \****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.SongPost = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _firebase = __webpack_require__(/*! firebase */ 256);
+	
+	var firebase = _interopRequireWildcard(_firebase);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 425);
+	
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 426);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SongPost = exports.SongPost = function (_React$Component) {
+	    _inherits(SongPost, _React$Component);
+	
+	    function SongPost() {
+	        _classCallCheck(this, SongPost);
+	
+	        return _possibleConstructorReturn(this, (SongPost.__proto__ || Object.getPrototypeOf(SongPost)).apply(this, arguments));
+	    }
+	
+	    _createClass(SongPost, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "card text-white bg-dark mb-3" },
+	                _react2.default.createElement(_cardHeader.CardHeader, null),
+	                _react2.default.createElement(
+	                    "div",
+	                    null,
+	                    _react2.default.createElement("img", { src: "images/coverArt.png", alt: "Card image cap", className: "card-img-top" })
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "card-body leftAlign" },
+	                    _react2.default.createElement(
+	                        "h3",
+	                        null,
+	                        "Song Name"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h4",
+	                        null,
+	                        " ",
+	                        _react2.default.createElement(
+	                            "i",
+	                            { className: "gold" },
+	                            "Artist"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "h5",
+	                        null,
+	                        _react2.default.createElement(
+	                            "i",
+	                            null,
+	                            "#Vibes"
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(_cardButtons.CardButtons, null)
+	            );
+	        }
+	    }]);
+	
+	    return SongPost;
+	}(_react2.default.Component);
+	
+	// <div>
+	//     <h1>{this.props.song}</h1>
+	//     <h3><i>{this.props.artist}</i></h3>
+	//     <h4>{this.props.collection}</h4>
+	//     <img src={this.props.cover} className="feedCover" />
+	//     <h5>Likes <small> {this.props.likes}</small> </h5>
+	//     <h5>Saves <small> {this.props.saves}</small> </h5>
+	//     <h5>Shares <small> {this.props.shares}</small> </h5>
+	// </div>
+	
+	
+	// Specifies the default values for props:
+	
+	
+	SongPost.defaultProps = {
+	    username: 'Username',
+	    song: 'Song Name',
+	    artist: 'Artist Name',
+	    collection: 'Collection Name ',
+	    likes: 0,
+	    shares: 0,
+	    saves: 0,
+	    cover: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
+	};
+
+/***/ }),
+/* 428 */
 /*!*****************************************************!*\
   !*** ./src/app/views/components/posts/albumPost.js ***!
   \*****************************************************/
@@ -57536,7 +57758,7 @@
 	};
 
 /***/ }),
-/* 428 */
+/* 429 */
 /*!********************************************************!*\
   !*** ./src/app/views/components/posts/playlistPost.js ***!
   \********************************************************/
@@ -57759,7 +57981,7 @@
 	};
 
 /***/ }),
-/* 429 */
+/* 430 */
 /*!****************************************************!*\
   !*** ./src/app/views/components/posts/textPost.js ***!
   \****************************************************/
@@ -57850,7 +58072,7 @@
 	};
 
 /***/ }),
-/* 430 */
+/* 431 */
 /*!******************************************************!*\
   !*** ./src/app/views/components/blocks/UserBlock.js ***!
   \******************************************************/
@@ -58038,7 +58260,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 431 */
+/* 432 */
 /*!*******************************************************!*\
   !*** ./src/app/views/components/blocks/AlbumBlock.js ***!
   \*******************************************************/
@@ -58155,7 +58377,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 432 */
+/* 433 */
 /*!*******************************!*\
   !*** ./src/app/views/User.js ***!
   \*******************************/
@@ -58180,15 +58402,15 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 186);
 	
-	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 424);
+	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 427);
 	
-	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 427);
+	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 428);
 	
-	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 428);
+	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 429);
 	
-	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 429);
+	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 430);
 	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 430);
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 431);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -58309,7 +58531,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 433 */
+/* 434 */
 /*!*********************************!*\
   !*** ./src/app/views/Upload.js ***!
   \*********************************/

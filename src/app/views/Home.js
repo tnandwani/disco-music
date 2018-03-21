@@ -2,6 +2,10 @@ import React from "react";
 import { browserHistory } from "react-router";
 import PropTypes from 'prop-types';
 
+
+import { Post } from "./components/posts/Post";
+
+
 import { SongPost } from "./components/posts/songPost";
 import { AlbumPost } from "./components/posts/albumPost";
 import { PlaylistPost } from "./components/posts/playlistPost";
@@ -11,9 +15,18 @@ import { AlbumBlock } from "./components/blocks/AlbumBlock";
 
 
 
+
+
+
+
 export class Home extends React.Component {
 
     render() {
+
+        var song = {
+            id: "123",
+            name: "blah"
+        }
 
         return (
             <div className="mt-4">
@@ -21,6 +34,7 @@ export class Home extends React.Component {
                 <div className="dark jumbotron py-4 my-3">
 
                     <h1 className="gold">Home</h1>
+                    <h5 className="gray">@{inUser.username}</h5>
 
                     {/* <UserBlock /> */}
                     {/*                     
@@ -38,32 +52,22 @@ export class Home extends React.Component {
 
                 <div className="card-columns">
 
-                    <AlbumPost />
-                    <TextPost />
-                    <SongPost />
-                    <PlaylistPost />
-                    <SongPost />
-                    <SongPost />
-                    <AlbumPost />
-                    <SongPost />
-                    <SongPost />
-                    <TextPost />
-                    <PlaylistPost />
-                    <PlaylistPost />
-                    <SongPost />
-                    <AlbumPost />
-                    <SongPost />
-                    <SongPost />
-                    <TextPost />
-                    <PlaylistPost />
-                    <PlaylistPost />
-                    <AlbumPost />
-                    <TextPost />
-                    <SongPost />
-                    <TextPost />
-                    <AlbumPost />
-                    <TextPost />
-                    <SongPost />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+                    <Post />
+
+
+                </div>
+
+                <div className="my-5">
+
+                    <br />
 
                 </div>
 

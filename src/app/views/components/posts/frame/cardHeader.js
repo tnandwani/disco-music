@@ -28,6 +28,7 @@ export class CardHeader extends React.Component {
                                 <a className="dropdown-item" href="#">Send</a>
                                 <a className="dropdown-item" href="#">Play Next</a>
                                 <a className="dropdown-item" href="#">Add to Queue</a>
+                                <a className="dropdown-item" href="#">Report</a>
                                 <a className="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div>

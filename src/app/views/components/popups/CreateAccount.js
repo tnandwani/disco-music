@@ -185,6 +185,8 @@ function writeUser(incomingUser) {
         publicName: incomingUser.publicName,
         uid: incomingUser.uid,
         email: incomingUser.email,
+        verified: "Alpha Artist",
+        location: "Location",
         followers: ["disco"],
         following: ["disco", incomingUser.username],
         photoUrl: "images/profile.png"

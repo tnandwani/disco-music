@@ -89,6 +89,8 @@ function setPhotoUrl(url) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
+console.log("LOG 1");
+
  // Get User Info
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -105,8 +107,8 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 
-// GET All New Posts
-var postsRef = firebase.database().ref('posts');
-postsRef.on('child_added', function(data) {
-  newPostsArray(data.key);
-});
+// // GET All New Posts
+// var postsRef = firebase.database().ref('posts');
+// postsRef.on('child_added', function(data) {
+//   newPostsArray(data.key);
+// });

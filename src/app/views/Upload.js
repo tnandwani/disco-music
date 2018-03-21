@@ -34,7 +34,7 @@ var uploadPercent = {
 
 var rawCover, rawSong = false;
 
-
+// List of Verified Vibes
 var vibes = [
     "Acoustic",
     "Alternative",
@@ -257,6 +257,7 @@ function publishSongPost(rawPost) {
         featuring: rawPost.featuring,
         vibes: rawPost.vibes,
         date: timestamp,
+        cover: "images/coverArt.png",
         likes: 0,
         shares: 0,
         saves: 0
@@ -280,7 +281,7 @@ function publishSongPost(rawPost) {
                 shares: 0,
                 saves: 0
             };
-            // create post ID
+            // create post ID for main Databse
             var newPostRef = userPostsRef.push();
 
             // Post ID to User Database
@@ -291,8 +292,9 @@ function publishSongPost(rawPost) {
             var allPostsRef = database.ref('posts/' + newPostRef.key);
             allPostsRef.set(post.type);
 
+            var postDocument = postsCollection.doc(newPostRef.key);
             // Post to Main with key
-            postsCollection.doc(newPostRef.key).set(post)
+            postDocument.set(post)
                 .then(function () {
                     console.log("Document successfully written!");
                     document.getElementById("progressBar").style.width = "25%";
@@ -318,11 +320,25 @@ function publishSongPost(rawPost) {
                                 var newCoverRef = storageRef.child('covers/' + songKey);
 
                                 newCoverRef.put(rawCover).then(function (snapshot) {
-                                    console.log('Uploaded Song');
-                                    document.getElementById("progressBar").style.width = "100%";
-                                    document.getElementById("progressBar").innerHTML = "100%";
+                                    console.log('Uploaded Cover');
+                                    document.getElementById("progressBar").style.width = "75%";
+                                    document.getElementById("progressBar").innerHTML = "75%";
 
-                                    setTimeout(function () { routerHome(); }, 1000);
+                                    // Update Cover location
+
+                                    return postDocument.update({
+                                        cover: songKey
+                                    })
+                                        .then(function () {
+                                            console.log("Document successfully updated!");
+                                            setTimeout(function () { routerHome(); }, 1000);
+                                        })
+                                        .catch(function (error) {
+                                            // The document probably doesn't exist.
+                                            console.error("Error updating document: ", error);
+                                        });
+
+
 
 
                                 });

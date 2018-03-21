@@ -67,19 +67,22 @@ export class UserBlock extends React.Component {
     render() {
         return (
 
-            <div className= "">
+            <div className="">
 
                 <div className="row container p-3 text-center" >
-                    <div className="col text-right py-2" >
-                        <img src= {inUser.photoUrl} className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
+                    <div className="col py-2" >
+                        <img src={inUser.photoUrl} className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
                         <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
-
+                        <div className="text-center" >
+                            <span className="badge badge-pill badge-warning mt-3">{inUser.verified}</span>
+                        </div>
                     </div>
-                    <div className="col p-3 pt-5 ">
+                    <div className="col p-3 pt-5 text-left">
                         <h1 > {inUser.publicName}</h1>
                         <h1 className="gold py-3"> <i> @{inUser.username} </i> </h1>
 
-                        {/* <h5 ><span className="oi oi-location postIcons pr-2" title="location"></span> Location</h5> */}
+
+                        <h5 ><span className="oi oi-location postIcons pr-2" title="location"></span> {inUser.location}</h5>
 
 
 

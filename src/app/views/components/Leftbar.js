@@ -69,6 +69,7 @@ export class Leftbar extends React.Component {
                         {/* <span className="oi oi-magnifying-glass mt-2 ml-1 " title="magnifying-glass"></span> */}
                     </div>
 
+
                     <button className="btn-sm btn-outline-warning px-3 mt-3 w-100 py-2" onClick={checkUpload}> Upload + </button>
 
                 </div>
@@ -91,12 +92,12 @@ export class Leftbar extends React.Component {
                     <a className="nav-link ml-2" href="home#">Artists</a>
 
                     <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
-                    <a className="nav-link ml-2 " href="home#Driving">Driving<span className="badge badge-pill badge-warning ml-2">2</span></a>
+                    <a className="nav-link ml-2 " href="home#Driving">Driving</a>
                     <a className="nav-link ml-2 " href="home#Study">Study</a>
                     <a className="nav-link ml-2 " href="home#Gym">Gym</a>
-                    
-                    
-                    
+
+
+
                     {/* SPACERS */}
                     <div className="my-5">
 

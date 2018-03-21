@@ -28923,12 +28923,7 @@
 	                    _react2.default.createElement(
 	                        "a",
 	                        { className: "nav-link ml-2 ", href: "home#Driving" },
-	                        "Driving",
-	                        _react2.default.createElement(
-	                            "span",
-	                            { className: "badge badge-pill badge-warning ml-2" },
-	                            "2"
-	                        )
+	                        "Driving"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
@@ -29261,6 +29256,8 @@
 	        publicName: incomingUser.publicName,
 	        uid: incomingUser.uid,
 	        email: incomingUser.email,
+	        verified: "Alpha Artist",
+	        location: "Location",
 	        followers: ["disco"],
 	        following: ["disco", incomingUser.username],
 	        photoUrl: "images/profile.png"
@@ -29484,7 +29481,7 @@
 	
 	    firebase.auth().onAuthStateChanged(function (user) {
 	        if (user) {
-	            _reactRouter.browserHistory.push("/user");
+	            _reactRouter.browserHistory.push("/home");
 	            $('#signInModal').modal('toggle');
 	        } else {}
 	    });
@@ -57367,6 +57364,11 @@
 	                                _react2.default.createElement(
 	                                    "a",
 	                                    { className: "dropdown-item", href: "#" },
+	                                    "Report"
+	                                ),
+	                                _react2.default.createElement(
+	                                    "a",
+	                                    { className: "dropdown-item", href: "#" },
 	                                    "Something else here"
 	                                )
 	                            )
@@ -57953,13 +57955,22 @@
 	                    { className: "row container p-3 text-center" },
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col text-right py-2" },
+	                        { className: "col py-2" },
 	                        _react2.default.createElement("img", { src: inUser.photoUrl, className: "rounded-circle profileCircle", id: "selectedImage", onClick: chooseProfileImage }),
-	                        _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputProfile", onChange: handleProfile })
+	                        _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputProfile", onChange: handleProfile }),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "text-center" },
+	                            _react2.default.createElement(
+	                                "span",
+	                                { className: "badge badge-pill badge-warning mt-3" },
+	                                inUser.verified
+	                            )
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "col p-3 pt-5 " },
+	                        { className: "col p-3 pt-5 text-left" },
 	                        _react2.default.createElement(
 	                            "h1",
 	                            null,
@@ -57978,6 +57989,13 @@
 	                                " "
 	                            ),
 	                            " "
+	                        ),
+	                        _react2.default.createElement(
+	                            "h5",
+	                            null,
+	                            _react2.default.createElement("span", { className: "oi oi-location postIcons pr-2", title: "location" }),
+	                            " ",
+	                            inUser.location
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -58354,6 +58372,7 @@
 	var rawCover,
 	    rawSong = false;
 	
+	// List of Verified Vibes
 	var vibes = ["Acoustic", "Alternative", "Ambient", "Anime", "Bass", "Beach", "Beats", "Blues", "BreakUp", "Calm", "Chill", "Christmas", "Classical", "Clean", "Country", "Covers", "Dance", "Dark", "Disco", "Driving", "Drugs", "Dubstep", "EDM", "Electronic", "Experimental", "Folk", "Fun", "Funk", "Gospel", "Grime", "Grunge", "Halloween", "Happy", "Heavy", "HipHop", "House", "Indie", "Instrumental", "Island", "Jazz", "KPop", "Light", "Love", "Meditation", "Melody", "Metal", "Morning", "Night", "OldSchool", "Oldies", "Opera", "Orchestra", "Party", "Piano", "Pop", "Punk", "R&B", "Rain", "Rap", "Reggae", "Relax", "Religious", "Remix", "RoadTrip", "Rock", "Running", "Sad", "Sex", "Sleep", "Slow", "Smoking", "Soft", "Soul", "Space", "Spring", "Study", "Summer", "Swing", "Techno", "Trance", "Trap", "Underground", "Upbeat", "Vacation", "Vocals", "Weed", "Workout"];
 	
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -58413,6 +58432,8 @@
 	
 	    var timestamp = Date.now();
 	    document.getElementById("progressBar").style.width = "0%";
+	    document.getElementById("progressBar").innerHTML = "0%";
+	
 	    // User database ref
 	    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 	
@@ -58442,6 +58463,8 @@
 	    postsCollection.doc(newPostRef.key).set(post).then(function () {
 	        console.log("Document successfully written!");
 	        document.getElementById("progressBar").style.width = "100%";
+	        document.getElementById("progressBar").innerHTML = "100%";
+	
 	        setTimeout(function () {
 	            routerHome();
 	        }, 1000);
@@ -58454,6 +58477,8 @@
 	
 	    var timestamp = Date.now();
 	    document.getElementById("progressBar").style.width = "0%";
+	    document.getElementById("progressBar").innerHTML = "0%";
+	
 	    // User database ref
 	    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 	
@@ -58465,10 +58490,10 @@
 	        featuring: rawPost.featuring,
 	        vibes: rawPost.vibes,
 	        date: timestamp,
+	        cover: "images/coverArt.png",
 	        likes: 0,
 	        shares: 0,
-	        saves: 0,
-	        coverFile: false
+	        saves: 0
 	    };
 	
 	    songCollection.add(song).then(function (docRef) {
@@ -58487,7 +58512,7 @@
 	            shares: 0,
 	            saves: 0
 	        };
-	        // create post ID
+	        // create post ID for main Databse
 	        var newPostRef = userPostsRef.push();
 	
 	        // Post ID to User Database
@@ -58498,10 +58523,12 @@
 	        var allPostsRef = database.ref('posts/' + newPostRef.key);
 	        allPostsRef.set(post.type);
 	
+	        var postDocument = postsCollection.doc(newPostRef.key);
 	        // Post to Main with key
-	        postsCollection.doc(newPostRef.key).set(post).then(function () {
+	        postDocument.set(post).then(function () {
 	            console.log("Document successfully written!");
 	            document.getElementById("progressBar").style.width = "25%";
+	            document.getElementById("progressBar").innerHTML = "25%";
 	
 	            // UPLOAD SONG FILE
 	            if (rawSong != false) {
@@ -58517,17 +58544,33 @@
 	                        console.log('GOT A COVER');
 	
 	                        document.getElementById("progressBar").style.width = "50%";
+	                        document.getElementById("progressBar").innerHTML = "50%";
+	
 	                        var newCoverRef = storageRef.child('covers/' + songKey);
 	
 	                        newCoverRef.put(rawCover).then(function (snapshot) {
-	                            console.log('Uploaded Song');
-	                            document.getElementById("progressBar").style.width = "100%";
-	                            setTimeout(function () {
-	                                routerHome();
-	                            }, 1000);
+	                            console.log('Uploaded Cover');
+	                            document.getElementById("progressBar").style.width = "75%";
+	                            document.getElementById("progressBar").innerHTML = "75%";
+	
+	                            // Update Cover location
+	
+	                            return postDocument.update({
+	                                cover: songKey
+	                            }).then(function () {
+	                                console.log("Document successfully updated!");
+	                                setTimeout(function () {
+	                                    routerHome();
+	                                }, 1000);
+	                            }).catch(function (error) {
+	                                // The document probably doesn't exist.
+	                                console.error("Error updating document: ", error);
+	                            });
 	                        });
 	                    } else {
 	                        document.getElementById("progressBar").style.width = "100%";
+	                        document.getElementById("progressBar").innerHTML = "100%";
+	
 	                        setTimeout(function () {
 	                            routerHome();
 	                        }, 1000);
@@ -58548,6 +58591,8 @@
 	
 	    var timestamp = Date.now();
 	    document.getElementById("progressBar").style.width = "0%";
+	    document.getElementById("progressBar").innerHTML = "0%";
+	
 	    // User database ref
 	    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 	

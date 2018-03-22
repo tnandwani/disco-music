@@ -9,6 +9,7 @@ import { Header } from "./components/Header";
 
 import { CreateAccount } from "./components/popups/CreateAccount";
 import { SignIn } from "./components/popups/SignIn";
+import { Suggestions } from "./components/popups/Suggestions";
 
 
 
@@ -79,6 +80,8 @@ export class Root extends React.Component {
 							{this.props.children}
 							<CreateAccount />
 							<SignIn />
+							<Suggestions />
+
 
 
 

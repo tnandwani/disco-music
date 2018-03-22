@@ -39,6 +39,12 @@ function checkUser() {
 
 }
 
+function alphaButton() { 
+    console.log("ALPHA BUTOTN");
+    $('#suggestionModal').modal('toggle');
+
+ }
+
 
 
 
@@ -52,11 +58,11 @@ export class Leftbar extends React.Component {
                 <div className="dark">
 
                     <div className="row">
-                        <div className="col">
-                            <h1 className="gold" onClick={routerHome}> DISCO</h1>
+                        <div className="col-9">
+                            <h1 className="gold" onClick={routerHome}> DISCO <span  onClick = {alphaButton} className="oi oi-beaker smallIcon ml-1" title="alpha"></span></h1>
 
                         </div>
-                        <div className="col text-right pt-3">
+                        <div className="col-3 text-right pt-3">
 
                             <a onClick={checkUser}> <span className="oi oi-person postIcons pr-2" title="Profile" ></span></a>
                         </div>

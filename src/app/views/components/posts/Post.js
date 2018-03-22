@@ -10,8 +10,15 @@ import { CardHeader } from "./frame/cardHeader";
 export class Post extends React.Component {
 
     render() {
-        return (
 
+
+        //if text
+
+        
+
+        // if song
+
+        return (
 
             <div className="card p-0 text-white bg-dark mb-3 container">
 

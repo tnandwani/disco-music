@@ -23,10 +23,6 @@ export class Home extends React.Component {
 
     render() {
 
-        var song = {
-            id: "123",
-            name: "blah"
-        }
 
         return (
             <div className="mt-4">
@@ -53,14 +49,7 @@ export class Home extends React.Component {
                 <div className="card-columns">
 
                     <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
+                   
 
 
                 </div>

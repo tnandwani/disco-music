@@ -123,7 +123,7 @@
 	setTimeout(function () {
 	    document.getElementById("spinner").classList.add("d-none");
 	    (0, _reactDom.render)(_react2.default.createElement(App, null), window.document.getElementById('app'));
-	}, 0);
+	}, 500);
 
 /***/ }),
 /* 1 */
@@ -28835,7 +28835,8 @@
 	                            _react2.default.createElement(
 	                                "h1",
 	                                { className: "gold", onClick: routerHome },
-	                                " DISCO"
+	                                " DISCO ",
+	                                _react2.default.createElement("span", { className: "oi oi-plus postIcons pr-2", title: "plus" })
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -57030,6 +57031,12 @@
 	                        "h1",
 	                        { className: "gold" },
 	                        "Home"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h5",
+	                        { className: "gray" },
+	                        "@",
+	                        inUser.username
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -57040,15 +57047,12 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
-	                    _react2.default.createElement(_Post.Post, null),
 	                    _react2.default.createElement(_Post.Post, null)
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "my-5" },
+	                    _react2.default.createElement("br", null)
 	                )
 	            );
 	        }
@@ -57111,16 +57115,22 @@
 	    _createClass(Post, [{
 	        key: "render",
 	        value: function render() {
+	
+	            //if text
+	
+	
+	            // if song
+	
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "card p-0 text-white bg-dark mb-3 container" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "card-header p-2 text-center" },
+	                    { id: "postHeader", className: "card-header p-2 text-center" },
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "row" },
-	                        _react2.default.createElement("div", { className: "col" }),
+	                        _react2.default.createElement("div", { className: "col text-left" }),
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "col" },
@@ -57191,12 +57201,12 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    null,
+	                    { id: "postCover", className: "" },
 	                    _react2.default.createElement("img", { src: "images/coverArt.png", alt: "Card image cap", className: "card-img-top" })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "card-body leftAlign" },
+	                    { id: "postInfo", className: "card-body" },
 	                    _react2.default.createElement(
 	                        "h3",
 	                        null,
@@ -57222,27 +57232,31 @@
 	                    )
 	                ),
 	                _react2.default.createElement(
-	                    "ul",
-	                    { className: "list-group list-group-flush darkFade" },
+	                    "div",
+	                    { id: "postList", className: "" },
 	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "list-group-item" },
-	                        "Song Name"
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "list-group-item" },
-	                        "Song Name"
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "list-group-item" },
-	                        "Song Name"
+	                        "ul",
+	                        { className: "list-group list-group-flush darkFade" },
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "list-group-item" },
+	                            "Song Name"
+	                        ),
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "list-group-item" },
+	                            "Song Name"
+	                        ),
+	                        _react2.default.createElement(
+	                            "li",
+	                            { className: "list-group-item" },
+	                            "Song Name"
+	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "card-footer p-0 text-center container" },
+	                    { id: "postButtons", className: "card-footer p-0 text-center container" },
 	                    _react2.default.createElement(
 	                        "button",
 	                        { type: "button", className: "btn btn-secondary " },
@@ -57283,15 +57297,9 @@
 	// Specifies the default values for props:
 	
 	
-	AlbumPost.defaultProps = {
-	    username: 'Username',
-	    song: 'Song Name',
-	    artist: 'Artist Name',
-	    collection: 'Collection Name ',
-	    likes: 0,
-	    shares: 0,
-	    saves: 0,
-	    cover: "https://firebasestorage.googleapis.com/v0/b/disco-6a3bf.appspot.com/o/covers%2FcoverArt.png?alt=media&token=ac5f78d7-580b-4f61-9d1d-f86aa4e64fee"
+	Post.defaultProps = {
+	    id: "123",
+	    name: "Song Name"
 	};
 
 /***/ }),

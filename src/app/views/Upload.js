@@ -141,6 +141,8 @@ function verifyPublish() {
     var rawFeaturing = document.getElementById("rawFeaturing").value;
     var rawVibes = document.getElementById("rawVibes").value;
     var rawAlbumName = document.getElementById("rawAlbumName").value;
+    var rawExplicit = document.getElementById("rawExplicit").value;
+
 
 
     // is text post
@@ -163,7 +165,8 @@ function verifyPublish() {
                 name: rawSongName,
                 caption: rawCaption,
                 featuring: rawFeaturing,
-                vibes: rawVibes
+                vibes: rawVibes,
+                explicit: rawExplicit
             }
             publishSongPost(rawSongPost);
 
@@ -254,7 +257,7 @@ function publishSongPost(rawPost) {
 
     // songID to Library
 
-    
+
 
     var song = {
         name: rawPost.name,
@@ -263,6 +266,7 @@ function publishSongPost(rawPost) {
         vibes: rawPost.vibes,
         date: timestamp,
         cover: "images/coverArt.png",
+        explicit: rawPost.explicit,
         likes: 0,
         shares: 0,
         saves: 0
@@ -290,7 +294,7 @@ function publishSongPost(rawPost) {
                 vibes: false
             };
 
-        
+
             // create post ID for main Databse
             var newPostRef = userPostsRef.push();
 
@@ -554,17 +558,15 @@ export class Upload extends React.Component {
                                     <span className="input-group-text" id="basic-addon1">@</span>
                                 </div>
                                 <input id="rawFeaturing" type="text" className="form-control dark " placeholder="Featuring" />
-
-
                             </div>
-                            <h5 id="featuresList" className="my-3">  </h5>
+                            <h5 id="featuresList" className="mt-2"></h5>
 
 
                             <div className=" input-group mb-3 ">
                                 <div className="input-group-prepend">
                                     <span className="input-group-text pl-3" id="basic-addon1">#</span>
                                 </div>
-                                <input id="rawVibes" type="text" list={vibes} className="form-control dark" placeholder="Vibes (5 Max)" />
+                                <input id="rawVibes" type="text" className="form-control dark" placeholder="Vibes (5 Max)" />
 
                             </div>
 
@@ -576,11 +578,20 @@ export class Upload extends React.Component {
                             <button className="btn px-3 mr-2"></button>
 
                             <br />
-                            <button onClick={chooseSong} className="btn btn-outline-success my-3"> + Song File <span id="fileCheck" className="oi oi-check pl-2 text-warning d-none" title="check"></span></button>
-                            <input id="inputSong" className="d-none" type="file" accept="audio/*" onChange={handleSong} />
 
-                            <br />
+                            <div className="mt-3 ml-4 mb-0">
 
+                                <input id="rawExplicit" type="checkbox" className="form-check-input" /><p>Explicit</p>
+
+                            </div>
+
+                            <div>
+
+                                <button onClick={chooseSong} className="btn btn-outline-success my-0"> + Song File <span id="fileCheck" className="oi oi-check pl-2 text-warning d-none" title="check"></span></button>
+                                <input id="inputSong" className="d-none" type="file" accept="audio/*" onChange={handleSong} />
+
+
+                            </div>
 
                             <div className="text-right">
                                 <button className="btn btn-light" onClick={showAlbum}> + Add Song to Album</button>

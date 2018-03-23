@@ -62,15 +62,19 @@ export class Home extends React.Component {
 
     render() {
 
-        if (inUser.username == "username"){
+        if (inUser.username == "username") {
 
-            newStyle.display = 'block'
+            newStyle = {
+                display: "block"
+            }
         }
+
+        console.log(inUser);
 
         return (
             <div className="mt-4">
 
-                <div style= {newStyle} className="dark jumbotron py-4 my-3 text-center">
+                <div style={newStyle} className="dark jumbotron py-4 my-3 text-center">
 
 
                     <h1 className="gold"> <i>DISCOVER NEW MUSIC</i></h1>
@@ -78,7 +82,7 @@ export class Home extends React.Component {
 
                     {/* <button  className="btn btn-primary px-3 m-3 py-2" > Learn More </button> */}
 
-                    <button onClick = {showCreateModal}  className="btn btn-warning px-3 m-3 py-2" > Create Account </button>
+                    <button onClick={showCreateModal} className="btn btn-warning px-3 m-3 py-2" > Create Account </button>
 
                 </div>
 
@@ -88,7 +92,7 @@ export class Home extends React.Component {
 
                     <h1 className="gold display-3">New Releases</h1>
                     <h3 className="gray">Disco</h3>
-                    
+
 
                     {/* <UserBlock /> */}
                     {/*                     

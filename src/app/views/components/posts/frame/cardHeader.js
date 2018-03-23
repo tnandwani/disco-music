@@ -15,7 +15,7 @@ export class CardHeader extends React.Component {
 
                     </div>
                     <div className="col">
-                        <a className="text-white" href=""><h6>@Username</h6></a>
+                        <a className="text-white" href="/upload">@Username</a>
 
                     </div>
                     <div className="col text-right">

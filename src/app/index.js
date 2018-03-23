@@ -23,8 +23,6 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-    
-
     }
  
     render() {
@@ -44,11 +42,10 @@ class App extends React.Component {
     
 }
 
-console.log("LOG 2");
 
 
 
 setTimeout(function () { 
     document.getElementById("spinner").classList.add("d-none");
     render(<App />, window.document.getElementById('app')); 
-}, 500);
+}, 1000);

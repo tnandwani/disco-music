@@ -25,6 +25,48 @@ function togglePlay() {
 }
 
 
+function toggleLoop() {
+
+    if (document.getElementById("loopButton").classList.contains("gray")) {
+        // is  
+        document.getElementById("loopButton").classList.remove('gray');
+        document.getElementById("loopButton").classList.add('gold');
+
+
+
+    }
+    else {
+        // is not
+        document.getElementById("loopButton").classList.remove('gold');
+        document.getElementById("loopButton").classList.add('gray');
+
+
+
+    }
+}
+
+
+function toggleShuffle() {
+
+    if (document.getElementById("shuffleButton").classList.contains("gray")) {
+        // is  
+        document.getElementById("shuffleButton").classList.remove('gray');
+        document.getElementById("shuffleButton").classList.add('gold');
+
+
+
+    }
+    else {
+        // is not
+        document.getElementById("shuffleButton").classList.remove('gold');
+        document.getElementById("shuffleButton").classList.add('gray');
+
+
+
+    }
+}
+
+
 export const Footer = (props) => {
     return (
         <div className="footer-grid container-fluid text-center px-0 ten ">
@@ -54,14 +96,11 @@ export const Footer = (props) => {
 
             <div className="footerCenter">
                 <div className="pt-4 gold">
-                    <span className="oi oi-reload bigIcon px-3" title="Loop"></span>
-                    <span className="oi oi-media-skip-backward controlIcon px-5" title="Back"></span>
+                    <span id="loopButton"  onClick={toggleLoop} className="oi oi-reload bigIcon px-3 gray" title="Loop"></span>
+                    <span id="backButton" className="oi oi-media-skip-backward controlIcon px-5" title="Back"></span>
                     <span id="playButton" onClick={togglePlay} className="oi oi-media-play controlIcon px-2" title="Play"></span>
-                    <span className="oi oi-media-skip-forward controlIcon px-5" title="Next"></span>
-                    <span className="oi oi-random bigIcon pl-3" title="Shuffle"></span>
-
-
-
+                    <span id="nextButton" className="oi oi-media-skip-forward controlIcon px-5" title="Next"></span>
+                    <span id="shuffleButton" onClick={toggleShuffle} className="oi oi-random bigIcon pl-3 gray" title="Shuffle"></span>
                 </div>
             </div>
 

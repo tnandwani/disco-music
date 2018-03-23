@@ -2,28 +2,89 @@ import React from "react";
 import * as firebase from "firebase";
 import PropTypes from 'prop-types';
 
-import { CardButtons } from "./frame/cardButtons";
-import { CardHeader } from "./frame/cardHeader";
+// import { CardButtons } from "./frame/cardButtons";
+// import { CardHeader } from "./frame/cardHeader";
+
+
+var noneStyle = {
+    display: "none"
+}
+
+var post = {
+    username: "Username",
+    artist: "Artist",
+    caption: "Caption Over Here (100 Characters Max)",
+    type: "text",
+    date: "Date Posted",
+    content: ["Song Name"],
+    title: "Album Name",
+    likes: 0,
+    shares: 0,
+    saves: 0,
+    vibes: "#Vibes"
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
 
 export class Post extends React.Component {
 
+
+    constructor(props) {
+        super(props);
+
+        var postId = this.props.id;
+        var postType = this.props.type;
+
+        var postData = false;
+
+
+        var postRef = postsCollection.doc(postId);
+        postRef.get().then(function (doc) {
+            if (doc.exists) {
+
+                postData = doc.data();
+         
+            
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+
+    
+        
+        this.state = {
+            contentStyle: noneStyle,
+            listStyle: noneStyle,
+            id: postId,
+            type: postType,
+            post: postData
+        };
+
+
+   
+
+
+
+    }
+
     render() {
 
 
-        //if text
-
-        
-
-        // if song
 
         return (
 
             <div className="card p-0 text-white bg-dark mb-3 container">
 
                 {/* HEADER */}
-                <div  id="postHeader" className="card-header p-2 text-center">
+                <div id="postHeader" className="card-header p-2 text-center">
 
                     <div className="row">
                         <div className="col text-left">
@@ -31,7 +92,7 @@ export class Post extends React.Component {
 
                         </div>
                         <div className="col">
-                            <a className="text-white" href=""><h6>@Username</h6></a>
+                            <a className="text-white" href=""><h6>@{this.state.post.username}</h6></a>
 
                         </div>
                         <div className="col text-right">
@@ -53,44 +114,51 @@ export class Post extends React.Component {
                         </div>
                     </div>
 
-                    <h6 className="gray pt-2 text-center "> <i>Caption Over Here (100 Characters Max)</i> </h6>
+                    <h6 className="gray pt-2 text-center "> <i>{post.caption}</i> </h6>
+
+                </div>
+
+                {/* MUSIC CONTENT TRUE */}
+
+                <div id="postContent" style={this.state.contentStyle}>
+
+                    {/* COVER */}
+
+                    <div id="postCover">
+                        <img src="images/coverArt.png" alt="Card image cap" className="card-img-top" />
+
+                    </div>
+
+
+                    {/* INFO */}
+
+                    <div id="postInfo" className="card-body">
+                        <h3>{post.title}</h3>
+                        <h4><i className="gold">{post.artist}</i></h4>
+                        <h5><i>{post.vibes}</i></h5>
+
+                    </div>
+
+
+                    {/* LIST */}
+                    <div id="postList" style={this.state.listStyle} >
+                        <ul className="list-group list-group-flush darkFade">
+                            <li className="list-group-item">Song Name</li>
+                            <li className="list-group-item">Song Name</li>
+                            <li className="list-group-item">Song Name</li>
+                        </ul>
+                    </div>
 
                 </div>
 
 
-                {/* COVER */}
-
-                <div id="postCover"  className= "">
-                    <img src="images/coverArt.png" alt="Card image cap" className="card-img-top" />
-
-                </div>
-
-
-                {/* INFO */}
-
-                <div  id="postInfo"  className="card-body">
-                    <h3>Album Name</h3>
-                    <h4><i className="gold">Artist</i></h4>
-                    <h5><i>#Vibes</i></h5>
-
-                </div>
-
-
-                {/* LIST */}
-                <div id="postList"  className="">
-                    <ul className="list-group list-group-flush darkFade">
-                        <li className="list-group-item">Song Name</li>
-                        <li className="list-group-item">Song Name</li>
-                        <li className="list-group-item">Song Name</li>
-                    </ul>
-                </div>
 
 
 
 
                 {/* BUTTONS */}
 
-                <div id="postButtons"  className="card-footer p-0 text-center container">
+                <div id="postButtons" className="card-footer p-0 text-center container">
 
 
                     <button type="button" className="btn btn-secondary ">
@@ -116,22 +184,3 @@ export class Post extends React.Component {
         );
     }
 }
-
-// <div>
-//     <h1>{this.props.song}</h1>
-//     <h3><i>{this.props.artist}</i></h3>
-//     <h4>{this.props.collection}</h4>
-//     <img src={this.props.cover} className="feedCover" />
-//     <h5>Likes <small> {this.props.likes}</small> </h5>
-//     <h5>Saves <small> {this.props.saves}</small> </h5>
-//     <h5>Shares <small> {this.props.shares}</small> </h5>
-// </div>
-
-
-// Specifies the default values for props:
-
-
-Post.defaultProps = {
-    id: "123",
-    name: "Song Name"
-};

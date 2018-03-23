@@ -199,13 +199,16 @@ function publishTextPost(rawPost) {
 
     var post = {
         username: inUser.username,
+        artist: inUser.publicName,
         caption: rawPost.caption,
         type: "text",
         date: timestamp,
         content: false,
+        title: false,
         likes: 0,
         shares: 0,
-        saves: 0
+        saves: 0,
+        vibes: false
     };
 
 
@@ -251,6 +254,8 @@ function publishSongPost(rawPost) {
 
     // songID to Library
 
+    
+
     var song = {
         name: rawPost.name,
         artist: inUser.publicName,
@@ -273,14 +278,19 @@ function publishSongPost(rawPost) {
 
             var post = {
                 username: inUser.username,
+                artist: inUser.publicName,
                 caption: rawPost.caption,
                 type: "song",
-                date: Date.now(),
-                content: songKey,
+                date: timestamp,
+                content: [songKey],
+                title: rawPost.name,
                 likes: 0,
                 shares: 0,
-                saves: 0
+                saves: 0,
+                vibes: false
             };
+
+        
             // create post ID for main Databse
             var newPostRef = userPostsRef.push();
 
@@ -386,13 +396,16 @@ function publishAlbumPost(rawPost) {
 
     var post = {
         username: inUser.username,
+        artist: inUser.publicName,
         caption: rawPost.caption,
         type: "album",
-        date: Date.now(),
-        content: true,
+        date: timestamp,
+        content: ["", ""],
+        title: rawPost.name,
         likes: 0,
         shares: 0,
-        saves: 0
+        saves: 0,
+        vibes: false
     };
 
 }

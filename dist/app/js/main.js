@@ -42,11 +42,6 @@ var inUser = {
 };
 
 
-var newReleaseArray;
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
@@ -55,22 +50,21 @@ var newReleaseArray;
 
 function getUser() {
 
+   
+
     var userRef = usersCollection.doc(inUser.username);
     userRef.get().then(function (doc) {
         if (doc.exists) {
             inUser = doc.data();
             storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
                 setPhotoUrl(url);
-                console.log("Got User: ");
-                console.log(inUser);
-               
+                console.log("Welcome back " + inUser.publicName);
+
             }).catch(function (error) {
                 // Handle any errors
-                console.log("Got User: ");
-                console.log(inUser);
-                
+
             });
-          
+
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -82,24 +76,10 @@ function getUser() {
 
 }
 
-function setPhotoUrl(url) { 
+function setPhotoUrl(url) {
     inUser.photoUrl = url;
 
- }
-
- function newPostsArray(songID, type) {
-
-    console.log(songID + ": " + type);
-
-    if (newReleaseArray) {
-		newReleaseArray.push(songID);
-	}
-
-	else if (typeof songDataArray == "undefined") {
-		newReleaseArray = [songID];
-	}
-
- }
+}
 
 
 
@@ -110,9 +90,7 @@ function setPhotoUrl(url) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
-console.log("LOG 1");
-
- // Get User Info
+// Get User Info
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
@@ -120,17 +98,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         inUser.username = user.displayName;
         inUser.uid = user.uid;
         getUser();
-      
 
     } else {
         // No user is signed in.
     }
-});
-
-
-// GET All New Posts
-var postsRef = firebase.database().ref('posts');
-postsRef.on('child_added', function(data) {
-  newPostsArray(data.key, data.val());
-
 });

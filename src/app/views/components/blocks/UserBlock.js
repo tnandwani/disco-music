@@ -77,7 +77,7 @@ export class UserBlock extends React.Component {
                             <span className="badge badge-pill badge-warning mt-3">{inUser.verified}</span>
                         </div>
                     </div>
-                    <div className="col p-3 pt-5 text-left">
+                    <div className="col p-3 pt-5 ">
                         <h1 > {inUser.publicName}</h1>
                         <h1 className="gold py-3"> <i> @{inUser.username} </i> </h1>
 

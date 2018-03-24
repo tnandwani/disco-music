@@ -522,7 +522,7 @@ export class Upload extends React.Component {
         return (
             <div className="mt-4">
 
-                <h6 className="gold text-center"><i >BETA: Only Text and Song Uploads Working</i></h6>
+                <h6 className="gold text-center"><i >BETA: Only Text Uploads Working</i></h6>
 
 
                 <h3>Caption</h3>
@@ -530,7 +530,7 @@ export class Upload extends React.Component {
                     <input id="rawCaption" type="text" className="form-control dark my-3 py-3" maxLength="100" placeholder="100 Charater Limit" />
 
                     <div className="text-right">
-                        <button className="btn btn-light" onClick={showMusic}> + Add Song(s)</button>
+                        <button className="btn btn-light" onClick={showMusic} disabled = "disabled" > + Add Song(s)</button>
                     </div>
                 </div>
 

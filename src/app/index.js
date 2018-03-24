@@ -51,4 +51,4 @@ class App extends React.Component {
 setTimeout(function () {
     document.getElementById("spinner").classList.add("d-none");
     render(<App />, window.document.getElementById('app'));
-}, 1500);
+}, 3000);

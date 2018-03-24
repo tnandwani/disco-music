@@ -24,7 +24,7 @@ class App extends React.Component {
         super(props);
 
     }
- 
+
     render() {
 
         return (
@@ -39,13 +39,16 @@ class App extends React.Component {
             </Router>
         );
     }
-    
+
 }
 
+// // NO SPINNER
+// document.getElementById("spinner").classList.add("d-none");
+// render(<App />, window.document.getElementById('app'));
 
 
-
-setTimeout(function () { 
+// WITH SPINNER
+setTimeout(function () {
     document.getElementById("spinner").classList.add("d-none");
-    render(<App />, window.document.getElementById('app')); 
-}, 500);
+    render(<App />, window.document.getElementById('app'));
+}, 1500);

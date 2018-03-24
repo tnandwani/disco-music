@@ -2,13 +2,17 @@ import React from "react";
 import * as firebase from "firebase";
 import PropTypes from 'prop-types';
 
-// import { CardButtons } from "./frame/cardButtons";
-// import { CardHeader } from "./frame/cardHeader";
 
-
-var noneStyle = {
+var contentStyle = {
     display: "none"
-}
+};
+
+var listStyle = {
+    display: "none"
+};
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var post = {
     username: "Username",
@@ -24,67 +28,41 @@ var post = {
     vibes: "#Vibes"
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 
 export class Post extends React.Component {
 
-
+    // load needed data here in constructor before passing
     constructor(props) {
         super(props);
 
-        var postId = this.props.id;
-        var postType = this.props.type;
-
-        var postData = false;
-
-
-        var postRef = postsCollection.doc(postId);
-        postRef.get().then(function (doc) {
-            if (doc.exists) {
-
-                postData = doc.data();
-         
-            
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
-
-    
-        
         this.state = {
-            contentStyle: noneStyle,
-            listStyle: noneStyle,
-            id: postId,
-            type: postType,
-            post: postData
+            contentStyle: contentStyle
         };
 
 
-   
+        if (this.props.content.type == "song") {
 
+            this.state = {
+                contentStyle: {
+                    display: "block"
+                }
+            };
 
+        }
 
     }
 
+
+
     render() {
-
-
 
         return (
 
             <div className="card p-0 text-white bg-dark mb-3 container">
 
                 {/* HEADER */}
-                <div id="postHeader" className="card-header p-2 text-center">
+                <div id="postHeader" className="card-header text-center pb-1">
 
                     <div className="row">
                         <div className="col text-left">
@@ -92,7 +70,7 @@ export class Post extends React.Component {
 
                         </div>
                         <div className="col">
-                            <a className="text-white" href=""><h6>@{this.state.post.username}</h6></a>
+                            <a className="text-white" href=""><h6>@{this.props.content.username}</h6></a>
 
                         </div>
                         <div className="col text-right">
@@ -114,13 +92,13 @@ export class Post extends React.Component {
                         </div>
                     </div>
 
-                    <h6 className="gray pt-2 text-center "> <i>{post.caption}</i> </h6>
+                    <h6 className="gray pt-2 text-center "> <i>{this.props.content.caption}</i> </h6>
 
                 </div>
 
                 {/* MUSIC CONTENT TRUE */}
 
-                <div id="postContent" style={this.state.contentStyle}>
+                <div id="postContent" style = {this.state.contentStyle}>
 
                     {/* COVER */}
 
@@ -133,16 +111,16 @@ export class Post extends React.Component {
                     {/* INFO */}
 
                     <div id="postInfo" className="card-body">
-                        <h3>{post.title}</h3>
-                        <h4><i className="gold">{post.artist}</i></h4>
+                        <h3>{this.props.content.title}</h3>
+                        <h4><i className="gold">{this.props.content.artist}</i></h4>
                         <h5><i>{post.vibes}</i></h5>
 
                     </div>
 
 
                     {/* LIST */}
-                    <div id="postList" style={this.state.listStyle} >
-                        <ul className="list-group list-group-flush darkFade">
+                    <div id="postList">
+                        <ul className="list-group list-group-flush darkFade d-none">
                             <li className="list-group-item">Song Name</li>
                             <li className="list-group-item">Song Name</li>
                             <li className="list-group-item">Song Name</li>
@@ -158,25 +136,23 @@ export class Post extends React.Component {
 
                 {/* BUTTONS */}
 
-                <div id="postButtons" className="card-footer p-0 text-center container">
-
+                <div id="postButtons" className="card-footer text-center p-0">
 
                     <button type="button" className="btn btn-secondary ">
                         <span className="oi oi-fire postIcons pr-2" title="fire"></span>
                         Share
-                      </button>
+                        </button>
                     <button type="button" className="btn btn-secondary  px-4">
                         <span className="oi oi-heart postIcons pr-2" title="heart"></span>
                         Like
-                     </button>
+                        </button>
                     <button type="button" className="btn btn-secondary ">
                         <span className="oi oi-plus postIcons pr-2" title="plus"></span>
                         Save
-                       </button>
+                        </button>
+
 
                 </div>
-
-
 
             </div>
 

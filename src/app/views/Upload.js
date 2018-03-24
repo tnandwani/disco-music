@@ -141,7 +141,7 @@ function verifyPublish() {
     var rawFeaturing = document.getElementById("rawFeaturing").value;
     var rawVibes = document.getElementById("rawVibes").value;
     var rawAlbumName = document.getElementById("rawAlbumName").value;
-    var rawExplicit = document.getElementById("rawExplicit").value;
+    var rawExplicit = document.getElementById("rawExplicit").checked;
 
 
 
@@ -522,7 +522,7 @@ export class Upload extends React.Component {
         return (
             <div className="mt-4">
 
-                <h6 className="gold text-center"><i >BETA: Only Text Uploads Working</i></h6>
+                <h6 className="gold text-center"><i >BETA: Only Text and Song Uploads Working</i></h6>
 
 
                 <h3>Caption</h3>
@@ -594,7 +594,7 @@ export class Upload extends React.Component {
                             </div>
 
                             <div className="text-right">
-                                <button className="btn btn-light" onClick={showAlbum}> + Add Song to Album</button>
+                                <button className="btn btn-light disabled" disabled = "disabled" onClick={showAlbum}> + Add Song to Album</button>
 
                             </div>
 

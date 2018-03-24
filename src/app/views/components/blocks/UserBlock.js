@@ -28,6 +28,7 @@ function chooseProfileImage() {
 
 function handleProfile() {
 
+    document.getElementById("profileSpinner").classList.remove('d-none');
     var preview = document.getElementById("selectedImage");
     var file = document.getElementById("inputProfile").files[0];
     var reader = new FileReader();
@@ -43,6 +44,7 @@ function handleProfile() {
 
         userProfileRef.put(rawImage).then(function (snapshot) {
 
+            document.getElementById("profileSpinner").classList.add('d-none');
             console.log('Uploaded a blob or file to: ');
             console.log(userProfileRef);
 
@@ -73,8 +75,12 @@ export class UserBlock extends React.Component {
                     <div className="col py-2" >
                         <img src={inUser.photoUrl} className="rounded-circle profileCircle" id="selectedImage" onClick={chooseProfileImage} />
                         <input className="d-none" type="file" accept="image/*" id="inputProfile" onChange={handleProfile} />
+                        <div>
+                            <img id="profileSpinner" className="spinner d-none" src="images/loader.svg" />
+                        </div>
                         <div className="text-center" >
                             <span className="badge badge-pill badge-warning mt-3">{inUser.verified}</span>
+
                         </div>
                     </div>
                     <div className="col p-3 pt-5 ">

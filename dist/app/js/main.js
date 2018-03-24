@@ -41,6 +41,9 @@ var inUser = {
     photoUrl: "images/profile.png"
 };
 
+var feedArray;
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +53,7 @@ var inUser = {
 
 function getUser() {
 
-   
+
 
     var userRef = usersCollection.doc(inUser.username);
     userRef.get().then(function (doc) {
@@ -81,6 +84,53 @@ function setPhotoUrl(url) {
 
 }
 
+function makeFeed(postId) {
+
+
+    var postRef = postsCollection.doc(postId);
+    
+    postRef.get().then(function (doc) {
+        if (doc.exists) {
+            var postData = doc.data();
+
+
+            if (feedArray) {
+                feedArray.unshift(postData);
+
+                console.log(feedArray);
+            } else if (typeof feedArray == "undefined") {
+                feedArray = [postData];
+            }
+    
+
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function (error) {
+        console.log("Error getting document:", error);
+    });
+
+
+
+
+
+}
+
+
+function getNewPosts() {
+
+    // GET All New Posts
+    var postsRef = firebase.database().ref('posts').limitToLast(10);
+    postsRef.on('child_added', function (data) {
+        var songId = data.key;
+        makeFeed(songId);
+
+
+    });
+
+
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////

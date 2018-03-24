@@ -3,16 +3,13 @@ import { browserHistory } from "react-router";
 import PropTypes from 'prop-types';
 
 
-import { Post } from "./components/posts/Post";
 
 
-import { SongPost } from "./components/posts/songPost";
-import { AlbumPost } from "./components/posts/albumPost";
-import { PlaylistPost } from "./components/posts/playlistPost";
-import { TextPost } from "./components/posts/textPost";
-import { UserBlock } from "./components/blocks/UserBlock";
-import { AlbumBlock } from "./components/blocks/AlbumBlock";
+// import { UserBlock } from "./components/blocks/UserBlock";
+// import { AlbumBlock } from "./components/blocks/AlbumBlock";
 
+
+import { Feed } from "./components/Feed";
 
 
 
@@ -24,20 +21,10 @@ function showCreateModal() {
     $('#createModal').modal('toggle');
 }
 
-function getNewPosts() {
-
-    // GET All New Posts
-    var postsRef = firebase.database().ref('posts').limitToLast(10);
-    postsRef.on('child_added', function (data) {
-        makePost(data.key, data.val());
-
-    });
 
 
-}
 
-
-function makePost(postID, type) {
+function getPost(postID, type) {
 
     var postRef = postsCollection.doc(postID);
 
@@ -45,7 +32,9 @@ function makePost(postID, type) {
         if (doc.exists) {
             var postData = doc.data();
 
+            cardFeed.push(postData);
             console.log(postData);
+
 
         } else {
             // doc.data() will be undefined in this case
@@ -57,10 +46,13 @@ function makePost(postID, type) {
 }
 
 
-
 export class Home extends React.Component {
 
     render() {
+
+        // var postProto = <Post/>;
+
+        // cardFeed.push(postProto);
 
         if (inUser.username == "username") {
 
@@ -68,8 +60,6 @@ export class Home extends React.Component {
                 display: "block"
             }
         }
-
-        console.log(inUser);
 
         return (
             <div className="mt-4">
@@ -90,7 +80,7 @@ export class Home extends React.Component {
 
                 <div className="dark jumbotron py-4 my-3">
 
-                    <h1 className="gold display-3">New Releases</h1>
+                    <h1 className="gold">New Releases</h1>
                     <h3 className="gray">Disco</h3>
 
 
@@ -108,9 +98,13 @@ export class Home extends React.Component {
 
 
 
-                <div id="feedDeck" className="card-columns">
+                <div className="card-columns">
 
                     {/* // Push Posts Here  */}
+
+
+                    <Feed posts = {feedArray} />
+
 
 
 
@@ -134,6 +128,9 @@ export class Home extends React.Component {
 }
 
 
-setTimeout(function () {
-    getNewPosts();
-}, 1000);
+// START THE FEED HERE 
+// START THE FEED HERE 
+// START THE FEED HERE 
+// START THE FEED HERE 
+
+getNewPosts();

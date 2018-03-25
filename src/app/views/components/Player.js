@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 
+
 // Controllers
 function togglePlay() {
 
@@ -32,10 +33,13 @@ function togglePlay() {
 }
 function toggleLoop() {
 
+    var loopRef = firebase.database().ref('users/' + inUser.username + '/player/controls/loop');
+
     if (document.getElementById("loopButton").classList.contains("gray")) {
         // is  
         document.getElementById("loopButton").classList.remove('gray');
         document.getElementById("loopButton").classList.add('gold');
+        loopRef.set(true);
 
 
 
@@ -44,17 +48,19 @@ function toggleLoop() {
         // is not
         document.getElementById("loopButton").classList.remove('gold');
         document.getElementById("loopButton").classList.add('gray');
-
-
+        loopRef.set(false);
 
     }
 }
 function toggleShuffle() {
 
+    var shuffleRef = firebase.database().ref('users/' + inUser.username + '/player/controls/shuffle');
+
     if (document.getElementById("shuffleButton").classList.contains("gray")) {
         // is  
         document.getElementById("shuffleButton").classList.remove('gray');
         document.getElementById("shuffleButton").classList.add('gold');
+        shuffleRef.set(true);
 
 
 
@@ -63,8 +69,7 @@ function toggleShuffle() {
         // is not
         document.getElementById("shuffleButton").classList.remove('gold');
         document.getElementById("shuffleButton").classList.add('gray');
-
-
+        shuffleRef.set(false);
 
     }
 }
@@ -90,27 +95,53 @@ export class Player extends React.Component {
             saves: 0
         };
         this.state = {
-            playing: placeholder
+            playing: placeholder,
+            controls: {
+                loop: false,
+                play: false,
+                shuffle: false
+            }
         }
 
     }
 
     componentDidMount() {
-        var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
+        var playingRef = firebase.database().ref('users/' + inUser.username + '/player');
 
         playingRef.on('value', snapshot => {
 
-            console.log("NOW PLAYING: " + snapshot.val().song);
+            console.log("NOW PLAYING: " + snapshot.val().playing);
 
             var audioPlayer = document.getElementById("audioPlayer");
 
             audioPlayer.load();
 
             this.setState({
-                playing: snapshot.val()
+                playing: snapshot.val().playing,
+                controls: snapshot.val().controls
             });
 
 
+            if (snapshot.val().controls.loop == true) {
+                document.getElementById("loopButton").classList.remove('gray');
+                document.getElementById("loopButton").classList.add('gold');
+            }
+
+            else if (snapshot.val().controls.shuffle == true) {
+                document.getElementById("shuffleButton").classList.remove('gray');
+                document.getElementById("shuffleButton").classList.add('gold');
+            }
+
+
+            else if (snapshot.val().controls.loop == false) {
+                document.getElementById("loopButton").classList.remove('gold');
+                document.getElementById("loopButton").classList.add('gray');
+            }
+
+            else if (snapshot.val().controls.shuffle == false) {
+                document.getElementById("shuffleButton").classList.remove('gold');
+                document.getElementById("shuffleButton").classList.add('gray');
+            }
 
         });
     }

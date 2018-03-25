@@ -81,7 +81,7 @@ export class Home extends React.Component {
                 <div className="dark jumbotron py-4 my-3">
 
                     <h1 className="gold">New Releases</h1>
-                    <h3 className="gray">Disco</h3>
+                    <h3 className="gray">Everyone</h3>
 
 
                     {/* <UserBlock /> */}

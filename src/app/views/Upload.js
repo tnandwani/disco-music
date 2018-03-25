@@ -194,8 +194,8 @@ function verifyPublish() {
 function publishTextPost(rawPost) {
 
     var timestamp = Date.now();
-    document.getElementById("progressBar").style.width = "0%";
-    document.getElementById("progressBar").innerHTML = "0%";
+    // document.getElementById("progressBar").style.width = "0%";
+    // document.getElementById("progressBar").innerHTML = "0%";
 
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
@@ -261,6 +261,7 @@ function publishSongPost(rawPost) {
 
     var song = {
         name: rawPost.name,
+        id: false,
         artist: inUser.publicName,
         featuring: rawPost.featuring,
         vibes: rawPost.vibes,
@@ -279,6 +280,20 @@ function publishSongPost(rawPost) {
 
             var songKey = docRef.id;
             // add songID to post 
+            var newSongRef = songCollection.doc(songKey);
+
+            newSongRef.update({
+                id: songKey
+            })
+                .then(function () {
+                    console.log("Document successfully updated!");
+                })
+                .catch(function (error) {
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
+                });
+
+
 
             var post = {
                 username: inUser.username,
@@ -522,7 +537,7 @@ export class Upload extends React.Component {
         return (
             <div className="mt-4">
 
-                <h6 className="gold text-center"><i >BETA: Only Text Uploads Working</i></h6>
+                <h6 className="gold text-center"><i >BETA: Only Text and Song Uploads Working</i></h6>
 
 
                 <h3>Caption</h3>
@@ -530,7 +545,7 @@ export class Upload extends React.Component {
                     <input id="rawCaption" type="text" className="form-control dark my-3 py-3" maxLength="100" placeholder="100 Charater Limit" />
 
                     <div className="text-right">
-                        <button className="btn btn-light" onClick={showMusic} disabled = "disabled" > + Add Song(s)</button>
+                        <button className="btn btn-light" onClick={showMusic}  > + Add Song(s)</button>
                     </div>
                 </div>
 
@@ -594,7 +609,7 @@ export class Upload extends React.Component {
                             </div>
 
                             <div className="text-right">
-                                <button className="btn btn-light disabled" disabled = "disabled" onClick={showAlbum}> + Add Song to Album</button>
+                                <button className="btn btn-light disabled" disabled="disabled" onClick={showAlbum}> + Add Song to Album</button>
 
                             </div>
 

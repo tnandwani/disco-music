@@ -67,7 +67,7 @@
 	
 	var _Home = __webpack_require__(/*! ./views/Home */ 424);
 	
-	var _User = __webpack_require__(/*! ./views/User */ 434);
+	var _User = __webpack_require__(/*! ./views/User */ 427);
 	
 	var _Upload = __webpack_require__(/*! ./views/Upload */ 435);
 	
@@ -118,10 +118,18 @@
 	    return App;
 	}(_react2.default.Component);
 	
+	// // NO SPINNER
+	// document.getElementById("spinner").classList.add("d-none");
+	// render(<App />, window.document.getElementById('app'));
+	
+	
+	// WITH SPINNER
+	
+	
 	setTimeout(function () {
 	    document.getElementById("spinner").classList.add("d-none");
 	    (0, _reactDom.render)(_react2.default.createElement(App, null), window.document.getElementById('app'));
-	}, 1000);
+	}, 2000);
 
 /***/ }),
 /* 1 */
@@ -28903,6 +28911,11 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
+	                        { className: "nav-link ml-2 ", href: "home#NewReleases" },
+	                        "New Releases"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
 	                        { className: "nav-link ml-2", href: "home#Home" },
 	                        "Home",
 	                        _react2.default.createElement(
@@ -28910,11 +28923,6 @@
 	                            { className: "badge badge-pill badge-warning ml-2" },
 	                            "17"
 	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "a",
-	                        { className: "nav-link ml-2 ", href: "home#NewReleases" },
-	                        "New Releases"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
@@ -29154,6 +29162,21 @@
 	
 	};
 	
+	var rawPlayer = {
+	
+	    id: "id",
+	    title: "Song Name",
+	    artist: "Artist",
+	    features: "Features",
+	    album: false,
+	    vibes: "#Vibes",
+	    cover: "images/coverArt.png",
+	    loop: false,
+	    playing: false,
+	    shuffle: false
+	
+	};
+	
 	function checkUser() {
 	
 	    var user = firebase.auth().currentUser;
@@ -29274,6 +29297,8 @@
 	function saveUser(incomingUser) {
 	
 	    rawUser = incomingUser;
+	
+	    firebase.database().ref('users/' + incomingUser.username + '/player').set(rawPlayer);
 	
 	    writeUser(incomingUser);
 	}
@@ -29514,7 +29539,7 @@
 	
 	    firebase.auth().onAuthStateChanged(function (user) {
 	        if (user) {
-	            _reactRouter.browserHistory.push("/home");
+	            window.location.reload();
 	            $('#signInModal').modal('toggle');
 	        } else {}
 	    });
@@ -29714,7 +29739,7 @@
 	                            _react2.default.createElement(
 	                                "form",
 	                                null,
-	                                _react2.default.createElement("textarea", { className: "form-control dark", id: "rawSuggestion", cols: "50", rows: "5", placeholder: "What can we do better?" })
+	                                _react2.default.createElement("textarea", { className: "form-control dark", id: "rawSuggestion", cols: "50", rows: "5", placeholder: "What can we do better? Did something not work? Any ideas in general? Wanna join the team? " })
 	                            ),
 	                            _react2.default.createElement(
 	                                "div",
@@ -57149,19 +57174,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _Post = __webpack_require__(/*! ./components/posts/Post */ 425);
-	
-	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 426);
-	
-	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 429);
-	
-	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 430);
-	
-	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 431);
-	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 432);
-	
-	var _AlbumBlock = __webpack_require__(/*! ./components/blocks/AlbumBlock */ 433);
+	var _Feed = __webpack_require__(/*! ./components/Feed */ 425);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -57171,24 +57184,19 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	function getNewPosts() {
+	// import { UserBlock } from "./components/blocks/UserBlock";
+	// import { AlbumBlock } from "./components/blocks/AlbumBlock";
 	
-	    // GET All New Posts
-	    var postsRef = firebase.database().ref('posts').limitToLast(10);
-	    postsRef.on('child_added', function (data) {
-	        makePost(data.key, data.val());
-	    });
+	
+	var newStyle = {
+	    display: 'none'
+	};
+	
+	function showCreateModal() {
+	    $('#createModal').modal('toggle');
 	}
 	
-	var element = _react2.default.createElement(
-	    "h1",
-	    null,
-	    "Hello, world!"
-	);
-	
-	function makePost(postID, type) {
-	
-	    console.log("making: " + postID);
+	function getPost(postID, type) {
 	
 	    var postRef = postsCollection.doc(postID);
 	
@@ -57196,9 +57204,8 @@
 	        if (doc.exists) {
 	            var postData = doc.data();
 	
-	            var postElement = _react2.default.createElement(_Post.Post, { key: postID, postId: postID, type: type, post: postData });
-	
-	            cards.push(postElement);
+	            cardFeed.push(postData);
+	            console.log(postData);
 	        } else {
 	            // doc.data() will be undefined in this case
 	            console.log("No such document!");
@@ -57221,22 +57228,56 @@
 	        key: "render",
 	        value: function render() {
 	
+	            // var postProto = <Post/>;
+	
+	            // cardFeed.push(postProto);
+	
+	            if (inUser.username == "username") {
+	
+	                newStyle = {
+	                    display: "block"
+	                };
+	            }
+	
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "mt-4" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { style: newStyle, className: "dark jumbotron py-4 my-3 text-center" },
+	                    _react2.default.createElement(
+	                        "h1",
+	                        { className: "gold" },
+	                        " ",
+	                        _react2.default.createElement(
+	                            "i",
+	                            null,
+	                            "DISCOVER NEW MUSIC"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "h5",
+	                        { className: "gray py-4" },
+	                        "Disco Music is a music streaming service that allows Artists to share their music for free, and get paid for their work."
+	                    ),
+	                    _react2.default.createElement(
+	                        "button",
+	                        { onClick: showCreateModal, className: "btn btn-warning px-3 m-3 py-2" },
+	                        " Create Account "
+	                    )
+	                ),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "dark jumbotron py-4 my-3" },
 	                    _react2.default.createElement(
 	                        "h1",
 	                        { className: "gold" },
-	                        "Home"
+	                        "New Releases"
 	                    ),
 	                    _react2.default.createElement(
-	                        "h5",
+	                        "h3",
 	                        { className: "gray" },
-	                        "@",
-	                        inUser.username
+	                        "Disco"
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -57246,8 +57287,8 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { id: "feedDeck", className: "card-columns" },
-	                    element
+	                    { className: "card-columns" },
+	                    _react2.default.createElement(_Feed.Feed, { posts: feedArray })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
@@ -57261,12 +57302,77 @@
 	    return Home;
 	}(_react2.default.Component);
 	
-	// setTimeout(function () { 
-	//     getNewPosts();
-	// }, 1000);
+	// START THE FEED HERE 
+	// START THE FEED HERE 
+	// START THE FEED HERE 
+	// START THE FEED HERE 
+	
+	getNewPosts();
 
 /***/ }),
 /* 425 */
+/*!******************************************!*\
+  !*** ./src/app/views/components/Feed.js ***!
+  \******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Feed = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _Post = __webpack_require__(/*! ./posts/Post */ 426);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Feed = exports.Feed = function (_React$Component) {
+	    _inherits(Feed, _React$Component);
+	
+	    function Feed() {
+	        _classCallCheck(this, Feed);
+	
+	        return _possibleConstructorReturn(this, (Feed.__proto__ || Object.getPrototypeOf(Feed)).apply(this, arguments));
+	    }
+	
+	    _createClass(Feed, [{
+	        key: "render",
+	        value: function render() {
+	
+	            var content = this.props.posts.map(function (post) {
+	                return _react2.default.createElement(_Post.Post, { key: post.date, content: post });
+	            });
+	
+	            return _react2.default.createElement(
+	                "div",
+	                { id: "feed" },
+	                content
+	            );
+	        }
+	    }]);
+	
+	    return Feed;
+	}(_react2.default.Component);
+
+/***/ }),
+/* 426 */
 /*!************************************************!*\
   !*** ./src/app/views/components/posts/Post.js ***!
   \************************************************/
@@ -57303,13 +57409,15 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// import { CardButtons } from "./frame/cardButtons";
-	// import { CardHeader } from "./frame/cardHeader";
-	
-	
-	var noneStyle = {
+	var contentStyle = {
 	    display: "none"
 	};
+	
+	var listStyle = {
+	    display: "none"
+	};
+	
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	var post = {
 	    username: "Username",
@@ -57325,42 +57433,27 @@
 	    vibes: "#Vibes"
 	};
 	
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
 	var Post = exports.Post = function (_React$Component) {
 	    _inherits(Post, _React$Component);
 	
+	    // load needed data here in constructor before passing
 	    function Post(props) {
 	        _classCallCheck(this, Post);
 	
 	        var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
 	
-	        var postId = _this.props.id;
-	        var postType = _this.props.type;
-	
-	        var postData = false;
-	
-	        var postRef = postsCollection.doc(postId);
-	        postRef.get().then(function (doc) {
-	            if (doc.exists) {
-	
-	                postData = doc.data();
-	            } else {
-	                // doc.data() will be undefined in this case
-	                console.log("No such document!");
-	            }
-	        }).catch(function (error) {
-	            console.log("Error getting document:", error);
-	        });
-	
 	        _this.state = {
-	            contentStyle: noneStyle,
-	            listStyle: noneStyle,
-	            id: postId,
-	            type: postType,
-	            post: postData
+	            contentStyle: contentStyle
 	        };
+	
+	        if (_this.props.content.type == "song") {
+	
+	            _this.state = {
+	                contentStyle: {
+	                    display: "block"
+	                }
+	            };
+	        }
 	
 	        return _this;
 	    }
@@ -57374,7 +57467,7 @@
 	                { className: "card p-0 text-white bg-dark mb-3 container" },
 	                _react2.default.createElement(
 	                    "div",
-	                    { id: "postHeader", className: "card-header p-2 text-center" },
+	                    { id: "postHeader", className: "card-header text-center pb-1" },
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "row" },
@@ -57389,7 +57482,7 @@
 	                                    "h6",
 	                                    null,
 	                                    "@",
-	                                    this.state.post.username
+	                                    this.props.content.username
 	                                )
 	                            )
 	                        ),
@@ -57443,7 +57536,7 @@
 	                        _react2.default.createElement(
 	                            "i",
 	                            null,
-	                            post.caption
+	                            this.props.content.caption
 	                        ),
 	                        " "
 	                    )
@@ -57462,7 +57555,7 @@
 	                        _react2.default.createElement(
 	                            "h3",
 	                            null,
-	                            post.title
+	                            this.props.content.title
 	                        ),
 	                        _react2.default.createElement(
 	                            "h4",
@@ -57470,7 +57563,7 @@
 	                            _react2.default.createElement(
 	                                "i",
 	                                { className: "gold" },
-	                                post.artist
+	                                this.props.content.artist
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -57485,10 +57578,10 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { id: "postList", style: this.state.listStyle },
+	                        { id: "postList" },
 	                        _react2.default.createElement(
 	                            "ul",
-	                            { className: "list-group list-group-flush darkFade" },
+	                            { className: "list-group list-group-flush darkFade d-none" },
 	                            _react2.default.createElement(
 	                                "li",
 	                                { className: "list-group-item" },
@@ -57509,7 +57602,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { id: "postButtons", className: "card-footer p-0 text-center container" },
+	                    { id: "postButtons", className: "card-footer text-center p-0" },
 	                    _react2.default.createElement(
 	                        "button",
 	                        { type: "button", className: "btn btn-secondary " },
@@ -57537,7 +57630,161 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 426 */
+/* 427 */
+/*!*******************************!*\
+  !*** ./src/app/views/User.js ***!
+  \*******************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.User = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
+	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 428);
+	
+	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 431);
+	
+	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 432);
+	
+	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 433);
+	
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 434);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var User = exports.User = function (_React$Component) {
+	    _inherits(User, _React$Component);
+	
+	    function User(props) {
+	        _classCallCheck(this, User);
+	
+	        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
+	
+	        _this.state = {
+	            date: new Date()
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(User, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "dark" },
+	                    _react2.default.createElement(_UserBlock.UserBlock, null)
+	                ),
+	                _react2.default.createElement(
+	                    "ul",
+	                    { className: "nav nav-pills nav-justified my-2", id: "myTab", role: "tablist" },
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { className: "nav-link px-5 active", id: "home-tab", "data-toggle": "tab", href: "#all", role: "tab", "aria-controls": "all", "aria-selected": "true" },
+	                            "All"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { className: "nav-link px-5", id: "profile-tab", "data-toggle": "tab", href: "#posts", role: "tab", "aria-controls": "posts", "aria-selected": "false" },
+	                            "Posts"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { className: "nav-link px-5", id: "messages-tab", "data-toggle": "tab", href: "#shares", role: "tab", "aria-controls": "shares", "aria-selected": "false" },
+	                            "Shares"
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "li",
+	                        { className: "nav-item" },
+	                        _react2.default.createElement(
+	                            "a",
+	                            { className: "nav-link px-5", id: "settings-tab", "data-toggle": "tab", href: "#likes", role: "tab", "aria-controls": "likes", "aria-selected": "false" },
+	                            "Likes"
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "tab-content" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane active", id: "all", role: "tabpanel", "aria-labelledby": "home-tab" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "card-columns" },
+	                            _react2.default.createElement(_songPost.SongPost, null),
+	                            _react2.default.createElement(_albumPost.AlbumPost, null),
+	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
+	                            _react2.default.createElement(_textPost.TextPost, null),
+	                            _react2.default.createElement(_songPost.SongPost, null),
+	                            _react2.default.createElement(_songPost.SongPost, null),
+	                            _react2.default.createElement(_albumPost.AlbumPost, null),
+	                            _react2.default.createElement(_songPost.SongPost, null),
+	                            _react2.default.createElement(_textPost.TextPost, null),
+	                            _react2.default.createElement(_songPost.SongPost, null),
+	                            _react2.default.createElement(_albumPost.AlbumPost, null)
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return User;
+	}(_react2.default.Component);
+
+/***/ }),
+/* 428 */
 /*!****************************************************!*\
   !*** ./src/app/views/components/posts/songPost.js ***!
   \****************************************************/
@@ -57564,9 +57811,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 427);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 429);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 428);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 430);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -57661,7 +57908,7 @@
 	};
 
 /***/ }),
-/* 427 */
+/* 429 */
 /*!*************************************************************!*\
   !*** ./src/app/views/components/posts/frame/cardButtons.js ***!
   \*************************************************************/
@@ -57733,7 +57980,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 428 */
+/* 430 */
 /*!************************************************************!*\
   !*** ./src/app/views/components/posts/frame/cardHeader.js ***!
   \************************************************************/
@@ -57854,7 +58101,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 429 */
+/* 431 */
 /*!*****************************************************!*\
   !*** ./src/app/views/components/posts/albumPost.js ***!
   \*****************************************************/
@@ -57881,9 +58128,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 427);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 429);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 428);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 430);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -57996,7 +58243,7 @@
 	};
 
 /***/ }),
-/* 430 */
+/* 432 */
 /*!********************************************************!*\
   !*** ./src/app/views/components/posts/playlistPost.js ***!
   \********************************************************/
@@ -58023,9 +58270,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 427);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 429);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 428);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 430);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -58219,7 +58466,7 @@
 	};
 
 /***/ }),
-/* 431 */
+/* 433 */
 /*!****************************************************!*\
   !*** ./src/app/views/components/posts/textPost.js ***!
   \****************************************************/
@@ -58246,9 +58493,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 427);
+	var _cardButtons = __webpack_require__(/*! ./frame/cardButtons */ 429);
 	
-	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 428);
+	var _cardHeader = __webpack_require__(/*! ./frame/cardHeader */ 430);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -58310,7 +58557,7 @@
 	};
 
 /***/ }),
-/* 432 */
+/* 434 */
 /*!******************************************************!*\
   !*** ./src/app/views/components/blocks/UserBlock.js ***!
   \******************************************************/
@@ -58365,6 +58612,7 @@
 	
 	function handleProfile() {
 	
+	    document.getElementById("profileSpinner").classList.remove('d-none');
 	    var preview = document.getElementById("selectedImage");
 	    var file = document.getElementById("inputProfile").files[0];
 	    var reader = new FileReader();
@@ -58379,6 +58627,7 @@
 	
 	        userProfileRef.put(rawImage).then(function (snapshot) {
 	
+	            document.getElementById("profileSpinner").classList.add('d-none');
 	            console.log('Uploaded a blob or file to: ');
 	            console.log(userProfileRef);
 	        });
@@ -58418,6 +58667,11 @@
 	                        { className: "col py-2" },
 	                        _react2.default.createElement("img", { src: inUser.photoUrl, className: "rounded-circle profileCircle", id: "selectedImage", onClick: chooseProfileImage }),
 	                        _react2.default.createElement("input", { className: "d-none", type: "file", accept: "image/*", id: "inputProfile", onChange: handleProfile }),
+	                        _react2.default.createElement(
+	                            "div",
+	                            null,
+	                            _react2.default.createElement("img", { id: "profileSpinner", className: "spinner d-none", src: "images/loader.svg" })
+	                        ),
 	                        _react2.default.createElement(
 	                            "div",
 	                            { className: "text-center" },
@@ -58495,277 +58749,6 @@
 	    }]);
 	
 	    return UserBlock;
-	}(_react2.default.Component);
-
-/***/ }),
-/* 433 */
-/*!*******************************************************!*\
-  !*** ./src/app/views/components/blocks/AlbumBlock.js ***!
-  \*******************************************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.AlbumBlock = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(/*! prop-types */ 184);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AlbumBlock = exports.AlbumBlock = function (_React$Component) {
-	    _inherits(AlbumBlock, _React$Component);
-	
-	    function AlbumBlock() {
-	        _classCallCheck(this, AlbumBlock);
-	
-	        return _possibleConstructorReturn(this, (AlbumBlock.__proto__ || Object.getPrototypeOf(AlbumBlock)).apply(this, arguments));
-	    }
-	
-	    _createClass(AlbumBlock, [{
-	        key: "render",
-	        value: function render() {
-	            return _react2.default.createElement(
-	                "div",
-	                null,
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "row container p-3 text-center" },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "col text-right" },
-	                        _react2.default.createElement("img", { src: "images/coverArt.png", className: "profileCircle" })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "col p-3 " },
-	                        _react2.default.createElement(
-	                            "h1",
-	                            null,
-	                            " Album Name"
-	                        ),
-	                        _react2.default.createElement(
-	                            "h1",
-	                            { className: "gold py-3" },
-	                            " Artist "
-	                        ),
-	                        _react2.default.createElement(
-	                            "h4",
-	                            null,
-	                            " ",
-	                            _react2.default.createElement(
-	                                "i",
-	                                null,
-	                                " #Vibes"
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "col p-3" },
-	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-outline-secondary w-75" },
-	                            _react2.default.createElement("span", { className: "oi oi-plus pr-2", title: "plus" }),
-	                            "Save"
-	                        ),
-	                        _react2.default.createElement("br", null),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-outline-secondary w-75 my-3" },
-	                            _react2.default.createElement("span", { className: "oi oi-fire pr-2", title: "fire" }),
-	                            "Share"
-	                        ),
-	                        _react2.default.createElement("br", null),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-outline-secondary w-75 mb-3" },
-	                            _react2.default.createElement("span", { className: "oi oi-heart pr-2", title: "heart" }),
-	                            "Like"
-	                        ),
-	                        _react2.default.createElement(
-	                            "button",
-	                            { type: "button", className: "btn btn-outline-secondary w-75" },
-	                            _react2.default.createElement("span", { className: "oi oi-share pr-2", title: "share" }),
-	                            "Send"
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return AlbumBlock;
-	}(_react2.default.Component);
-
-/***/ }),
-/* 434 */
-/*!*******************************!*\
-  !*** ./src/app/views/User.js ***!
-  \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.User = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(/*! prop-types */ 184);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 186);
-	
-	var _songPost = __webpack_require__(/*! ./components/posts/songPost */ 426);
-	
-	var _albumPost = __webpack_require__(/*! ./components/posts/albumPost */ 429);
-	
-	var _playlistPost = __webpack_require__(/*! ./components/posts/playlistPost */ 430);
-	
-	var _textPost = __webpack_require__(/*! ./components/posts/textPost */ 431);
-	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 432);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var User = exports.User = function (_React$Component) {
-	    _inherits(User, _React$Component);
-	
-	    function User(props) {
-	        _classCallCheck(this, User);
-	
-	        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
-	
-	        _this.state = {
-	            date: new Date()
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(User, [{
-	        key: "render",
-	        value: function render() {
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "dark" },
-	                    _react2.default.createElement(_UserBlock.UserBlock, null)
-	                ),
-	                _react2.default.createElement(
-	                    "ul",
-	                    { className: "nav nav-pills nav-justified my-2", id: "myTab", role: "tablist" },
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "nav-item" },
-	                        _react2.default.createElement(
-	                            "a",
-	                            { className: "nav-link px-5 active", id: "home-tab", "data-toggle": "tab", href: "#all", role: "tab", "aria-controls": "all", "aria-selected": "true" },
-	                            "All"
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "nav-item" },
-	                        _react2.default.createElement(
-	                            "a",
-	                            { className: "nav-link px-5", id: "profile-tab", "data-toggle": "tab", href: "#posts", role: "tab", "aria-controls": "posts", "aria-selected": "false" },
-	                            "Posts"
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "nav-item" },
-	                        _react2.default.createElement(
-	                            "a",
-	                            { className: "nav-link px-5", id: "messages-tab", "data-toggle": "tab", href: "#shares", role: "tab", "aria-controls": "shares", "aria-selected": "false" },
-	                            "Shares"
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "li",
-	                        { className: "nav-item" },
-	                        _react2.default.createElement(
-	                            "a",
-	                            { className: "nav-link px-5", id: "settings-tab", "data-toggle": "tab", href: "#likes", role: "tab", "aria-controls": "likes", "aria-selected": "false" },
-	                            "Likes"
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "tab-content" },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane active", id: "all", role: "tabpanel", "aria-labelledby": "home-tab" },
-	                        _react2.default.createElement(
-	                            "div",
-	                            { className: "card-columns" },
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_playlistPost.PlaylistPost, null),
-	                            _react2.default.createElement(_textPost.TextPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_textPost.TextPost, null),
-	                            _react2.default.createElement(_songPost.SongPost, null),
-	                            _react2.default.createElement(_albumPost.AlbumPost, null)
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return User;
 	}(_react2.default.Component);
 
 /***/ }),
@@ -58849,6 +58832,7 @@
 	    var rawFeaturing = document.getElementById("rawFeaturing").value;
 	    var rawVibes = document.getElementById("rawVibes").value;
 	    var rawAlbumName = document.getElementById("rawAlbumName").value;
+	    var rawExplicit = document.getElementById("rawExplicit").checked;
 	
 	    // is text post
 	    // requires: only caption no song name
@@ -58870,7 +58854,8 @@
 	                name: rawSongName,
 	                caption: rawCaption,
 	                featuring: rawFeaturing,
-	                vibes: rawVibes
+	                vibes: rawVibes,
+	                explicit: rawExplicit
 	            };
 	            publishSongPost(rawSongPost);
 	        } else {
@@ -58955,6 +58940,7 @@
 	        vibes: rawPost.vibes,
 	        date: timestamp,
 	        cover: "images/coverArt.png",
+	        explicit: rawPost.explicit,
 	        likes: 0,
 	        shares: 0,
 	        saves: 0
@@ -59245,11 +59231,7 @@
 	                                ),
 	                                _react2.default.createElement("input", { id: "rawFeaturing", type: "text", className: "form-control dark ", placeholder: "Featuring" })
 	                            ),
-	                            _react2.default.createElement(
-	                                "h5",
-	                                { id: "featuresList", className: "my-3" },
-	                                "  "
-	                            ),
+	                            _react2.default.createElement("h5", { id: "featuresList", className: "mt-2" }),
 	                            _react2.default.createElement(
 	                                "div",
 	                                { className: " input-group mb-3 " },
@@ -59262,7 +59244,7 @@
 	                                        "#"
 	                                    )
 	                                ),
-	                                _react2.default.createElement("input", { id: "rawVibes", type: "text", list: vibes, className: "form-control dark", placeholder: "Vibes (5 Max)" })
+	                                _react2.default.createElement("input", { id: "rawVibes", type: "text", className: "form-control dark", placeholder: "Vibes (5 Max)" })
 	                            ),
 	                            _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
 	                            _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
@@ -59271,19 +59253,32 @@
 	                            _react2.default.createElement("button", { className: "btn px-3 mr-2" }),
 	                            _react2.default.createElement("br", null),
 	                            _react2.default.createElement(
-	                                "button",
-	                                { onClick: chooseSong, className: "btn btn-outline-success my-3" },
-	                                " + Song File ",
-	                                _react2.default.createElement("span", { id: "fileCheck", className: "oi oi-check pl-2 text-warning d-none", title: "check" })
+	                                "div",
+	                                { className: "mt-3 ml-4 mb-0" },
+	                                _react2.default.createElement("input", { id: "rawExplicit", type: "checkbox", className: "form-check-input" }),
+	                                _react2.default.createElement(
+	                                    "p",
+	                                    null,
+	                                    "Explicit"
+	                                )
 	                            ),
-	                            _react2.default.createElement("input", { id: "inputSong", className: "d-none", type: "file", accept: "audio/*", onChange: handleSong }),
-	                            _react2.default.createElement("br", null),
+	                            _react2.default.createElement(
+	                                "div",
+	                                null,
+	                                _react2.default.createElement(
+	                                    "button",
+	                                    { onClick: chooseSong, className: "btn btn-outline-success my-0" },
+	                                    " + Song File ",
+	                                    _react2.default.createElement("span", { id: "fileCheck", className: "oi oi-check pl-2 text-warning d-none", title: "check" })
+	                                ),
+	                                _react2.default.createElement("input", { id: "inputSong", className: "d-none", type: "file", accept: "audio/*", onChange: handleSong })
+	                            ),
 	                            _react2.default.createElement(
 	                                "div",
 	                                { className: "text-right" },
 	                                _react2.default.createElement(
 	                                    "button",
-	                                    { className: "btn btn-light", onClick: showAlbum },
+	                                    { className: "btn btn-light disabled", disabled: "disabled", onClick: showAlbum },
 	                                    " + Add Song to Album"
 	                                )
 	                            )

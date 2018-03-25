@@ -29,8 +29,9 @@ var post = {
 };
 
 
-
 export class Post extends React.Component {
+
+    
 
     // load needed data here in constructor before passing
     constructor(props) {
@@ -51,8 +52,20 @@ export class Post extends React.Component {
 
         }
 
+
+        console.log(this.props.content.content);
+
+        let songId
+
     }
 
+
+
+    pushSong() { 
+
+    
+    
+     }
 
 
     render() {
@@ -98,7 +111,7 @@ export class Post extends React.Component {
 
                 {/* MUSIC CONTENT TRUE */}
 
-                <div id="postContent" style = {this.state.contentStyle}>
+                <div id="postContent" style={this.state.contentStyle}>
 
                     {/* COVER */}
 
@@ -111,7 +124,7 @@ export class Post extends React.Component {
                     {/* INFO */}
 
                     <div id="postInfo" className="card-body">
-                        <h3>{this.props.content.title}</h3>
+                        <h3 onClick = {test}>{this.props.content.title}</h3>
                         <h4><i className="gold">{this.props.content.artist}</i></h4>
                         <h5><i>{post.vibes}</i></h5>
 

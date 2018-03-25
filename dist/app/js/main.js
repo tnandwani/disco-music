@@ -31,6 +31,7 @@ var albumsCollection = firestore.collection("albums");
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 var inUser = {
     username: "username",
     uid: "uid",
@@ -40,6 +41,21 @@ var inUser = {
     following: ["disco"],
     photoUrl: "images/profile.png"
 };
+
+
+var sampleSong = {
+    name: "Song Name",
+    artist: "Artist",
+    featuring: false,
+    vibes: "#Vibes",
+    date: "Date",
+    cover: "images/coverArt.png",
+    explicit: false,
+    likes: 0,
+    shares: 0,
+    saves: 0
+};
+
 
 var feedArray;
 
@@ -59,12 +75,14 @@ function getUser() {
     userRef.get().then(function (doc) {
         if (doc.exists) {
             inUser = doc.data();
-            storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
-                setPhotoUrl(url);
-                console.log("Welcome back " + inUser.publicName);
 
+            storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
+                // setPhotoUrl(url);
+                console.log("Welcome back " + inUser.publicName);
             }).catch(function (error) {
                 // Handle any errors
+
+
 
             });
 
@@ -88,7 +106,7 @@ function makeFeed(postId) {
 
 
     var postRef = postsCollection.doc(postId);
-    
+
     postRef.get().then(function (doc) {
         if (doc.exists) {
             var postData = doc.data();
@@ -96,12 +114,10 @@ function makeFeed(postId) {
 
             if (feedArray) {
                 feedArray.unshift(postData);
-
-                console.log(feedArray);
             } else if (typeof feedArray == "undefined") {
                 feedArray = [postData];
             }
-    
+
 
         } else {
             // doc.data() will be undefined in this case
@@ -110,10 +126,6 @@ function makeFeed(postId) {
     }).catch(function (error) {
         console.log("Error getting document:", error);
     });
-
-
-
-
 
 }
 
@@ -129,15 +141,29 @@ function getNewPosts() {
 
     });
 
+}
+
+function newPlaying(playing) {
+
+    sampleSong = playing;
+
 
 }
 
+function test(){
+
+    console.log("Hi");
+
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 // START DISCO
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 // Get User Info
@@ -148,6 +174,20 @@ firebase.auth().onAuthStateChanged(function (user) {
         inUser.username = user.displayName;
         inUser.uid = user.uid;
         getUser();
+
+
+        var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
+
+        playingRef.on('value', function (snapshot) {
+            var playing = snapshot.val();
+            
+            newPlaying(playing);
+
+        });
+
+
+
+
 
     } else {
         // No user is signed in.

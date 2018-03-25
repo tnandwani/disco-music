@@ -9,7 +9,7 @@ export class Feed extends React.Component {
     render() {
 
         const content = this.props.posts.map((post) =>        
-            <Post key = {post.date} content = {post}/>
+            <Post key = {post.date} content = {post} type = {post.type}/>
         ); 
 
 

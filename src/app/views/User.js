@@ -2,11 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { browserHistory } from "react-router";
 
-import { SongPost } from "./components/posts/songPost";
-import { AlbumPost } from "./components/posts/albumPost";
-import { PlaylistPost } from "./components/posts/playlistPost";
-import { TextPost } from "./components/posts/textPost";
-
 import { UserBlock } from "./components/blocks/UserBlock";
 
 
@@ -49,17 +44,6 @@ export class User extends React.Component {
                     <div className="tab-pane active" id="all" role="tabpanel" aria-labelledby="home-tab">
                         <div className="card-columns">
 
-                             <SongPost />
-                            <AlbumPost />
-                            <PlaylistPost />
-                            <TextPost />
-                            <SongPost />
-                            <SongPost />
-                            <AlbumPost />
-                            <SongPost />
-                            <TextPost />
-                            <SongPost />
-                            <AlbumPost />
 
 
                         </div>

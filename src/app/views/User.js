@@ -25,20 +25,7 @@ export class User extends React.Component {
                 </div>
 
 
-                <ul className="nav nav-pills nav-justified my-2" id="myTab" role="tablist">
-                    <li className="nav-item">
-                        <a className="nav-link px-5 active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link px-5" id="profile-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="false">Posts</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link px-5" id="messages-tab" data-toggle="tab" href="#shares" role="tab" aria-controls="shares" aria-selected="false">Shares</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link px-5" id="settings-tab" data-toggle="tab" href="#likes" role="tab" aria-controls="likes" aria-selected="false">Likes</a>
-                    </li>
-                </ul>
+             
 
                 <div className="tab-content">
                     <div className="tab-pane active" id="all" role="tabpanel" aria-labelledby="home-tab">

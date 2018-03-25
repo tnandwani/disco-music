@@ -77,7 +77,7 @@ function getUser() {
             inUser = doc.data();
 
             storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
-                // setPhotoUrl(url);
+                setPhotoUrl(url);
                 console.log("Welcome back " + inUser.publicName);
             }).catch(function (error) {
                 // Handle any errors
@@ -109,10 +109,12 @@ function makeFeed(postId) {
 
     postRef.get().then(function (doc) {
         if (doc.exists) {
-            var postData = doc.data();
+            var postData = {
+                data: doc.data(),
+                id: postId
+            }
 
-
-            if (feedArray) {
+           if (feedArray) {
                 feedArray.unshift(postData);
             } else if (typeof feedArray == "undefined") {
                 feedArray = [postData];
@@ -144,18 +146,12 @@ function getNewPosts() {
 }
 
 function newPlaying(playing) {
-
     sampleSong = playing;
-
-
 }
 
-function test(){
-
-    console.log("Hi");
 
 
-}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////

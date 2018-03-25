@@ -38,7 +38,9 @@ function handleProfile() {
 
     rawImage = file;
 
-    if (rawImage) {
+    if (rawImage) { 
+
+        inUser.photoUrl = rawImage;
 
         var userProfileRef = storageRef.child('profileImages/' + inUser.uid);
 
@@ -47,6 +49,7 @@ function handleProfile() {
             document.getElementById("profileSpinner").classList.add('d-none');
             console.log('Uploaded a blob or file to: ');
             console.log(userProfileRef);
+            inUser.photoUrl = snapshot.downloadURL;
 
         });
     } else {

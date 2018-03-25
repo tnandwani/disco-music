@@ -3,14 +3,7 @@ import { browserHistory } from "react-router";
 import PropTypes from 'prop-types';
 
 
-
-
-// import { UserBlock } from "./components/blocks/UserBlock";
-// import { AlbumBlock } from "./components/blocks/AlbumBlock";
-
-
 import { Feed } from "./components/Feed";
-
 
 
 var newStyle = {
@@ -87,6 +80,8 @@ export class Home extends React.Component {
                     {/* <UserBlock /> */}
                     {/*                     
                     <AlbumBlock/> */}
+
+                    
 
                 </div>
 

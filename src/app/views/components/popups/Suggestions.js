@@ -47,7 +47,7 @@ export class Suggestions extends React.Component {
                             <h2 className="mb-4 gold text-center"> <i>Alpha Suggestion Box</i> </h2>
 
                             <form>
-                                <textarea className="form-control dark" id="rawSuggestion" cols="50" rows="5" placeholder="What can we do better? Did something not work? Any ideas in general? Wanna join the team? "></textarea>
+                                <textarea className="form-control dark" id="rawSuggestion" cols="50" rows="3" placeholder="What can we do better? Did something not work? Any ideas in general? Wanna join the team? "></textarea>
 
                             </form>
 

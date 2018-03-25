@@ -45,6 +45,17 @@ function alphaButton() {
 
  }
 
+ function updateHeader(){
+
+    feedHeader = "Posts";
+    console.log(feedHeader);
+
+
+}
+
+var feedHeader = "New Releases";
+
+
 
 
 
@@ -83,23 +94,29 @@ export class Leftbar extends React.Component {
 
                 <nav className="nav flex-column ml-3">
 
+                  <h6 className="mt-3"> Discover</h6>
+                    <a className="nav-link ml-2 " href="">New Releases<span className="badge badge-pill badge-warning ml-2"><span className="oi oi-bolt smallIcon" title="alpha"></span></span></a>
+                    <a className="nav-link ml-2" href="">Home<span className="badge badge-pill badge-warning ml-2">17</span></a>
+                    {/* <a className="nav-link ml-2 " href="">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a> */}
 
-                    <h6 className="mt-3"> Discover</h6>
-                    <a className="nav-link ml-2 " href="home#NewReleases">New Releases</a>
-                    <a className="nav-link ml-2" href="home#Home">Home<span className="badge badge-pill badge-warning ml-2">17</span></a>
-                    <a className="nav-link ml-2 " href="home#Suggestions">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a>
+                    <h6 className="mt-3"> Profile</h6>
+                    <a className="nav-link ml-2" onClick= {updateHeader}>Posts</a>
+                    {/* <a className="nav-link ml-2" href="">Reposts</a>
+                    <a className="nav-link ml-2 " href="">Likes</a>
+ */}
 
 
+                    {/* // <h6 className="mt-3"> Library</h6>
+                    <a className="nav-link ml-2" href="#">Songs</a>
+                     <a className="nav-link ml-2" href="#">Albums</a>
+                     <a className="nav-link ml-2" href="#">Artists</a>
+                     <a className="nav-link ml-2" href="#">Posts</a>
 
-                    <h6 className="mt-3"> Library</h6>
-                    <a className="nav-link ml-2" href="home#">Songs</a>
-                    <a className="nav-link ml-2" href="home#">Albums</a>
-                    <a className="nav-link ml-2" href="home#">Artists</a>
 
-                    <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
-                    <a className="nav-link ml-2 " href="home#Driving">Driving</a>
-                    <a className="nav-link ml-2 " href="home#Study">Study</a>
-                    <a className="nav-link ml-2 " href="home#Gym">Gym</a>
+                     <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
+                    <a className="nav-link ml-2 " href="#Driving">Driving</a>
+                 <a className="nav-link ml-2 " href="#Study">Study</a>
+                    <a className="nav-link ml-2 " href="#Gym">Gym</a> */}
 
 
 

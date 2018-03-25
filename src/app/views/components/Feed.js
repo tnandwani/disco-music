@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import { Post } from "./posts/Post";
+import { Post } from "./Post";
 
 
 
@@ -9,7 +9,7 @@ export class Feed extends React.Component {
     render() {
 
         const content = this.props.posts.map((post) =>        
-            <Post key = {post.date} content = {post} type = {post.type}/>
+            <Post key = {post.id} id= {post.id} content = {post.data} type = {post.type}/>
         ); 
 
 

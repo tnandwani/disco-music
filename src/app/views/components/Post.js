@@ -31,16 +31,25 @@ var post = {
 
 export class Post extends React.Component {
 
-    
+
 
     // load needed data here in constructor before passing
     constructor(props) {
         super(props);
+        
+        
 
+
+
+        var postId = this.props.id;
+
+        // text post 
         this.state = {
-            contentStyle: contentStyle
+            contentStyle: contentStyle,
+            id: postId
         };
 
+        // song post 
 
         if (this.props.content.type == "song") {
 
@@ -52,20 +61,19 @@ export class Post extends React.Component {
 
         }
 
+        this.pushSong = this.pushSong.bind(this);
 
-        console.log(this.props.content.content);
-
-        let songId
 
     }
 
+    pushSong(){
+
+        var songId = this.props.content.content;
+        console.log(songId);
 
 
-    pushSong() { 
+    }
 
-    
-    
-     }
 
 
     render() {
@@ -79,7 +87,7 @@ export class Post extends React.Component {
 
                     <div className="row">
                         <div className="col text-left">
-                            {/* <span className="oi oi-fire pl-2" title="fire"></span> */}
+                            <span className="oi oi-bolt" title="follow"></span>
 
                         </div>
                         <div className="col">
@@ -89,7 +97,7 @@ export class Post extends React.Component {
                         <div className="col text-right">
                             <div className="dropdown show">
                                 <a className="" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span className="oi oi-ellipses pr-2" title="ellipses"></span>
+                                    <span className="oi oi-ellipses" title="ellipses"></span>
                                 </a>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -116,7 +124,7 @@ export class Post extends React.Component {
                     {/* COVER */}
 
                     <div id="postCover">
-                        <img src="images/coverArt.png" alt="Card image cap" className="card-img-top" />
+                        <img src="images/coverArt.png" alt="Card image cap" onClick = {this.pushSong}className="card-img-top" />
 
                     </div>
 
@@ -124,7 +132,7 @@ export class Post extends React.Component {
                     {/* INFO */}
 
                     <div id="postInfo" className="card-body">
-                        <h3 onClick = {test}>{this.props.content.title}</h3>
+                        <h3>{this.props.content.title}</h3>
                         <h4><i className="gold">{this.props.content.artist}</i></h4>
                         <h5><i>{post.vibes}</i></h5>
 

@@ -17,6 +17,7 @@ import { Upload } from "./views/Upload";
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 class App extends React.Component {
 
     // load needed data here in constructor before passing
@@ -52,6 +53,6 @@ class App extends React.Component {
 
 // WITH SPINNER
 setTimeout(function () {
-    document.getElementById("spinner").classList.add("d-none");
     render(<App />, window.document.getElementById('app'));
+    document.getElementById("spinner").classList.add("d-none");
 }, 3000);

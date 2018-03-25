@@ -32,7 +32,8 @@ var uploadPercent = {
     width: "100%"
 };
 
-var rawCover, rawSong = false;
+var rawCover = false;
+var rawSong = false;
 
 // List of Verified Vibes
 var vibes = [
@@ -144,7 +145,6 @@ function verifyPublish() {
     var rawExplicit = document.getElementById("rawExplicit").checked;
 
 
-
     // is text post
     // requires: only caption no song name
     if (rawCaption.length > 0 && rawSongName.length == 0) {
@@ -249,16 +249,13 @@ function publishTextPost(rawPost) {
 function publishSongPost(rawPost) {
 
     var timestamp = Date.now();
-    document.getElementById("progressBar").style.width = "0%";
-    document.getElementById("progressBar").innerHTML = "0%";
+
 
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 
-    // songID to Library
 
-
-
+    // create song wit data
     var song = {
         name: rawPost.name,
         id: false,
@@ -267,40 +264,33 @@ function publishSongPost(rawPost) {
         vibes: rawPost.vibes,
         date: timestamp,
         cover: "images/coverArt.png",
+        song: false,
         explicit: rawPost.explicit,
         likes: 0,
         shares: 0,
         saves: 0
     }
 
+    document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressBar").innerHTML = "0%";
+
+
+    // write song data 
     songCollection.add(song)
         .then(function (docRef) {
-            console.log("Document written with ID: ", docRef.id);
-
 
             var songKey = docRef.id;
-            // add songID to post 
-            var newSongRef = songCollection.doc(songKey);
-
-            newSongRef.update({
-                id: songKey
-            })
-                .then(function () {
-                    console.log("Document successfully updated!");
-                })
-                .catch(function (error) {
-                    // The document probably doesn't exist.
-                    console.error("Error updating document: ", error);
-                });
+            var newSongDoc = songCollection.doc(songKey);
 
 
-
+            // create post with SONG
             var post = {
                 username: inUser.username,
                 artist: inUser.publicName,
                 caption: rawPost.caption,
                 type: "song",
                 date: timestamp,
+                cover: "images/coverArt.png",
                 content: [songKey],
                 title: rawPost.name,
                 likes: 0,
@@ -309,21 +299,36 @@ function publishSongPost(rawPost) {
                 vibes: false
             };
 
+            // write song id to song data
+            newSongDoc.update({
+                id: songKey
+            })
+                .then(function () {
+                    console.log("Song successfully updated!");
+                })
+                .catch(function (error) {
+                    console.error("Error updating document: ", error);
+                });
 
-            // create post ID for main Databse
+
+
+
+            // create post ID
             var newPostRef = userPostsRef.push();
 
-            // Post ID to User Database
+            var postKey = newPostRef.key;
 
+            // Post ID to User Database
             newPostRef.set(post.type);
 
-            // Post ID to User Database
-            var allPostsRef = database.ref('posts/' + newPostRef.key);
+            // Post ID to all Database
+            var allPostsRef = database.ref('posts/' + postKey);
             allPostsRef.set(post.type);
 
-            var postDocument = postsCollection.doc(newPostRef.key);
+            var newPostDoc = postsCollection.doc(postKey);
+
             // Post to Main with key
-            postDocument.set(post)
+            newPostDoc.set(post)
                 .then(function () {
                     console.log("Document successfully written!");
                     document.getElementById("progressBar").style.width = "25%";
@@ -339,46 +344,79 @@ function publishSongPost(rawPost) {
                         newSongRef.put(rawSong).then(function (snapshot) {
                             console.log('Uploaded Song');
 
-                            // UPLOAD COVER FILE
-                            if (rawCover != false) {
-                                console.log('GOT A COVER');
+                            // Update Song location
 
-                                document.getElementById("progressBar").style.width = "50%";
-                                document.getElementById("progressBar").innerHTML = "50%";
+                            var songURL = snapshot.downloadURL;
 
-                                var newCoverRef = storageRef.child('covers/' + songKey);
+                            return newSongDoc.update({
+                                song: songURL
+                            })
+                                .then(function () {
+                                    console.log("Document successfully updated!");
+                                    // UPLOAD COVER FILE
+                                    if (rawCover != false) {
+                                        console.log('GOT A COVER');
 
-                                newCoverRef.put(rawCover).then(function (snapshot) {
-                                    console.log('Uploaded Cover');
-                                    document.getElementById("progressBar").style.width = "75%";
-                                    document.getElementById("progressBar").innerHTML = "75%";
+                                        document.getElementById("progressBar").style.width = "50%";
+                                        document.getElementById("progressBar").innerHTML = "50%";
 
-                                    // Update Cover location
+                                        var newCoverRef = storageRef.child('covers/' + postKey);
 
-                                    return postDocument.update({
-                                        cover: songKey
-                                    })
-                                        .then(function () {
-                                            console.log("Document successfully updated!");
-                                            setTimeout(function () { routerHome(); }, 1000);
-                                        })
-                                        .catch(function (error) {
-                                            // The document probably doesn't exist.
-                                            console.error("Error updating document: ", error);
+                                        newCoverRef.put(rawCover).then(function (snapshot) {
+                                            console.log('Uploaded Cover');
+                                            document.getElementById("progressBar").style.width = "75%";
+                                            document.getElementById("progressBar").innerHTML = "75%";
+
+                                            // Update Cover location
+
+                                            var coverURL = snapshot.downloadURL;
+
+                                            return newPostDoc.update({
+                                                cover: coverURL
+                                            })
+                                                .then(function () {
+                                                    console.log("Document successfully updated!");
+                                                    return newSongDoc.update({
+                                                        cover: coverURL
+                                                    })
+                                                        .then(function () {
+                                                            console.log("Document successfully updated!");
+                                                            setTimeout(function () { routerHome(); }, 1000);
+                                                        })
+                                                        .catch(function (error) {
+                                                            // The document probably doesn't exist.
+                                                            console.error("Error updating document: ", error);
+                                                        });
+
+                                                })
+                                                .catch(function (error) {
+                                                    // The document probably doesn't exist.
+                                                    console.error("Error updating document: ", error);
+                                                });
+
+
+
+
                                         });
+                                    }
+                                    else {
+                                        document.getElementById("progressBar").style.width = "100%";
+                                        document.getElementById("progressBar").innerHTML = "100%";
 
+                                        setTimeout(function () { routerHome(); }, 1000);
 
+                                    }
 
-
+                                })
+                                .catch(function (error) {
+                                    // The document probably doesn't exist.
+                                    console.error("Error updating document: ", error);
                                 });
-                            }
-                            else {
-                                document.getElementById("progressBar").style.width = "100%";
-                                document.getElementById("progressBar").innerHTML = "100%";
 
-                                setTimeout(function () { routerHome(); }, 1000);
 
-                            }
+
+
+
 
 
                         });
@@ -482,6 +520,8 @@ function handleCover() {
 
     // set file
 
+    console.log("changing cover now");
+
     rawCover = file;
 
     reader.addEventListener("load", function () {
@@ -502,23 +542,6 @@ function handleSong() {
     var file = document.getElementById("inputSong").files[0];
     rawSong = file;
     document.getElementById("fileCheck").classList.remove('d-none');
-
-
-
-
-
-
-    // var reader = new FileReader();
-    // reader.addEventListener("load", function () {
-    //     preview.src = reader.result;
-    // }, false);
-
-    // if (file) {
-    //     reader.readAsDataURL(file);
-    // }
-
-    // set file
-
 
 
 }

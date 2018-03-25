@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 // Controllers
 function togglePlay() {
 
+    var audioPlayer = document.getElementById("audioPlayer");
+
     if (document.getElementById("playButton").classList.contains("oi-media-play")) {
         // is playing 
         console.log("is playing");
         document.getElementById("playButton").classList.remove('oi-media-play');
         document.getElementById("playButton").classList.add('oi-media-pause');
 
+        audioPlayer.play();
 
 
     }
@@ -19,8 +22,7 @@ function togglePlay() {
         console.log("is paused");
         document.getElementById("playButton").classList.remove('oi-media-pause');
         document.getElementById("playButton").classList.add('oi-media-play');
-
-
+        audioPlayer.pause();
 
     }
 
@@ -69,7 +71,6 @@ function toggleShuffle() {
 
 
 
-
 export class Player extends React.Component {
 
     // load needed data here in constructor before passing
@@ -99,15 +100,20 @@ export class Player extends React.Component {
 
         playingRef.on('value', snapshot => {
 
-            // console.log(snapshot.val());
+            console.log("NOW PLAYING: " + snapshot.val().song);
 
+            var audioPlayer = document.getElementById("audioPlayer");
+
+            audioPlayer.load();
 
             this.setState({
                 playing: snapshot.val()
-            })
+            });
+
+
 
         });
-      }
+    }
 
 
     render() {
@@ -166,6 +172,13 @@ export class Player extends React.Component {
 
 
                 </div>
+
+
+                <audio id="audioPlayer">
+
+                    <source src={this.state.playing.song} />
+
+                </audio>
 
 
 

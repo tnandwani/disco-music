@@ -150,6 +150,19 @@ function newPlaying(playing) {
 }
 
 
+function pushPlaying(song){
+
+    var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
+
+    playingRef.set(song);
+
+    var audioPlayer = document.getElementById("audioPlayer");
+    audioPlayer.play();
+
+
+
+}
+
 
 
 

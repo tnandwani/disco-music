@@ -202,6 +202,23 @@ function writeUser(incomingUser) {
             // User is signed in.
             var user = firebase.auth().currentUser;
 
+             // write PLayer here
+
+             var playingRef = firebase.database().ref('users/' + rawUser.username + '/player');
+
+
+             var rawPlayer = {
+                 controls: {
+                     loop: true,
+                     play: true,
+                     shuffle: true
+                 },
+                 playing: sampleSong
+             };
+
+             playingRef.set(rawPlayer);
+
+
             console.log("going to update: " + user);
 
             user.updateProfile({
@@ -210,10 +227,15 @@ function writeUser(incomingUser) {
             }).then(function () {
                 // Update successful.
 
+
+                
+
                 console.log("successfully updated profile!");
 
                 console.log("raw image is ");
                 console.log(rawImage);
+
+                
 
                 // upload profile picture 
                 if (rawImage) {
@@ -225,7 +247,7 @@ function writeUser(incomingUser) {
                         console.log('Uploaded a blob or file to: ');
                         console.log(userProfileRef);
                         
-                        checkUser();
+                    checkUser();
 
                     });
                 } else {

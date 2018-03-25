@@ -18,6 +18,7 @@ var post = {
     username: "Username",
     artist: "Artist",
     caption: "Caption Over Here (100 Characters Max)",
+    cover: "images/coverArt.png",
     type: "text",
     date: "Date Posted",
     content: ["Song Name"],
@@ -36,11 +37,8 @@ export class Post extends React.Component {
     // load needed data here in constructor before passing
     constructor(props) {
         super(props);
-        
-        
 
-
-
+        console.log("cover is: "  + this.props.content.cover)
         var postId = this.props.id;
 
         // text post 
@@ -66,10 +64,54 @@ export class Post extends React.Component {
 
     }
 
-    pushSong(){
+    pushSong() {
 
         var songId = this.props.content.content;
         console.log(songId);
+
+
+        // is song 
+        if (songId.length == 1){
+            songId = songId[0];
+
+        }
+
+        // is album
+        if (songId.length > 1){
+            
+        }
+
+
+        var audioPlayer = document.getElementById("audioPlayer");
+
+        if (document.getElementById("playButton").classList.contains("oi-media-play")) {
+            // is playing 
+            console.log("is playing");
+            document.getElementById("playButton").classList.remove('oi-media-play');
+            document.getElementById("playButton").classList.add('oi-media-pause');
+    
+            audioPlayer.play();
+    
+    
+        }
+
+
+        var songRef = songsCollection.doc(songId);
+        songRef.get().then(function (doc) {
+            if (doc.exists) {
+               var songData = doc.data();
+               console.log(songData);
+
+               pushPlaying(songData);
+                
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
 
 
     }
@@ -124,7 +166,7 @@ export class Post extends React.Component {
                     {/* COVER */}
 
                     <div id="postCover">
-                        <img src="images/coverArt.png" alt="Card image cap" onClick = {this.pushSong}className="card-img-top" />
+                        <img src= {this.props.content.cover} alt="Card image cap" onClick={this.pushSong} className="card-img-top" />
 
                     </div>
 

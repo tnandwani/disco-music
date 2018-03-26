@@ -10,7 +10,6 @@ function togglePlay() {
 
     if (document.getElementById("playButton").classList.contains("oi-media-play")) {
         // is playing 
-        console.log("is playing");
         document.getElementById("playButton").classList.remove('oi-media-play');
         document.getElementById("playButton").classList.add('oi-media-pause');
 
@@ -20,7 +19,6 @@ function togglePlay() {
     }
     else {
         // is paused
-        console.log("is paused");
         document.getElementById("playButton").classList.remove('oi-media-pause');
         document.getElementById("playButton").classList.add('oi-media-play');
         audioPlayer.pause();
@@ -106,44 +104,55 @@ export class Player extends React.Component {
     }
 
     componentDidMount() {
-        var playingRef = firebase.database().ref('users/' + inUser.username + '/player');
 
-        playingRef.on('value', snapshot => {
+        console.log(inUser.username);
 
-            console.log("NOW PLAYING: " + snapshot.val().playing);
+        if (inUser.username != "username"){
 
-            var audioPlayer = document.getElementById("audioPlayer");
+            var playingRef = firebase.database().ref('users/' + inUser.username + '/player');
 
-            audioPlayer.load();
+            playingRef.on('value', snapshot => {
+    
+                console.log("NOW PLAYING: " + snapshot.val().playing);
+    
+                var audioPlayer = document.getElementById("audioPlayer");
+    
+                audioPlayer.load();
+    
+                this.setState({
+                    playing: snapshot.val().playing,
+                    controls: snapshot.val().controls
+                });
+    
+    
+                if (snapshot.val().controls.loop == true) {
+                    document.getElementById("loopButton").classList.remove('gray');
+                    document.getElementById("loopButton").classList.add('gold');
+                    audioPlayer.loop = true;
+                }
+    
+                else if (snapshot.val().controls.shuffle == true) {
+                    document.getElementById("shuffleButton").classList.remove('gray');
+                    document.getElementById("shuffleButton").classList.add('gold');
+                }
+    
+    
+                else if (snapshot.val().controls.loop == false) {
+                    document.getElementById("loopButton").classList.remove('gold');
+                    document.getElementById("loopButton").classList.add('gray');
+                    audioPlayer.loop = false;
 
-            this.setState({
-                playing: snapshot.val().playing,
-                controls: snapshot.val().controls
+                }
+    
+                else if (snapshot.val().controls.shuffle == false) {
+                    document.getElementById("shuffleButton").classList.remove('gold');
+                    document.getElementById("shuffleButton").classList.add('gray');
+                }
+    
             });
 
+        }
 
-            if (snapshot.val().controls.loop == true) {
-                document.getElementById("loopButton").classList.remove('gray');
-                document.getElementById("loopButton").classList.add('gold');
-            }
-
-            else if (snapshot.val().controls.shuffle == true) {
-                document.getElementById("shuffleButton").classList.remove('gray');
-                document.getElementById("shuffleButton").classList.add('gold');
-            }
-
-
-            else if (snapshot.val().controls.loop == false) {
-                document.getElementById("loopButton").classList.remove('gold');
-                document.getElementById("loopButton").classList.add('gray');
-            }
-
-            else if (snapshot.val().controls.shuffle == false) {
-                document.getElementById("shuffleButton").classList.remove('gold');
-                document.getElementById("shuffleButton").classList.add('gray');
-            }
-
-        });
     }
 
 
@@ -155,7 +164,7 @@ export class Player extends React.Component {
 
                     <div className="float-left ten">
 
-                        {/* <span className="oi oi-layers bigIcon px-3 gold" title="Queue"></span> */}
+                        <span className="oi oi-layers bigIcon px-3 gold" title="Queue"></span>
                         <img src={this.state.playing.cover} className="h-100" />
 
 
@@ -163,12 +172,10 @@ export class Player extends React.Component {
                     </div>
                     <div className="ml-5 float-right">
 
-                        <div className="ml-5 mr-5">
+                        <div className="ml-5 mr-5 mt-1">
                             <h4 > {this.state.playing.name}</h4>
                             <h5 className="gold"> {this.state.playing.artist}</h5>
                             <h6> <i>{this.state.playing.vibes}</i></h6>
-
-
                         </div>
 
 

@@ -38,7 +38,6 @@ export class Post extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log("cover is: "  + this.props.content.cover)
         var postId = this.props.id;
 
         // text post 
@@ -95,6 +94,7 @@ export class Post extends React.Component {
     
         }
 
+        if (inUser.username != "username"){
 
         var songRef = songsCollection.doc(songId);
         songRef.get().then(function (doc) {
@@ -112,6 +112,9 @@ export class Post extends React.Component {
         }).catch(function (error) {
             console.log("Error getting document:", error);
         });
+
+
+        }
 
 
     }

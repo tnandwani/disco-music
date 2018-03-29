@@ -2,8 +2,12 @@ import React from "react";
 import { browserHistory } from "react-router";
 import PropTypes from 'prop-types';
 
-
 import { Feed } from "./components/Feed";
+
+import { UserBlock } from "./components/blocks/UserBlock";
+import { NewReleases } from "./components/blocks/NewReleases";
+import { HomeFeed } from "./components/blocks/HomeFeed";
+
 
 
 var newStyle = {
@@ -15,37 +19,11 @@ function showCreateModal() {
 }
 
 
-
-
-function getPost(postID, type) {
-
-    var postRef = postsCollection.doc(postID);
-
-    postRef.get().then(function (doc) {
-        if (doc.exists) {
-            var postData = doc.data();
-
-            cardFeed.push(postData);
-            console.log(postData);
-
-
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }).catch(function (error) {
-        console.log("Error getting document:", error);
-    });
-}
-
-
 export class Home extends React.Component {
 
-    render() {
 
-        // var postProto = <Post/>;
-
-        // cardFeed.push(postProto);
+    constructor(props) {
+        super(props);
 
         if (inUser.username == "username") {
 
@@ -54,6 +32,9 @@ export class Home extends React.Component {
             }
         }
 
+    }
+
+    render() {
         return (
             <div className="mt-4">
 
@@ -73,15 +54,15 @@ export class Home extends React.Component {
 
                 <div className="dark jumbotron py-4 my-3">
 
-                    <h1 className="gold">New Releases</h1>
-                    <h3 className="gray">Everyone</h3>
+
 
 
                     {/* <UserBlock /> */}
-                    {/*                     
-                    <AlbumBlock/> */}
+                    <NewReleases/>
+                    {/* <HomeFeed /> */}
 
-                    
+
+
 
                 </div>
 
@@ -98,7 +79,7 @@ export class Home extends React.Component {
                     {/* // Push Posts Here  */}
 
 
-                    <Feed posts = {feedArray} />
+                    <Feed posts={feedArray} />
 
 
 
@@ -121,11 +102,3 @@ export class Home extends React.Component {
 
     }
 }
-
-
-// START THE FEED HERE 
-// START THE FEED HERE 
-// START THE FEED HERE 
-// START THE FEED HERE 
-
-getNewPosts();

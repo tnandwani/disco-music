@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run build",
     "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --content-base dist/ --inline --hot --history-api-fallback",
-    "build:prod": "webpack -p && cp src/index.html dist/index.html",
+    "build:prod":  "webpack -p && cp src/index.html dist/index.html && webpack-dev-server --content-base dist/ --inline --hot --history-api-fallback",
     "postinstall": "webpack -p && cp src/index.html dist/index.html",
     "start": "node server.js"
   },

@@ -45,15 +45,12 @@ function alphaButton() {
 
  }
 
- function updateHeader(){
-
-    feedHeader = "Posts";
-    console.log(feedHeader);
 
 
-}
 
 var feedHeader = "New Releases";
+
+
 
 
 
@@ -100,7 +97,7 @@ export class Leftbar extends React.Component {
                     {/* <a className="nav-link ml-2 " href="">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a> */}
 
                     <h6 className="mt-3"> Profile</h6>
-                    <a className="nav-link ml-2" onClick= {updateHeader}>Posts</a>
+                    <a className="nav-link ml-2"  onClick = {getUserPosts}>Posts</a>
                     {/* <a className="nav-link ml-2" href="">Reposts</a>
                     <a className="nav-link ml-2 " href="">Likes</a>
  */}

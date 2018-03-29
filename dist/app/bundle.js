@@ -67,9 +67,9 @@
 	
 	var _Home = __webpack_require__(/*! ./views/Home */ 424);
 	
-	var _User = __webpack_require__(/*! ./views/User */ 427);
+	var _User = __webpack_require__(/*! ./views/User */ 430);
 	
-	var _Upload = __webpack_require__(/*! ./views/Upload */ 429);
+	var _Upload = __webpack_require__(/*! ./views/Upload */ 431);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -79,168 +79,17 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	// START THE FEED HERE 
+	// START THE FEED HERE 
+	// START THE FEED HERE 
+	getNewPosts();
+	
 	////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	// CLASS
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
 	
-	
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// START FIREBASE
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	
-	var config = {
-	    apiKey: "AIzaSyDquIdmKQfr-QGF3kyEb28FzAboOPBE36g",
-	    authDomain: "disco-6a3bf.firebaseapp.com",
-	    databaseURL: "https://disco-6a3bf.firebaseio.com",
-	    projectId: "disco-6a3bf",
-	    storageBucket: "disco-6a3bf.appspot.com",
-	    messagingSenderId: "71660981931"
-	};
-	firebase.initializeApp(config);
-	
-	var firestore = firebase.firestore();
-	var storageRef = firebase.storage().ref();
-	
-	var usersCollection = firestore.collection("users");
-	var postsCollection = firestore.collection("posts");
-	var songsCollection = firestore.collection("songs");
-	var albumsCollection = firestore.collection("albums");
-	
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// USER VARIABLES
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	var inUser = {
-	    username: "username",
-	    uid: "uid",
-	    email: "email",
-	    publicName: "My Profile",
-	    followers: ["disco"],
-	    following: ["disco"],
-	    photoUrl: "images/profile.png"
-	};
-	
-	var sampleSong = {
-	    name: "Song Name",
-	    artist: "Artist",
-	    featuring: false,
-	    vibes: "#Vibes",
-	    date: "Date",
-	    cover: "images/coverArt.png",
-	    explicit: false,
-	    likes: 0,
-	    shares: 0,
-	    saves: 0
-	};
-	
-	var feedArray;
-	
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// FUNCTIONS
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	
-	function getUser() {
-	
-	    var userRef = usersCollection.doc(inUser.username);
-	    userRef.get().then(function (doc) {
-	        if (doc.exists) {
-	            inUser = doc.data();
-	
-	            storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
-	                setPhotoUrl(url);
-	                console.log("Welcome back " + inUser.publicName);
-	            }).catch(function (error) {
-	                // Handle any errors
-	
-	
-	            });
-	        } else {
-	            // doc.data() will be undefined in this case
-	            console.log("No such document!");
-	        }
-	    }).catch(function (error) {
-	        console.log("Error getting document:", error);
-	    });
-	}
-	
-	function setPhotoUrl(url) {
-	    inUser.photoUrl = url;
-	}
-	
-	function makeFeed(postId) {
-	
-	    var postRef = postsCollection.doc(postId);
-	
-	    postRef.get().then(function (doc) {
-	        if (doc.exists) {
-	            var postData = doc.data();
-	
-	            if (feedArray) {
-	                feedArray.unshift(postData);
-	            } else if (typeof feedArray == "undefined") {
-	                feedArray = [postData];
-	            }
-	        } else {
-	            // doc.data() will be undefined in this case
-	            console.log("No such document!");
-	        }
-	    }).catch(function (error) {
-	        console.log("Error getting document:", error);
-	    });
-	}
-	
-	function getNewPosts() {
-	
-	    // GET All New Posts
-	    var postsRef = firebase.database().ref('posts').limitToLast(10);
-	    postsRef.on('child_added', function (data) {
-	        var songId = data.key;
-	        makeFeed(songId);
-	    });
-	}
-	
-	function newPlaying(playing) {
-	    sampleSong = playing;
-	}
-	
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// START DISCO
-	////////////////////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	// Get User Info
-	firebase.auth().onAuthStateChanged(function (user) {
-	    if (user) {
-	        // User is signed in.
-	
-	        inUser.username = user.displayName;
-	        inUser.uid = user.uid;
-	        getUser();
-	
-	        var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
-	
-	        playingRef.on('value', function (snapshot) {
-	            var playing = snapshot.val();
-	
-	            newPlaying(playing);
-	        });
-	    } else {
-	        // No user is signed in.
-	    }
-	});
-	
-	/////////
 	
 	var App = function (_React$Component) {
 	    _inherits(App, _React$Component);
@@ -285,7 +134,6 @@
 	setTimeout(function () {
 	    (0, _reactDom.render)(_react2.default.createElement(App, null), window.document.getElementById('app'));
 	    document.getElementById("spinner").classList.add("d-none");
-	    renderApp();
 	}, 3000);
 
 /***/ }),
@@ -28820,43 +28668,112 @@
 	// Controllers
 	function togglePlay() {
 	
+	    var audioPlayer = document.getElementById("audioPlayer");
+	
 	    if (document.getElementById("playButton").classList.contains("oi-media-play")) {
 	        // is playing 
-	        console.log("is playing");
 	        document.getElementById("playButton").classList.remove('oi-media-play');
 	        document.getElementById("playButton").classList.add('oi-media-pause');
+	        audioPlayer.play();
 	    } else {
 	        // is paused
-	        console.log("is paused");
 	        document.getElementById("playButton").classList.remove('oi-media-pause');
 	        document.getElementById("playButton").classList.add('oi-media-play');
+	        audioPlayer.pause();
 	    }
 	
 	    // TEST SHIT HERE
 	}
 	function toggleLoop() {
 	
-	    if (document.getElementById("loopButton").classList.contains("gray")) {
-	        // is  
-	        document.getElementById("loopButton").classList.remove('gray');
-	        document.getElementById("loopButton").classList.add('gold');
-	    } else {
-	        // is not
-	        document.getElementById("loopButton").classList.remove('gold');
-	        document.getElementById("loopButton").classList.add('gray');
+	    if (inUser.username != "username") {
+	
+	        var loopRef = firebase.database().ref('users/' + inUser.username + '/player/controls/loop');
+	
+	        if (document.getElementById("loopButton").classList.contains("gray")) {
+	            // is  
+	            document.getElementById("loopButton").classList.remove('gray');
+	            document.getElementById("loopButton").classList.add('gold');
+	            loopRef.set(true);
+	        } else {
+	            // is not
+	            document.getElementById("loopButton").classList.remove('gold');
+	            document.getElementById("loopButton").classList.add('gray');
+	            loopRef.set(false);
+	        }
 	    }
 	}
 	function toggleShuffle() {
 	
-	    if (document.getElementById("shuffleButton").classList.contains("gray")) {
-	        // is  
-	        document.getElementById("shuffleButton").classList.remove('gray');
-	        document.getElementById("shuffleButton").classList.add('gold');
-	    } else {
-	        // is not
-	        document.getElementById("shuffleButton").classList.remove('gold');
-	        document.getElementById("shuffleButton").classList.add('gray');
+	    if (inUser.username != "username") {
+	
+	        var shuffleRef = firebase.database().ref('users/' + inUser.username + '/player/controls/shuffle');
+	
+	        if (document.getElementById("shuffleButton").classList.contains("gray")) {
+	            // is  
+	            document.getElementById("shuffleButton").classList.remove('gray');
+	            document.getElementById("shuffleButton").classList.add('gold');
+	            shuffleRef.set(true);
+	        } else {
+	            // is not
+	            document.getElementById("shuffleButton").classList.remove('gold');
+	            document.getElementById("shuffleButton").classList.add('gray');
+	            shuffleRef.set(false);
+	        }
 	    }
+	}
+	
+	function timeRemaining(time) {
+	
+	    console.log(time);
+	    // Hours, minutes and seconds
+	    var hrs = ~~(time / 3600);
+	    var mins = ~~(time % 3600 / 60);
+	    var secs = Math.round(time % 60);
+	
+	    // Output like "1:01" or "4:03:59" or "123:03:59"
+	    var ret = "";
+	
+	    if (hrs > 0) {
+	        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+	    }
+	
+	    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+	    ret += "" + secs;
+	    return ret;
+	}
+	
+	/// AUDIOSCROLLING
+	
+	var duration, currentTime; // Duration of audio clip
+	
+	// returns click as decimal (.77) of the total timelineWidth
+	function clickPercent(event, timelineWidth) {
+	
+	    return (event.clientX - getPosition(timeline)) / timelineWidth;
+	}
+	
+	function moveplayhead(event, timelineWidth) {
+	
+	    var newMargLeft = event.clientX - getPosition(timeline);
+	    console.log("timeline is: " + timelineWidth);
+	    console.log("playhead is: " + newMargLeft);
+	
+	    if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
+	        playhead.style.marginLeft = newMargLeft + "px";
+	    }
+	    if (newMargLeft < 0) {
+	        playhead.style.marginLeft = "0px";
+	    }
+	    if (newMargLeft >= timelineWidth) {
+	        playhead.style.marginLeft = newMargLeft + "px";
+	    }
+	}
+	
+	// getPosition
+	// Returns elements left position relative to top-left of viewport
+	function getPosition(el) {
+	    return el.getBoundingClientRect().left;
 	}
 	
 	var Player = exports.Player = function (_React$Component) {
@@ -28881,7 +28798,12 @@
 	            saves: 0
 	        };
 	        _this.state = {
-	            playing: placeholder
+	            playing: placeholder,
+	            controls: {
+	                loop: false,
+	                play: false,
+	                shuffle: false
+	            }
 	        };
 	
 	        return _this;
@@ -28892,17 +28814,59 @@
 	        value: function componentDidMount() {
 	            var _this2 = this;
 	
-	            var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
+	            var audioPlayer = document.getElementById("audioPlayer");
+	            var playhead = document.getElementById('playhead'); // playhead
+	            var timeline = document.getElementById('timeline'); // timeline
+	            var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
 	
-	            playingRef.on('value', function (snapshot) {
+	            console.log(inUser.username);
 	
-	                // console.log(snapshot.val());
+	            if (inUser.username != "username") {
 	
+	                var playingRef = firebase.database().ref('users/' + inUser.username + '/player');
 	
-	                _this2.setState({
-	                    playing: snapshot.val()
+	                playingRef.on('value', function (snapshot) {
+	
+	                    console.log("NOW PLAYING: " + snapshot.val().playing);
+	
+	                    audioPlayer.load();
+	
+	                    _this2.setState({
+	                        playing: snapshot.val().playing,
+	                        controls: snapshot.val().controls
+	                    });
+	
+	                    if (snapshot.val().controls.loop == true) {
+	                        document.getElementById("loopButton").classList.remove('gray');
+	                        document.getElementById("loopButton").classList.add('gold');
+	                        audioPlayer.loop = true;
+	                    } else if (snapshot.val().controls.shuffle == true) {
+	                        document.getElementById("shuffleButton").classList.remove('gray');
+	                        document.getElementById("shuffleButton").classList.add('gold');
+	                    } else if (snapshot.val().controls.loop == false) {
+	                        document.getElementById("loopButton").classList.remove('gold');
+	                        document.getElementById("loopButton").classList.add('gray');
+	                        audioPlayer.loop = false;
+	                    } else if (snapshot.val().controls.shuffle == false) {
+	                        document.getElementById("shuffleButton").classList.remove('gold');
+	                        document.getElementById("shuffleButton").classList.add('gray');
+	                    }
 	                });
-	            });
+	            }
+	
+	            // Gets audio file duration
+	            audioPlayer.addEventListener("canplaythrough", function () {
+	                duration = audioPlayer.duration;
+	                currentTime = audioPlayer.currentTime;
+	            }, false);
+	
+	            //Makes timeline clickable
+	            timeline.addEventListener("click", function (event) {
+	
+	                moveplayhead(event, timelineWidth);
+	                audioPlayer.currentTime = duration * clickPercent(event, timelineWidth);
+	                console.log("MOVE SONG to" + audioPlayer.currentTime);
+	            }, false);
 	        }
 	    }, {
 	        key: "render",
@@ -28920,10 +28884,10 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "ml-5 float-right" },
+	                        { className: "ml-5" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "ml-5 mr-5" },
+	                            { className: "ml-5 mr-5 mt-1" },
 	                            _react2.default.createElement(
 	                                "h4",
 	                                null,
@@ -28951,15 +28915,48 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "footerCenter" },
+	                    { className: "footerCenter w-100" },
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "pt-4 gold" },
+	                        { className: "pt-3 gold" },
 	                        _react2.default.createElement("span", { id: "loopButton", onClick: toggleLoop, className: "oi oi-reload bigIcon px-3 gray", title: "Loop" }),
 	                        _react2.default.createElement("span", { id: "backButton", className: "oi oi-media-skip-backward controlIcon px-5", title: "Back" }),
 	                        _react2.default.createElement("span", { id: "playButton", onClick: togglePlay, className: "oi oi-media-play controlIcon px-2", title: "Play" }),
 	                        _react2.default.createElement("span", { id: "nextButton", className: "oi oi-media-skip-forward controlIcon px-5", title: "Next" }),
 	                        _react2.default.createElement("span", { id: "shuffleButton", onClick: toggleShuffle, className: "oi oi-random bigIcon pl-3 gray", title: "Shuffle" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "row" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col-1" },
+	                            _react2.default.createElement(
+	                                "p",
+	                                { className: "gray" },
+	                                " ",
+	                                timeRemaining(currentTime)
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col-10" },
+	                            _react2.default.createElement(
+	                                "div",
+	                                { id: "timeline", className: "timeline mt-2" },
+	                                _react2.default.createElement("div", { id: "playhead", className: "playhead" })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "col-1" },
+	                            _react2.default.createElement(
+	                                "p",
+	                                { className: "gray" },
+	                                " ",
+	                                timeRemaining(duration)
+	                            )
+	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -28974,6 +28971,11 @@
 	                        _react2.default.createElement("span", { className: "oi oi-plus footerIcon px-3", title: "Add" }),
 	                        _react2.default.createElement("span", { className: "oi oi-volume-high footerIcon pl-3", title: "Volume" })
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    "audio",
+	                    { controls: true, id: "audioPlayer" },
+	                    _react2.default.createElement("source", { src: this.state.playing.song })
 	                )
 	            );
 	        }
@@ -29049,13 +29051,6 @@
 	function alphaButton() {
 	    console.log("ALPHA BUTOTN");
 	    $('#suggestionModal').modal('toggle');
-	}
-	
-	function updateHeader() {
-	
-	    feedHeader = "Posts";
-	    console.log(feedHeader);
-	    renderApp();
 	}
 	
 	var feedHeader = "New Releases";
@@ -29148,7 +29143,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2", onClick: updateHeader },
+	                        { className: "nav-link ml-2", onClick: getUserPosts },
 	                        "Posts"
 	                    ),
 	                    _react2.default.createElement(
@@ -29213,7 +29208,7 @@
 	    _createClass(Rightbar, [{
 	        key: "render",
 	        value: function render() {
-	            return _react2.default.createElement("div", { className: "rightbar p-2" });
+	            return _react2.default.createElement("div", { className: "rightbar text-center pr-3 pt-3 " });
 	        }
 	    }]);
 	
@@ -29488,6 +29483,21 @@
 	        // User is signed in.
 	        var user = firebase.auth().currentUser;
 	
+	        // write PLayer here
+	
+	        var playingRef = firebase.database().ref('users/' + rawUser.username + '/player');
+	
+	        var rawPlayer = {
+	            controls: {
+	                loop: true,
+	                play: true,
+	                shuffle: true
+	            },
+	            playing: sampleSong
+	        };
+	
+	        playingRef.set(rawPlayer);
+	
 	        console.log("going to update: " + user);
 	
 	        user.updateProfile({
@@ -29495,6 +29505,7 @@
 	
 	        }).then(function () {
 	            // Update successful.
+	
 	
 	            console.log("successfully updated profile!");
 	
@@ -57336,6 +57347,12 @@
 	
 	var _Feed = __webpack_require__(/*! ./components/Feed */ 425);
 	
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 427);
+	
+	var _NewReleases = __webpack_require__(/*! ./components/blocks/NewReleases */ 428);
+	
+	var _HomeFeed = __webpack_require__(/*! ./components/blocks/HomeFeed */ 429);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57352,49 +57369,27 @@
 	    $('#createModal').modal('toggle');
 	}
 	
-	function getPost(postID, type) {
-	
-	    var postRef = postsCollection.doc(postID);
-	
-	    postRef.get().then(function (doc) {
-	        if (doc.exists) {
-	            var postData = doc.data();
-	
-	            cardFeed.push(postData);
-	            console.log(postData);
-	        } else {
-	            // doc.data() will be undefined in this case
-	            console.log("No such document!");
-	        }
-	    }).catch(function (error) {
-	        console.log("Error getting document:", error);
-	    });
-	}
-	
 	var Home = exports.Home = function (_React$Component) {
 	    _inherits(Home, _React$Component);
 	
-	    function Home() {
+	    function Home(props) {
 	        _classCallCheck(this, Home);
 	
-	        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+	
+	        if (inUser.username == "username") {
+	
+	            newStyle = {
+	                display: "block"
+	            };
+	        }
+	
+	        return _this;
 	    }
 	
 	    _createClass(Home, [{
 	        key: "render",
 	        value: function render() {
-	
-	            // var postProto = <Post/>;
-	
-	            // cardFeed.push(postProto);
-	
-	            if (inUser.username == "username") {
-	
-	                newStyle = {
-	                    display: "block"
-	                };
-	            }
-	
 	            return _react2.default.createElement(
 	                "div",
 	                { className: "mt-4" },
@@ -57425,16 +57420,7 @@
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "dark jumbotron py-4 my-3" },
-	                    _react2.default.createElement(
-	                        "h1",
-	                        { className: "gold" },
-	                        feedHeader
-	                    ),
-	                    _react2.default.createElement(
-	                        "h3",
-	                        { className: "gray" },
-	                        "Everyone"
-	                    )
+	                    _react2.default.createElement(_NewReleases.NewReleases, null)
 	                ),
 	                _react2.default.createElement(
 	                    "div",
@@ -57457,13 +57443,6 @@
 	
 	    return Home;
 	}(_react2.default.Component);
-	
-	// START THE FEED HERE 
-	// START THE FEED HERE 
-	// START THE FEED HERE 
-	// START THE FEED HERE 
-	
-	getNewPosts();
 
 /***/ }),
 /* 425 */
@@ -57513,7 +57492,7 @@
 	        value: function render() {
 	
 	            var content = this.props.posts.map(function (post) {
-	                return _react2.default.createElement(_Post.Post, { key: post.date, content: post, type: post.type });
+	                return _react2.default.createElement(_Post.Post, { key: post.id, id: post.id, content: post.data, type: post.type });
 	            });
 	
 	            return _react2.default.createElement(
@@ -57579,6 +57558,7 @@
 	    username: "Username",
 	    artist: "Artist",
 	    caption: "Caption Over Here (100 Characters Max)",
+	    cover: "images/coverArt.png",
 	    type: "text",
 	    date: "Date Posted",
 	    content: ["Song Name"],
@@ -57598,9 +57578,15 @@
 	
 	        var _this = _possibleConstructorReturn(this, (Post.__proto__ || Object.getPrototypeOf(Post)).call(this, props));
 	
+	        var postId = _this.props.id;
+	
+	        // text post 
 	        _this.state = {
-	            contentStyle: contentStyle
+	            contentStyle: contentStyle,
+	            id: postId
 	        };
+	
+	        // song post 
 	
 	        if (_this.props.content.type == "song") {
 	
@@ -57611,12 +57597,55 @@
 	            };
 	        }
 	
+	        _this.pushSong = _this.pushSong.bind(_this);
+	
 	        return _this;
 	    }
 	
 	    _createClass(Post, [{
 	        key: "pushSong",
-	        value: function pushSong() {}
+	        value: function pushSong() {
+	
+	            var songId = this.props.content.content;
+	            console.log(songId);
+	
+	            // is song 
+	            if (songId.length == 1) {
+	                songId = songId[0];
+	            }
+	
+	            // is album
+	            if (songId.length > 1) {}
+	
+	            var audioPlayer = document.getElementById("audioPlayer");
+	
+	            if (document.getElementById("playButton").classList.contains("oi-media-play")) {
+	                // is playing 
+	                console.log("is playing");
+	                document.getElementById("playButton").classList.remove('oi-media-play');
+	                document.getElementById("playButton").classList.add('oi-media-pause');
+	
+	                audioPlayer.play();
+	            }
+	
+	            if (inUser.username != "username") {
+	
+	                var songRef = songsCollection.doc(songId);
+	                songRef.get().then(function (doc) {
+	                    if (doc.exists) {
+	                        var songData = doc.data();
+	                        console.log(songData);
+	
+	                        pushPlaying(songData);
+	                    } else {
+	                        // doc.data() will be undefined in this case
+	                        console.log("No such document!");
+	                    }
+	                }).catch(function (error) {
+	                    console.log("Error getting document:", error);
+	                });
+	            }
+	        }
 	    }, {
 	        key: "render",
 	        value: function render() {
@@ -57710,7 +57739,7 @@
 	                    _react2.default.createElement(
 	                        "div",
 	                        { id: "postCover" },
-	                        _react2.default.createElement("img", { src: "images/coverArt.png", alt: "Card image cap", className: "card-img-top" })
+	                        _react2.default.createElement("img", { src: this.props.content.cover, alt: "Card image cap", onClick: this.pushSong, className: "card-img-top" })
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
@@ -57794,98 +57823,6 @@
 
 /***/ }),
 /* 427 */
-/*!*******************************!*\
-  !*** ./src/app/views/User.js ***!
-  \*******************************/
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.User = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(/*! prop-types */ 184);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 186);
-	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 428);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var User = exports.User = function (_React$Component) {
-	    _inherits(User, _React$Component);
-	
-	    function User(props) {
-	        _classCallCheck(this, User);
-	
-	        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
-	
-	        _this.state = {
-	            date: new Date()
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(User, [{
-	        key: "render",
-	        value: function render() {
-	            return _react2.default.createElement(
-	                "div",
-	                { className: "" },
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "dark" },
-	                    _react2.default.createElement(_UserBlock.UserBlock, null)
-	                ),
-	                _react2.default.createElement(
-	                    "div",
-	                    { className: "tab-content" },
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane active", id: "all", role: "tabpanel", "aria-labelledby": "home-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
-	                        _react2.default.createElement("div", { className: "card-columns" })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return User;
-	}(_react2.default.Component);
-
-/***/ }),
-/* 428 */
 /*!******************************************************!*\
   !*** ./src/app/views/components/blocks/UserBlock.js ***!
   \******************************************************/
@@ -58083,7 +58020,232 @@
 	}(_react2.default.Component);
 
 /***/ }),
+/* 428 */
+/*!********************************************************!*\
+  !*** ./src/app/views/components/blocks/NewReleases.js ***!
+  \********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.NewReleases = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewReleases = exports.NewReleases = function (_React$Component) {
+	    _inherits(NewReleases, _React$Component);
+	
+	    function NewReleases() {
+	        _classCallCheck(this, NewReleases);
+	
+	        return _possibleConstructorReturn(this, (NewReleases.__proto__ || Object.getPrototypeOf(NewReleases)).apply(this, arguments));
+	    }
+	
+	    _createClass(NewReleases, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "" },
+	                _react2.default.createElement(
+	                    "h1",
+	                    { className: "gold" },
+	                    "New Releases"
+	                ),
+	                _react2.default.createElement(
+	                    "h3",
+	                    { className: "gray" },
+	                    "Everyone"
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return NewReleases;
+	}(_react2.default.Component);
+
+/***/ }),
 /* 429 */
+/*!*****************************************************!*\
+  !*** ./src/app/views/components/blocks/HomeFeed.js ***!
+  \*****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.HomeFeed = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var HomeFeed = exports.HomeFeed = function (_React$Component) {
+	    _inherits(HomeFeed, _React$Component);
+	
+	    function HomeFeed() {
+	        _classCallCheck(this, HomeFeed);
+	
+	        return _possibleConstructorReturn(this, (HomeFeed.__proto__ || Object.getPrototypeOf(HomeFeed)).apply(this, arguments));
+	    }
+	
+	    _createClass(HomeFeed, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "" },
+	                _react2.default.createElement(
+	                    "h1",
+	                    { className: "gold" },
+	                    "Home"
+	                ),
+	                _react2.default.createElement(
+	                    "h3",
+	                    { className: "gray" },
+	                    "@",
+	                    inUser.username
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return HomeFeed;
+	}(_react2.default.Component);
+
+/***/ }),
+/* 430 */
+/*!*******************************!*\
+  !*** ./src/app/views/User.js ***!
+  \*******************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.User = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 427);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var User = exports.User = function (_React$Component) {
+	    _inherits(User, _React$Component);
+	
+	    function User(props) {
+	        _classCallCheck(this, User);
+	
+	        var _this = _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).call(this, props));
+	
+	        _this.state = {
+	            date: new Date()
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(User, [{
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "dark" },
+	                    _react2.default.createElement(_UserBlock.UserBlock, null)
+	                ),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "tab-content" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane active", id: "all", role: "tabpanel", "aria-labelledby": "home-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "posts", role: "tabpanel", "aria-labelledby": "profile-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "shares", role: "tabpanel", "aria-labelledby": "messages-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    ),
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "tab-pane", id: "likes", role: "tabpanel", "aria-labelledby": "settings-tab" },
+	                        _react2.default.createElement("div", { className: "card-columns" })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return User;
+	}(_react2.default.Component);
+
+/***/ }),
+/* 431 */
 /*!*********************************!*\
   !*** ./src/app/views/Upload.js ***!
   \*********************************/
@@ -58143,8 +58305,8 @@
 	    width: "100%"
 	};
 	
-	var rawCover,
-	    rawSong = false;
+	var rawCover = false;
+	var rawSong = false;
 	
 	// List of Verified Vibes
 	var vibes = ["Acoustic", "Alternative", "Ambient", "Anime", "Bass", "Beach", "Beats", "Blues", "BreakUp", "Calm", "Chill", "Christmas", "Classical", "Clean", "Country", "Covers", "Dance", "Dark", "Disco", "Driving", "Drugs", "Dubstep", "EDM", "Electronic", "Experimental", "Folk", "Fun", "Funk", "Gospel", "Grime", "Grunge", "Halloween", "Happy", "Heavy", "HipHop", "House", "Indie", "Instrumental", "Island", "Jazz", "KPop", "Light", "Love", "Meditation", "Melody", "Metal", "Morning", "Night", "OldSchool", "Oldies", "Opera", "Orchestra", "Party", "Piano", "Pop", "Punk", "R&B", "Rain", "Rap", "Reggae", "Relax", "Religious", "Remix", "RoadTrip", "Rock", "Running", "Sad", "Sex", "Sleep", "Slow", "Smoking", "Soft", "Soul", "Space", "Spring", "Study", "Summer", "Swing", "Techno", "Trance", "Trap", "Underground", "Upbeat", "Vacation", "Vocals", "Weed", "Workout"];
@@ -58207,8 +58369,8 @@
 	function publishTextPost(rawPost) {
 	
 	    var timestamp = Date.now();
-	    // document.getElementById("progressBar").style.width = "0%";
-	    // document.getElementById("progressBar").innerHTML = "0%";
+	    document.getElementById("progressBar").style.width = "0%";
+	    document.getElementById("progressBar").innerHTML = "0%";
 	
 	    // User database ref
 	    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
@@ -58255,132 +58417,150 @@
 	function publishSongPost(rawPost) {
 	
 	    var timestamp = Date.now();
+	
 	    document.getElementById("progressBar").style.width = "0%";
 	    document.getElementById("progressBar").innerHTML = "0%";
 	
 	    // User database ref
 	    var userPostsRef = database.ref('users/' + inUser.username + '/posts');
 	
-	    // songID to Library
+	    // make song doc 
+	    var newSongDoc = songCollection.doc();
+	    var songKey = newSongDoc.id;
 	
+	    // make post id 
 	
+	    var newPostRef = userPostsRef.push();
+	    var postKey = newPostRef.key;
+	
+	    // create song wit data
 	    var song = {
 	        name: rawPost.name,
-	        id: false,
+	        id: songKey,
 	        artist: inUser.publicName,
 	        featuring: rawPost.featuring,
 	        vibes: rawPost.vibes,
 	        date: timestamp,
 	        cover: "images/coverArt.png",
+	        song: false,
 	        explicit: rawPost.explicit,
 	        likes: 0,
 	        shares: 0,
 	        saves: 0
+	
+	        // create post with SONG
+	    };var post = {
+	        username: inUser.username,
+	        artist: inUser.publicName,
+	        caption: rawPost.caption,
+	        type: "song",
+	        date: timestamp,
+	        cover: "images/coverArt.png",
+	        content: [songKey],
+	        title: rawPost.name,
+	        likes: 0,
+	        shares: 0,
+	        saves: 0,
+	        vibes: false
 	    };
 	
-	    songCollection.add(song).then(function (docRef) {
-	        console.log("Document written with ID: ", docRef.id);
+	    // WRITE SONG DOC
 	
-	        var songKey = docRef.id;
-	        // add songID to post 
-	        var newSongRef = songCollection.doc(songKey);
+	    newSongDoc.set(song);
+	    // WRITE POST DOC
 	
-	        newSongRef.update({
-	            id: songKey
-	        }).then(function () {
-	            console.log("Document successfully updated!");
-	        }).catch(function (error) {
-	            // The document probably doesn't exist.
-	            console.error("Error updating document: ", error);
-	        });
+	    var newPostDoc = postsCollection.doc(postKey);
+	    newPostDoc.set(post);
 	
-	        var post = {
-	            username: inUser.username,
-	            artist: inUser.publicName,
-	            caption: rawPost.caption,
-	            type: "song",
-	            date: timestamp,
-	            content: [songKey],
-	            title: rawPost.name,
-	            likes: 0,
-	            shares: 0,
-	            saves: 0,
-	            vibes: false
-	        };
+	    // WRITE POST TO ALL REF
+	    var allPostsRef = database.ref('posts/' + postKey);
+	    allPostsRef.set(post.type);
 	
-	        // create post ID for main Databse
-	        var newPostRef = userPostsRef.push();
+	    // WRITE POST TO USER REF
+	    newPostRef.set(post.type);
 	
-	        // Post ID to User Database
+	    // UPLOAD COVER
 	
-	        newPostRef.set(post.type);
+	    if (rawCover != false) {
+	        console.log('GOT A COVER');
 	
-	        // Post ID to User Database
-	        var allPostsRef = database.ref('posts/' + newPostRef.key);
-	        allPostsRef.set(post.type);
+	        var newCoverRef = storageRef.child('covers/' + postKey);
 	
-	        var postDocument = postsCollection.doc(newPostRef.key);
-	        // Post to Main with key
-	        postDocument.set(post).then(function () {
-	            console.log("Document successfully written!");
-	            document.getElementById("progressBar").style.width = "25%";
-	            document.getElementById("progressBar").innerHTML = "25%";
+	        newCoverRef.put(rawCover).then(function (snapshot) {
+	            console.log('Uploaded Cover');
 	
-	            // UPLOAD SONG FILE
-	            if (rawSong != false) {
-	                console.log('GOT A SONG');
+	            // Update Cover location on song and post 
 	
-	                var newSongRef = storageRef.child('songs/' + songKey);
+	            var coverURL = snapshot.downloadURL;
 	
-	                newSongRef.put(rawSong).then(function (snapshot) {
-	                    console.log('Uploaded Song');
-	
-	                    // UPLOAD COVER FILE
-	                    if (rawCover != false) {
-	                        console.log('GOT A COVER');
-	
-	                        document.getElementById("progressBar").style.width = "50%";
-	                        document.getElementById("progressBar").innerHTML = "50%";
-	
-	                        var newCoverRef = storageRef.child('covers/' + songKey);
-	
-	                        newCoverRef.put(rawCover).then(function (snapshot) {
-	                            console.log('Uploaded Cover');
-	                            document.getElementById("progressBar").style.width = "75%";
-	                            document.getElementById("progressBar").innerHTML = "75%";
-	
-	                            // Update Cover location
-	
-	                            return postDocument.update({
-	                                cover: songKey
-	                            }).then(function () {
-	                                console.log("Document successfully updated!");
-	                                setTimeout(function () {
-	                                    routerHome();
-	                                }, 1000);
-	                            }).catch(function (error) {
-	                                // The document probably doesn't exist.
-	                                console.error("Error updating document: ", error);
-	                            });
-	                        });
-	                    } else {
-	                        document.getElementById("progressBar").style.width = "100%";
-	                        document.getElementById("progressBar").innerHTML = "100%";
-	
-	                        setTimeout(function () {
-	                            routerHome();
-	                        }, 1000);
-	                    }
+	            return newPostDoc.update({
+	                cover: coverURL
+	            }).then(function () {
+	                console.log("Document successfully updated!");
+	                return newSongDoc.update({
+	                    cover: coverURL
+	                }).then(function () {
+	                    console.log("Document successfully updated!");
+	                }).catch(function (error) {
+	                    // The document probably doesn't exist.
+	                    console.error("Error updating document: ", error);
 	                });
-	            } else {
-	                console.log(":((((");
-	            }
-	        }).catch(function (error) {
-	            console.error("Error writing document: ", error);
+	            }).catch(function (error) {
+	                // The document probably doesn't exist.
+	                console.error("Error updating document: ", error);
+	            });
 	        });
-	    }).catch(function (error) {
-	        console.error("Error adding document: ", error);
-	    });
+	    } else {}
+	
+	    // UPLOAD SONG
+	
+	    if (rawSong != false) {
+	        console.log('GOT A SONG');
+	
+	        var newSongFileRef = storageRef.child('songs/' + songKey);
+	
+	        var songTask = newSongFileRef.put(rawSong);
+	
+	        songTask.on('state_changed', function (snapshot) {
+	            // Observe state change events such as progress, pause, and resume
+	            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+	            var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+	
+	            document.getElementById("progressBar").style.width = progress + "%";
+	            document.getElementById("progressBar").innerHTML = Math.round(progress) + "%";
+	
+	            console.log('Upload is ' + progress + '% done');
+	            switch (snapshot.state) {
+	                case firebase.storage.TaskState.PAUSED:
+	                    // or 'paused'
+	                    console.log('Upload is paused');
+	                    break;
+	                case firebase.storage.TaskState.RUNNING:
+	                    // or 'running'
+	                    console.log('Upload is running');
+	                    break;
+	            }
+	        }, function (error) {
+	            // Handle unsuccessful uploads
+	        }, function () {
+	
+	            console.log('Uploaded Song');
+	            var songURL = songTask.snapshot.downloadURL;
+	
+	            return newSongDoc.update({
+	                song: songURL
+	            }).then(function () {
+	                console.log("Document successfully updated!");
+	
+	                document.getElementById("progressBar").style.width = "100%";
+	                document.getElementById("progressBar").innerHTML = "100%";
+	                routerHome();
+	            }).catch(function (error) {
+	                // The document probably doesn't exist.
+	                console.error("Error updating document: ", error);
+	            });
+	        });
+	    } else {}
 	}
 	
 	function publishAlbumPost(rawPost) {
@@ -58450,6 +58630,8 @@
 	
 	    // set file
 	
+	    console.log("changing cover now");
+	
 	    rawCover = file;
 	
 	    reader.addEventListener("load", function () {
@@ -58470,18 +58652,6 @@
 	    var file = document.getElementById("inputSong").files[0];
 	    rawSong = file;
 	    document.getElementById("fileCheck").classList.remove('d-none');
-	
-	    // var reader = new FileReader();
-	    // reader.addEventListener("load", function () {
-	    //     preview.src = reader.result;
-	    // }, false);
-	
-	    // if (file) {
-	    //     reader.readAsDataURL(file);
-	    // }
-	
-	    // set file
-	
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////////

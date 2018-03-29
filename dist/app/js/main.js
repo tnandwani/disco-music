@@ -102,8 +102,13 @@ function setPhotoUrl(url) {
 
 }
 
-function makeFeed(postId) {
+function test() {
+    console.log(document.getElementById("audioPlayer"));
+    
+    
+}
 
+function makeFeed(postId) {
 
     var postRef = postsCollection.doc(postId);
 
@@ -114,7 +119,7 @@ function makeFeed(postId) {
                 id: postId
             }
 
-           if (feedArray) {
+            if (feedArray) {
                 feedArray.unshift(postData);
             } else if (typeof feedArray == "undefined") {
                 feedArray = [postData];
@@ -145,12 +150,30 @@ function getNewPosts() {
 
 }
 
+
+
+function getUserPosts() {
+
+    console.log(feedArray);
+
+    // GET All New Posts
+    var postsRef = firebase.database().ref(inUser.username + '/posts').limitToLast(10);
+    postsRef.on('child_added', function (data) {
+        var songId = data.key;
+        makeFeed(songId);
+
+
+    });
+
+
+}
+
 function newPlaying(playing) {
     sampleSong = playing;
 }
 
 
-function pushPlaying(song){
+function pushPlaying(song) {
 
     var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
 
@@ -189,7 +212,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         playingRef.on('value', function (snapshot) {
             var playing = snapshot.val();
-            
+
             newPlaying(playing);
 
         });

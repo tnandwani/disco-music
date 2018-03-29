@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from 'prop-types';
 
 
-
 // Controllers
 function togglePlay() {
 
@@ -12,10 +11,7 @@ function togglePlay() {
         // is playing 
         document.getElementById("playButton").classList.remove('oi-media-play');
         document.getElementById("playButton").classList.add('oi-media-pause');
-
         audioPlayer.play();
-
-
     }
     else {
         // is paused
@@ -31,48 +27,67 @@ function togglePlay() {
 }
 function toggleLoop() {
 
-    var loopRef = firebase.database().ref('users/' + inUser.username + '/player/controls/loop');
-
-    if (document.getElementById("loopButton").classList.contains("gray")) {
-        // is  
-        document.getElementById("loopButton").classList.remove('gray');
-        document.getElementById("loopButton").classList.add('gold');
-        loopRef.set(true);
+    if (inUser.username != "username") {
 
 
+        var loopRef = firebase.database().ref('users/' + inUser.username + '/player/controls/loop');
+
+
+
+
+        if (document.getElementById("loopButton").classList.contains("gray")) {
+            // is  
+            document.getElementById("loopButton").classList.remove('gray');
+            document.getElementById("loopButton").classList.add('gold');
+            loopRef.set(true);
+
+
+
+        }
+        else {
+            // is not
+            document.getElementById("loopButton").classList.remove('gold');
+            document.getElementById("loopButton").classList.add('gray');
+            loopRef.set(false);
+
+        }
 
     }
-    else {
-        // is not
-        document.getElementById("loopButton").classList.remove('gold');
-        document.getElementById("loopButton").classList.add('gray');
-        loopRef.set(false);
 
-    }
+
 }
 function toggleShuffle() {
 
-    var shuffleRef = firebase.database().ref('users/' + inUser.username + '/player/controls/shuffle');
-
-    if (document.getElementById("shuffleButton").classList.contains("gray")) {
-        // is  
-        document.getElementById("shuffleButton").classList.remove('gray');
-        document.getElementById("shuffleButton").classList.add('gold');
-        shuffleRef.set(true);
+    if (inUser.username != "username") {
 
 
+        var shuffleRef = firebase.database().ref('users/' + inUser.username + '/player/controls/shuffle');
+
+        if (document.getElementById("shuffleButton").classList.contains("gray")) {
+            // is  
+            document.getElementById("shuffleButton").classList.remove('gray');
+            document.getElementById("shuffleButton").classList.add('gold');
+            shuffleRef.set(true);
+
+
+
+        }
+        else {
+            // is not
+            document.getElementById("shuffleButton").classList.remove('gold');
+            document.getElementById("shuffleButton").classList.add('gray');
+            shuffleRef.set(false);
+
+        }
 
     }
-    else {
-        // is not
-        document.getElementById("shuffleButton").classList.remove('gold');
-        document.getElementById("shuffleButton").classList.add('gray');
-        shuffleRef.set(false);
 
-    }
 }
 
+/// AUDIOSCROLLING
 
+var duration = "0:00";
+var currentTime = "0:00";
 
 export class Player extends React.Component {
 
@@ -98,62 +113,69 @@ export class Player extends React.Component {
                 loop: false,
                 play: false,
                 shuffle: false
-            }
+            },
+            duration: duration,
+            currentTime: currentTime
         }
 
     }
 
     componentDidMount() {
 
-        console.log(inUser.username);
+        var audioPlayer = document.getElementById("audioPlayer");
+        var playhead = document.getElementById('playhead'); // playhead
+        var timeline = document.getElementById('timeline'); // timeline
+        console.log("t is " + timeline.offsetWidth);
+        console.log("p is " + playhead.offsetWidth);
 
-        if (inUser.username != "username"){
+
+        if (inUser.username != "username") {
 
             var playingRef = firebase.database().ref('users/' + inUser.username + '/player');
 
             playingRef.on('value', snapshot => {
-    
-                console.log("NOW PLAYING: " + snapshot.val().playing);
-    
-                var audioPlayer = document.getElementById("audioPlayer");
-    
+
                 audioPlayer.load();
-    
+
                 this.setState({
                     playing: snapshot.val().playing,
                     controls: snapshot.val().controls
                 });
-    
-    
+
+
+
+
                 if (snapshot.val().controls.loop == true) {
                     document.getElementById("loopButton").classList.remove('gray');
                     document.getElementById("loopButton").classList.add('gold');
                     audioPlayer.loop = true;
                 }
-    
+
                 else if (snapshot.val().controls.shuffle == true) {
                     document.getElementById("shuffleButton").classList.remove('gray');
                     document.getElementById("shuffleButton").classList.add('gold');
                 }
-    
-    
+
+
                 else if (snapshot.val().controls.loop == false) {
                     document.getElementById("loopButton").classList.remove('gold');
                     document.getElementById("loopButton").classList.add('gray');
                     audioPlayer.loop = false;
 
                 }
-    
+
                 else if (snapshot.val().controls.shuffle == false) {
                     document.getElementById("shuffleButton").classList.remove('gold');
                     document.getElementById("shuffleButton").classList.add('gray');
                 }
-    
+
             });
 
         }
-
+       
     }
+
+   
 
 
     render() {
@@ -164,13 +186,13 @@ export class Player extends React.Component {
 
                     <div className="float-left ten">
 
-                        <span className="oi oi-layers bigIcon px-3 gold" title="Queue"></span>
+                        {/* <span className="oi oi-layers bigIcon px-3 gold" title="Queue"></span> */}
                         <img src={this.state.playing.cover} className="h-100" />
 
 
 
                     </div>
-                    <div className="ml-5 float-right">
+                    <div className="ml-5">
 
                         <div className="ml-5 mr-5 mt-1">
                             <h4 > {this.state.playing.name}</h4>
@@ -183,14 +205,40 @@ export class Player extends React.Component {
 
                 </div>
 
-                <div className="footerCenter">
-                    <div className="pt-4 gold">
+                <div className="footerCenter w-100">
+
+                    <div className="pt-3 gold">
                         <span id="loopButton" onClick={toggleLoop} className="oi oi-reload bigIcon px-3 gray" title="Loop"></span>
                         <span id="backButton" className="oi oi-media-skip-backward controlIcon px-5" title="Back"></span>
                         <span id="playButton" onClick={togglePlay} className="oi oi-media-play controlIcon px-2" title="Play"></span>
                         <span id="nextButton" className="oi oi-media-skip-forward controlIcon px-5" title="Next"></span>
                         <span id="shuffleButton" onClick={toggleShuffle} className="oi oi-random bigIcon pl-3 gray" title="Shuffle"></span>
                     </div>
+
+
+                    <div className="row">
+                        <div className="col-1">
+                            <p className="gray"> {this.state.currentTime}</p>
+
+                        </div>
+                        <div className="col-10">
+                            <div id="timeline" className="timeline mt-2">
+                                <div id="playhead" className="playhead"></div>
+                            </div>
+                        </div>
+                        <div className="col-1">
+
+                            <p className="gray"> {this.state.duration}</p>
+
+                        </div>
+
+                    </div>
+
+
+
+
+
+
                 </div>
 
                 <div className="footerRight mt-3 px-0 mx-0">
@@ -212,7 +260,7 @@ export class Player extends React.Component {
                 </div>
 
 
-                <audio id="audioPlayer">
+                <audio controls id="audioPlayer" onCanPlayThrough = {test}>
 
                     <source src={this.state.playing.song} />
 

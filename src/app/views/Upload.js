@@ -194,8 +194,8 @@ function verifyPublish() {
 function publishTextPost(rawPost) {
 
     var timestamp = Date.now();
-    // document.getElementById("progressBar").style.width = "0%";
-    // document.getElementById("progressBar").innerHTML = "0%";
+    document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressBar").innerHTML = "0%";
 
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
@@ -251,14 +251,31 @@ function publishSongPost(rawPost) {
     var timestamp = Date.now();
 
 
+    document.getElementById("progressBar").style.width = "0%";
+    document.getElementById("progressBar").innerHTML = "0%";
+
     // User database ref
     var userPostsRef = database.ref('users/' + inUser.username + '/posts');
+
+
+
+    // make song doc 
+    var newSongDoc = songCollection.doc();
+    var songKey = newSongDoc.id;
+
+
+    // make post id 
+
+    var newPostRef = userPostsRef.push();
+    var postKey = newPostRef.key;
+
+
 
 
     // create song wit data
     var song = {
         name: rawPost.name,
-        id: false,
+        id: songKey,
         artist: inUser.publicName,
         featuring: rawPost.featuring,
         vibes: rawPost.vibes,
@@ -271,172 +288,149 @@ function publishSongPost(rawPost) {
         saves: 0
     }
 
-    document.getElementById("progressBar").style.width = "0%";
-    document.getElementById("progressBar").innerHTML = "0%";
+
+    // create post with SONG
+    var post = {
+        username: inUser.username,
+        artist: inUser.publicName,
+        caption: rawPost.caption,
+        type: "song",
+        date: timestamp,
+        cover: "images/coverArt.png",
+        content: [songKey],
+        title: rawPost.name,
+        likes: 0,
+        shares: 0,
+        saves: 0,
+        vibes: false
+    };
 
 
-    // write song data 
-    songCollection.add(song)
-        .then(function (docRef) {
 
-            var songKey = docRef.id;
-            var newSongDoc = songCollection.doc(songKey);
+    // WRITE SONG DOC
+
+    newSongDoc.set(song);
+    // WRITE POST DOC
+
+    var newPostDoc = postsCollection.doc(postKey);
+    newPostDoc.set(post);
+
+    // WRITE POST TO ALL REF
+    var allPostsRef = database.ref('posts/' + postKey);
+    allPostsRef.set(post.type);
+
+    // WRITE POST TO USER REF
+    newPostRef.set(post.type);
 
 
-            // create post with SONG
-            var post = {
-                username: inUser.username,
-                artist: inUser.publicName,
-                caption: rawPost.caption,
-                type: "song",
-                date: timestamp,
-                cover: "images/coverArt.png",
-                content: [songKey],
-                title: rawPost.name,
-                likes: 0,
-                shares: 0,
-                saves: 0,
-                vibes: false
-            };
 
-            // write song id to song data
-            newSongDoc.update({
-                id: songKey
+    // UPLOAD COVER
+
+    if (rawCover != false) {
+        console.log('GOT A COVER');
+
+        var newCoverRef = storageRef.child('covers/' + postKey);
+
+        newCoverRef.put(rawCover).then(function (snapshot) {
+            console.log('Uploaded Cover');
+
+            // Update Cover location on song and post 
+
+            var coverURL = snapshot.downloadURL;
+
+            return newPostDoc.update({
+                cover: coverURL
             })
                 .then(function () {
-                    console.log("Song successfully updated!");
+                    console.log("Document successfully updated!");
+                    return newSongDoc.update({
+                        cover: coverURL
+                    })
+                        .then(function () {
+                            console.log("Document successfully updated!");
+                        })
+                        .catch(function (error) {
+                            // The document probably doesn't exist.
+                            console.error("Error updating document: ", error);
+                        });
+
                 })
                 .catch(function (error) {
+                    // The document probably doesn't exist.
                     console.error("Error updating document: ", error);
                 });
 
 
 
 
-            // create post ID
-            var newPostRef = userPostsRef.push();
+        });
+    }
+    else {
 
-            var postKey = newPostRef.key;
 
-            // Post ID to User Database
-            newPostRef.set(post.type);
+    }
 
-            // Post ID to all Database
-            var allPostsRef = database.ref('posts/' + postKey);
-            allPostsRef.set(post.type);
 
-            var newPostDoc = postsCollection.doc(postKey);
+    // UPLOAD SONG
 
-            // Post to Main with key
-            newPostDoc.set(post)
+    if (rawSong != false) {
+        console.log('GOT A SONG');
+
+        var newSongFileRef = storageRef.child('songs/' + songKey);
+
+        var songTask = newSongFileRef.put(rawSong)
+
+        songTask.on('state_changed', function (snapshot) {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+
+            document.getElementById("progressBar").style.width = progress + "%";
+            document.getElementById("progressBar").innerHTML = Math.round(progress) + "%";
+
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+            }
+        }, function (error) {
+            // Handle unsuccessful uploads
+        }, function () {
+
+            console.log('Uploaded Song');
+            var songURL = songTask.snapshot.downloadURL;
+
+
+            return newSongDoc.update({
+                song: songURL
+            })
                 .then(function () {
-                    console.log("Document successfully written!");
-                    document.getElementById("progressBar").style.width = "25%";
-                    document.getElementById("progressBar").innerHTML = "25%";
+                    console.log("Document successfully updated!");
 
-
-                    // UPLOAD SONG FILE
-                    if (rawSong != false) {
-                        console.log('GOT A SONG');
-
-                        var newSongRef = storageRef.child('songs/' + songKey);
-
-                        newSongRef.put(rawSong).then(function (snapshot) {
-                            console.log('Uploaded Song');
-
-                            // Update Song location
-
-                            var songURL = snapshot.downloadURL;
-
-                            return newSongDoc.update({
-                                song: songURL
-                            })
-                                .then(function () {
-                                    console.log("Document successfully updated!");
-                                    // UPLOAD COVER FILE
-                                    if (rawCover != false) {
-                                        console.log('GOT A COVER');
-
-                                        document.getElementById("progressBar").style.width = "50%";
-                                        document.getElementById("progressBar").innerHTML = "50%";
-
-                                        var newCoverRef = storageRef.child('covers/' + postKey);
-
-                                        newCoverRef.put(rawCover).then(function (snapshot) {
-                                            console.log('Uploaded Cover');
-                                            document.getElementById("progressBar").style.width = "75%";
-                                            document.getElementById("progressBar").innerHTML = "75%";
-
-                                            // Update Cover location
-
-                                            var coverURL = snapshot.downloadURL;
-
-                                            return newPostDoc.update({
-                                                cover: coverURL
-                                            })
-                                                .then(function () {
-                                                    console.log("Document successfully updated!");
-                                                    return newSongDoc.update({
-                                                        cover: coverURL
-                                                    })
-                                                        .then(function () {
-                                                            console.log("Document successfully updated!");
-                                                            setTimeout(function () { routerHome(); }, 1000);
-                                                        })
-                                                        .catch(function (error) {
-                                                            // The document probably doesn't exist.
-                                                            console.error("Error updating document: ", error);
-                                                        });
-
-                                                })
-                                                .catch(function (error) {
-                                                    // The document probably doesn't exist.
-                                                    console.error("Error updating document: ", error);
-                                                });
-
-
-
-
-                                        });
-                                    }
-                                    else {
-                                        document.getElementById("progressBar").style.width = "100%";
-                                        document.getElementById("progressBar").innerHTML = "100%";
-
-                                        setTimeout(function () { routerHome(); }, 1000);
-
-                                    }
-
-                                })
-                                .catch(function (error) {
-                                    // The document probably doesn't exist.
-                                    console.error("Error updating document: ", error);
-                                });
-
-
-
-
-
-
-
-                        });
-                    } else {
-                        console.log(":((((");
-                    }
-
-
+                    document.getElementById("progressBar").style.width = "100%";
+                    document.getElementById("progressBar").innerHTML = "100%";
+                    routerHome();
                 })
                 .catch(function (error) {
-                    console.error("Error writing document: ", error);
+                    // The document probably doesn't exist.
+                    console.error("Error updating document: ", error);
                 });
-
-
-
-
-        })
-        .catch(function (error) {
-            console.error("Error adding document: ", error);
         });
+
+    }
+    else {
+
+
+    }
+
+
+
+
 
 
 
@@ -557,6 +551,13 @@ function handleSong() {
 
 export class Upload extends React.Component {
     render() {
+
+        let vibesList = vibes.map((vibe) => {
+            return <option key={vibe} value={vibe} />
+
+        });
+
+
         return (
             <div className="mt-4">
 
@@ -605,6 +606,7 @@ export class Upload extends React.Component {
                                     <span className="input-group-text pl-3" id="basic-addon1">#</span>
                                 </div>
                                 <input id="rawVibes" type="text" className="form-control dark" placeholder="Vibes (5 Max)" />
+                                    
 
                             </div>
 

@@ -84,7 +84,22 @@ function toggleShuffle() {
 
 }
 
-/// AUDIOSCROLLING
+function timeConverter(time) {
+
+    var minutes = Math.floor(time / 60);
+    var seconds = Math.floor(time % 60);
+
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    var stamp = minutes + ":" + seconds;
+
+    return stamp;
+}
+
 
 var duration = "0:00";
 var currentTime = "0:00";
@@ -118,6 +133,43 @@ export class Player extends React.Component {
             currentTime: currentTime
         }
 
+        this.timeUpdate = this.timeUpdate.bind(this);
+
+
+    }
+
+
+
+    timeUpdate() {
+
+        var total = audioPlayer.duration;
+        var current = audioPlayer.currentTime;
+
+        if (!total) {
+            total = 0;
+        }
+        var playPercent = 100 * (current / total);
+
+
+        // prgress bar
+        var percentage = playPercent + "%";
+        playhead.style.width = percentage;
+
+
+        this.setState({
+            duration: timeConverter(total),
+            currentTime: timeConverter(current)
+        });
+    }
+
+    clickPercent(event) {
+
+        return (event.clientX - getPosition(timeline)) / timelineWidth;
+
+
+    }
+    getPosition(el) {
+        return el.getBoundingClientRect().left;
     }
 
     componentDidMount() {
@@ -125,8 +177,20 @@ export class Player extends React.Component {
         var audioPlayer = document.getElementById("audioPlayer");
         var playhead = document.getElementById('playhead'); // playhead
         var timeline = document.getElementById('timeline'); // timeline
-        console.log("t is " + timeline.offsetWidth);
-        console.log("p is " + playhead.offsetWidth);
+
+        var timelineWidth = timeline.offsetWidth;
+        console.log("width:" + timelineWidth);
+
+
+
+        timeline.addEventListener("click", function (event) {
+            this.clickPercent(event)
+        }, false);
+
+        audioPlayer.addEventListener("timeupdate", this.timeUpdate, false);
+
+
+
 
 
         if (inUser.username != "username") {
@@ -172,10 +236,10 @@ export class Player extends React.Component {
             });
 
         }
-       
+
     }
 
-   
+
 
 
     render() {
@@ -207,7 +271,7 @@ export class Player extends React.Component {
 
                 <div className="footerCenter w-100">
 
-                    <div className="pt-3 gold">
+                    <div className="pt-3 pb-2 gold">
                         <span id="loopButton" onClick={toggleLoop} className="oi oi-reload bigIcon px-3 gray" title="Loop"></span>
                         <span id="backButton" className="oi oi-media-skip-backward controlIcon px-5" title="Back"></span>
                         <span id="playButton" onClick={togglePlay} className="oi oi-media-play controlIcon px-2" title="Play"></span>
@@ -217,18 +281,20 @@ export class Player extends React.Component {
 
 
                     <div className="row">
-                        <div className="col-1">
-                            <p className="gray"> {this.state.currentTime}</p>
+                        <div className="col-1 ">
+                            <p className="gray mb-3"> {this.state.currentTime}</p>
 
                         </div>
                         <div className="col-10">
+
+
                             <div id="timeline" className="timeline mt-2">
                                 <div id="playhead" className="playhead"></div>
                             </div>
                         </div>
                         <div className="col-1">
 
-                            <p className="gray"> {this.state.duration}</p>
+                            <p className="gray mb-3"> {this.state.duration}</p>
 
                         </div>
 
@@ -260,7 +326,7 @@ export class Player extends React.Component {
                 </div>
 
 
-                <audio controls id="audioPlayer" onCanPlayThrough = {test}>
+                <audio controls id="audioPlayer" onCanPlayThrough={test}>
 
                     <source src={this.state.playing.song} />
 

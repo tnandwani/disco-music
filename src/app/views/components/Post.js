@@ -40,6 +40,9 @@ export class Post extends React.Component {
 
         var postId = this.props.id;
 
+       
+
+
         // text post 
         this.state = {
             contentStyle: contentStyle,
@@ -70,14 +73,14 @@ export class Post extends React.Component {
 
 
         // is song 
-        if (songId.length == 1){
+        if (songId.length == 1) {
             songId = songId[0];
 
         }
 
         // is album
-        if (songId.length > 1){
-            
+        if (songId.length > 1) {
+
         }
 
 
@@ -85,34 +88,32 @@ export class Post extends React.Component {
 
         if (document.getElementById("playButton").classList.contains("oi-media-play")) {
             // is playing 
-            console.log("is playing");
             document.getElementById("playButton").classList.remove('oi-media-play');
             document.getElementById("playButton").classList.add('oi-media-pause');
-    
+
             audioPlayer.play();
-    
-    
+
+
         }
 
-        if (inUser.username != "username"){
+        if (inUser.username != "username") {
 
-        var songRef = songsCollection.doc(songId);
-        songRef.get().then(function (doc) {
-            if (doc.exists) {
-               var songData = doc.data();
-               console.log(songData);
+            var songRef = songsCollection.doc(songId);
+            songRef.get().then(function (doc) {
+                if (doc.exists) {
+                    var songData = doc.data();
+                    // console.log(songData);
 
-               pushPlaying(songData);
-                
+                    pushPlaying(songData);
 
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function (error) {
-            console.log("Error getting document:", error);
-        });
 
+                } else {
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch(function (error) {
+                console.log("Error getting document:", error);
+            });
 
         }
 
@@ -169,7 +170,7 @@ export class Post extends React.Component {
                     {/* COVER */}
 
                     <div id="postCover">
-                        <img src= {this.props.content.cover} alt="Card image cap" onClick={this.pushSong} className="card-img-top" />
+                        <img src={this.props.content.cover} alt="Card image cap" onClick={this.pushSong} className="card-img-top" />
 
                     </div>
 

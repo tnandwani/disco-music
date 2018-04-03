@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 import { browserHistory } from "react-router";
 
 
+import { Feed } from "./Feed";
+
+
+
+function pushFeed(newFeed){
+
+    Feed.updateFeed(newFeed);
+
+}
+
+
 function routerHome() {
     browserHistory.push("/home");
 }

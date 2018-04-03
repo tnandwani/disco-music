@@ -103,9 +103,8 @@ function setPhotoUrl(url) {
 }
 
 function test() {
-    console.log(document.getElementById("audioPlayer"));
-    
-    
+    // console.log(document.getElementById("audioPlayer"));
+        
 }
 
 function makeFeed(postId) {
@@ -122,6 +121,7 @@ function makeFeed(postId) {
             if (feedArray) {
                 feedArray.unshift(postData);
             } else if (typeof feedArray == "undefined") {
+                console.log("STARTING FEED");
                 feedArray = [postData];
             }
 
@@ -148,6 +148,7 @@ function getNewPosts() {
 
     });
 
+ 
 }
 
 
@@ -155,6 +156,8 @@ function getNewPosts() {
 function getUserPosts() {
 
     console.log(feedArray);
+
+    var feedArray;
 
     // GET All New Posts
     var postsRef = firebase.database().ref(inUser.username + '/posts').limitToLast(10);

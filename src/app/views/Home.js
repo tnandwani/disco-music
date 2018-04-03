@@ -10,10 +10,6 @@ import { HomeFeed } from "./components/blocks/HomeFeed";
 
 
 
-var newStyle = {
-    display: 'none'
-}
-
 function showCreateModal() {
     $('#createModal').modal('toggle');
 }
@@ -26,10 +22,18 @@ export class Home extends React.Component {
         super(props);
 
         if (inUser.username == "username") {
-
-            newStyle = {
-                display: "block"
-            }
+            this.state = {
+                newStyle :{ 
+                    display: 'block'
+                }
+            } 
+        }
+        else {
+            this.state = {
+                newStyle :{ 
+                    display: 'none'
+                }
+            } 
         }
 
     }
@@ -38,7 +42,7 @@ export class Home extends React.Component {
         return (
             <div className="mt-4">
 
-                <div style={newStyle} className="dark jumbotron py-4 my-3 text-center">
+                <div style={this.state.newStyle} className="dark jumbotron py-4 my-3 text-center">
 
 
                     <h1 className="gold"> <i>DISCOVER NEW MUSIC</i></h1>
@@ -58,7 +62,7 @@ export class Home extends React.Component {
 
 
                     {/* <UserBlock /> */}
-                    <NewReleases/>
+                    <NewReleases />
                     {/* <HomeFeed /> */}
 
 

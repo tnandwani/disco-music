@@ -179,7 +179,6 @@ export class Player extends React.Component {
         var timeline = document.getElementById('timeline'); // timeline
 
         var timelineWidth = timeline.offsetWidth;
-        console.log("width:" + timelineWidth);
 
 
 
@@ -326,7 +325,7 @@ export class Player extends React.Component {
                 </div>
 
 
-                <audio controls id="audioPlayer" onCanPlayThrough={test}>
+                <audio controls id="audioPlayer">
 
                     <source src={this.state.playing.song} />
 

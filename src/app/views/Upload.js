@@ -563,6 +563,8 @@ export class Upload extends React.Component {
 
                 <h6 className="gold text-center"><i >BETA: Only Text and Song Uploads Working</i></h6>
 
+                {/* <Vibes/> */}
+
 
                 <h3>Caption</h3>
                 <div>

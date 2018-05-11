@@ -10,8 +10,8 @@ export class NewReleases extends React.Component {
         return (
 
             <div className="">
-                <h1 className="gold">New Releases</h1>
-                <h3 className="gray">Everyone</h3>
+                <h1 id= "feedTitle" className="gold">New Releases</h1>
+                <h3 id= "feedSource" className="gray">Everyone</h3>
 
             </div>
 

@@ -39,6 +39,7 @@ gray/silver: BDC6C6 */
 .theme {
     background-color: #222;
     color: white;
+    overflow-x: hidden;
 }
 
 .goldBack {

@@ -98,14 +98,13 @@ export class UserBlock extends React.Component {
                     </div>
                     <div className="col p-3 pt-5 ">
 
-                        <h2 className="white">Followers <small className="gold pl-2">{inUser.followers.length}</small> </h2>
-                        <h2 className="white py-3">Following <small className="gold pl-2">{inUser.following.length}</small> </h2>
+                        <h2 className="white" onClick = {showFollowers} >Followers <small className="gold font-weight-bold pl-2">{inUser.followers.length}</small> </h2>
+                        <h2 className="white py-3" onClick = {showFollowers}>Following <small className="gold font-weight-bold pl-2">{inUser.following.length}</small> </h2>
 
                         <button type="button" className="btn btn-outline-secondary mt-2 px-5" onClick={signOut} > Logout</button>
 
-
-
                     </div>
+                    
                 </div>
 
 

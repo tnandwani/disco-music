@@ -9,11 +9,14 @@ import { NewReleases } from "./components/blocks/NewReleases";
 import { HomeFeed } from "./components/blocks/HomeFeed";
 
 
+const loader = <img  id= "feedSpinner" className = "spinner d-none text-center" src="images/loader.svg"/>;
+
+
+
 
 function showCreateModal() {
     $('#createModal').modal('toggle');
 }
-
 
 export class Home extends React.Component {
 
@@ -22,21 +25,23 @@ export class Home extends React.Component {
         super(props);
 
         if (inUser.username == "username") {
+
+            
             this.state = {
-                newStyle :{ 
+                newStyle: {
                     display: 'block'
                 }
-            } 
+            }
         }
         else {
             this.state = {
-                newStyle :{ 
+                newStyle: {
                     display: 'none'
                 }
-            } 
+            }
         }
-
     }
+
 
     render() {
         return (
@@ -70,9 +75,11 @@ export class Home extends React.Component {
 
                 </div>
 
-                <div className="text-center d-none" >
-                    <img src="images/loader.svg" />
+                <div className= "text-center">
+                {loader}
+
                 </div>
+
 
 
 
@@ -83,7 +90,7 @@ export class Home extends React.Component {
                     {/* // Push Posts Here  */}
 
 
-                    <Feed posts={feedArray} />
+                    <Feed posts={1} />
 
 
 

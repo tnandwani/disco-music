@@ -10,6 +10,7 @@ import { Header } from "./components/Header";
 import { CreateAccount } from "./components/popups/CreateAccount";
 import { SignIn } from "./components/popups/SignIn";
 import { Suggestions } from "./components/popups/Suggestions";
+import { Followers } from "./components/popups/Followers";
 
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,6 +50,8 @@ export class Root extends React.Component {
 							<CreateAccount />
 							<SignIn />
 							<Suggestions />
+							<Followers />
+
 
 
 

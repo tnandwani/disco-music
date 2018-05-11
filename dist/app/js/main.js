@@ -4,14 +4,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-var config = {
-    apiKey: "AIzaSyDquIdmKQfr-QGF3kyEb28FzAboOPBE36g",
-    authDomain: "disco-6a3bf.firebaseapp.com",
-    databaseURL: "https://disco-6a3bf.firebaseio.com",
-    projectId: "disco-6a3bf",
-    storageBucket: "disco-6a3bf.appspot.com",
-    messagingSenderId: "71660981931"
-};
 firebase.initializeApp(config);
 
 var firestore = firebase.firestore();
@@ -56,43 +48,64 @@ var sampleSong = {
     saves: 0
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+// NAVIGATION
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
-var feedArray;
+function toggleFeedSpinner() { 
 
+    var spinner = document.getElementById("feedSpinner");
+
+    if (spinner.classList.contains("d-none")){
+        
+    }
+    
+
+
+ }
+
+
+function leftbarNavigate() {
+    var newLocation = window.location.hash;
+
+
+
+    var feed = newLocation.replace('#', '');
+ 
+    console.log(feed);
+
+
+    if (feed == "NewReleases") {
+        // 
+        document.getElementById("feedTitle").innerHTML = "New Releases";
+        document.getElementById("feedSource").innerHTML = "Everyone";
+
+
+    }
+    if (feed == "Home") {
+
+        //
+        document.getElementById("feedTitle").innerHTML = feed;
+        document.getElementById("feedSource").innerHTML = "Friends";
+
+
+    }
+
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
-// FUNCTIONS
+// USER DATA
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 function getUser() {
 
-
-
-    var userRef = usersCollection.doc(inUser.username);
-    userRef.get().then(function (doc) {
-        if (doc.exists) {
-            inUser = doc.data();
-
-            storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
-                setPhotoUrl(url);
-                console.log("Welcome back " + inUser.publicName);
-            }).catch(function (error) {
-                // Handle any errors
-
-
-
-            });
-
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }).catch(function (error) {
-        console.log("Error getting document:", error);
-    });
 
 
 }
@@ -102,74 +115,21 @@ function setPhotoUrl(url) {
 
 }
 
-function test() {
-    // console.log(document.getElementById("audioPlayer"));
-        
-}
 
-function makeFeed(postId) {
-
-    var postRef = postsCollection.doc(postId);
-
-    postRef.get().then(function (doc) {
-        if (doc.exists) {
-            var postData = {
-                data: doc.data(),
-                id: postId
-            }
-
-            if (feedArray) {
-                feedArray.unshift(postData);
-            } else if (typeof feedArray == "undefined") {
-                console.log("STARTING FEED");
-                feedArray = [postData];
-            }
-
-
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    }).catch(function (error) {
-        console.log("Error getting document:", error);
-    });
+function showFollowers() {
+    $('#followersModal').modal('toggle');
 
 }
 
 
-function getNewPosts() {
-
-    // GET All New Posts
-    var postsRef = firebase.database().ref('posts').limitToLast(10);
-    postsRef.on('child_added', function (data) {
-        var songId = data.key;
-        makeFeed(songId);
 
 
-    });
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+// AUDIO PLAYER
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 
- 
-}
-
-
-
-function getUserPosts() {
-
-    console.log(feedArray);
-
-    var feedArray;
-
-    // GET All New Posts
-    var postsRef = firebase.database().ref(inUser.username + '/posts').limitToLast(10);
-    postsRef.on('child_added', function (data) {
-        var songId = data.key;
-        makeFeed(songId);
-
-
-    });
-
-
-}
 
 function newPlaying(playing) {
     sampleSong = playing;
@@ -185,9 +145,20 @@ function pushPlaying(song) {
     var audioPlayer = document.getElementById("audioPlayer");
     audioPlayer.play();
 
-
-
 }
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+// FEED LOGIC
+////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 
@@ -208,9 +179,27 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         inUser.username = user.displayName;
         inUser.uid = user.uid;
-        getUser();
-
-
+        inUser.email = user.email;
+        var userRef = usersCollection.doc(inUser.username);
+        userRef.get().then(function (doc) {
+            if (doc.exists) {
+                inUser = doc.data();
+    
+                storageRef.child('profileImages/' + inUser.uid).getDownloadURL().then(function (url) {
+                    setPhotoUrl(url);
+                    console.log("Welcome back " + inUser.publicName);
+                }).catch(function (error) {
+                    // Handle any errors
+                });
+    
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+    
         var playingRef = firebase.database().ref('users/' + inUser.username + '/player/playing');
 
         playingRef.on('value', function (snapshot) {
@@ -219,10 +208,6 @@ firebase.auth().onAuthStateChanged(function (user) {
             newPlaying(playing);
 
         });
-
-
-
-
 
     } else {
         // No user is signed in.

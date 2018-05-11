@@ -2,16 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { browserHistory } from "react-router";
 
-
 import { Feed } from "./Feed";
-
-
-
-function pushFeed(newFeed){
-
-    Feed.updateFeed(newFeed);
-
-}
 
 
 function routerHome() {
@@ -50,24 +41,16 @@ function checkUser() {
 
 }
 
-function alphaButton() { 
+function alphaButton() {
     console.log("ALPHA BUTOTN");
     $('#suggestionModal').modal('toggle');
 
- }
+}
 
 
 
 
 var feedHeader = "New Releases";
-
-
-
-
-
-
-
-
 
 export class Leftbar extends React.Component {
     render() {
@@ -78,7 +61,7 @@ export class Leftbar extends React.Component {
 
                     <div className="row">
                         <div className="col-9">
-                            <h1 className="gold" onClick={routerHome}> DISCO <span  onClick = {alphaButton} className="oi oi-beaker smallIcon ml-1" title="alpha"></span></h1>
+                            <h1 className="gold" onClick={routerHome}> DISCO <span onClick={alphaButton} className="oi oi-beaker smallIcon ml-1" title="alpha"></span></h1>
 
                         </div>
                         <div className="col-3 text-right pt-3">
@@ -102,29 +85,29 @@ export class Leftbar extends React.Component {
 
                 <nav className="nav flex-column ml-3">
 
-                  <h6 className="mt-3"> Discover</h6>
-                    <a className="nav-link ml-2 " href="">New Releases<span className="badge badge-pill badge-warning ml-2"><span className="oi oi-bolt smallIcon" title="alpha"></span></span></a>
-                    <a className="nav-link ml-2" href="">Home<span className="badge badge-pill badge-warning ml-2">17</span></a>
+                    <h6 className="mt-3"> Discover</h6>
+                    <a className="nav-link ml-2 " href="home#NewReleases">New Releases<span className="badge badge-pill badge-warning ml-2"><span className="oi oi-bolt smallIcon" title="alpha"></span></span></a>
+                    <a className="nav-link ml-2" href="home#Home">Home<span className="badge badge-pill badge-warning ml-2">17</span></a>
                     {/* <a className="nav-link ml-2 " href="">Suggestions<span className="badge badge-pill badge-warning ml-2">5</span></a> */}
 
-                    <h6 className="mt-3"> Profile</h6>
-                    <a className="nav-link ml-2"  onClick = {getUserPosts}>Posts</a>
-                    {/* <a className="nav-link ml-2" href="">Reposts</a>
-                    <a className="nav-link ml-2 " href="">Likes</a>
- */}
+                    {/* <h6 className="mt-3"> Profile</h6>
+                    <a className="nav-link ml-2" href="home#Posts" >Posts</a>
+                    <a className="nav-link ml-2" href="home#Reposts">Reposts</a>
+                    <a className="nav-link ml-2" href="home#Likes">Likes</a> */}
 
 
-                    {/* // <h6 className="mt-3"> Library</h6>
-                    <a className="nav-link ml-2" href="#">Songs</a>
-                     <a className="nav-link ml-2" href="#">Albums</a>
-                     <a className="nav-link ml-2" href="#">Artists</a>
-                     <a className="nav-link ml-2" href="#">Posts</a>
+
+                    <h6 className="mt-3"> Library</h6>
+                    <a className="nav-link ml-2" href="home#Songs">Songs</a>
+                    <a className="nav-link ml-2" href="home#Albums">Albums</a>
+                    <a className="nav-link ml-2" href="home#Artists">Artists</a>
+                    <a className="nav-link ml-2" href="home#Posts">Posts</a>
 
 
-                     <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
-                    <a className="nav-link ml-2 " href="#Driving">Driving</a>
-                 <a className="nav-link ml-2 " href="#Study">Study</a>
-                    <a className="nav-link ml-2 " href="#Gym">Gym</a> */}
+                    <h6 className="mt-3"> Playlists <span className="oi oi-plus smallIcon ml-2" title="plus"></span> </h6>
+                    <a className="nav-link ml-2 " href="home#Driving">Driving</a>
+                    <a className="nav-link ml-2 " href="home#Studying">Study</a>
+                    <a className="nav-link ml-2 " href="home#Gym">Gym</a>
 
 
 

@@ -7,14 +7,38 @@ import { Home } from "./views/Home";
 import { User } from "./views/User";
 import { Upload } from "./views/Upload";
 
+//Redux
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 
-// START THE FEED HERE 
-// START THE FEED HERE 
-// START THE FEED HERE 
-getNewPosts();
+function counter(state = inUser, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return state + 1
+        case 'DECREMENT':
+            return state - 1
+        default:
+            return state
+    }
+}
 
+const store = createStore(
+    counter, /* preloadedState, */
+ window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+console.log("store is:");
+console.log(store.getState());
 
+// You can use subscribe() to update the UI in response to state changes.
+// Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
+// However it can also be handy to persist the current state in the localStorage.
+
+store.subscribe(() =>
+  console.log(store.getState())
+)
+
+ 
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 // CLASS
@@ -42,10 +66,10 @@ class App extends React.Component {
                     <Route path={"upload"} component={Upload} />
                     <Route path={"user"} component={User} />
                 </Route>
-                
+
             </Router>
 
-            
+
         );
     }
 
@@ -58,6 +82,11 @@ class App extends React.Component {
 
 // WITH SPINNER
 setTimeout(function () {
-    render(<App />, window.document.getElementById('app'));
+    render(
+
+        <Provider store={store}>
+            <App />
+        </Provider>
+        , window.document.getElementById('app'));
     document.getElementById("spinner").classList.add("d-none");
-}, 2000);
+}, 1000);

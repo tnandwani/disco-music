@@ -65,11 +65,15 @@
 	
 	var _Root = __webpack_require__(/*! ./views/Root */ 249);
 	
-	var _Home = __webpack_require__(/*! ./views/Home */ 426);
+	var _Home = __webpack_require__(/*! ./views/Home */ 427);
 	
-	var _User = __webpack_require__(/*! ./views/User */ 430);
+	var _User = __webpack_require__(/*! ./views/User */ 431);
 	
-	var _Upload = __webpack_require__(/*! ./views/Upload */ 431);
+	var _Upload = __webpack_require__(/*! ./views/Upload */ 432);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 433);
+	
+	var _redux = __webpack_require__(/*! redux */ 443);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -79,10 +83,35 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// START THE FEED HERE 
-	// START THE FEED HERE 
-	// START THE FEED HERE 
-	getNewPosts();
+	//Redux
+	
+	
+	function counter() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : inUser;
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case 'INCREMENT':
+	            return state + 1;
+	        case 'DECREMENT':
+	            return state - 1;
+	        default:
+	            return state;
+	    }
+	}
+	
+	var store = (0, _redux.createStore)(counter, /* preloadedState, */
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+	console.log("store is:");
+	console.log(store.getState());
+	
+	// You can use subscribe() to update the UI in response to state changes.
+	// Normally you'd use a view binding library (e.g. React Redux) rather than subscribe() directly.
+	// However it can also be handy to persist the current state in the localStorage.
+	
+	store.subscribe(function () {
+	    return console.log(store.getState());
+	});
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////////////////
@@ -132,9 +161,13 @@
 	
 	
 	setTimeout(function () {
-	    (0, _reactDom.render)(_react2.default.createElement(App, null), window.document.getElementById('app'));
+	    (0, _reactDom.render)(_react2.default.createElement(
+	        _reactRedux.Provider,
+	        { store: store },
+	        _react2.default.createElement(App, null)
+	    ), window.document.getElementById('app'));
 	    document.getElementById("spinner").classList.add("d-none");
-	}, 1500);
+	}, 1000);
 
 /***/ }),
 /* 1 */
@@ -28536,6 +28569,8 @@
 	
 	var _Suggestions = __webpack_require__(/*! ./components/popups/Suggestions */ 425);
 	
+	var _Followers = __webpack_require__(/*! ./components/popups/Followers */ 426);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28589,7 +28624,8 @@
 								this.props.children,
 								_react2.default.createElement(_CreateAccount.CreateAccount, null),
 								_react2.default.createElement(_SignIn.SignIn, null),
-								_react2.default.createElement(_Suggestions.Suggestions, null)
+								_react2.default.createElement(_Suggestions.Suggestions, null),
+								_react2.default.createElement(_Followers.Followers, null)
 							)
 						),
 						_react2.default.createElement(
@@ -28700,7 +28736,21 @@
 	    }
 	}
 	
-	/// AUDIOSCROLLING
+	function timeConverter(time) {
+	
+	    var minutes = Math.floor(time / 60);
+	    var seconds = Math.floor(time % 60);
+	
+	    if (minutes < 10) {
+	        minutes = "0" + minutes;
+	    }
+	    if (seconds < 10) {
+	        seconds = "0" + seconds;
+	    }
+	    var stamp = minutes + ":" + seconds;
+	
+	    return stamp;
+	}
 	
 	var duration = "0:00";
 	var currentTime = "0:00";
@@ -28737,10 +28787,44 @@
 	            currentTime: currentTime
 	        };
 	
+	        _this.timeUpdate = _this.timeUpdate.bind(_this);
+	
 	        return _this;
 	    }
 	
 	    _createClass(Player, [{
+	        key: "timeUpdate",
+	        value: function timeUpdate() {
+	
+	            var total = audioPlayer.duration;
+	            var current = audioPlayer.currentTime;
+	
+	            if (!total) {
+	                total = 0;
+	            }
+	            var playPercent = 100 * (current / total);
+	
+	            // prgress bar
+	            var percentage = playPercent + "%";
+	            playhead.style.width = percentage;
+	
+	            this.setState({
+	                duration: timeConverter(total),
+	                currentTime: timeConverter(current)
+	            });
+	        }
+	    }, {
+	        key: "clickPercent",
+	        value: function clickPercent(event) {
+	
+	            return (event.clientX - getPosition(timeline)) / timelineWidth;
+	        }
+	    }, {
+	        key: "getPosition",
+	        value: function getPosition(el) {
+	            return el.getBoundingClientRect().left;
+	        }
+	    }, {
 	        key: "componentDidMount",
 	        value: function componentDidMount() {
 	            var _this2 = this;
@@ -28748,8 +28832,14 @@
 	            var audioPlayer = document.getElementById("audioPlayer");
 	            var playhead = document.getElementById('playhead'); // playhead
 	            var timeline = document.getElementById('timeline'); // timeline
-	            console.log("t is " + timeline.offsetWidth);
-	            console.log("p is " + playhead.offsetWidth);
+	
+	            var timelineWidth = timeline.offsetWidth;
+	
+	            timeline.addEventListener("click", function (event) {
+	                this.clickPercent(event);
+	            }, false);
+	
+	            audioPlayer.addEventListener("timeupdate", this.timeUpdate, false);
 	
 	            if (inUser.username != "username") {
 	
@@ -28832,7 +28922,7 @@
 	                    { className: "footerCenter w-100" },
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "pt-3 gold" },
+	                        { className: "pt-3 pb-2 gold" },
 	                        _react2.default.createElement("span", { id: "loopButton", onClick: toggleLoop, className: "oi oi-reload bigIcon px-3 gray", title: "Loop" }),
 	                        _react2.default.createElement("span", { id: "backButton", className: "oi oi-media-skip-backward controlIcon px-5", title: "Back" }),
 	                        _react2.default.createElement("span", { id: "playButton", onClick: togglePlay, className: "oi oi-media-play controlIcon px-2", title: "Play" }),
@@ -28844,10 +28934,10 @@
 	                        { className: "row" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            { className: "col-1" },
+	                            { className: "col-1 " },
 	                            _react2.default.createElement(
 	                                "p",
-	                                { className: "gray" },
+	                                { className: "gray mb-3" },
 	                                " ",
 	                                this.state.currentTime
 	                            )
@@ -28866,7 +28956,7 @@
 	                            { className: "col-1" },
 	                            _react2.default.createElement(
 	                                "p",
-	                                { className: "gray" },
+	                                { className: "gray mb-3" },
 	                                " ",
 	                                this.state.duration
 	                            )
@@ -28888,7 +28978,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    "audio",
-	                    { controls: true, id: "audioPlayer", onCanPlayThrough: test },
+	                    { controls: true, id: "audioPlayer" },
 	                    _react2.default.createElement("source", { src: this.state.playing.song })
 	                )
 	            );
@@ -28933,11 +29023,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	function pushFeed(newFeed) {
-	
-	    _Feed.Feed.updateFeed(newFeed);
-	}
 	
 	function routerHome() {
 	    _reactRouter.browserHistory.push("/home");
@@ -29039,7 +29124,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2 ", href: "" },
+	                        { className: "nav-link ml-2 ", href: "home#NewReleases" },
 	                        "New Releases",
 	                        _react2.default.createElement(
 	                            "span",
@@ -29049,7 +29134,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2", href: "" },
+	                        { className: "nav-link ml-2", href: "home#Home" },
 	                        "Home",
 	                        _react2.default.createElement(
 	                            "span",
@@ -29060,12 +29145,49 @@
 	                    _react2.default.createElement(
 	                        "h6",
 	                        { className: "mt-3" },
-	                        " Profile"
+	                        " Library"
 	                    ),
 	                    _react2.default.createElement(
 	                        "a",
-	                        { className: "nav-link ml-2", onClick: getUserPosts },
+	                        { className: "nav-link ml-2", href: "home#Songs" },
+	                        "Songs"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2", href: "home#Albums" },
+	                        "Albums"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2", href: "home#Artists" },
+	                        "Artists"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2", href: "home#Posts" },
 	                        "Posts"
+	                    ),
+	                    _react2.default.createElement(
+	                        "h6",
+	                        { className: "mt-3" },
+	                        " Playlists ",
+	                        _react2.default.createElement("span", { className: "oi oi-plus smallIcon ml-2", title: "plus" }),
+	                        " "
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2 ", href: "home#Driving" },
+	                        "Driving"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2 ", href: "home#Studying" },
+	                        "Study"
+	                    ),
+	                    _react2.default.createElement(
+	                        "a",
+	                        { className: "nav-link ml-2 ", href: "home#Gym" },
+	                        "Gym"
 	                    ),
 	                    _react2.default.createElement(
 	                        "div",
@@ -29129,10 +29251,7 @@
 	
 	        var content = void 0;
 	
-	        if (_this.props.posts) {
-	            content = _this.props.posts.map(function (post) {
-	                return _react2.default.createElement(_Post.Post, { key: post.id, id: post.id, content: post.data, type: post.type });
-	            });
+	        if (_this.props.posts != 0) {
 	
 	            _this.state = {
 	                content: content
@@ -29140,29 +29259,14 @@
 	        } else {
 	
 	            _this.state = {
-	                content: "No Posts"
+	                content: ""
 	            };
 	        }
-	
-	        _this.updateFeed = _this.updateFeed.bind(_this);
 	
 	        return _this;
 	    }
 	
 	    _createClass(Feed, [{
-	        key: "updateFeed",
-	        value: function updateFeed(newFeed) {
-	
-	            var newContent = newFeed.map(function (post) {
-	                return _react2.default.createElement(_Post.Post, { key: post.id, id: post.id, content: post.data, type: post.type });
-	            });
-	
-	            this.setState = {
-	                content: newContent
-	
-	            };
-	        }
-	    }, {
 	        key: "render",
 	        value: function render() {
 	
@@ -29176,6 +29280,10 @@
 	
 	    return Feed;
 	}(_react2.default.Component);
+	
+	// content = this.props.posts.map((post) =>
+	// <Post key={post.id} id={post.id} content={post.data} type={post.type} />
+	// );
 
 /***/ }),
 /* 253 */
@@ -29292,7 +29400,6 @@
 	
 	            if (document.getElementById("playButton").classList.contains("oi-media-play")) {
 	                // is playing 
-	                console.log("is playing");
 	                document.getElementById("playButton").classList.remove('oi-media-play');
 	                document.getElementById("playButton").classList.add('oi-media-pause');
 	
@@ -29305,7 +29412,7 @@
 	                songRef.get().then(function (doc) {
 	                    if (doc.exists) {
 	                        var songData = doc.data();
-	                        console.log(songData);
+	                        // console.log(songData);
 	
 	                        pushPlaying(songData);
 	                    } else {
@@ -57649,6 +57756,206 @@
 
 /***/ }),
 /* 426 */
+/*!******************************************************!*\
+  !*** ./src/app/views/components/popups/Followers.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.Followers = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 186);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Followers = exports.Followers = function (_React$Component) {
+	    _inherits(Followers, _React$Component);
+	
+	    function Followers(props) {
+	        _classCallCheck(this, Followers);
+	
+	        var _this = _possibleConstructorReturn(this, (Followers.__proto__ || Object.getPrototypeOf(Followers)).call(this, props));
+	
+	        var exFollowing = _react2.default.createElement(
+	            "li",
+	            { className: "list-group-item d-flex justify-content-between align-items-center" },
+	            "Cras justo odio",
+	            _react2.default.createElement(
+	                "span",
+	                { className: "badge badge-primary badge-pill" },
+	                "Block"
+	            )
+	        );
+	
+	        var exFollowers = _react2.default.createElement(
+	            "li",
+	            { className: "list-group-item d-flex justify-content-between align-items-center" },
+	            "Cras justo odio",
+	            _react2.default.createElement(
+	                "span",
+	                { className: "badge badge-primary badge-pill" },
+	                "Unfollow"
+	            )
+	        );
+	
+	        _this.state = {
+	            followers: exFollowers,
+	            following: exFollowing
+	        };
+	
+	        return _this;
+	    }
+	
+	    _createClass(Followers, [{
+	        key: "componentDidMount",
+	        value: function componentDidMount() {
+	
+	            var inFollowers = void 0;
+	            inFollowers = inUser.followers.map(function (followers) {
+	                return _react2.default.createElement(
+	                    "li",
+	                    { key: followers.toString(), className: "list-group-item d-flex justify-content-between align-items-center" },
+	                    "@",
+	                    followers,
+	                    _react2.default.createElement(
+	                        "span",
+	                        { className: "badge badge-warning badge-pill" },
+	                        "Block"
+	                    )
+	                );
+	            });
+	
+	            var inFollowing = void 0;
+	            inFollowing = inUser.following.map(function (following) {
+	                return _react2.default.createElement(
+	                    "li",
+	                    { key: following.toString(), className: "list-group-item d-flex justify-content-between align-items-center" },
+	                    "@",
+	                    following,
+	                    _react2.default.createElement(
+	                        "span",
+	                        { className: "badge badge-warning badge-pill" },
+	                        "Unfollow"
+	                    )
+	                );
+	            });
+	
+	            this.setState({
+	                followers: inFollowers,
+	                following: inFollowing
+	            });
+	        }
+	    }, {
+	        key: "render",
+	        value: function render() {
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "modal", tabIndex: "-1", role: "dialog", id: "followersModal" },
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "modal-dialog theme", role: "document" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "modal-content theme" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "modal-body" },
+	                            _react2.default.createElement(
+	                                "button",
+	                                { type: "button", className: "close white", "data-dismiss": "modal", "aria-label": "Close" },
+	                                _react2.default.createElement(
+	                                    "span",
+	                                    { "aria-hidden": "true" },
+	                                    "\xD7"
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                "div",
+	                                { className: "container" },
+	                                _react2.default.createElement(
+	                                    "ul",
+	                                    { className: "nav nav-pills nav-fill mx-3", id: "myTab", role: "tablist" },
+	                                    _react2.default.createElement(
+	                                        "li",
+	                                        { className: "nav-item" },
+	                                        _react2.default.createElement(
+	                                            "a",
+	                                            { className: "nav-link active", "data-toggle": "tab", href: "#followers", role: "tab", "aria-selected": "true" },
+	                                            "Followers"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "li",
+	                                        { className: "nav-item" },
+	                                        _react2.default.createElement(
+	                                            "a",
+	                                            { className: "nav-link", "data-toggle": "tab", href: "#following", role: "tab", "aria-selected": "false" },
+	                                            "Following"
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    "div",
+	                                    { className: "container" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "tab-content", id: "myTabContent" },
+	                                        _react2.default.createElement(
+	                                            "div",
+	                                            { className: "tab-pane fade show active", id: "followers", role: "tabpanel" },
+	                                            _react2.default.createElement("br", null),
+	                                            _react2.default.createElement(
+	                                                "ul",
+	                                                { className: "list-group" },
+	                                                this.state.followers
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "div",
+	                                            { className: "tab-pane fade", id: "following", role: "tabpanel" },
+	                                            _react2.default.createElement("br", null),
+	                                            _react2.default.createElement(
+	                                                "ul",
+	                                                { className: "list-group" },
+	                                                this.state.following
+	                                            )
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement("br", null)
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Followers;
+	}(_react2.default.Component);
+
+/***/ }),
+/* 427 */
 /*!*******************************!*\
   !*** ./src/app/views/Home.js ***!
   \*******************************/
@@ -57675,11 +57982,11 @@
 	
 	var _Feed = __webpack_require__(/*! ./components/Feed */ 252);
 	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 427);
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 428);
 	
-	var _NewReleases = __webpack_require__(/*! ./components/blocks/NewReleases */ 428);
+	var _NewReleases = __webpack_require__(/*! ./components/blocks/NewReleases */ 429);
 	
-	var _HomeFeed = __webpack_require__(/*! ./components/blocks/HomeFeed */ 429);
+	var _HomeFeed = __webpack_require__(/*! ./components/blocks/HomeFeed */ 430);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -57688,6 +57995,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var loader = _react2.default.createElement("img", { id: "feedSpinner", className: "spinner d-none text-center", src: "images/loader.svg" });
 	
 	function showCreateModal() {
 	    $('#createModal').modal('toggle');
@@ -57702,6 +58011,7 @@
 	        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 	
 	        if (inUser.username == "username") {
+	
 	            _this.state = {
 	                newStyle: {
 	                    display: 'block'
@@ -57714,7 +58024,6 @@
 	                }
 	            };
 	        }
-	
 	        return _this;
 	    }
 	
@@ -57755,13 +58064,13 @@
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "text-center d-none" },
-	                    _react2.default.createElement("img", { src: "images/loader.svg" })
+	                    { className: "text-center" },
+	                    loader
 	                ),
 	                _react2.default.createElement(
 	                    "div",
 	                    { className: "card-columns" },
-	                    _react2.default.createElement(_Feed.Feed, { posts: feedArray })
+	                    _react2.default.createElement(_Feed.Feed, { posts: 1 })
 	                ),
 	                _react2.default.createElement(
 	                    "div",
@@ -57776,7 +58085,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 427 */
+/* 428 */
 /*!******************************************************!*\
   !*** ./src/app/views/components/blocks/UserBlock.js ***!
   \******************************************************/
@@ -57939,22 +58248,22 @@
 	                        { className: "col p-3 pt-5 " },
 	                        _react2.default.createElement(
 	                            "h2",
-	                            { className: "white" },
+	                            { className: "white", onClick: showFollowers },
 	                            "Followers ",
 	                            _react2.default.createElement(
 	                                "small",
-	                                { className: "gold pl-2" },
+	                                { className: "gold font-weight-bold pl-2" },
 	                                inUser.followers.length
 	                            ),
 	                            " "
 	                        ),
 	                        _react2.default.createElement(
 	                            "h2",
-	                            { className: "white py-3" },
+	                            { className: "white py-3", onClick: showFollowers },
 	                            "Following ",
 	                            _react2.default.createElement(
 	                                "small",
-	                                { className: "gold pl-2" },
+	                                { className: "gold font-weight-bold pl-2" },
 	                                inUser.following.length
 	                            ),
 	                            " "
@@ -57974,7 +58283,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 428 */
+/* 429 */
 /*!********************************************************!*\
   !*** ./src/app/views/components/blocks/NewReleases.js ***!
   \********************************************************/
@@ -58024,12 +58333,12 @@
 	                { className: "" },
 	                _react2.default.createElement(
 	                    "h1",
-	                    { className: "gold" },
+	                    { id: "feedTitle", className: "gold" },
 	                    "New Releases"
 	                ),
 	                _react2.default.createElement(
 	                    "h3",
-	                    { className: "gray" },
+	                    { id: "feedSource", className: "gray" },
 	                    "Everyone"
 	                )
 	            );
@@ -58040,7 +58349,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 429 */
+/* 430 */
 /*!*****************************************************!*\
   !*** ./src/app/views/components/blocks/HomeFeed.js ***!
   \*****************************************************/
@@ -58107,7 +58416,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 430 */
+/* 431 */
 /*!*******************************!*\
   !*** ./src/app/views/User.js ***!
   \*******************************/
@@ -58132,7 +58441,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 186);
 	
-	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 427);
+	var _UserBlock = __webpack_require__(/*! ./components/blocks/UserBlock */ 428);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -58194,7 +58503,7 @@
 	}(_react2.default.Component);
 
 /***/ }),
-/* 431 */
+/* 432 */
 /*!*********************************!*\
   !*** ./src/app/views/Upload.js ***!
   \*********************************/
@@ -58864,6 +59173,2290 @@
 	
 	    return Upload;
 	}(_react2.default.Component);
+
+/***/ }),
+/* 433 */
+/*!************************************!*\
+  !*** ./~/react-redux/lib/index.js ***!
+  \************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.connect = exports.connectAdvanced = exports.createProvider = exports.Provider = undefined;
+	
+	var _Provider = __webpack_require__(/*! ./components/Provider */ 434);
+	
+	var _Provider2 = _interopRequireDefault(_Provider);
+	
+	var _connectAdvanced = __webpack_require__(/*! ./components/connectAdvanced */ 437);
+	
+	var _connectAdvanced2 = _interopRequireDefault(_connectAdvanced);
+	
+	var _connect = __webpack_require__(/*! ./connect/connect */ 440);
+	
+	var _connect2 = _interopRequireDefault(_connect);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.Provider = _Provider2.default;
+	exports.createProvider = _Provider.createProvider;
+	exports.connectAdvanced = _connectAdvanced2.default;
+	exports.connect = _connect2.default;
+
+/***/ }),
+/* 434 */
+/*!**************************************************!*\
+  !*** ./~/react-redux/lib/components/Provider.js ***!
+  \**************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	exports.__esModule = true;
+	exports.createProvider = createProvider;
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _PropTypes = __webpack_require__(/*! ../utils/PropTypes */ 435);
+	
+	var _warning = __webpack_require__(/*! ../utils/warning */ 436);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var didWarnAboutReceivingStore = false;
+	function warnAboutReceivingStore() {
+	  if (didWarnAboutReceivingStore) {
+	    return;
+	  }
+	  didWarnAboutReceivingStore = true;
+	
+	  (0, _warning2.default)('<Provider> does not support changing `store` on the fly. ' + 'It is most likely that you see this error because you updated to ' + 'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' + 'automatically. See https://github.com/reactjs/react-redux/releases/' + 'tag/v2.0.0 for the migration instructions.');
+	}
+	
+	function createProvider() {
+	  var _Provider$childContex;
+	
+	  var storeKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'store';
+	  var subKey = arguments[1];
+	
+	  var subscriptionKey = subKey || storeKey + 'Subscription';
+	
+	  var Provider = function (_Component) {
+	    _inherits(Provider, _Component);
+	
+	    Provider.prototype.getChildContext = function getChildContext() {
+	      var _ref;
+	
+	      return _ref = {}, _ref[storeKey] = this[storeKey], _ref[subscriptionKey] = null, _ref;
+	    };
+	
+	    function Provider(props, context) {
+	      _classCallCheck(this, Provider);
+	
+	      var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+	
+	      _this[storeKey] = props.store;
+	      return _this;
+	    }
+	
+	    Provider.prototype.render = function render() {
+	      return _react.Children.only(this.props.children);
+	    };
+	
+	    return Provider;
+	  }(_react.Component);
+	
+	  if (process.env.NODE_ENV !== 'production') {
+	    Provider.prototype.componentWillReceiveProps = function (nextProps) {
+	      if (this[storeKey] !== nextProps.store) {
+	        warnAboutReceivingStore();
+	      }
+	    };
+	  }
+	
+	  Provider.propTypes = {
+	    store: _PropTypes.storeShape.isRequired,
+	    children: _propTypes2.default.element.isRequired
+	  };
+	  Provider.childContextTypes = (_Provider$childContex = {}, _Provider$childContex[storeKey] = _PropTypes.storeShape.isRequired, _Provider$childContex[subscriptionKey] = _PropTypes.subscriptionShape, _Provider$childContex);
+	
+	  return Provider;
+	}
+	
+	exports.default = createProvider();
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../process/browser.js */ 3)))
+
+/***/ }),
+/* 435 */
+/*!**********************************************!*\
+  !*** ./~/react-redux/lib/utils/PropTypes.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.storeShape = exports.subscriptionShape = undefined;
+	
+	var _propTypes = __webpack_require__(/*! prop-types */ 184);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var subscriptionShape = exports.subscriptionShape = _propTypes2.default.shape({
+	  trySubscribe: _propTypes2.default.func.isRequired,
+	  tryUnsubscribe: _propTypes2.default.func.isRequired,
+	  notifyNestedSubs: _propTypes2.default.func.isRequired,
+	  isSubscribed: _propTypes2.default.func.isRequired
+	});
+	
+	var storeShape = exports.storeShape = _propTypes2.default.shape({
+	  subscribe: _propTypes2.default.func.isRequired,
+	  dispatch: _propTypes2.default.func.isRequired,
+	  getState: _propTypes2.default.func.isRequired
+	});
+
+/***/ }),
+/* 436 */
+/*!********************************************!*\
+  !*** ./~/react-redux/lib/utils/warning.js ***!
+  \********************************************/
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.default = warning;
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+/***/ }),
+/* 437 */
+/*!*********************************************************!*\
+  !*** ./~/react-redux/lib/components/connectAdvanced.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = connectAdvanced;
+	
+	var _hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ 438);
+	
+	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
+	
+	var _invariant = __webpack_require__(/*! invariant */ 194);
+	
+	var _invariant2 = _interopRequireDefault(_invariant);
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _Subscription = __webpack_require__(/*! ../utils/Subscription */ 439);
+	
+	var _Subscription2 = _interopRequireDefault(_Subscription);
+	
+	var _PropTypes = __webpack_require__(/*! ../utils/PropTypes */ 435);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var hotReloadingVersion = 0;
+	var dummyState = {};
+	function noop() {}
+	function makeSelectorStateful(sourceSelector, store) {
+	  // wrap the selector in an object that tracks its results between runs.
+	  var selector = {
+	    run: function runComponentSelector(props) {
+	      try {
+	        var nextProps = sourceSelector(store.getState(), props);
+	        if (nextProps !== selector.props || selector.error) {
+	          selector.shouldComponentUpdate = true;
+	          selector.props = nextProps;
+	          selector.error = null;
+	        }
+	      } catch (error) {
+	        selector.shouldComponentUpdate = true;
+	        selector.error = error;
+	      }
+	    }
+	  };
+	
+	  return selector;
+	}
+	
+	function connectAdvanced(
+	/*
+	  selectorFactory is a func that is responsible for returning the selector function used to
+	  compute new props from state, props, and dispatch. For example:
+	     export default connectAdvanced((dispatch, options) => (state, props) => ({
+	      thing: state.things[props.thingId],
+	      saveThing: fields => dispatch(actionCreators.saveThing(props.thingId, fields)),
+	    }))(YourComponent)
+	   Access to dispatch is provided to the factory so selectorFactories can bind actionCreators
+	  outside of their selector as an optimization. Options passed to connectAdvanced are passed to
+	  the selectorFactory, along with displayName and WrappedComponent, as the second argument.
+	   Note that selectorFactory is responsible for all caching/memoization of inbound and outbound
+	  props. Do not use connectAdvanced directly without memoizing results between calls to your
+	  selector, otherwise the Connect component will re-render on every state or props change.
+	*/
+	selectorFactory) {
+	  var _contextTypes, _childContextTypes;
+	
+	  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+	      _ref$getDisplayName = _ref.getDisplayName,
+	      getDisplayName = _ref$getDisplayName === undefined ? function (name) {
+	    return 'ConnectAdvanced(' + name + ')';
+	  } : _ref$getDisplayName,
+	      _ref$methodName = _ref.methodName,
+	      methodName = _ref$methodName === undefined ? 'connectAdvanced' : _ref$methodName,
+	      _ref$renderCountProp = _ref.renderCountProp,
+	      renderCountProp = _ref$renderCountProp === undefined ? undefined : _ref$renderCountProp,
+	      _ref$shouldHandleStat = _ref.shouldHandleStateChanges,
+	      shouldHandleStateChanges = _ref$shouldHandleStat === undefined ? true : _ref$shouldHandleStat,
+	      _ref$storeKey = _ref.storeKey,
+	      storeKey = _ref$storeKey === undefined ? 'store' : _ref$storeKey,
+	      _ref$withRef = _ref.withRef,
+	      withRef = _ref$withRef === undefined ? false : _ref$withRef,
+	      connectOptions = _objectWithoutProperties(_ref, ['getDisplayName', 'methodName', 'renderCountProp', 'shouldHandleStateChanges', 'storeKey', 'withRef']);
+	
+	  var subscriptionKey = storeKey + 'Subscription';
+	  var version = hotReloadingVersion++;
+	
+	  var contextTypes = (_contextTypes = {}, _contextTypes[storeKey] = _PropTypes.storeShape, _contextTypes[subscriptionKey] = _PropTypes.subscriptionShape, _contextTypes);
+	  var childContextTypes = (_childContextTypes = {}, _childContextTypes[subscriptionKey] = _PropTypes.subscriptionShape, _childContextTypes);
+	
+	  return function wrapWithConnect(WrappedComponent) {
+	    (0, _invariant2.default)(typeof WrappedComponent == 'function', 'You must pass a component to the function returned by ' + (methodName + '. Instead received ' + JSON.stringify(WrappedComponent)));
+	
+	    var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+	
+	    var displayName = getDisplayName(wrappedComponentName);
+	
+	    var selectorFactoryOptions = _extends({}, connectOptions, {
+	      getDisplayName: getDisplayName,
+	      methodName: methodName,
+	      renderCountProp: renderCountProp,
+	      shouldHandleStateChanges: shouldHandleStateChanges,
+	      storeKey: storeKey,
+	      withRef: withRef,
+	      displayName: displayName,
+	      wrappedComponentName: wrappedComponentName,
+	      WrappedComponent: WrappedComponent
+	    });
+	
+	    var Connect = function (_Component) {
+	      _inherits(Connect, _Component);
+	
+	      function Connect(props, context) {
+	        _classCallCheck(this, Connect);
+	
+	        var _this = _possibleConstructorReturn(this, _Component.call(this, props, context));
+	
+	        _this.version = version;
+	        _this.state = {};
+	        _this.renderCount = 0;
+	        _this.store = props[storeKey] || context[storeKey];
+	        _this.propsMode = Boolean(props[storeKey]);
+	        _this.setWrappedInstance = _this.setWrappedInstance.bind(_this);
+	
+	        (0, _invariant2.default)(_this.store, 'Could not find "' + storeKey + '" in either the context or props of ' + ('"' + displayName + '". Either wrap the root component in a <Provider>, ') + ('or explicitly pass "' + storeKey + '" as a prop to "' + displayName + '".'));
+	
+	        _this.initSelector();
+	        _this.initSubscription();
+	        return _this;
+	      }
+	
+	      Connect.prototype.getChildContext = function getChildContext() {
+	        var _ref2;
+	
+	        // If this component received store from props, its subscription should be transparent
+	        // to any descendants receiving store+subscription from context; it passes along
+	        // subscription passed to it. Otherwise, it shadows the parent subscription, which allows
+	        // Connect to control ordering of notifications to flow top-down.
+	        var subscription = this.propsMode ? null : this.subscription;
+	        return _ref2 = {}, _ref2[subscriptionKey] = subscription || this.context[subscriptionKey], _ref2;
+	      };
+	
+	      Connect.prototype.componentDidMount = function componentDidMount() {
+	        if (!shouldHandleStateChanges) return;
+	
+	        // componentWillMount fires during server side rendering, but componentDidMount and
+	        // componentWillUnmount do not. Because of this, trySubscribe happens during ...didMount.
+	        // Otherwise, unsubscription would never take place during SSR, causing a memory leak.
+	        // To handle the case where a child component may have triggered a state change by
+	        // dispatching an action in its componentWillMount, we have to re-run the select and maybe
+	        // re-render.
+	        this.subscription.trySubscribe();
+	        this.selector.run(this.props);
+	        if (this.selector.shouldComponentUpdate) this.forceUpdate();
+	      };
+	
+	      Connect.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	        this.selector.run(nextProps);
+	      };
+	
+	      Connect.prototype.shouldComponentUpdate = function shouldComponentUpdate() {
+	        return this.selector.shouldComponentUpdate;
+	      };
+	
+	      Connect.prototype.componentWillUnmount = function componentWillUnmount() {
+	        if (this.subscription) this.subscription.tryUnsubscribe();
+	        this.subscription = null;
+	        this.notifyNestedSubs = noop;
+	        this.store = null;
+	        this.selector.run = noop;
+	        this.selector.shouldComponentUpdate = false;
+	      };
+	
+	      Connect.prototype.getWrappedInstance = function getWrappedInstance() {
+	        (0, _invariant2.default)(withRef, 'To access the wrapped instance, you need to specify ' + ('{ withRef: true } in the options argument of the ' + methodName + '() call.'));
+	        return this.wrappedInstance;
+	      };
+	
+	      Connect.prototype.setWrappedInstance = function setWrappedInstance(ref) {
+	        this.wrappedInstance = ref;
+	      };
+	
+	      Connect.prototype.initSelector = function initSelector() {
+	        var sourceSelector = selectorFactory(this.store.dispatch, selectorFactoryOptions);
+	        this.selector = makeSelectorStateful(sourceSelector, this.store);
+	        this.selector.run(this.props);
+	      };
+	
+	      Connect.prototype.initSubscription = function initSubscription() {
+	        if (!shouldHandleStateChanges) return;
+	
+	        // parentSub's source should match where store came from: props vs. context. A component
+	        // connected to the store via props shouldn't use subscription from context, or vice versa.
+	        var parentSub = (this.propsMode ? this.props : this.context)[subscriptionKey];
+	        this.subscription = new _Subscription2.default(this.store, parentSub, this.onStateChange.bind(this));
+	
+	        // `notifyNestedSubs` is duplicated to handle the case where the component is  unmounted in
+	        // the middle of the notification loop, where `this.subscription` will then be null. An
+	        // extra null check every change can be avoided by copying the method onto `this` and then
+	        // replacing it with a no-op on unmount. This can probably be avoided if Subscription's
+	        // listeners logic is changed to not call listeners that have been unsubscribed in the
+	        // middle of the notification loop.
+	        this.notifyNestedSubs = this.subscription.notifyNestedSubs.bind(this.subscription);
+	      };
+	
+	      Connect.prototype.onStateChange = function onStateChange() {
+	        this.selector.run(this.props);
+	
+	        if (!this.selector.shouldComponentUpdate) {
+	          this.notifyNestedSubs();
+	        } else {
+	          this.componentDidUpdate = this.notifyNestedSubsOnComponentDidUpdate;
+	          this.setState(dummyState);
+	        }
+	      };
+	
+	      Connect.prototype.notifyNestedSubsOnComponentDidUpdate = function notifyNestedSubsOnComponentDidUpdate() {
+	        // `componentDidUpdate` is conditionally implemented when `onStateChange` determines it
+	        // needs to notify nested subs. Once called, it unimplements itself until further state
+	        // changes occur. Doing it this way vs having a permanent `componentDidUpdate` that does
+	        // a boolean check every time avoids an extra method call most of the time, resulting
+	        // in some perf boost.
+	        this.componentDidUpdate = undefined;
+	        this.notifyNestedSubs();
+	      };
+	
+	      Connect.prototype.isSubscribed = function isSubscribed() {
+	        return Boolean(this.subscription) && this.subscription.isSubscribed();
+	      };
+	
+	      Connect.prototype.addExtraProps = function addExtraProps(props) {
+	        if (!withRef && !renderCountProp && !(this.propsMode && this.subscription)) return props;
+	        // make a shallow copy so that fields added don't leak to the original selector.
+	        // this is especially important for 'ref' since that's a reference back to the component
+	        // instance. a singleton memoized selector would then be holding a reference to the
+	        // instance, preventing the instance from being garbage collected, and that would be bad
+	        var withExtras = _extends({}, props);
+	        if (withRef) withExtras.ref = this.setWrappedInstance;
+	        if (renderCountProp) withExtras[renderCountProp] = this.renderCount++;
+	        if (this.propsMode && this.subscription) withExtras[subscriptionKey] = this.subscription;
+	        return withExtras;
+	      };
+	
+	      Connect.prototype.render = function render() {
+	        var selector = this.selector;
+	        selector.shouldComponentUpdate = false;
+	
+	        if (selector.error) {
+	          throw selector.error;
+	        } else {
+	          return (0, _react.createElement)(WrappedComponent, this.addExtraProps(selector.props));
+	        }
+	      };
+	
+	      return Connect;
+	    }(_react.Component);
+	
+	    Connect.WrappedComponent = WrappedComponent;
+	    Connect.displayName = displayName;
+	    Connect.childContextTypes = childContextTypes;
+	    Connect.contextTypes = contextTypes;
+	    Connect.propTypes = contextTypes;
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	      Connect.prototype.componentWillUpdate = function componentWillUpdate() {
+	        var _this2 = this;
+	
+	        // We are hot reloading!
+	        if (this.version !== version) {
+	          this.version = version;
+	          this.initSelector();
+	
+	          // If any connected descendants don't hot reload (and resubscribe in the process), their
+	          // listeners will be lost when we unsubscribe. Unfortunately, by copying over all
+	          // listeners, this does mean that the old versions of connected descendants will still be
+	          // notified of state changes; however, their onStateChange function is a no-op so this
+	          // isn't a huge deal.
+	          var oldListeners = [];
+	
+	          if (this.subscription) {
+	            oldListeners = this.subscription.listeners.get();
+	            this.subscription.tryUnsubscribe();
+	          }
+	          this.initSubscription();
+	          if (shouldHandleStateChanges) {
+	            this.subscription.trySubscribe();
+	            oldListeners.forEach(function (listener) {
+	              return _this2.subscription.listeners.subscribe(listener);
+	            });
+	          }
+	        }
+	      };
+	    }
+	
+	    return (0, _hoistNonReactStatics2.default)(Connect, WrappedComponent);
+	  };
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../process/browser.js */ 3)))
+
+/***/ }),
+/* 438 */
+/*!**********************************************************!*\
+  !*** ./~/react-redux/~/hoist-non-react-statics/index.js ***!
+  \**********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2015, Yahoo! Inc.
+	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+	 */
+	(function (global, factory) {
+	     true ? module.exports = factory() :
+	    typeof define === 'function' && define.amd ? define(factory) :
+	    (global.hoistNonReactStatics = factory());
+	}(this, (function () {
+	    'use strict';
+	    
+	    var REACT_STATICS = {
+	        childContextTypes: true,
+	        contextTypes: true,
+	        defaultProps: true,
+	        displayName: true,
+	        getDefaultProps: true,
+	        getDerivedStateFromProps: true,
+	        mixins: true,
+	        propTypes: true,
+	        type: true
+	    };
+	    
+	    var KNOWN_STATICS = {
+	        name: true,
+	        length: true,
+	        prototype: true,
+	        caller: true,
+	        callee: true,
+	        arguments: true,
+	        arity: true
+	    };
+	    
+	    var defineProperty = Object.defineProperty;
+	    var getOwnPropertyNames = Object.getOwnPropertyNames;
+	    var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+	    var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+	    var getPrototypeOf = Object.getPrototypeOf;
+	    var objectPrototype = getPrototypeOf && getPrototypeOf(Object);
+	    
+	    return function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+	        if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+	            
+	            if (objectPrototype) {
+	                var inheritedComponent = getPrototypeOf(sourceComponent);
+	                if (inheritedComponent && inheritedComponent !== objectPrototype) {
+	                    hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+	                }
+	            }
+	            
+	            var keys = getOwnPropertyNames(sourceComponent);
+	            
+	            if (getOwnPropertySymbols) {
+	                keys = keys.concat(getOwnPropertySymbols(sourceComponent));
+	            }
+	            
+	            for (var i = 0; i < keys.length; ++i) {
+	                var key = keys[i];
+	                if (!REACT_STATICS[key] && !KNOWN_STATICS[key] && (!blacklist || !blacklist[key])) {
+	                    var descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+	                    try { // Avoid failures from read-only properties
+	                        defineProperty(targetComponent, key, descriptor);
+	                    } catch (e) {}
+	                }
+	            }
+	            
+	            return targetComponent;
+	        }
+	        
+	        return targetComponent;
+	    };
+	})));
+
+
+/***/ }),
+/* 439 */
+/*!*************************************************!*\
+  !*** ./~/react-redux/lib/utils/Subscription.js ***!
+  \*************************************************/
+/***/ (function(module, exports) {
+
+	"use strict";
+	
+	exports.__esModule = true;
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	// encapsulates the subscription logic for connecting a component to the redux store, as
+	// well as nesting subscriptions of descendant components, so that we can ensure the
+	// ancestor components re-render before descendants
+	
+	var CLEARED = null;
+	var nullListeners = {
+	  notify: function notify() {}
+	};
+	
+	function createListenerCollection() {
+	  // the current/next pattern is copied from redux's createStore code.
+	  // TODO: refactor+expose that code to be reusable here?
+	  var current = [];
+	  var next = [];
+	
+	  return {
+	    clear: function clear() {
+	      next = CLEARED;
+	      current = CLEARED;
+	    },
+	    notify: function notify() {
+	      var listeners = current = next;
+	      for (var i = 0; i < listeners.length; i++) {
+	        listeners[i]();
+	      }
+	    },
+	    get: function get() {
+	      return next;
+	    },
+	    subscribe: function subscribe(listener) {
+	      var isSubscribed = true;
+	      if (next === current) next = current.slice();
+	      next.push(listener);
+	
+	      return function unsubscribe() {
+	        if (!isSubscribed || current === CLEARED) return;
+	        isSubscribed = false;
+	
+	        if (next === current) next = current.slice();
+	        next.splice(next.indexOf(listener), 1);
+	      };
+	    }
+	  };
+	}
+	
+	var Subscription = function () {
+	  function Subscription(store, parentSub, onStateChange) {
+	    _classCallCheck(this, Subscription);
+	
+	    this.store = store;
+	    this.parentSub = parentSub;
+	    this.onStateChange = onStateChange;
+	    this.unsubscribe = null;
+	    this.listeners = nullListeners;
+	  }
+	
+	  Subscription.prototype.addNestedSub = function addNestedSub(listener) {
+	    this.trySubscribe();
+	    return this.listeners.subscribe(listener);
+	  };
+	
+	  Subscription.prototype.notifyNestedSubs = function notifyNestedSubs() {
+	    this.listeners.notify();
+	  };
+	
+	  Subscription.prototype.isSubscribed = function isSubscribed() {
+	    return Boolean(this.unsubscribe);
+	  };
+	
+	  Subscription.prototype.trySubscribe = function trySubscribe() {
+	    if (!this.unsubscribe) {
+	      this.unsubscribe = this.parentSub ? this.parentSub.addNestedSub(this.onStateChange) : this.store.subscribe(this.onStateChange);
+	
+	      this.listeners = createListenerCollection();
+	    }
+	  };
+	
+	  Subscription.prototype.tryUnsubscribe = function tryUnsubscribe() {
+	    if (this.unsubscribe) {
+	      this.unsubscribe();
+	      this.unsubscribe = null;
+	      this.listeners.clear();
+	      this.listeners = nullListeners;
+	    }
+	  };
+	
+	  return Subscription;
+	}();
+	
+	exports.default = Subscription;
+
+/***/ }),
+/* 440 */
+/*!**********************************************!*\
+  !*** ./~/react-redux/lib/connect/connect.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.createConnect = createConnect;
+	
+	var _connectAdvanced = __webpack_require__(/*! ../components/connectAdvanced */ 437);
+	
+	var _connectAdvanced2 = _interopRequireDefault(_connectAdvanced);
+	
+	var _shallowEqual = __webpack_require__(/*! ../utils/shallowEqual */ 441);
+	
+	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+	
+	var _mapDispatchToProps = __webpack_require__(/*! ./mapDispatchToProps */ 442);
+	
+	var _mapDispatchToProps2 = _interopRequireDefault(_mapDispatchToProps);
+	
+	var _mapStateToProps = __webpack_require__(/*! ./mapStateToProps */ 459);
+	
+	var _mapStateToProps2 = _interopRequireDefault(_mapStateToProps);
+	
+	var _mergeProps = __webpack_require__(/*! ./mergeProps */ 460);
+	
+	var _mergeProps2 = _interopRequireDefault(_mergeProps);
+	
+	var _selectorFactory = __webpack_require__(/*! ./selectorFactory */ 461);
+	
+	var _selectorFactory2 = _interopRequireDefault(_selectorFactory);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	/*
+	  connect is a facade over connectAdvanced. It turns its args into a compatible
+	  selectorFactory, which has the signature:
+	
+	    (dispatch, options) => (nextState, nextOwnProps) => nextFinalProps
+	  
+	  connect passes its args to connectAdvanced as options, which will in turn pass them to
+	  selectorFactory each time a Connect component instance is instantiated or hot reloaded.
+	
+	  selectorFactory returns a final props selector from its mapStateToProps,
+	  mapStateToPropsFactories, mapDispatchToProps, mapDispatchToPropsFactories, mergeProps,
+	  mergePropsFactories, and pure args.
+	
+	  The resulting final props selector is called by the Connect component instance whenever
+	  it receives new props or store state.
+	 */
+	
+	function match(arg, factories, name) {
+	  for (var i = factories.length - 1; i >= 0; i--) {
+	    var result = factories[i](arg);
+	    if (result) return result;
+	  }
+	
+	  return function (dispatch, options) {
+	    throw new Error('Invalid value of type ' + typeof arg + ' for ' + name + ' argument when connecting component ' + options.wrappedComponentName + '.');
+	  };
+	}
+	
+	function strictEqual(a, b) {
+	  return a === b;
+	}
+	
+	// createConnect with default args builds the 'official' connect behavior. Calling it with
+	// different options opens up some testing and extensibility scenarios
+	function createConnect() {
+	  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+	      _ref$connectHOC = _ref.connectHOC,
+	      connectHOC = _ref$connectHOC === undefined ? _connectAdvanced2.default : _ref$connectHOC,
+	      _ref$mapStateToPropsF = _ref.mapStateToPropsFactories,
+	      mapStateToPropsFactories = _ref$mapStateToPropsF === undefined ? _mapStateToProps2.default : _ref$mapStateToPropsF,
+	      _ref$mapDispatchToPro = _ref.mapDispatchToPropsFactories,
+	      mapDispatchToPropsFactories = _ref$mapDispatchToPro === undefined ? _mapDispatchToProps2.default : _ref$mapDispatchToPro,
+	      _ref$mergePropsFactor = _ref.mergePropsFactories,
+	      mergePropsFactories = _ref$mergePropsFactor === undefined ? _mergeProps2.default : _ref$mergePropsFactor,
+	      _ref$selectorFactory = _ref.selectorFactory,
+	      selectorFactory = _ref$selectorFactory === undefined ? _selectorFactory2.default : _ref$selectorFactory;
+	
+	  return function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
+	    var _ref2 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
+	        _ref2$pure = _ref2.pure,
+	        pure = _ref2$pure === undefined ? true : _ref2$pure,
+	        _ref2$areStatesEqual = _ref2.areStatesEqual,
+	        areStatesEqual = _ref2$areStatesEqual === undefined ? strictEqual : _ref2$areStatesEqual,
+	        _ref2$areOwnPropsEqua = _ref2.areOwnPropsEqual,
+	        areOwnPropsEqual = _ref2$areOwnPropsEqua === undefined ? _shallowEqual2.default : _ref2$areOwnPropsEqua,
+	        _ref2$areStatePropsEq = _ref2.areStatePropsEqual,
+	        areStatePropsEqual = _ref2$areStatePropsEq === undefined ? _shallowEqual2.default : _ref2$areStatePropsEq,
+	        _ref2$areMergedPropsE = _ref2.areMergedPropsEqual,
+	        areMergedPropsEqual = _ref2$areMergedPropsE === undefined ? _shallowEqual2.default : _ref2$areMergedPropsE,
+	        extraOptions = _objectWithoutProperties(_ref2, ['pure', 'areStatesEqual', 'areOwnPropsEqual', 'areStatePropsEqual', 'areMergedPropsEqual']);
+	
+	    var initMapStateToProps = match(mapStateToProps, mapStateToPropsFactories, 'mapStateToProps');
+	    var initMapDispatchToProps = match(mapDispatchToProps, mapDispatchToPropsFactories, 'mapDispatchToProps');
+	    var initMergeProps = match(mergeProps, mergePropsFactories, 'mergeProps');
+	
+	    return connectHOC(selectorFactory, _extends({
+	      // used in error messages
+	      methodName: 'connect',
+	
+	      // used to compute Connect's displayName from the wrapped component's displayName.
+	      getDisplayName: function getDisplayName(name) {
+	        return 'Connect(' + name + ')';
+	      },
+	
+	      // if mapStateToProps is falsy, the Connect component doesn't subscribe to store state changes
+	      shouldHandleStateChanges: Boolean(mapStateToProps),
+	
+	      // passed through to selectorFactory
+	      initMapStateToProps: initMapStateToProps,
+	      initMapDispatchToProps: initMapDispatchToProps,
+	      initMergeProps: initMergeProps,
+	      pure: pure,
+	      areStatesEqual: areStatesEqual,
+	      areOwnPropsEqual: areOwnPropsEqual,
+	      areStatePropsEqual: areStatePropsEqual,
+	      areMergedPropsEqual: areMergedPropsEqual
+	
+	    }, extraOptions));
+	  };
+	}
+	
+	exports.default = createConnect();
+
+/***/ }),
+/* 441 */
+/*!*************************************************!*\
+  !*** ./~/react-redux/lib/utils/shallowEqual.js ***!
+  \*************************************************/
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.default = shallowEqual;
+	var hasOwn = Object.prototype.hasOwnProperty;
+	
+	function is(x, y) {
+	  if (x === y) {
+	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+	  } else {
+	    return x !== x && y !== y;
+	  }
+	}
+	
+	function shallowEqual(objA, objB) {
+	  if (is(objA, objB)) return true;
+	
+	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+	    return false;
+	  }
+	
+	  var keysA = Object.keys(objA);
+	  var keysB = Object.keys(objB);
+	
+	  if (keysA.length !== keysB.length) return false;
+	
+	  for (var i = 0; i < keysA.length; i++) {
+	    if (!hasOwn.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+	      return false;
+	    }
+	  }
+	
+	  return true;
+	}
+
+/***/ }),
+/* 442 */
+/*!*********************************************************!*\
+  !*** ./~/react-redux/lib/connect/mapDispatchToProps.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.whenMapDispatchToPropsIsFunction = whenMapDispatchToPropsIsFunction;
+	exports.whenMapDispatchToPropsIsMissing = whenMapDispatchToPropsIsMissing;
+	exports.whenMapDispatchToPropsIsObject = whenMapDispatchToPropsIsObject;
+	
+	var _redux = __webpack_require__(/*! redux */ 443);
+	
+	var _wrapMapToProps = __webpack_require__(/*! ./wrapMapToProps */ 447);
+	
+	function whenMapDispatchToPropsIsFunction(mapDispatchToProps) {
+	  return typeof mapDispatchToProps === 'function' ? (0, _wrapMapToProps.wrapMapToPropsFunc)(mapDispatchToProps, 'mapDispatchToProps') : undefined;
+	}
+	
+	function whenMapDispatchToPropsIsMissing(mapDispatchToProps) {
+	  return !mapDispatchToProps ? (0, _wrapMapToProps.wrapMapToPropsConstant)(function (dispatch) {
+	    return { dispatch: dispatch };
+	  }) : undefined;
+	}
+	
+	function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
+	  return mapDispatchToProps && typeof mapDispatchToProps === 'object' ? (0, _wrapMapToProps.wrapMapToPropsConstant)(function (dispatch) {
+	    return (0, _redux.bindActionCreators)(mapDispatchToProps, dispatch);
+	  }) : undefined;
+	}
+	
+	exports.default = [whenMapDispatchToPropsIsFunction, whenMapDispatchToPropsIsMissing, whenMapDispatchToPropsIsObject];
+
+/***/ }),
+/* 443 */
+/*!******************************!*\
+  !*** ./~/redux/lib/redux.js ***!
+  \******************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, '__esModule', { value: true });
+	
+	function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+	
+	var $$observable = _interopDefault(__webpack_require__(/*! symbol-observable */ 444));
+	
+	/**
+	 * These are private action types reserved by Redux.
+	 * For any unknown actions, you must return the current state.
+	 * If the current state is undefined, you must return the initial state.
+	 * Do not reference these action types directly in your code.
+	 */
+	var ActionTypes = {
+	  INIT: '@@redux/INIT' + Math.random().toString(36).substring(7).split('').join('.'),
+	  REPLACE: '@@redux/REPLACE' + Math.random().toString(36).substring(7).split('').join('.')
+	};
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+	  return typeof obj;
+	} : function (obj) {
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	};
+	
+	var _extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+	
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+	
+	  return target;
+	};
+	
+	/**
+	 * @param {any} obj The object to inspect.
+	 * @returns {boolean} True if the argument appears to be a plain object.
+	 */
+	function isPlainObject(obj) {
+	  if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || obj === null) return false;
+	
+	  var proto = obj;
+	  while (Object.getPrototypeOf(proto) !== null) {
+	    proto = Object.getPrototypeOf(proto);
+	  }
+	
+	  return Object.getPrototypeOf(obj) === proto;
+	}
+	
+	/**
+	 * Creates a Redux store that holds the state tree.
+	 * The only way to change the data in the store is to call `dispatch()` on it.
+	 *
+	 * There should only be a single store in your app. To specify how different
+	 * parts of the state tree respond to actions, you may combine several reducers
+	 * into a single reducer function by using `combineReducers`.
+	 *
+	 * @param {Function} reducer A function that returns the next state tree, given
+	 * the current state tree and the action to handle.
+	 *
+	 * @param {any} [preloadedState] The initial state. You may optionally specify it
+	 * to hydrate the state from the server in universal apps, or to restore a
+	 * previously serialized user session.
+	 * If you use `combineReducers` to produce the root reducer function, this must be
+	 * an object with the same shape as `combineReducers` keys.
+	 *
+	 * @param {Function} [enhancer] The store enhancer. You may optionally specify it
+	 * to enhance the store with third-party capabilities such as middleware,
+	 * time travel, persistence, etc. The only store enhancer that ships with Redux
+	 * is `applyMiddleware()`.
+	 *
+	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
+	 * and subscribe to changes.
+	 */
+	function createStore(reducer, preloadedState, enhancer) {
+	  var _ref2;
+	
+	  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+	    enhancer = preloadedState;
+	    preloadedState = undefined;
+	  }
+	
+	  if (typeof enhancer !== 'undefined') {
+	    if (typeof enhancer !== 'function') {
+	      throw new Error('Expected the enhancer to be a function.');
+	    }
+	
+	    return enhancer(createStore)(reducer, preloadedState);
+	  }
+	
+	  if (typeof reducer !== 'function') {
+	    throw new Error('Expected the reducer to be a function.');
+	  }
+	
+	  var currentReducer = reducer;
+	  var currentState = preloadedState;
+	  var currentListeners = [];
+	  var nextListeners = currentListeners;
+	  var isDispatching = false;
+	
+	  function ensureCanMutateNextListeners() {
+	    if (nextListeners === currentListeners) {
+	      nextListeners = currentListeners.slice();
+	    }
+	  }
+	
+	  /**
+	   * Reads the state tree managed by the store.
+	   *
+	   * @returns {any} The current state tree of your application.
+	   */
+	  function getState() {
+	    if (isDispatching) {
+	      throw new Error('You may not call store.getState() while the reducer is executing. ' + 'The reducer has already received the state as an argument. ' + 'Pass it down from the top reducer instead of reading it from the store.');
+	    }
+	
+	    return currentState;
+	  }
+	
+	  /**
+	   * Adds a change listener. It will be called any time an action is dispatched,
+	   * and some part of the state tree may potentially have changed. You may then
+	   * call `getState()` to read the current state tree inside the callback.
+	   *
+	   * You may call `dispatch()` from a change listener, with the following
+	   * caveats:
+	   *
+	   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
+	   * If you subscribe or unsubscribe while the listeners are being invoked, this
+	   * will not have any effect on the `dispatch()` that is currently in progress.
+	   * However, the next `dispatch()` call, whether nested or not, will use a more
+	   * recent snapshot of the subscription list.
+	   *
+	   * 2. The listener should not expect to see all state changes, as the state
+	   * might have been updated multiple times during a nested `dispatch()` before
+	   * the listener is called. It is, however, guaranteed that all subscribers
+	   * registered before the `dispatch()` started will be called with the latest
+	   * state by the time it exits.
+	   *
+	   * @param {Function} listener A callback to be invoked on every dispatch.
+	   * @returns {Function} A function to remove this change listener.
+	   */
+	  function subscribe(listener) {
+	    if (typeof listener !== 'function') {
+	      throw new Error('Expected the listener to be a function.');
+	    }
+	
+	    if (isDispatching) {
+	      throw new Error('You may not call store.subscribe() while the reducer is executing. ' + 'If you would like to be notified after the store has been updated, subscribe from a ' + 'component and invoke store.getState() in the callback to access the latest state. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.');
+	    }
+	
+	    var isSubscribed = true;
+	
+	    ensureCanMutateNextListeners();
+	    nextListeners.push(listener);
+	
+	    return function unsubscribe() {
+	      if (!isSubscribed) {
+	        return;
+	      }
+	
+	      if (isDispatching) {
+	        throw new Error('You may not unsubscribe from a store listener while the reducer is executing. ' + 'See https://redux.js.org/api-reference/store#subscribe(listener) for more details.');
+	      }
+	
+	      isSubscribed = false;
+	
+	      ensureCanMutateNextListeners();
+	      var index = nextListeners.indexOf(listener);
+	      nextListeners.splice(index, 1);
+	    };
+	  }
+	
+	  /**
+	   * Dispatches an action. It is the only way to trigger a state change.
+	   *
+	   * The `reducer` function, used to create the store, will be called with the
+	   * current state tree and the given `action`. Its return value will
+	   * be considered the **next** state of the tree, and the change listeners
+	   * will be notified.
+	   *
+	   * The base implementation only supports plain object actions. If you want to
+	   * dispatch a Promise, an Observable, a thunk, or something else, you need to
+	   * wrap your store creating function into the corresponding middleware. For
+	   * example, see the documentation for the `redux-thunk` package. Even the
+	   * middleware will eventually dispatch plain object actions using this method.
+	   *
+	   * @param {Object} action A plain object representing “what changed”. It is
+	   * a good idea to keep actions serializable so you can record and replay user
+	   * sessions, or use the time travelling `redux-devtools`. An action must have
+	   * a `type` property which may not be `undefined`. It is a good idea to use
+	   * string constants for action types.
+	   *
+	   * @returns {Object} For convenience, the same action object you dispatched.
+	   *
+	   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
+	   * return something else (for example, a Promise you can await).
+	   */
+	  function dispatch(action) {
+	    if (!isPlainObject(action)) {
+	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
+	    }
+	
+	    if (typeof action.type === 'undefined') {
+	      throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?');
+	    }
+	
+	    if (isDispatching) {
+	      throw new Error('Reducers may not dispatch actions.');
+	    }
+	
+	    try {
+	      isDispatching = true;
+	      currentState = currentReducer(currentState, action);
+	    } finally {
+	      isDispatching = false;
+	    }
+	
+	    var listeners = currentListeners = nextListeners;
+	    for (var i = 0; i < listeners.length; i++) {
+	      var listener = listeners[i];
+	      listener();
+	    }
+	
+	    return action;
+	  }
+	
+	  /**
+	   * Replaces the reducer currently used by the store to calculate the state.
+	   *
+	   * You might need this if your app implements code splitting and you want to
+	   * load some of the reducers dynamically. You might also need this if you
+	   * implement a hot reloading mechanism for Redux.
+	   *
+	   * @param {Function} nextReducer The reducer for the store to use instead.
+	   * @returns {void}
+	   */
+	  function replaceReducer(nextReducer) {
+	    if (typeof nextReducer !== 'function') {
+	      throw new Error('Expected the nextReducer to be a function.');
+	    }
+	
+	    currentReducer = nextReducer;
+	    dispatch({ type: ActionTypes.REPLACE });
+	  }
+	
+	  /**
+	   * Interoperability point for observable/reactive libraries.
+	   * @returns {observable} A minimal observable of state changes.
+	   * For more information, see the observable proposal:
+	   * https://github.com/tc39/proposal-observable
+	   */
+	  function observable() {
+	    var _ref;
+	
+	    var outerSubscribe = subscribe;
+	    return _ref = {
+	      /**
+	       * The minimal observable subscription method.
+	       * @param {Object} observer Any object that can be used as an observer.
+	       * The observer object should have a `next` method.
+	       * @returns {subscription} An object with an `unsubscribe` method that can
+	       * be used to unsubscribe the observable from the store, and prevent further
+	       * emission of values from the observable.
+	       */
+	      subscribe: function subscribe(observer) {
+	        if ((typeof observer === 'undefined' ? 'undefined' : _typeof(observer)) !== 'object' || observer === null) {
+	          throw new TypeError('Expected the observer to be an object.');
+	        }
+	
+	        function observeState() {
+	          if (observer.next) {
+	            observer.next(getState());
+	          }
+	        }
+	
+	        observeState();
+	        var unsubscribe = outerSubscribe(observeState);
+	        return { unsubscribe: unsubscribe };
+	      }
+	    }, _ref[$$observable] = function () {
+	      return this;
+	    }, _ref;
+	  }
+	
+	  // When a store is created, an "INIT" action is dispatched so that every
+	  // reducer returns their initial state. This effectively populates
+	  // the initial state tree.
+	  dispatch({ type: ActionTypes.INIT });
+	
+	  return _ref2 = {
+	    dispatch: dispatch,
+	    subscribe: subscribe,
+	    getState: getState,
+	    replaceReducer: replaceReducer
+	  }, _ref2[$$observable] = observable, _ref2;
+	}
+	
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
+	    throw new Error(message);
+	  } catch (e) {} // eslint-disable-line no-empty
+	}
+	
+	function getUndefinedStateErrorMessage(key, action) {
+	  var actionType = action && action.type;
+	  var actionDescription = actionType && 'action "' + String(actionType) + '"' || 'an action';
+	
+	  return 'Given ' + actionDescription + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state. ' + 'If you want this reducer to hold no value, you can return null instead of undefined.';
+	}
+	
+	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action, unexpectedKeyCache) {
+	  var reducerKeys = Object.keys(reducers);
+	  var argumentName = action && action.type === ActionTypes.INIT ? 'preloadedState argument passed to createStore' : 'previous state received by the reducer';
+	
+	  if (reducerKeys.length === 0) {
+	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
+	  }
+	
+	  if (!isPlainObject(inputState)) {
+	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
+	  }
+	
+	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
+	    return !reducers.hasOwnProperty(key) && !unexpectedKeyCache[key];
+	  });
+	
+	  unexpectedKeys.forEach(function (key) {
+	    unexpectedKeyCache[key] = true;
+	  });
+	
+	  if (action && action.type === ActionTypes.REPLACE) return;
+	
+	  if (unexpectedKeys.length > 0) {
+	    return 'Unexpected ' + (unexpectedKeys.length > 1 ? 'keys' : 'key') + ' ' + ('"' + unexpectedKeys.join('", "') + '" found in ' + argumentName + '. ') + 'Expected to find one of the known reducer keys instead: ' + ('"' + reducerKeys.join('", "') + '". Unexpected keys will be ignored.');
+	  }
+	}
+	
+	function assertReducerShape(reducers) {
+	  Object.keys(reducers).forEach(function (key) {
+	    var reducer = reducers[key];
+	    var initialState = reducer(undefined, { type: ActionTypes.INIT });
+	
+	    if (typeof initialState === 'undefined') {
+	      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined. If you don\'t want to set a value for this reducer, ' + 'you can use null instead of undefined.');
+	    }
+	
+	    var type = '@@redux/PROBE_UNKNOWN_ACTION_' + Math.random().toString(36).substring(7).split('').join('.');
+	    if (typeof reducer(undefined, { type: type }) === 'undefined') {
+	      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + ActionTypes.INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined, but can be null.');
+	    }
+	  });
+	}
+	
+	/**
+	 * Turns an object whose values are different reducer functions, into a single
+	 * reducer function. It will call every child reducer, and gather their results
+	 * into a single state object, whose keys correspond to the keys of the passed
+	 * reducer functions.
+	 *
+	 * @param {Object} reducers An object whose values correspond to different
+	 * reducer functions that need to be combined into one. One handy way to obtain
+	 * it is to use ES6 `import * as reducers` syntax. The reducers may never return
+	 * undefined for any action. Instead, they should return their initial state
+	 * if the state passed to them was undefined, and the current state for any
+	 * unrecognized action.
+	 *
+	 * @returns {Function} A reducer function that invokes every reducer inside the
+	 * passed object, and builds a state object with the same shape.
+	 */
+	function combineReducers(reducers) {
+	  var reducerKeys = Object.keys(reducers);
+	  var finalReducers = {};
+	  for (var i = 0; i < reducerKeys.length; i++) {
+	    var key = reducerKeys[i];
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	      if (typeof reducers[key] === 'undefined') {
+	        warning('No reducer provided for key "' + key + '"');
+	      }
+	    }
+	
+	    if (typeof reducers[key] === 'function') {
+	      finalReducers[key] = reducers[key];
+	    }
+	  }
+	  var finalReducerKeys = Object.keys(finalReducers);
+	
+	  var unexpectedKeyCache = void 0;
+	  if (process.env.NODE_ENV !== 'production') {
+	    unexpectedKeyCache = {};
+	  }
+	
+	  var shapeAssertionError = void 0;
+	  try {
+	    assertReducerShape(finalReducers);
+	  } catch (e) {
+	    shapeAssertionError = e;
+	  }
+	
+	  return function combination() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
+	
+	    if (shapeAssertionError) {
+	      throw shapeAssertionError;
+	    }
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action, unexpectedKeyCache);
+	      if (warningMessage) {
+	        warning(warningMessage);
+	      }
+	    }
+	
+	    var hasChanged = false;
+	    var nextState = {};
+	    for (var _i = 0; _i < finalReducerKeys.length; _i++) {
+	      var _key = finalReducerKeys[_i];
+	      var reducer = finalReducers[_key];
+	      var previousStateForKey = state[_key];
+	      var nextStateForKey = reducer(previousStateForKey, action);
+	      if (typeof nextStateForKey === 'undefined') {
+	        var errorMessage = getUndefinedStateErrorMessage(_key, action);
+	        throw new Error(errorMessage);
+	      }
+	      nextState[_key] = nextStateForKey;
+	      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+	    }
+	    return hasChanged ? nextState : state;
+	  };
+	}
+	
+	function bindActionCreator(actionCreator, dispatch) {
+	  return function () {
+	    return dispatch(actionCreator.apply(this, arguments));
+	  };
+	}
+	
+	/**
+	 * Turns an object whose values are action creators, into an object with the
+	 * same keys, but with every function wrapped into a `dispatch` call so they
+	 * may be invoked directly. This is just a convenience method, as you can call
+	 * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+	 *
+	 * For convenience, you can also pass a single function as the first argument,
+	 * and get a function in return.
+	 *
+	 * @param {Function|Object} actionCreators An object whose values are action
+	 * creator functions. One handy way to obtain it is to use ES6 `import * as`
+	 * syntax. You may also pass a single function.
+	 *
+	 * @param {Function} dispatch The `dispatch` function available on your Redux
+	 * store.
+	 *
+	 * @returns {Function|Object} The object mimicking the original object, but with
+	 * every action creator wrapped into the `dispatch` call. If you passed a
+	 * function as `actionCreators`, the return value will also be a single
+	 * function.
+	 */
+	function bindActionCreators(actionCreators, dispatch) {
+	  if (typeof actionCreators === 'function') {
+	    return bindActionCreator(actionCreators, dispatch);
+	  }
+	
+	  if ((typeof actionCreators === 'undefined' ? 'undefined' : _typeof(actionCreators)) !== 'object' || actionCreators === null) {
+	    throw new Error('bindActionCreators expected an object or a function, instead received ' + (actionCreators === null ? 'null' : typeof actionCreators === 'undefined' ? 'undefined' : _typeof(actionCreators)) + '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
+	  }
+	
+	  var keys = Object.keys(actionCreators);
+	  var boundActionCreators = {};
+	  for (var i = 0; i < keys.length; i++) {
+	    var key = keys[i];
+	    var actionCreator = actionCreators[key];
+	    if (typeof actionCreator === 'function') {
+	      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+	    }
+	  }
+	  return boundActionCreators;
+	}
+	
+	/**
+	 * Composes single-argument functions from right to left. The rightmost
+	 * function can take multiple arguments as it provides the signature for
+	 * the resulting composite function.
+	 *
+	 * @param {...Function} funcs The functions to compose.
+	 * @returns {Function} A function obtained by composing the argument functions
+	 * from right to left. For example, compose(f, g, h) is identical to doing
+	 * (...args) => f(g(h(...args))).
+	 */
+	
+	function compose() {
+	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
+	    funcs[_key] = arguments[_key];
+	  }
+	
+	  if (funcs.length === 0) {
+	    return function (arg) {
+	      return arg;
+	    };
+	  }
+	
+	  if (funcs.length === 1) {
+	    return funcs[0];
+	  }
+	
+	  return funcs.reduce(function (a, b) {
+	    return function () {
+	      return a(b.apply(undefined, arguments));
+	    };
+	  });
+	}
+	
+	/**
+	 * Creates a store enhancer that applies middleware to the dispatch method
+	 * of the Redux store. This is handy for a variety of tasks, such as expressing
+	 * asynchronous actions in a concise manner, or logging every action payload.
+	 *
+	 * See `redux-thunk` package as an example of the Redux middleware.
+	 *
+	 * Because middleware is potentially asynchronous, this should be the first
+	 * store enhancer in the composition chain.
+	 *
+	 * Note that each middleware will be given the `dispatch` and `getState` functions
+	 * as named arguments.
+	 *
+	 * @param {...Function} middlewares The middleware chain to be applied.
+	 * @returns {Function} A store enhancer applying the middleware.
+	 */
+	function applyMiddleware() {
+	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
+	    middlewares[_key] = arguments[_key];
+	  }
+	
+	  return function (createStore) {
+	    return function () {
+	      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        args[_key2] = arguments[_key2];
+	      }
+	
+	      var store = createStore.apply(undefined, args);
+	      var _dispatch = function dispatch() {
+	        throw new Error('Dispatching while constructing your middleware is not allowed. ' + 'Other middleware would not be applied to this dispatch.');
+	      };
+	
+	      var middlewareAPI = {
+	        getState: store.getState,
+	        dispatch: function dispatch() {
+	          return _dispatch.apply(undefined, arguments);
+	        }
+	      };
+	      var chain = middlewares.map(function (middleware) {
+	        return middleware(middlewareAPI);
+	      });
+	      _dispatch = compose.apply(undefined, chain)(store.dispatch);
+	
+	      return _extends({}, store, {
+	        dispatch: _dispatch
+	      });
+	    };
+	  };
+	}
+	
+	/*
+	 * This is a dummy function to check if the function name has been altered by minification.
+	 * If the function has been minified and NODE_ENV !== 'production', warn the user.
+	 */
+	function isCrushed() {}
+	
+	if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
+	  warning("You are currently using minified code outside of NODE_ENV === 'production'. " + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	}
+	
+	exports.createStore = createStore;
+	exports.combineReducers = combineReducers;
+	exports.bindActionCreators = bindActionCreators;
+	exports.applyMiddleware = applyMiddleware;
+	exports.compose = compose;
+	exports.__DO_NOT_USE__ActionTypes = ActionTypes;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../process/browser.js */ 3)))
+
+/***/ }),
+/* 444 */
+/*!******************************************!*\
+  !*** ./~/symbol-observable/lib/index.js ***!
+  \******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global, module) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _ponyfill = __webpack_require__(/*! ./ponyfill.js */ 446);
+	
+	var _ponyfill2 = _interopRequireDefault(_ponyfill);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var root; /* global window */
+	
+	
+	if (typeof self !== 'undefined') {
+	  root = self;
+	} else if (typeof window !== 'undefined') {
+	  root = window;
+	} else if (typeof global !== 'undefined') {
+	  root = global;
+	} else if (true) {
+	  root = module;
+	} else {
+	  root = Function('return this')();
+	}
+	
+	var result = (0, _ponyfill2['default'])(root);
+	exports['default'] = result;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(/*! ./../../webpack/buildin/module.js */ 445)(module)))
+
+/***/ }),
+/* 445 */
+/*!***********************************!*\
+  !*** (webpack)/buildin/module.js ***!
+  \***********************************/
+/***/ (function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ }),
+/* 446 */
+/*!*********************************************!*\
+  !*** ./~/symbol-observable/lib/ponyfill.js ***!
+  \*********************************************/
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports['default'] = symbolObservablePonyfill;
+	function symbolObservablePonyfill(root) {
+		var result;
+		var _Symbol = root.Symbol;
+	
+		if (typeof _Symbol === 'function') {
+			if (_Symbol.observable) {
+				result = _Symbol.observable;
+			} else {
+				result = _Symbol('observable');
+				_Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+	
+		return result;
+	};
+
+/***/ }),
+/* 447 */
+/*!*****************************************************!*\
+  !*** ./~/react-redux/lib/connect/wrapMapToProps.js ***!
+  \*****************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	exports.__esModule = true;
+	exports.wrapMapToPropsConstant = wrapMapToPropsConstant;
+	exports.getDependsOnOwnProps = getDependsOnOwnProps;
+	exports.wrapMapToPropsFunc = wrapMapToPropsFunc;
+	
+	var _verifyPlainObject = __webpack_require__(/*! ../utils/verifyPlainObject */ 448);
+	
+	var _verifyPlainObject2 = _interopRequireDefault(_verifyPlainObject);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function wrapMapToPropsConstant(getConstant) {
+	  return function initConstantSelector(dispatch, options) {
+	    var constant = getConstant(dispatch, options);
+	
+	    function constantSelector() {
+	      return constant;
+	    }
+	    constantSelector.dependsOnOwnProps = false;
+	    return constantSelector;
+	  };
+	}
+	
+	// dependsOnOwnProps is used by createMapToPropsProxy to determine whether to pass props as args
+	// to the mapToProps function being wrapped. It is also used by makePurePropsSelector to determine
+	// whether mapToProps needs to be invoked when props have changed.
+	// 
+	// A length of one signals that mapToProps does not depend on props from the parent component.
+	// A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
+	// therefore not reporting its length accurately..
+	function getDependsOnOwnProps(mapToProps) {
+	  return mapToProps.dependsOnOwnProps !== null && mapToProps.dependsOnOwnProps !== undefined ? Boolean(mapToProps.dependsOnOwnProps) : mapToProps.length !== 1;
+	}
+	
+	// Used by whenMapStateToPropsIsFunction and whenMapDispatchToPropsIsFunction,
+	// this function wraps mapToProps in a proxy function which does several things:
+	// 
+	//  * Detects whether the mapToProps function being called depends on props, which
+	//    is used by selectorFactory to decide if it should reinvoke on props changes.
+	//    
+	//  * On first call, handles mapToProps if returns another function, and treats that
+	//    new function as the true mapToProps for subsequent calls.
+	//    
+	//  * On first call, verifies the first result is a plain object, in order to warn
+	//    the developer that their mapToProps function is not returning a valid result.
+	//    
+	function wrapMapToPropsFunc(mapToProps, methodName) {
+	  return function initProxySelector(dispatch, _ref) {
+	    var displayName = _ref.displayName;
+	
+	    var proxy = function mapToPropsProxy(stateOrDispatch, ownProps) {
+	      return proxy.dependsOnOwnProps ? proxy.mapToProps(stateOrDispatch, ownProps) : proxy.mapToProps(stateOrDispatch);
+	    };
+	
+	    // allow detectFactoryAndVerify to get ownProps
+	    proxy.dependsOnOwnProps = true;
+	
+	    proxy.mapToProps = function detectFactoryAndVerify(stateOrDispatch, ownProps) {
+	      proxy.mapToProps = mapToProps;
+	      proxy.dependsOnOwnProps = getDependsOnOwnProps(mapToProps);
+	      var props = proxy(stateOrDispatch, ownProps);
+	
+	      if (typeof props === 'function') {
+	        proxy.mapToProps = props;
+	        proxy.dependsOnOwnProps = getDependsOnOwnProps(props);
+	        props = proxy(stateOrDispatch, ownProps);
+	      }
+	
+	      if (process.env.NODE_ENV !== 'production') (0, _verifyPlainObject2.default)(props, displayName, methodName);
+	
+	      return props;
+	    };
+	
+	    return proxy;
+	  };
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../process/browser.js */ 3)))
+
+/***/ }),
+/* 448 */
+/*!******************************************************!*\
+  !*** ./~/react-redux/lib/utils/verifyPlainObject.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.default = verifyPlainObject;
+	
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 449);
+	
+	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
+	
+	var _warning = __webpack_require__(/*! ./warning */ 436);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function verifyPlainObject(value, displayName, methodName) {
+	  if (!(0, _isPlainObject2.default)(value)) {
+	    (0, _warning2.default)(methodName + '() in ' + displayName + ' must return a plain object. Instead received ' + value + '.');
+	  }
+	}
+
+/***/ }),
+/* 449 */
+/*!*************************************************!*\
+  !*** ./~/react-redux/~/lodash/isPlainObject.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(/*! ./_baseGetTag */ 450),
+	    getPrototype = __webpack_require__(/*! ./_getPrototype */ 456),
+	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 458);
+	
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+	
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+	
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+	
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+	    funcToString.call(Ctor) == objectCtorString;
+	}
+	
+	module.exports = isPlainObject;
+
+
+/***/ }),
+/* 450 */
+/*!***********************************************!*\
+  !*** ./~/react-redux/~/lodash/_baseGetTag.js ***!
+  \***********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(/*! ./_Symbol */ 451),
+	    getRawTag = __webpack_require__(/*! ./_getRawTag */ 454),
+	    objectToString = __webpack_require__(/*! ./_objectToString */ 455);
+	
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
+	
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+	
+	/**
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  if (value == null) {
+	    return value === undefined ? undefinedTag : nullTag;
+	  }
+	  return (symToStringTag && symToStringTag in Object(value))
+	    ? getRawTag(value)
+	    : objectToString(value);
+	}
+	
+	module.exports = baseGetTag;
+
+
+/***/ }),
+/* 451 */
+/*!*******************************************!*\
+  !*** ./~/react-redux/~/lodash/_Symbol.js ***!
+  \*******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(/*! ./_root */ 452);
+	
+	/** Built-in value references. */
+	var Symbol = root.Symbol;
+	
+	module.exports = Symbol;
+
+
+/***/ }),
+/* 452 */
+/*!*****************************************!*\
+  !*** ./~/react-redux/~/lodash/_root.js ***!
+  \*****************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	var freeGlobal = __webpack_require__(/*! ./_freeGlobal */ 453);
+	
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+	
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+	
+	module.exports = root;
+
+
+/***/ }),
+/* 453 */
+/*!***********************************************!*\
+  !*** ./~/react-redux/~/lodash/_freeGlobal.js ***!
+  \***********************************************/
+/***/ (function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+	
+	module.exports = freeGlobal;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ }),
+/* 454 */
+/*!**********************************************!*\
+  !*** ./~/react-redux/~/lodash/_getRawTag.js ***!
+  \**********************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(/*! ./_Symbol */ 451);
+	
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+	
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+	
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+	
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+	
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+	
+	module.exports = getRawTag;
+
+
+/***/ }),
+/* 455 */
+/*!***************************************************!*\
+  !*** ./~/react-redux/~/lodash/_objectToString.js ***!
+  \***************************************************/
+/***/ (function(module, exports) {
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+	
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+	
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
+	
+	module.exports = objectToString;
+
+
+/***/ }),
+/* 456 */
+/*!*************************************************!*\
+  !*** ./~/react-redux/~/lodash/_getPrototype.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	var overArg = __webpack_require__(/*! ./_overArg */ 457);
+	
+	/** Built-in value references. */
+	var getPrototype = overArg(Object.getPrototypeOf, Object);
+	
+	module.exports = getPrototype;
+
+
+/***/ }),
+/* 457 */
+/*!********************************************!*\
+  !*** ./~/react-redux/~/lodash/_overArg.js ***!
+  \********************************************/
+/***/ (function(module, exports) {
+
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+	
+	module.exports = overArg;
+
+
+/***/ }),
+/* 458 */
+/*!************************************************!*\
+  !*** ./~/react-redux/~/lodash/isObjectLike.js ***!
+  \************************************************/
+/***/ (function(module, exports) {
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return value != null && typeof value == 'object';
+	}
+	
+	module.exports = isObjectLike;
+
+
+/***/ }),
+/* 459 */
+/*!******************************************************!*\
+  !*** ./~/react-redux/lib/connect/mapStateToProps.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.whenMapStateToPropsIsFunction = whenMapStateToPropsIsFunction;
+	exports.whenMapStateToPropsIsMissing = whenMapStateToPropsIsMissing;
+	
+	var _wrapMapToProps = __webpack_require__(/*! ./wrapMapToProps */ 447);
+	
+	function whenMapStateToPropsIsFunction(mapStateToProps) {
+	  return typeof mapStateToProps === 'function' ? (0, _wrapMapToProps.wrapMapToPropsFunc)(mapStateToProps, 'mapStateToProps') : undefined;
+	}
+	
+	function whenMapStateToPropsIsMissing(mapStateToProps) {
+	  return !mapStateToProps ? (0, _wrapMapToProps.wrapMapToPropsConstant)(function () {
+	    return {};
+	  }) : undefined;
+	}
+	
+	exports.default = [whenMapStateToPropsIsFunction, whenMapStateToPropsIsMissing];
+
+/***/ }),
+/* 460 */
+/*!*************************************************!*\
+  !*** ./~/react-redux/lib/connect/mergeProps.js ***!
+  \*************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	exports.__esModule = true;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.defaultMergeProps = defaultMergeProps;
+	exports.wrapMergePropsFunc = wrapMergePropsFunc;
+	exports.whenMergePropsIsFunction = whenMergePropsIsFunction;
+	exports.whenMergePropsIsOmitted = whenMergePropsIsOmitted;
+	
+	var _verifyPlainObject = __webpack_require__(/*! ../utils/verifyPlainObject */ 448);
+	
+	var _verifyPlainObject2 = _interopRequireDefault(_verifyPlainObject);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function defaultMergeProps(stateProps, dispatchProps, ownProps) {
+	  return _extends({}, ownProps, stateProps, dispatchProps);
+	}
+	
+	function wrapMergePropsFunc(mergeProps) {
+	  return function initMergePropsProxy(dispatch, _ref) {
+	    var displayName = _ref.displayName,
+	        pure = _ref.pure,
+	        areMergedPropsEqual = _ref.areMergedPropsEqual;
+	
+	    var hasRunOnce = false;
+	    var mergedProps = void 0;
+	
+	    return function mergePropsProxy(stateProps, dispatchProps, ownProps) {
+	      var nextMergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+	
+	      if (hasRunOnce) {
+	        if (!pure || !areMergedPropsEqual(nextMergedProps, mergedProps)) mergedProps = nextMergedProps;
+	      } else {
+	        hasRunOnce = true;
+	        mergedProps = nextMergedProps;
+	
+	        if (process.env.NODE_ENV !== 'production') (0, _verifyPlainObject2.default)(mergedProps, displayName, 'mergeProps');
+	      }
+	
+	      return mergedProps;
+	    };
+	  };
+	}
+	
+	function whenMergePropsIsFunction(mergeProps) {
+	  return typeof mergeProps === 'function' ? wrapMergePropsFunc(mergeProps) : undefined;
+	}
+	
+	function whenMergePropsIsOmitted(mergeProps) {
+	  return !mergeProps ? function () {
+	    return defaultMergeProps;
+	  } : undefined;
+	}
+	
+	exports.default = [whenMergePropsIsFunction, whenMergePropsIsOmitted];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../process/browser.js */ 3)))
+
+/***/ }),
+/* 461 */
+/*!******************************************************!*\
+  !*** ./~/react-redux/lib/connect/selectorFactory.js ***!
+  \******************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	exports.__esModule = true;
+	exports.impureFinalPropsSelectorFactory = impureFinalPropsSelectorFactory;
+	exports.pureFinalPropsSelectorFactory = pureFinalPropsSelectorFactory;
+	exports.default = finalPropsSelectorFactory;
+	
+	var _verifySubselectors = __webpack_require__(/*! ./verifySubselectors */ 462);
+	
+	var _verifySubselectors2 = _interopRequireDefault(_verifySubselectors);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	function impureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch) {
+	  return function impureFinalPropsSelector(state, ownProps) {
+	    return mergeProps(mapStateToProps(state, ownProps), mapDispatchToProps(dispatch, ownProps), ownProps);
+	  };
+	}
+	
+	function pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, _ref) {
+	  var areStatesEqual = _ref.areStatesEqual,
+	      areOwnPropsEqual = _ref.areOwnPropsEqual,
+	      areStatePropsEqual = _ref.areStatePropsEqual;
+	
+	  var hasRunAtLeastOnce = false;
+	  var state = void 0;
+	  var ownProps = void 0;
+	  var stateProps = void 0;
+	  var dispatchProps = void 0;
+	  var mergedProps = void 0;
+	
+	  function handleFirstCall(firstState, firstOwnProps) {
+	    state = firstState;
+	    ownProps = firstOwnProps;
+	    stateProps = mapStateToProps(state, ownProps);
+	    dispatchProps = mapDispatchToProps(dispatch, ownProps);
+	    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+	    hasRunAtLeastOnce = true;
+	    return mergedProps;
+	  }
+	
+	  function handleNewPropsAndNewState() {
+	    stateProps = mapStateToProps(state, ownProps);
+	
+	    if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
+	
+	    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+	    return mergedProps;
+	  }
+	
+	  function handleNewProps() {
+	    if (mapStateToProps.dependsOnOwnProps) stateProps = mapStateToProps(state, ownProps);
+	
+	    if (mapDispatchToProps.dependsOnOwnProps) dispatchProps = mapDispatchToProps(dispatch, ownProps);
+	
+	    mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+	    return mergedProps;
+	  }
+	
+	  function handleNewState() {
+	    var nextStateProps = mapStateToProps(state, ownProps);
+	    var statePropsChanged = !areStatePropsEqual(nextStateProps, stateProps);
+	    stateProps = nextStateProps;
+	
+	    if (statePropsChanged) mergedProps = mergeProps(stateProps, dispatchProps, ownProps);
+	
+	    return mergedProps;
+	  }
+	
+	  function handleSubsequentCalls(nextState, nextOwnProps) {
+	    var propsChanged = !areOwnPropsEqual(nextOwnProps, ownProps);
+	    var stateChanged = !areStatesEqual(nextState, state);
+	    state = nextState;
+	    ownProps = nextOwnProps;
+	
+	    if (propsChanged && stateChanged) return handleNewPropsAndNewState();
+	    if (propsChanged) return handleNewProps();
+	    if (stateChanged) return handleNewState();
+	    return mergedProps;
+	  }
+	
+	  return function pureFinalPropsSelector(nextState, nextOwnProps) {
+	    return hasRunAtLeastOnce ? handleSubsequentCalls(nextState, nextOwnProps) : handleFirstCall(nextState, nextOwnProps);
+	  };
+	}
+	
+	// TODO: Add more comments
+	
+	// If pure is true, the selector returned by selectorFactory will memoize its results,
+	// allowing connectAdvanced's shouldComponentUpdate to return false if final
+	// props have not changed. If false, the selector will always return a new
+	// object and shouldComponentUpdate will always return true.
+	
+	function finalPropsSelectorFactory(dispatch, _ref2) {
+	  var initMapStateToProps = _ref2.initMapStateToProps,
+	      initMapDispatchToProps = _ref2.initMapDispatchToProps,
+	      initMergeProps = _ref2.initMergeProps,
+	      options = _objectWithoutProperties(_ref2, ['initMapStateToProps', 'initMapDispatchToProps', 'initMergeProps']);
+	
+	  var mapStateToProps = initMapStateToProps(dispatch, options);
+	  var mapDispatchToProps = initMapDispatchToProps(dispatch, options);
+	  var mergeProps = initMergeProps(dispatch, options);
+	
+	  if (process.env.NODE_ENV !== 'production') {
+	    (0, _verifySubselectors2.default)(mapStateToProps, mapDispatchToProps, mergeProps, options.displayName);
+	  }
+	
+	  var selectorFactory = options.pure ? pureFinalPropsSelectorFactory : impureFinalPropsSelectorFactory;
+	
+	  return selectorFactory(mapStateToProps, mapDispatchToProps, mergeProps, dispatch, options);
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../../process/browser.js */ 3)))
+
+/***/ }),
+/* 462 */
+/*!*********************************************************!*\
+  !*** ./~/react-redux/lib/connect/verifySubselectors.js ***!
+  \*********************************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	exports.default = verifySubselectors;
+	
+	var _warning = __webpack_require__(/*! ../utils/warning */ 436);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function verify(selector, methodName, displayName) {
+	  if (!selector) {
+	    throw new Error('Unexpected value for ' + methodName + ' in ' + displayName + '.');
+	  } else if (methodName === 'mapStateToProps' || methodName === 'mapDispatchToProps') {
+	    if (!selector.hasOwnProperty('dependsOnOwnProps')) {
+	      (0, _warning2.default)('The selector for ' + methodName + ' of ' + displayName + ' did not specify a value for dependsOnOwnProps.');
+	    }
+	  }
+	}
+	
+	function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, displayName) {
+	  verify(mapStateToProps, 'mapStateToProps', displayName);
+	  verify(mapDispatchToProps, 'mapDispatchToProps', displayName);
+	  verify(mergeProps, 'mergeProps', displayName);
+	}
 
 /***/ })
 /******/ ]);
